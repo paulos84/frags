@@ -2,6 +2,10 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+FIXTURE_DIRS = (
+   os.path.join(BASE_DIR, 'fixtures'),
+)
+
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
@@ -15,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compounds',
+    'compounds.apps.MoleculesConfig',
 ]
 
 MIDDLEWARE = [

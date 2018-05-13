@@ -1,0 +1,100 @@
+- model: compounds.odor
+  pk: 1
+  fields:
+    term: Aldehydic
+    description: odor note of the long-chain fatty aldehydes, e.g., fatty-sweaty, ironed laundry, seawater
+- model: compounds.odor
+  pk: 2
+  fields:
+    term: Animalic
+    description: typical notes from the animal kingdom, e.g., musk, castoreum, skatole, civet, ambergris
+- model: compounds.odor
+  pk: 3
+  fields:
+    term: Balsamic
+    description: heavy, sweet odors, e.g., cocoa, vanilla, cinnamon, Peru balsam
+- model: compounds.odor
+  pk: 4
+  fields:
+    term: Camphoraceous
+    description: reminiscent of camphor
+- model: compounds.odor
+  pk: 5
+  fields:
+    term: Citrus
+    description: fresh, stimulating odor of citrus fruits such as lemon or orange
+- model: compounds.odor
+  pk: 6
+  fields:
+    term: Earthy
+    description: humus-like, reminiscent of humid earth
+- model: compounds.odor
+  pk: 7
+  fields:
+    term: Fatty
+    description: reminiscent of animal fat and tallow
+- model: compounds.odor
+  pk: 8
+  fields:
+    term: Floral
+    description: flowery generic terms for odors of various flowers
+- model: compounds.odor
+  pk: 9
+  fields:
+    term: Fruity
+    description: generic term for odors of various fruits
+- model: compounds.odor
+  pk: 10
+  fields:
+    term: Green
+    description: typical odor of freshly cut grass and leaves
+- model: compounds.odor
+  pk: 11
+  fields:
+    term: Herbaceous
+    description: noncharacteristic, complex odor of green herbs with, e.g., sage, minty, eucalyptus-like, or earthy nuances
+- model: compounds.odor
+  pk: 12
+  fields:
+    term: Medicinal
+    description: odor reminiscent of disinfectants, e.g., phenol, lysol, methyl salicylate
+- model: compounds.odor
+  pk: 13
+  fields:
+    term: Metallic
+    description: typical odor observed near metal surfaces, e.g., brass or steel
+- model: compounds.odor
+  pk: 14
+  fields:
+    term: Minty
+    description: peppermint-like odor
+- model: compounds.odor
+  pk: 15
+  fields:
+    term: Mossy
+    description: typical note reminiscent of forests and seaweed
+- model: compounds.odor
+  pk: 16
+  fields:
+    term: Powdery
+    description: note associated with toilet powders (talcum), diffusively sweet
+- model: compounds.odor
+  pk: 17
+  fields:
+    term: Resinous
+    description: aromatic odor of tree exudates
+- model: compounds.odor
+  pk: 18
+  fields:
+    term: Spicy
+    description: generic term for odors of various spices
+- model: compounds.odor
+  pk: 19
+  fields:
+    term: Waxy
+    description: odor resembling that of candle wax
+- model: compounds.odor
+  pk: 20
+  fields:
+    term: Woody
+    description: generic term for the odor of wood, e.g., cedarwood, sandalwood

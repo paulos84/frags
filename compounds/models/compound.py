@@ -86,3 +86,5 @@ class Compound(SupplierMixin, models.Model):
             args=[str(self.pk)],
         )
 
+
+    # TODO: method to populate empty imagefield using rdkit.MoltoImage save on local or S3 - or property decorator instead to generate on demand?

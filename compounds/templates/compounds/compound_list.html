@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Compound List</h1>
+
+    {% if compound_list %}
+    <ul>
+
+      {% for compound in compound_list %}
+      <li>
+        <a href="{{ book.get_absolute_url }}">{{ compound.iupac_name }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %}       
+{% endblock %}

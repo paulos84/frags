@@ -8,6 +8,8 @@ from cirpy import Molecule
 from compounds.models.odor import Odor
 from compounds.models.mixins import SupplierMixin
 
+# TODO: make so if enter trade_name, also require supplier. And def str like if self.trade_name: return '{} ({}) {}'.format(self.trade_name, self.supplier. self.iupac_name
+
 
 class Compound(SupplierMixin, models.Model):
 
@@ -19,7 +21,6 @@ class Compound(SupplierMixin, models.Model):
         ('aro', 'Aromatic'),
         ('het', 'Heterocyclic'),
     )
-
     fg_choices = (
         ('hyd', 'Hydrocarbon'),
         ('alc', 'Alcohol or ether'),
@@ -30,16 +31,16 @@ class Compound(SupplierMixin, models.Model):
         ('lac', 'Lactone'),
         ('msc', 'Miscellaneous'),
     )
-
     structure = models.CharField(
         max_length=2,
         choices=structure_choices,
+        blank=True, null=True,
     )
-
     fg_subdivision = models.CharField(
         max_length=3,
-        choices=fg_choices)
-
+        choices=fg_choices,
+        blank=True, null=True,
+    )
     cas_number = models.CharField(
         max_length=20,
         verbose_name='CAS number',
@@ -51,7 +52,7 @@ class Compound(SupplierMixin, models.Model):
         editable=False,
     )
     iupac_name = models.CharField(
-        max_length=100, default='',
+        max_length=200, default='',
         verbose_name='IUPAC name',
         editable=False,
     )
@@ -60,7 +61,7 @@ class Compound(SupplierMixin, models.Model):
     )
 
     class Meta:
-        ordering = ['structure']
+        ordering = ['-trade_name', 'iupac_name']
 
     def save(self, *args, **kwargs):
         if not self.smiles:
@@ -75,6 +76,8 @@ class Compound(SupplierMixin, models.Model):
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):
+        if self.trade_name and self.supplier:
+            return '{} ({}) | {}'.format(self.trade_name, self.supplier, self.iupac_name)
         return self.iupac_name
 
     def get_absolute_url(self):
@@ -88,3 +91,12 @@ class Compound(SupplierMixin, models.Model):
 
 
     # TODO: method to populate empty imagefield using rdkit.MoltoImage save on local or S3 - or property decorator instead to generate on demand?
+# cirpy_query = cirpy.query('126-91-0', 'smiles')
+#
+# cirpy_query
+#
+# [Result(input='126-91-0', representation='smiles', resolver='cas_number', input_format='CAS Registry Number', notation='126-91-0', value='CC(C)=CCC[C@@](C)(O)C=C')]
+#
+# mol.image_url
+#
+# 'https://cactus.nci.nih.gov/chemical/structure/Cc1cccc%28CCCCCO%29c1/image'

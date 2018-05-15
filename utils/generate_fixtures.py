@@ -33,6 +33,8 @@ for index, mol in enumerate(mol_fields):
         continue
     if isinstance(mol['name'], list):
         mol['name'] = mol['name'][0]
+    if mol['name'].isupper():
+        mol['name'] = mol['name'].lower()
     inp = """\
     - model: compounds.compound
       pk: {}

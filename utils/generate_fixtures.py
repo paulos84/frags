@@ -1,4 +1,3 @@
-from collections import namedtuple
 import re
 import sys
 
@@ -15,8 +14,6 @@ for a in m:
     lst.append(re.findall(r'\d+(?:-\d+)+',a))
 cases = [a[0] for a in lst if len(a) > 0]
 cases = list(set(cases))
-
-MolFields = namedtuple('MolFields', ['cas_no', 'smiles', 'name'])
 
 mol_fields = []
 for cas_no in cases[250:350]:

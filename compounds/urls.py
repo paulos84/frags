@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from compounds.views.compound_list_view import CompoundListView
+from compounds.views.compound_list import CompoundListView
 
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),

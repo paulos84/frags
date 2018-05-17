@@ -5,15 +5,14 @@ import cirpy
 import ruamel.yaml
 from ruamel.yaml.parser import ParserError
 
-with open('C:\\Users\\Paul\\M1_book.txt', encoding="utf8") as w:
+with open(sys.argv[-1], encoding="utf8") as w:
     text = w.read()
 
-m = re.findall('\[[^\[\]]*\]', text)
+matches = re.findall('\[[^\[\]]*\]', text)
 lst = []
-for a in m:
+for a in set(matches):
     lst.append(re.findall(r'\d+(?:-\d+)+',a))
 cases = [a[0] for a in lst if len(a) > 0]
-cases = list(set(cases))
 
 mol_fields = []
 for cas_no in cases[250:350]:

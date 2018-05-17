@@ -27,3 +27,9 @@ class SupplierMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+    def save(self, *args, **kwargs):
+        """Call :meth:`full_clean` before saving."""
+        self.full_clean()
+        super(SupplierMixin, self).save(*args, **kwargs)

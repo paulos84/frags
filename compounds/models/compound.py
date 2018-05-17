@@ -6,7 +6,7 @@ import cirpy
 from cirpy import Molecule
 
 from compounds.models.odor import Odor
-from compounds.models.mixins import SupplierMixin
+from compounds.models.mixins.supplier import SupplierMixin
 
 # TODO: make so if enter trade_name, also require supplier. And def str like if self.trade_name: return '{} ({}) {}'.format(self.trade_name, self.supplier. self.iupac_name
 

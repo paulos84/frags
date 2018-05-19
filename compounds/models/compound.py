@@ -34,15 +34,20 @@ class Compound(SupplierMixin, models.Model):
         verbose_name='PubChem API CID number',
         editable=False,
     )
+    odor_description = models.CharField(
+        max_length=500, default='',
+        verbose_name='Odor description',
+    )
     odor = models.ManyToManyField(
-        Odor, related_name='compounds'
+        Odor, related_name='compounds',
+        verbose_name='Odor Category'
     )
 
     class Meta:
         ordering = ['-trade_name', 'iupac_name']
 
     @cached_property
-    def pcp_data(self):
+    def pubchem(self):
         try:
             synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms)
         except KeyError:

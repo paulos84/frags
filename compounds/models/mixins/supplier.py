@@ -4,7 +4,6 @@ from django.db import models
 class SupplierMixin(models.Model):
 
     choices = (
-        ('-----', ''),
         ('BASF', 'BASF AG, Germany'),
         ('Danisco', 'Danisco A/S, Denmark'),
         ('Firmenich', 'Firmenich SA, Switzerland'),

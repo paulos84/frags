@@ -2,6 +2,7 @@ import re
 import sys
 
 import cirpy
+import pubchempy as pcp
 import ruamel.yaml
 from ruamel.yaml.parser import ParserError
 
@@ -31,6 +32,7 @@ for index, mol in enumerate(mol_fields):
         mol['name'] = mol['name'][0]
     if mol['name'].isupper():
         mol['name'] = mol['name'].lower()
+    cid_no = pcp.get_compounds(mol['smiles'], 'smiles')[0].cid
     inp = """\
     - model: compounds.compound
       pk: {}
@@ -38,7 +40,8 @@ for index, mol in enumerate(mol_fields):
         cas_number: {}
         smiles: {}
         iupac_name: {}
-    """.format(index + 100, mol['cas_no'], mol['smiles'], mol['name'].lower())
+        cid_number: {}
+    """.format(index + 100, mol['cas_no'], mol['smiles'], mol['name'].lower(), cid_no)
     try:
         code = ruamel.yaml.load(inp, ruamel.yaml.RoundTripLoader)
     except ParserError:

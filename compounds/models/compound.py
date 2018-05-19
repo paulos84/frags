@@ -2,8 +2,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
+from django.utils.functional import cached_property
 import cirpy
-from cirpy import Molecule
+import pubchempy as pcp
 
 from compounds.models.odor import Odor
 from compounds.models.mixins.supplier import SupplierMixin
@@ -13,34 +14,6 @@ from compounds.models.mixins.supplier import SupplierMixin
 
 class Compound(SupplierMixin, models.Model):
 
-    structure_choices = (
-        ('ali', 'Aliphatic'),
-        ('atp', 'Acyclic terpence'),
-        ('ctp', 'Cyclic terpene'),
-        ('ocy', 'Other cycloaliphatic'),
-        ('aro', 'Aromatic'),
-        ('het', 'Heterocyclic'),
-    )
-    fg_choices = (
-        ('hyd', 'Hydrocarbon'),
-        ('alc', 'Alcohol or ether'),
-        ('ald', 'Aldehyde or acetal'),
-        ('ket', 'Ketone'),
-        ('cad', 'Carboxylic acid derivative'),
-        ('cye', 'Cyclic ether'),
-        ('lac', 'Lactone'),
-        ('msc', 'Miscellaneous'),
-    )
-    structure = models.CharField(
-        max_length=2,
-        choices=structure_choices,
-        blank=True, null=True,
-    )
-    fg_subdivision = models.CharField(
-        max_length=3,
-        choices=fg_choices,
-        blank=True, null=True,
-    )
     cas_number = models.CharField(
         max_length=20,
         verbose_name='CAS number',
@@ -56,6 +29,11 @@ class Compound(SupplierMixin, models.Model):
         verbose_name='IUPAC name',
         editable=False,
     )
+    cid_number = models.IntegerField(
+        blank=True, null=True,
+        verbose_name='PubChem API CID number',
+        editable=False,
+    )
     odor = models.ManyToManyField(
         Odor, related_name='compounds'
     )
@@ -63,16 +41,26 @@ class Compound(SupplierMixin, models.Model):
     class Meta:
         ordering = ['-trade_name', 'iupac_name']
 
+    @cached_property
+    def pcp_data(self):
+        try:
+            synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms)
+        except KeyError:
+            synonyms = 'n/a'
+        structure_url = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
+        return {'image_url': structure_url, 'synonyms': synonyms}
+
+
     def save(self, *args, **kwargs):
         if not self.smiles:
             cas_no = self.cas_number
             cirpy_query = cirpy.query(str(cas_no), 'smiles')
             try:
-                smiles = cirpy_query[0].value
-            except IndexError:
+                self.smiles = cirpy_query[0].value
+                self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
+            except (IndexError, pcp.BadRequestError):
                 raise ValidationError('No compound found for this CAS number')
-            self.smiles = smiles
-            self.iupac_name = Molecule(smiles).iupac_name
+            self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -85,7 +73,7 @@ class Compound(SupplierMixin, models.Model):
         Returns the url to access a particular book instance.
         """
         return reverse(
-            'book-detail',
+            'compound-detail',
             args=[str(self.pk)],
         )
 
@@ -99,4 +87,25 @@ class Compound(SupplierMixin, models.Model):
 #
 # mol.image_url
 #
+
+        #
+        # structure_choices = (
+        #     ('ali', 'Aliphatic'),
+        #     ('atp', 'Acyclic terpence'),
+        #     ('ctp', 'Cyclic terpene'),
+        #     ('ocy', 'Other cycloaliphatic'),
+        #     ('aro', 'Aromatic'),
+        #     ('het', 'Heterocyclic'),
+        # )
+        # fg_choices = (
+        #     ('hyd', 'Hydrocarbon'),
+        #     ('alc', 'Alcohol or ether'),
+        #     ('ald', 'Aldehyde or acetal'),
+        #     ('ket', 'Ketone'),
+        #     ('cad', 'Carboxylic acid derivative'),
+        #     ('cye', 'Cyclic ether'),
+        #     ('lac', 'Lactone'),
+        #     ('msc', 'Miscellaneous'),
+        # )
+        #
 # 'https://cactus.nci.nih.gov/chemical/structure/Cc1cccc%28CCCCCO%29c1/image'

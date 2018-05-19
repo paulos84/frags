@@ -4,6 +4,7 @@ from django.db import models
 class SupplierMixin(models.Model):
 
     choices = (
+        ('-----', ''),
         ('BASF', 'BASF AG, Germany'),
         ('Danisco', 'Danisco A/S, Denmark'),
         ('Firmenich', 'Firmenich SA, Switzerland'),
@@ -17,12 +18,14 @@ class SupplierMixin(models.Model):
 
     supplier = models.CharField(
         max_length=25, default='',
-        choices=choices
+        choices=choices,
+        blank=True,
     )
 
     trade_name = models.CharField(
         max_length=20, default='',
         verbose_name='Trade name',
+        blank=True,
     )
 
     class Meta:

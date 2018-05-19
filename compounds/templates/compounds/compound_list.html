@@ -2,18 +2,17 @@
 
 {% block content %}
     <h1>Compound List</h1>
-
+    <h2>thumbnails:</h2>
+    <img class="structure-img" alt="Tiformin.png" src=https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?t=s&cid=2244 title="A structure of Tiformin">
     {% if compound_list %}
     <ul>
-
       {% for compound in compound_list %}
       <li>
-        <a href="{{ book.get_absolute_url }}">{{ compound.iupac_name }}</a>
+        <a href="{{ compound.get_absolute_url }}">{{ compound.iupac_name }}</a>
       </li>
       {% endfor %}
-
     </ul>
     {% else %}
-      <p>There are no books in the library.</p>
+      <p>No compounds matched this query</p>
     {% endif %}       
 {% endblock %}

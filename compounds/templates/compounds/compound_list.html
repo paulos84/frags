@@ -1,5 +1,8 @@
 {% extends "base_generic.html" %}
 
+<!-- https://stackoverflow.com/questions/9088870/creating-a-thumbnail-of-an-image-on-an-external-server
+https://gist.github.com/valberg/2429288-->
+
 {% block content %}
     <h1>Compound List</h1>
     <h2>thumbnails:</h2>
@@ -8,7 +11,7 @@
     <ul>
       {% for compound in compound_list %}
       <li>
-        <a href="{{ compound.get_absolute_url }}">{{ compound.iupac_name }}</a>
+        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
       </li>
       {% endfor %}
     </ul>

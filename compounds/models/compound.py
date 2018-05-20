@@ -17,6 +17,7 @@ class Compound(SupplierMixin, models.Model):
     cas_number = models.CharField(
         max_length=20,
         verbose_name='CAS number',
+        unique=True,
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
     )
     smiles = models.CharField(
@@ -37,14 +38,16 @@ class Compound(SupplierMixin, models.Model):
     odor_description = models.CharField(
         max_length=500, default='',
         verbose_name='Odor description',
+        blank=True,
     )
     odor = models.ManyToManyField(
         Odor, related_name='compounds',
-        verbose_name='Odor Category'
+        verbose_name='Odor Category',
     )
+    objects = models.Manager()
 
     class Meta:
-        ordering = ['-trade_name', 'iupac_name']
+        pass
 
     @cached_property
     def pubchem(self):
@@ -55,6 +58,10 @@ class Compound(SupplierMixin, models.Model):
         structure_url = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
         return {'image_url': structure_url, 'synonyms': synonyms}
 
+    def clean(self):
+        """ ensure that """
+
+    #     do lookup and return item that already entered
 
     def save(self, *args, **kwargs):
         if not self.smiles:

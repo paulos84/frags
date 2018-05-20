@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class SupplierMixin(models.Model):
@@ -14,13 +15,11 @@ class SupplierMixin(models.Model):
         ('Takasago', 'Takasago Perfumery Co., Japan'),
         ('Vioryl', 'Vioryl SA, Greece'),
     )
-
     supplier = models.CharField(
         max_length=25, default='',
         choices=choices,
         blank=True,
     )
-
     trade_name = models.CharField(
         max_length=20, default='',
         verbose_name='Trade name',
@@ -30,8 +29,7 @@ class SupplierMixin(models.Model):
     class Meta:
         abstract = True
 
-
-    def save(self, *args, **kwargs):
-        """Call :meth:`full_clean` before saving."""
-        self.full_clean()
-        super(SupplierMixin, self).save(*args, **kwargs)
+    def clean(self):
+        if self.supplier is not None and self.trade_name is None:
+            raise ValidationError('Trade name required if a supplier is entered')
+        super(SupplierMixin, self).clean()

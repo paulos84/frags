@@ -21,7 +21,7 @@ https://gist.github.com/valberg/2429288-->
     <ul>
       {% for compound in compound_list %}
       <li class="list-unstyled">
-          <img class="structure-img" src={{ compound.thumb_url }} title={{ compound.iupac_name }}>
+          <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
         <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
       </li>
       {% endfor %}

@@ -9,18 +9,30 @@
 {% block content %}
     <div class="col-sm-5 ">
         {% if compound.trade_name %}
-            <p><strong>Trade name:</strong> {{ compound.trade_name }}</p>
+            <h3 class="page-header"> {{ compound.trade_name }}</h3>
+        {% else %}
+            <h3 class="page-header">{{ compound.iupac_name }}</h3>
         {% endif %}
         {% if compound.supplier %}
             <p><strong>Supplier:</strong> {{ compound.get_supplier_display }}</p>
         {% endif %}
-        <p><strong>IUPAC name:</strong> {{ compound.iupac_name }}</p>
+        {% if compound.trade_name %}
+            <p><strong>IUPAC name:</strong> {{ compound.iupac_name }}</p>
+        {% endif %}
         <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
         <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
-        <p><strong>cid:</strong> {{ compound.cid_number }}</p>
+        {% if compound.odor_description %}
+            <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
+        {% endif %}
+        {% if compound.odor.all %}
+             <p><strong>Odor categories:</strong></p>
+            {% for odor in compound.odor.all %}
+               {{ odor }}
+            {% endfor %}
+        {% endif %}
         </div>
         <div class="col-sm-5 ">
-        <img class="structure-img" src={{compound.image_url}} title={{compound.iupac_name}}>
+        <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
     </div>
     <div class="col-sm-10 ">
         <br>

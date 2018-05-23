@@ -59,10 +59,6 @@ class Compound(SupplierMixin, models.Model):
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    @property
-    def thumb_url(self):
-        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?t=s&cid={}'.format(self.cid_number)
-
     def save(self, *args, **kwargs):
         if not self.smiles:
             cas_no = self.cas_number
@@ -85,36 +81,3 @@ class Compound(SupplierMixin, models.Model):
             'compound-detail',
             args=[str(self.pk)],
         )
-
-
-    # TODO: method to populate empty imagefield using rdkit.MoltoImage save on local or S3 - or property decorator instead to generate on demand?
-# cirpy_query = cirpy.query('126-91-0', 'smiles')
-#
-# cirpy_query
-#
-# [Result(input='126-91-0', representation='smiles', resolver='cas_number', input_format='CAS Registry Number', notation='126-91-0', value='CC(C)=CCC[C@@](C)(O)C=C')]
-#
-# mol.image_url
-#
-
-        #
-        # structure_choices = (
-        #     ('ali', 'Aliphatic'),
-        #     ('atp', 'Acyclic terpence'),
-        #     ('ctp', 'Cyclic terpene'),
-        #     ('ocy', 'Other cycloaliphatic'),
-        #     ('aro', 'Aromatic'),
-        #     ('het', 'Heterocyclic'),
-        # )
-        # fg_choices = (
-        #     ('hyd', 'Hydrocarbon'),
-        #     ('alc', 'Alcohol or ether'),
-        #     ('ald', 'Aldehyde or acetal'),
-        #     ('ket', 'Ketone'),
-        #     ('cad', 'Carboxylic acid derivative'),
-        #     ('cye', 'Cyclic ether'),
-        #     ('lac', 'Lactone'),
-        #     ('msc', 'Miscellaneous'),
-        # )
-        #
-# 'https://cactus.nci.nih.gov/chemical/structure/Cc1cccc%28CCCCCO%29c1/image'

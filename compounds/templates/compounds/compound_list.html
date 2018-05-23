@@ -3,14 +3,25 @@
 <!-- https://stackoverflow.com/questions/9088870/creating-a-thumbnail-of-an-image-on-an-external-server
 https://gist.github.com/valberg/2429288-->
 
+{% load staticfiles %}
+{% block head %}
+<script src="js/script.js"></script>
+
+<!-- <script src="{% static "js/script.js" %}"></script> -->
+
+{% endblock %}
+
 {% block content %}
-    <h1>Compound List</h1>
-    <h2>thumbnails:</h2>
-    <img class="structure-img" alt="Tiformin.png" src=https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?t=s&cid=2244 title="A structure of Tiformin">
+
+<button id="about-btn" onClick="alert('You clicked the button using Javascript.');">
+       Click Me - I run Javascript
+</button>
+    <h2 class="page-header">Fragrance Compounds</h2>
     {% if compound_list %}
     <ul>
       {% for compound in compound_list %}
-      <li>
+      <li class="list-unstyled">
+          <img class="structure-img" src={{ compound.thumb_url }} title={{ compound.iupac_name }}>
         <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
       </li>
       {% endfor %}

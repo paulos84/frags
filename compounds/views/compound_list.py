@@ -5,7 +5,7 @@ from compounds.models.compound import Compound
 
 class BaseCompoundListView(generic.ListView):
     queryset = Compound.objects.all().order_by('-trade_name', 'iupac_name')
-    paginate_by = 40
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

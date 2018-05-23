@@ -20,11 +20,11 @@
         <p><strong>cid:</strong> {{ compound.cid_number }}</p>
         </div>
         <div class="col-sm-5 ">
-        <img class="structure-img" src={{compound.pubchem.image_url}} title={{compound.iupac_name}}>
+        <img class="structure-img" src={{compound.image_url}} title={{compound.iupac_name}}>
     </div>
     <div class="col-sm-10 ">
         <br>
-        <p><strong>Synonyms:</strong> {{ compound.pubchem.synonyms }}</p>
+        <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>
 </div>
 {% endblock %}
 

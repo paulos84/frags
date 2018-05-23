@@ -9,8 +9,6 @@ import pubchempy as pcp
 from compounds.models.odor import Odor
 from compounds.models.mixins.supplier import SupplierMixin
 
-# TODO: make so if enter trade_name, also require supplier. And def str like if self.trade_name: return '{} ({}) {}'.format(self.trade_name, self.supplier. self.iupac_name
-
 
 class Compound(SupplierMixin, models.Model):
 
@@ -50,18 +48,20 @@ class Compound(SupplierMixin, models.Model):
         pass
 
     @cached_property
-    def pubchem(self):
+    def synonyms(self):
         try:
             synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms)
         except KeyError:
             synonyms = 'n/a'
-        structure_url = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
-        return {'image_url': structure_url, 'synonyms': synonyms}
+        return synonyms
 
-    def clean(self):
-        """ ensure that """
+    @property
+    def structure_url(self):
+        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    #     do lookup and return item that already entered
+    @property
+    def thumb_url(self):
+        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?t=s&cid={}'.format(self.cid_number)
 
     def save(self, *args, **kwargs):
         if not self.smiles:
@@ -81,9 +81,6 @@ class Compound(SupplierMixin, models.Model):
         return self.iupac_name
 
     def get_absolute_url(self):
-        """
-        Returns the url to access a particular book instance.
-        """
         return reverse(
             'compound-detail',
             args=[str(self.pk)],

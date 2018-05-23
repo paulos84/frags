@@ -1,9 +1,6 @@
-$(document).ready(function() {
-
-$( "#clickme" ).click(function() {
-  $( ".breakword" ).hide( "slow", function() {
-    alert( "Animation complete." );
-  });
+$(document).ready( function() {
+    $("#about-btn").click( function(event) {
+        alert("You clicked the button using JQuery!");
+    });
 });
 
-});

@@ -6,7 +6,7 @@ from django.utils.functional import cached_property
 import cirpy
 import pubchempy as pcp
 
-from compounds.models.odor import Odor
+from compounds.models.odor_type import OdorType
 from compounds.models.mixins.supplier import SupplierMixin
 
 
@@ -39,7 +39,7 @@ class Compound(SupplierMixin, models.Model):
         blank=True,
     )
     odor = models.ManyToManyField(
-        Odor, related_name='compounds',
+        OdorType, related_name='compounds',
         verbose_name='Odor Category',
     )
     objects = models.Manager()

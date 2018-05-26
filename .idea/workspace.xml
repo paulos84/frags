@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71c07e99-dc85-4324-970b-2b098c837fe3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/forms/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/forms/compound_forms.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/pubmed_abstract.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/templates/compounds/create_compound.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/templates/compounds/update_compound.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/compound_forms.py" afterPath="$PROJECT_DIR$/compounds/forms/compound_forms.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/compound.py" afterPath="$PROJECT_DIR$/compounds/models/compound.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/urls.py" afterPath="$PROJECT_DIR$/compounds/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_create.py" afterPath="$PROJECT_DIR$/compounds/views/compound_create.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_update.py" afterPath="$PROJECT_DIR$/compounds/views/compound_update.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frags/settings.py" afterPath="$PROJECT_DIR$/frags/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/generate_fixtures.py" afterPath="$PROJECT_DIR$/utils/generate_fixtures.py" />
     </list>
     <ignored path="frags.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,8 +27,8 @@
       <file leaf-file-name="compound.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compounds/models/compound.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1452">
-              <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
+            <state relative-caret-position="264">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -68,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="compound_forms.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="compound_forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compounds/forms/compound_forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+            <state relative-caret-position="330">
+              <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -125,6 +117,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="generate_fixtures.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/generate_fixtures.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="789">
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -163,7 +165,6 @@
         <option value="$PROJECT_DIR$/compounds/views/compound_list_view.py" />
         <option value="$PROJECT_DIR$/compounds/models/use.py" />
         <option value="$PROJECT_DIR$/compounds/views/compound_detail.py" />
-        <option value="$PROJECT_DIR$/utils/generate_fixtures.py" />
         <option value="$PROJECT_DIR$/fixtures/compound.yaml" />
         <option value="$PROJECT_DIR$/compounds/templates/compounds/css/styles.css" />
         <option value="$PROJECT_DIR$/compounds/views/filtered_lists.py" />
@@ -190,8 +191,9 @@
         <option value="$PROJECT_DIR$/compounds/templates/compounds/update_compound.html" />
         <option value="$PROJECT_DIR$/compounds/models/pubmed_abstract.py" />
         <option value="$PROJECT_DIR$/compounds/templates/compounds/create_compound.html" />
-        <option value="$PROJECT_DIR$/compounds/models/compound.py" />
         <option value="$PROJECT_DIR$/compounds/forms/compound_forms.py" />
+        <option value="$PROJECT_DIR$/compounds/models/compound.py" />
+        <option value="$PROJECT_DIR$/utils/generate_fixtures.py" />
       </list>
     </option>
   </component>
@@ -259,6 +261,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -799,16 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/generate_fixtures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#9#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../aircharts/charts/templates/charts/site_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="741">
@@ -1095,26 +1101,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/compound_create.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/models/compound.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1452">
-          <caret line="59" column="28" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/views/compound_update.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -1133,13 +1119,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/compound_create.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/forms/compound_forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+        <state relative-caret-position="330">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/compound.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/generate_fixtures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="789">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

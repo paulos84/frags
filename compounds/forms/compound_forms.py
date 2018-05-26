@@ -20,7 +20,6 @@ class CompoundCreateForm(forms.ModelForm):
         self.fields["odor_description"].validators.append(MinLengthValidator)
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
-        self.fields['odor_category'].required = True
         # self.fields['odor_description'].widget.attrs.update({'class': 'special'})
         # self.fields['name'].widget.attrs.update({'class': 'special'})
         # self.fields['comment'].widget.attrs.update(size='40')

@@ -22,7 +22,8 @@ for cas_no in cases[250:350]:
         mol_fields.append({
             'cas_no': cas_no,
             'smiles': cirpy_query[0].value,
-            'name': cirpy.Molecule(cirpy_query[0].value).iupac_name
+            'name': cirpy.Molecule(cirpy_query[0].value).iupac_name,
+            'extra_cas': ', '.join([a for a in cirpy.query(cas_no, 'cas')[0].value if a != cas_no]),
         })
 
 for index, mol in enumerate(mol_fields):
@@ -41,7 +42,8 @@ for index, mol in enumerate(mol_fields):
         smiles: {}
         iupac_name: {}
         cid_number: {}
-    """.format(index + 100, mol['cas_no'], mol['smiles'], mol['name'].lower(), cid_no)
+        additional_cas: {}
+    """.format(index + 1, mol['cas_no'], mol['smiles'], mol['name'].lower(), cid_no, mol['extra_cas'])
     try:
         code = ruamel.yaml.load(inp, ruamel.yaml.RoundTripLoader)
     except ParserError:

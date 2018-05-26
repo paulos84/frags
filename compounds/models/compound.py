@@ -18,6 +18,11 @@ class Compound(SupplierMixin, models.Model):
         unique=True,
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
     )
+    additional_cas = models.CharField(
+        max_length=200, default='',
+        verbose_name='Additional registered CAS numbers',
+        validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
+    )
     smiles = models.CharField(
         max_length=100, default='',
         verbose_name='SMILES string',

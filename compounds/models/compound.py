@@ -38,7 +38,7 @@ class Compound(SupplierMixin, models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-    odor = models.ManyToManyField(
+    odor_category = models.ManyToManyField(
         OdorType, related_name='compounds',
         verbose_name='Odor Category',
     )
@@ -51,6 +51,7 @@ class Compound(SupplierMixin, models.Model):
     def synonyms(self):
         try:
             synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms)
+            # synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:8])
         except KeyError:
             synonyms = 'n/a'
         return synonyms
@@ -58,8 +59,15 @@ class Compound(SupplierMixin, models.Model):
     @property
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
+    #
+    # def clean(self, *args, **kwargs):
+    #     if regex not matcn etc...
+    #     if self.favorite_food == 'bacon':
+    #         raise ValidationError('Bacon is not good for you!')
+    #     super(Person, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+        self.full_clean()
         if not self.smiles:
             cas_no = self.cas_number
             cirpy_query = cirpy.query(str(cas_no), 'smiles')

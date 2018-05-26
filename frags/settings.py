@@ -90,3 +90,6 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
+

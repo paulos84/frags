@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+<!-- https://stackoverflow.com/questions/9088870/creating-a-thumbnail-of-an-image-on-an-external-server
+https://gist.github.com/valberg/2429288-->
+
+{% load staticfiles %}
+
+{% block head %}
+<script src="js/script.js"></script>
+ <script src='https://www.google.com/recaptcha/api.js'></script>
+
+<!-- <script src="{% static "js/script.js" %}"></script> -->
+
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <table border="1">
+    {{ form }}
+    </table>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
+
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+{% endblock %}

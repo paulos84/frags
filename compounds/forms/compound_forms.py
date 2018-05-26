@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import MinLengthValidator
+from django.core.exceptions import ObjectDoesNotExist
 
 from compounds.models.compound import Compound
 
@@ -7,6 +8,9 @@ from compounds.models.compound import Compound
 class CompoundCreateForm(forms.ModelForm):
     # In instantiated Django forms, fields are kept in a dict-like object. Which means, instead of writing forms in a
     #  way that duplicates the model, a better way is to explicitly modify only what we want to modify:
+
+    # send data e.g. main cas number, iupac_name to front-end data model, so that if matches entered...can link to detail view etc.
+    # check additional cas_numbers in the clean method...redirect with message if exists
 
     class Meta:
         model = Compound
@@ -30,13 +34,19 @@ class CompoundCreateForm(forms.ModelForm):
         # self.fields['name'].widget.attrs.update({'class': 'special'})
         # self.fields['comment'].widget.attrs.update(size='40')
 
-# TODO: Able to search by drawing in structure also: e.g. https://www.sigmaaldrich.com/catalog/search/substructure/OldSubstructureSearchPage
+# TODO: Able to search by drawing in structure also (which resolves into a cas number): e.g. https://www.sigmaaldrich.com/catalog/search/substructure/OldSubstructureSearchPage
 
     # Validation: make sure cas_number not in alternative_cas for all other compounds (i.e. not unique)
     # check that clean applies max_length etc constraints defined in model (unit test)
 
     def clean(self):
         cleaned_data = super(CompoundCreateForm, self).clean()
+        # lookup so that CAS not in...
+        try:
+            cpd = Compound.objects.get(additional_cas__contains='177772-08-6')
+            # redirect to corresponding detail view
+        except ObjectDoesNotExist:
+            pass
         name = cleaned_data.get('name')
         email = cleaned_data.get('email')
         message = cleaned_data.get('message')

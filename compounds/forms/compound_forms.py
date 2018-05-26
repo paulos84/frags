@@ -14,7 +14,13 @@ class CompoundCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CompoundCreateForm, self).__init__(*args, **kwargs)
-        self.fields['cas_number'].help_text = 'Enter a CAS number to retrieve compound',
+        self.fields['cas_number'].widget = forms.TextInput(
+            attrs={
+                'style': 'border-color: green;',
+                'placeholder': 'Enter CAS no. to retrieve compound',
+                'size': 30,
+            }
+        )
         self.fields['odor_description'].widget = forms.Textarea(attrs=None)
         self.fields["odor_description"].min_length = 20
         self.fields["odor_description"].validators.append(MinLengthValidator)

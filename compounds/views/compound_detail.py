@@ -13,6 +13,7 @@ class CompoundDetailView(generic.DetailView):
         context['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
         try:
             context['synonyms'] = ', '.join(pcp.get_compounds(cid_no)[0].synonyms)
+            # PARSE OUT EC... from synonyms and FEMA...
         except KeyError:
             context['synonyms'] = 'n/a'
         return context

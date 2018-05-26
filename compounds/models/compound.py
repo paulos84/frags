@@ -45,7 +45,7 @@ class Compound(SupplierMixin, models.Model):
     )
     odor_category = models.ManyToManyField(
         OdorType, related_name='compounds',
-        verbose_name='Odor Category',
+        verbose_name='Odor categories',
     )
     objects = models.Manager()
 

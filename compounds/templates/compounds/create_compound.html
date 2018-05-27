@@ -18,15 +18,26 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
 
 {% block content %}
   <div class="col-sm-6 ">
-    <form method="post">
+
+    <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
-      {{ form }}
+        {% for field in form %}
+      <tr>
+        <th>
+        {{ field.label_tag }}
+        </th>
+        <td>
+        {{ field }}
+        {{ field.errors }}
+      </td>
+        </tr>
+        {% endfor %}
       </table>
       <script src='https://www.google.com/recaptcha/api.js'></script>
       <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
 
-      <button type="submit" class="btn btn-primary">Post</button>
+     <button type="button" class="btn-submit">Submit</button>
     </form>
   </div>
 

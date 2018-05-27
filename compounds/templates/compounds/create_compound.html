@@ -1,5 +1,5 @@
 {% extends "base_generic.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% comment %} add hidden-field for cpd structure img and iupac name until retrieved
 https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html
@@ -46,3 +46,12 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
     <img class="retrieved-structure">
   </div>
   {% endblock %}
+
+{% block js %}
+  <script>
+    $("#id_cas_number").change(function () {
+      console.log( $(this).val() );
+      alert( $(this).val() )
+    });
+  </script>
+{% endblock %}

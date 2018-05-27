@@ -46,7 +46,12 @@
         {% endblock %}
       </div>
     </div>
-  </div>
-      {% block js %}{% endblock %}
-</body>
+    <footer>
+        <br>
+        <p data-size="10">Created by Paul Davis on behalf of <a href="http://www.metaclass.io/">Metaclass Software Ltd.</a></p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{% static 'compounds/js/app.js' %}"></script>
+    {% block js %}{% endblock %}
+  </body>
 </html>

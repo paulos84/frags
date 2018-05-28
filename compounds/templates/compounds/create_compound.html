@@ -49,12 +49,13 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
     <!--});-->
   <!--</script>-->
   <script>
-    $("#id_username").change(function () {
-      var username = $(this).val();
+      $("#id_cas_number").change(function () {
+      var cas_number = $(this).val();
+
       $.ajax({
-        url: '/ajax/validate_username/',
+        url: '{% url "process_cas" %}',
         data: {
-          'username': username
+          'cas_number': cas_number
         },
         dataType: 'json',
         success: function (data) {
@@ -63,10 +64,31 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
           }
         }
       });
+
     });
   </script>
+
+    <!--$("#id_cas_number").change(function () {-->
+      <!--var cas_number = $(this).val();-->
+      <!--$.ajax({-->
+        <!--url: '{% url "process_cas" %}',-->
+        <!--data: {-->
+          <!--'cas_number': cas_number-->
+        <!--},-->
+        <!--dataType: 'json',-->
+        <!--success: function (data) {-->
+          <!--console.log(data)-->
+        <!--error: alert( "Sorry, there was a problem!" )-->
+        <!--}-->
+      <!--});-->
+    <!--});-->
+
+
 
 
 
   <script src="static/js/create_compound.js"></script>
 {% endblock %}
+
+          <!--if (data.is_taken) {-->
+            <!--alert("A user with this username already exists.");-->

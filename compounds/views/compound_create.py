@@ -1,6 +1,10 @@
 from django.views.generic.edit import CreateView
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+import cirpy
+import pubchempy as pcp
 
 from compounds.models.compound import Compound
 from compounds.forms.compound_forms import CompoundCreateForm
@@ -22,19 +26,32 @@ class CompoundCreateView(CreateView):
     #         context['synonyms'] = 'n/a'
     #     return context
 
+# Todo: try and keep data from the lookup below on the object in form so model doesn't have to do api calls again
+
 def process_cas(request):
-    username = request.GET.get('username', None)
-
+    cas_no = request.GET.get('cas_number')
+    # print('foo')
+    # data = {}
+    # try:
+    #     obj = Compound.objects.get(
+    #         Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
+    #     )
+    #     return redirect(obj)
+    # except ObjectDoesNotExist:
+    #     pass
+    # try:
+    #     smiles = cirpy.query(cas_no, 'smiles')[0].value
+    #     data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
+    #     cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
+    #     data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
+    # except IndexError:
+    #     data['error_message'] = 'A user with this username already exists.'
     data = {
-        'is_taken': Compound.objects.filter(username__iexact=username).exists()
+        'is_taken': True
     }
-    try:
-        cpd = Compound.objects.get(additional_cas__contains='177772-08-6')
-        # redirect to corresponding detail view
-    except ObjectDoesNotExist:
-        pass
-
     return JsonResponse(data)
+
+
 
     # cid_no = self.get_object().cid_number
     # context['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)

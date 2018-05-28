@@ -12,6 +12,6 @@ urlpatterns = [
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
     path('compound/<int:pk>/', CompoundUpdateView.as_view(), name='compound-update'),
-    path(r'^process_cas/$', CompoundCreateView.as_view(), name='process_cas'),
+    path('ajax/process_cas/', CompoundCreateView.as_view(), name='process_cas'),
     # # re_path(r'^book/(?P<pk>\d+)$', views.CompoundDetailView.as_view(), name='book-detail'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

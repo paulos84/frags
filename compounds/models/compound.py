@@ -6,8 +6,10 @@ from django.utils.functional import cached_property
 import cirpy
 import pubchempy as pcp
 
+from compounds.models.managers.compound import CompoundManager
 from compounds.models.odor_type import OdorType
 from compounds.models.mixins.supplier import SupplierMixin
+from compounds.models.mixins.ajaxable_response import AjaxableResponseMixin
 
 
 class Compound(SupplierMixin, models.Model):
@@ -47,7 +49,7 @@ class Compound(SupplierMixin, models.Model):
         OdorType, related_name='compounds',
         verbose_name='Odor categories',
     )
-    objects = models.Manager()
+    objects = CompoundManager()
 
     class Meta:
         pass

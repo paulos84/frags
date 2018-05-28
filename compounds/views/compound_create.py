@@ -30,7 +30,7 @@ class CompoundCreateView(CreateView):
 
 def process_cas(request):
     cas_no = request.GET.get('cas_number')
-    # print('foo')
+    print('foo')
     # data = {}
     # try:
     #     obj = Compound.objects.get(
@@ -52,20 +52,35 @@ def process_cas(request):
     return JsonResponse(data)
 
 
-
-    # cid_no = self.get_object().cid_number
-    # context['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
-
-
-    #
-    # def validate_username(request):
-    #     username = request.GET.get('username', None)
+# WORKING:
+    # def process_cas(request):
+    #     cas_no = request.GET.get('cas_number')
+    #     print('foo')
     #     data = {
-    #         'is_taken': User.objects.filter(username__iexact=username).exists()
+    #         'is_taken': True
     #     }
-    #     if data['is_taken']:
-    #         data['error_message'] = 'A user with this username already exists.'
     #     return JsonResponse(data)
+
+    # < script >
+    # $("#id_cas_number").change(function()
+    # {
+    #     var
+    # cas_number = $(this).val();
+    #
+    # $.ajax({
+    #     url: '{% url "process_cas" %}',
+    #     data: {
+    #         'cas_number': cas_number
+    #     },
+    #     dataType: 'json',
+    #     success: function(data) {
+    #     if (data.is_taken) {
+    #         alert("A user with this username already exists.");
+    # }
+    # }
+    # });
+    # });
+    # < / script >
 
 
 

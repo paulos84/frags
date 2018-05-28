@@ -33,21 +33,14 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
       </table>
       <script src='https://www.google.com/recaptcha/api.js'></script>
       <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
-     <button type="button" class="btn-submit">Submit</button>
+     <button type="submit" class="btn-submit">Submit</button>
     </form>
   </div>
   <div class="col-sm-4 ">
-    <p>Compound image and name placeholder (hidden first)</p>
-    <img class="retrieved-structure">
+    <img class="ajax-structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} height="100" width="100" >
   </div>
 {% endblock %}
 {% block js %}
-  <!--<script>-->
-    <!--$("#id_cas_number").change(function () {-->
-      <!--console.log( $(this).val() );-->
-      <!--alert( $(this).val() )-->
-    <!--});-->
-  <!--</script>-->
   <script>
       $("#id_cas_number").change(function () {
       var cas_number = $(this).val();
@@ -64,31 +57,6 @@ https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-fo
           }
         }
       });
-
     });
   </script>
-
-    <!--$("#id_cas_number").change(function () {-->
-      <!--var cas_number = $(this).val();-->
-      <!--$.ajax({-->
-        <!--url: '{% url "process_cas" %}',-->
-        <!--data: {-->
-          <!--'cas_number': cas_number-->
-        <!--},-->
-        <!--dataType: 'json',-->
-        <!--success: function (data) {-->
-          <!--console.log(data)-->
-        <!--error: alert( "Sorry, there was a problem!" )-->
-        <!--}-->
-      <!--});-->
-    <!--});-->
-
-
-
-
-
-  <script src="static/js/create_compound.js"></script>
 {% endblock %}
-
-          <!--if (data.is_taken) {-->
-            <!--alert("A user with this username already exists.");-->

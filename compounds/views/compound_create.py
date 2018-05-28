@@ -31,24 +31,25 @@ class CompoundCreateView(CreateView):
 def process_cas(request):
     cas_no = request.GET.get('cas_number')
     print('foo')
-    # data = {}
-    # try:
-    #     obj = Compound.objects.get(
-    #         Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
-    #     )
-    #     return redirect(obj)
-    # except ObjectDoesNotExist:
-    #     pass
-    # try:
-    #     smiles = cirpy.query(cas_no, 'smiles')[0].value
-    #     data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
-    #     cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
-    #     data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
-    # except IndexError:
-    #     data['error_message'] = 'A user with this username already exists.'
-    data = {
-        'is_taken': True
-    }
+    data = {}
+    try:
+        obj = Compound.objects.get(
+            Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
+        )
+        return redirect(obj)
+    except ObjectDoesNotExist:
+        pass
+    try:
+        smiles = cirpy.query(cas_no, 'smiles')[0].value
+        cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
+        if smiles and cid_no:
+            data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
+            data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
+    except IndexError:
+        data['error_message'] = 'A user with this username already exists.'
+    # data = {
+    #     'is_taken': True
+    # }
     return JsonResponse(data)
 
 

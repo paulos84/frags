@@ -31,6 +31,11 @@
       <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
      <button type="submit" class="btn-submit">Submit</button>
     </form>
+     <ul class="errorlist">
+    {% for key, value in form.errors.items %}
+    <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+    {% endfor %}
+</ul>
   </div>
   <div class="col-sm-5 ">
       <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>

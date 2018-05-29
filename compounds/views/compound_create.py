@@ -25,9 +25,7 @@ class CompoundCreateView(CreateView):
     #     except KeyError:
     #         context['synonyms'] = 'n/a'
     #     return context
-    def post(self, request, *args, **kwargs):
-        print('foobar')
-        
+
 
 # Todo: try and keep data from the lookup below on the object in form so model doesn't have to do api calls again
 

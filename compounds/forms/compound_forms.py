@@ -1,6 +1,6 @@
 from django import forms
-from django.core.validators import MinLengthValidator
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 from compounds.models.compound import Compound
 
@@ -30,29 +30,20 @@ class CompoundCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CompoundCreateForm, self).__init__(*args, **kwargs)
-        self.fields["odor_description"].min_length = 20
-        self.fields["odor_description"].validators.append(MinLengthValidator)
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
 
-# TODO: Able to search by drawing in structure also (which resolves into a cas number): e.g. https://www.sigmaaldrich.com/catalog/search/substructure/OldSubstructureSearchPage
-
-    # Validation: make sure cas_number not in alternative_cas for all other compounds (i.e. not unique)
-    # check that clean applies max_length etc constraints defined in model (unit test)
-
     def clean(self):
         cleaned_data = super(CompoundCreateForm, self).clean()
-        # lookup so that CAS not in...
         try:
-            cpd = Compound.objects.get(additional_cas__contains='177772-08-6')
-            # redirect to corresponding detail view
+            Compound.objects.get(
+                Q(cas_number__exact=cleaned_data['cas_number']) | Q(additional_cas__contains=cleaned_data['cas_number'])
+            )
+            raise forms.ValidationError('Object already exists')
         except ObjectDoesNotExist:
-            pass
-        name = cleaned_data.get('name')
-        email = cleaned_data.get('email')
-        message = cleaned_data.get('message')
-        if not name and not email and not message:
-            raise forms.ValidationError('You have to write something!')
+            return cleaned_data
+
+
 
 class CompoundUpdateForm(forms.ModelForm):
     # In instantiated Django forms, fields are kept in a dict-like object. Which means, instead of writing forms in a
@@ -65,8 +56,6 @@ class CompoundUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CompoundUpdateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].widget = forms.Textarea(attrs=None)
-        self.fields["odor_description"].min_length = 20
-        self.fields["odor_description"].validators.append(MinLengthValidator)
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
         # self.fields['name'].widget.attrs.update({'class': 'special'})

@@ -27,13 +27,13 @@
         </td></tr>
       {% endfor %}
       </table>
-      <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
-      <script src='https://www.google.com/recaptcha/api.js'></script>
+      <!--<div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>-->
+      <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
      <button type="submit" class="btn-submit">Submit</button>
     </form>
   </div>
   <div class="col-sm-5 ">
-      <p>IUPAC name: <input type='text' name='text' id='iupac name' size="80" ></p>
+      <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
       <div style="text-align:left">
         <img id="compound_structure" src="" border="1">
       </div>
@@ -53,10 +53,19 @@
         },
         dataType: 'json',
         success: function (data) {
-            alert(data.iupac_name)
-            console.log(data.structure_url)
-            $("#iupac_name").val(data.iupac_name);
-            $("#compound_structure").attr('src',data.structure_url);
+            if (data.existing_object_pk == "true")
+            {
+               alert(data.existing_object_pk);
+            }
+            if (data.error == "true")
+            {
+                alert(data.error);
+            }
+            else
+            {
+                $("#iupac_name").val(data.iupac_name);
+                $("#compound_structure").attr('src',data.structure_url);
+            }
         }
       });
     });

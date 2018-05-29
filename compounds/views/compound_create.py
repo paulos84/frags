@@ -25,6 +25,9 @@ class CompoundCreateView(CreateView):
     #     except KeyError:
     #         context['synonyms'] = 'n/a'
     #     return context
+    def post(self, request, *args, **kwargs):
+        print('foobar')
+        
 
 # Todo: try and keep data from the lookup below on the object in form so model doesn't have to do api calls again
 
@@ -36,7 +39,8 @@ def process_cas(request):
         obj = Compound.objects.get(
             Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
         )
-        return redirect(obj)
+        data['existing_object_pk'] = obj.pk
+        return JsonResponse(data)
     except ObjectDoesNotExist:
         pass
     try:
@@ -46,45 +50,8 @@ def process_cas(request):
             data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
             data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
     except IndexError:
-        data['error_message'] = 'A user with this username already exists.'
-
-    # data = {
-    #     'is_taken': True
-    # }
+        data['error'] = 'No compound found for this CAS number'
     return JsonResponse(data)
-
-
-# WORKING:
-    # def process_cas(request):
-    #     cas_no = request.GET.get('cas_number')
-    #     print('foo')
-    #     data = {
-    #         'is_taken': True
-    #     }
-    #     return JsonResponse(data)
-
-    # < script >
-    # $("#id_cas_number").change(function()
-    # {
-    #     var
-    # cas_number = $(this).val();
-    #
-    # $.ajax({
-    #     url: '{% url "process_cas" %}',
-    #     data: {
-    #         'cas_number': cas_number
-    #     },
-    #     dataType: 'json',
-    #     success: function(data) {
-    #     if (data.is_taken) {
-    #         alert("A user with this username already exists.");
-    # }
-    # }
-    # });
-    # });
-    # < / script >
-
-
 
 
 #ModelForm.save for cleaning form data, Model.save for cleaning object attributes.

@@ -25,7 +25,7 @@ class CompoundCreateForm(forms.ModelForm):
                                                 }),
             'odor_category': forms.SelectMultiple(attrs={'size':'8'}),
             'trade_name': forms.TextInput(attrs={
-                                                'size': 50, }),
+                                                'size': 40, }),
         }
 
     def __init__(self, *args, **kwargs):

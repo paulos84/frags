@@ -1,37 +1,61 @@
 {% extends "base_generic.html" %}
-{% load staticfiles %}
-
-{% comment %} add hidden-field for cpd structure img and iupac name until retrieved
-https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html
-{% endcomment %}
+{% load static %}
 
 {% block title %}<title>Add Compound</title>{% endblock %}
 
 {% block head %}
-<!-- <script src="{% static "js/script.js" %}"></script> -->
-  <script src="js/script.js"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 {% endblock %}
-
 {% block content %}
   <div class="col-sm-6 ">
-    <form method="post">
+    <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
-      {{ form }}
+        {% for field in form %}
+      <tr>
+        <th>
+        {{ field.label_tag }}
+        </th>
+        <td>
+        {{ field }}
+        {{ field.errors }}
+        </td>
+      </tr>
+      {% endfor %}
       </table>
-      <script src='https://www.google.com/recaptcha/api.js'></script>
       <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
-
-      <button type="submit" class="btn btn-primary">Post</button>
+      <script src='https://www.google.com/recaptcha/api.js'></script>
+     <button type="submit" class="btn-submit">Submit</button>
     </form>
   </div>
-
   <div class="col-sm-4 ">
-    <p>Compound image and name placeholder (hidden first)</p>
-    <img class="retrieved-structure">
+      <p>IUPAC name: <input type='text' name='text' id='text' size="50" ></p>
+      <img id="compound_structure" src="" border="1">
   </div>
-  {% endblock %}
+{% endblock %}
+{% block js %}
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="{% static 'js/create_compound.js' %}"></script>
+  <script>
+      $("#id_cas_number").change(function () {
+      var cas_number = $(this).val();
+
+      $.ajax({
+        url: '{% url "process_cas" %}',
+        data: {
+            'cas_number': cas_number
+        },
+        dataType: 'json',
+        success: function (data) {
+            alert(data.iupac_name)
+            console.log(data.structure_url)
+            $("#text").val(data.iupac_name);
+            $("#compound_structure").attr('src',data.structure_url);
+        }
+      });
+    });
+  </script>
+{% endblock %}

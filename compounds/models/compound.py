@@ -24,6 +24,7 @@ class Compound(SupplierMixin, models.Model):
         max_length=200, default='',
         verbose_name='Additional registered CAS numbers',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
+        blank=True,
     )
     smiles = models.CharField(
         max_length=100, default='',
@@ -34,6 +35,7 @@ class Compound(SupplierMixin, models.Model):
         max_length=200, default='',
         verbose_name='IUPAC name',
         editable=False,
+        blank=True,
     )
     cid_number = models.IntegerField(
         blank=True, null=True,

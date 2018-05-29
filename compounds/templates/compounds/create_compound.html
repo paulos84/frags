@@ -10,20 +10,21 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 {% endblock %}
 {% block content %}
-  <div class="col-sm-6 ">
+  <div class="col-sm-5 ">
     <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
         {% for field in form %}
-      <tr>
-        <th>
-        {{ field.label_tag }}
-        </th>
+        <tr><th>
+          {{ field.label_tag }}
+          {% if field.field.required %}
+              <span class="special_class">*</span>
+          {% endif %}
+          </th>
         <td>
         {{ field }}
         {{ field.errors }}
-        </td>
-      </tr>
+        </td></tr>
       {% endfor %}
       </table>
       <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
@@ -31,9 +32,11 @@
      <button type="submit" class="btn-submit">Submit</button>
     </form>
   </div>
-  <div class="col-sm-4 ">
-      <p>IUPAC name: <input type='text' name='text' id='text' size="50" ></p>
-      <img id="compound_structure" src="" border="1">
+  <div class="col-sm-5 ">
+      <p>IUPAC name: <input type='text' name='text' id='iupac name' size="80" ></p>
+      <div style="text-align:left">
+        <img id="compound_structure" src="" border="1">
+      </div>
   </div>
 {% endblock %}
 {% block js %}
@@ -52,7 +55,7 @@
         success: function (data) {
             alert(data.iupac_name)
             console.log(data.structure_url)
-            $("#text").val(data.iupac_name);
+            $("#iupac_name").val(data.iupac_name);
             $("#compound_structure").attr('src',data.structure_url);
         }
       });

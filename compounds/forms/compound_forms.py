@@ -14,25 +14,26 @@ class CompoundCreateForm(forms.ModelForm):
 
     class Meta:
         model = Compound
-        fields = ['cas_number', 'odor_category', 'odor_description', 'trade_name', 'supplier']
+        fields = ['cas_number', 'odor_description', 'odor_category', 'trade_name', 'supplier']
+        widgets = {
+            'odor_description': forms.Textarea(attrs={
+                                                    'rows': 5, 'cols': 52, }),
+            'cas_number': forms.TextInput(attrs={
+                                                'style': 'border-color: green;',
+                                                'placeholder': 'Enter CAS number to lookup compound',
+                                                'size': 50,
+                                                }),
+            'odor_category': forms.SelectMultiple(attrs={'size':'8'}),
+            'trade_name': forms.TextInput(attrs={
+                                                'size': 50, }),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CompoundCreateForm, self).__init__(*args, **kwargs)
-        self.fields['cas_number'].widget = forms.TextInput(
-            attrs={
-                'style': 'border-color: green;',
-                'placeholder': 'Enter CAS no. to retrieve compound',
-                'size': 30,
-            }
-        )
-        self.fields['odor_description'].widget = forms.Textarea(attrs=None)
         self.fields["odor_description"].min_length = 20
         self.fields["odor_description"].validators.append(MinLengthValidator)
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
-        # self.fields['odor_description'].widget.attrs.update({'class': 'special'})
-        # self.fields['name'].widget.attrs.update({'class': 'special'})
-        # self.fields['comment'].widget.attrs.update(size='40')
 
 # TODO: Able to search by drawing in structure also (which resolves into a cas number): e.g. https://www.sigmaaldrich.com/catalog/search/substructure/OldSubstructureSearchPage
 

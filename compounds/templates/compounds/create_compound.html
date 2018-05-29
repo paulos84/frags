@@ -4,7 +4,6 @@
 {% block title %}<title>Add Compound</title>{% endblock %}
 
 {% block head %}
-<!-- <script src="{% static "js/create_compound.js" %}"></script> -->
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,29 +26,19 @@
       </tr>
       {% endfor %}
       </table>
-      <script src='https://www.google.com/recaptcha/api.js'></script>
       <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
+      <script src='https://www.google.com/recaptcha/api.js'></script>
      <button type="submit" class="btn-submit">Submit</button>
     </form>
   </div>
   <div class="col-sm-4 ">
-      <input type='text' name='text' id='text'>
-      <img id="compound_structure" src="">
-
-
-      {% comment %} add hidden-field for cpd structure img and iupac name until retrieved
-https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html
-{% endcomment %}
-      <!--<p><strong>IUPAC name:</strong> {{ compound.iupac_name }}</p>-->
-      <!--<div data-bind="visible: shouldShow">-->
-          <!--<img class="ajax-structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} height="100" width="100" >-->
-    <!--You will see this message only when "shouldShowMessage" holds a true value.-->
-    <!--</div>-->
-      <!--<img data-bind="attr: {src: ImageSource()}" height="100" width="100" />-->
-    <!--<img class="ajax-structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} height="100" width="100" >-->
+      <p>IUPAC name: <input type='text' name='text' id='text' size="50" ></p>
+      <img id="compound_structure" src="" border="1">
   </div>
 {% endblock %}
 {% block js %}
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="{% static 'js/create_compound.js' %}"></script>
   <script>
       $("#id_cas_number").change(function () {
       var cas_number = $(this).val();

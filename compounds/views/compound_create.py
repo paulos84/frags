@@ -47,6 +47,7 @@ def process_cas(request):
             data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
     except IndexError:
         data['error_message'] = 'A user with this username already exists.'
+
     # data = {
     #     'is_taken': True
     # }

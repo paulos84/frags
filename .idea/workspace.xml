@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71c07e99-dc85-4324-970b-2b098c837fe3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/static/js/create_compound.js" afterPath="$PROJECT_DIR$/compounds/static/js/create_compound.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_generic.html" afterPath="$PROJECT_DIR$/compounds/templates/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/compounds/create_compound.html" afterPath="$PROJECT_DIR$/compounds/templates/compounds/create_compound.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_create.py" afterPath="$PROJECT_DIR$/compounds/views/compound_create.py" />
-    </list>
+    <list default="true" id="71c07e99-dc85-4324-970b-2b098c837fe3" name="Default" comment="" />
     <ignored path="frags.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

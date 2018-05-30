@@ -74,7 +74,6 @@ class Compound(SupplierMixin, models.Model):
         if not self.cid_number:
             try:
                 self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
-                # except (IndexError, ):
             except (IndexError, pcp.BadRequestError):
                 raise ValidationError('Someting went wrong 2')
         super(Compound, self).save(*args, **kwargs)

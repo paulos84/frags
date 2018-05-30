@@ -1,6 +1,5 @@
 from django.views.generic.edit import CreateView
-from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 import cirpy
@@ -15,19 +14,6 @@ class CompoundCreateView(CreateView):
     form_class = CompoundCreateForm
     template_name = 'compounds/create_compound.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(CompoundCreateForm, self).get_context_data(**kwargs)
-    #     cid_no = self.get_object().cid_number
-    #     context['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
-    #     try:
-    #         context['synonyms'] = ', '.join(pcp.get_compounds(cid_no)[0].synonyms)
-    #         # PARSE OUT EC... from synonyms and FEMA...
-    #     except KeyError:
-    #         context['synonyms'] = 'n/a'
-    #     return context
-
-
-# Todo: try and keep data from the lookup below on the object in form so model doesn't have to do api calls again
 
 def process_cas(request):
     cas_no = request.GET.get('cas_number')
@@ -44,10 +30,9 @@ def process_cas(request):
         smiles = cirpy.query(cas_no, 'smiles')[0].value
         cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
         if smiles and cid_no:
-            data['smiles'] = smiles
             data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
             data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
-            data['hidden_cid'] = cid_no
+            data.update({'smiles': smiles, 'hidden_cid': cid_no})
     except IndexError:
         data['error'] = 'No compound found for this CAS number'
     return JsonResponse(data)

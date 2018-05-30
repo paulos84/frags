@@ -1,6 +1,8 @@
 from django import forms
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from compounds.models.compound import Compound
 
@@ -36,18 +38,22 @@ class CompoundCreateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(CompoundCreateForm, self).clean()
         try:
-            Compound.objects.get(
+            obj = Compound.objects.get(
                 Q(cas_number__exact=cleaned_data['cas_number']) | Q(additional_cas__contains=cleaned_data['cas_number'])
             )
-            raise forms.ValidationError('Object already exists')
+            # return HttpResponseRedirect(reverse('compound-detail', args=[str(obj.pk)]))
+            self.add_error('cas_number', 'Object already exists')
+            return cleaned_data
+            # raise ValidationError('Object already exists')
         except ObjectDoesNotExist:
             return cleaned_data
 
 
 
 class CompoundUpdateForm(forms.ModelForm):
-    # In instantiated Django forms, fields are kept in a dict-like object. Which means, instead of writing forms in a
-    #  way that duplicates the model, a better way is to explicitly modify only what we want to modify:
+
+    # https: // docs.djangoproject.com / en / 2.0 / topics / forms / modelforms /  # providing-initial-values
+
 
     class Meta:
         model = Compound

@@ -76,7 +76,6 @@ class Compound(SupplierMixin, models.Model):
     #     super(Person, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        self.full_clean()
         if not self.smiles:
             cas_no = self.cas_number
             cirpy_query = cirpy.query(str(cas_no), 'smiles')

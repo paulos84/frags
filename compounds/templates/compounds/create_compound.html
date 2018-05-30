@@ -58,13 +58,15 @@
         },
         dataType: 'json',
         success: function (data) {
-            if (data.existing_object_pk == "true")
+            if (data.error == 'No compound found for this CAS number')
             {
-               alert(data.existing_object_pk);
+               alert(data.error);
+               console.log(data.error);
             }
-            if (data.error == "true")
+            if (data.object_exists)
             {
-                alert(data.error);
+               alert(data.object_exists);
+               console.log(data.object_exists);
             }
             else
             {
@@ -76,3 +78,5 @@
     });
   </script>
 {% endblock %}
+
+ <!--$('#add_model').modal('hide');-->

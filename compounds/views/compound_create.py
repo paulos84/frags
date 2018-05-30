@@ -37,7 +37,7 @@ def process_cas(request):
         obj = Compound.objects.get(
             Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
         )
-        data['existing_object_pk'] = obj.pk
+        data['object_exists'] = obj.pk
         return JsonResponse(data)
     except ObjectDoesNotExist:
         pass

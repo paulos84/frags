@@ -31,7 +31,6 @@ class CompoundCreateView(CreateView):
 
 def process_cas(request):
     cas_no = request.GET.get('cas_number')
-    print('foo')
     data = {}
     try:
         obj = Compound.objects.get(
@@ -45,20 +44,10 @@ def process_cas(request):
         smiles = cirpy.query(cas_no, 'smiles')[0].value
         cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
         if smiles and cid_no:
+            data['smiles'] = smiles
             data['iupac_name'] = cirpy.Molecule(smiles).iupac_name
             data['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
+            data['hidden_cid'] = cid_no
     except IndexError:
         data['error'] = 'No compound found for this CAS number'
     return JsonResponse(data)
-
-
-#ModelForm.save for cleaning form data, Model.save for cleaning object attributes.
-
-# These views inherit SingleObjectTemplateResponseMixin which uses template_name_suffix to construct the template_name based on the model.
-#
-# In this example:
-#
-#     CreateView and UpdateView use myapp/author_form.html
-#     DeleteView uses myapp/author_confirm_delete.html
-#
-# If you wish to have separate templates for CreateView and UpdateView, you can set either template_name or template_name_suffix on your v

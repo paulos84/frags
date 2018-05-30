@@ -1,33 +1,24 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 from compounds.models.compound import Compound
 
 
 class CompoundCreateForm(forms.ModelForm):
-    # In instantiated Django forms, fields are kept in a dict-like object. Which means, instead of writing forms in a
-    #  way that duplicates the model, a better way is to explicitly modify only what we want to modify:
-
-    # send data e.g. main cas number, iupac_name to front-end data model, so that if matches entered...can link to detail view etc.
-    # check additional cas_numbers in the clean method...redirect with message if exists
+    smiles = forms.CharField(widget=forms.HiddenInput())
+    iupac_name = forms.CharField(widget=forms.HiddenInput())
+    cid_number = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'hidden_cid'}))
 
     class Meta:
         model = Compound
         fields = ['cas_number', 'odor_description', 'odor_category', 'trade_name', 'supplier']
         widgets = {
-            'odor_description': forms.Textarea(attrs={
-                                                    'rows': 5, 'cols': 52, }),
-            'cas_number': forms.TextInput(attrs={
-                                                'style': 'border-color: green;',
-                                                'placeholder': 'Enter CAS number to lookup compound',
-                                                'size': 50,
-                                                }),
-            'odor_category': forms.SelectMultiple(attrs={'size':'8'}),
-            'trade_name': forms.TextInput(attrs={
-                                                'size': 40, }),
+            'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
+            'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 50,
+                                                 'placeholder': 'Enter CAS number to lookup compound', }),
+            'odor_category': forms.SelectMultiple(attrs={'size': '8', }),
+            'trade_name': forms.TextInput(attrs={'size': 40, }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -35,19 +26,24 @@ class CompoundCreateForm(forms.ModelForm):
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
 
-    def clean(self):
-        cleaned_data = super(CompoundCreateForm, self).clean()
+    def clean_cas_number(self):
+        cas_no = self.cleaned_data.get('cas_number')
         try:
-            obj = Compound.objects.get(
-                Q(cas_number__exact=cleaned_data['cas_number']) | Q(additional_cas__contains=cleaned_data['cas_number'])
+            Compound.objects.get(
+                Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
             )
-            # return HttpResponseRedirect(reverse('compound-detail', args=[str(obj.pk)]))
-            self.add_error('cas_number', 'Object already exists')
-            return cleaned_data
-            # raise ValidationError('Object already exists')
+            raise ValidationError('Compound already exists in database')
         except ObjectDoesNotExist:
-            return cleaned_data
+            return cas_no
 
+    def save(self, commit=True):
+        obj = super(CompoundCreateForm, self).save(commit=False)
+        obj.iupac_name = self.cleaned_data['iupac_name']
+        obj.smiles = self.cleaned_data['smiles']
+        obj.cid_number = self.cleaned_data['cid_number']
+        if commit:
+            obj.save()
+        return obj
 
 
 class CompoundUpdateForm(forms.ModelForm):

@@ -14,7 +14,7 @@
     <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
-        {% for field in form %}
+        {% for field in form.visible_fields %}
         <tr><th>
           {{ field.label_tag }}
           {% if field.field.required %}
@@ -25,6 +25,9 @@
         {{ field }}
         {{ field.errors }}
         </td></tr>
+      {% endfor %}
+      {% for field in form.hidden_fields %}
+          {{ field }}
       {% endfor %}
       </table>
       <!--<div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>-->
@@ -72,6 +75,9 @@
             {
                 $("#iupac_name").val(data.iupac_name);
                 $("#compound_structure").attr('src',data.structure_url);
+                $("#id_iupac_name").val(data.iupac_name);
+                $("#id_smiles").val(data.smiles);
+                $("#hidden_cid").val(data.hidden_cid);
             }
         }
       });

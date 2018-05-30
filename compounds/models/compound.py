@@ -38,7 +38,6 @@ class Compound(SupplierMixin, models.Model):
         blank=True,
     )
     cid_number = models.IntegerField(
-        blank=True, null=True,
         verbose_name='PubChem API CID number',
         editable=False,
     )
@@ -68,23 +67,16 @@ class Compound(SupplierMixin, models.Model):
     @property
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
-    #
-    # def clean(self, *args, **kwargs):
-    #     if regex not matcn etc...
-    #     if self.favorite_food == 'bacon':
-    #         raise ValidationError('Bacon is not good for you!')
-    #     super(Person, self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        if not self.smiles:
-            cas_no = self.cas_number
-            cirpy_query = cirpy.query(str(cas_no), 'smiles')
+        if not all([self.smiles, self.iupac_name]):
+            raise ValidationError('Someting went wrong_1')
+        if not self.cid_number:
             try:
-                self.smiles = cirpy_query[0].value
                 self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
+                # except (IndexError, ):
             except (IndexError, pcp.BadRequestError):
-                raise ValidationError('No compound found for this CAS number')
-            self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
+                raise ValidationError('Someting went wrong 2')
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):

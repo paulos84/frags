@@ -1,5 +1,6 @@
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
+from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 import cirpy
@@ -22,7 +23,8 @@ def process_cas(request):
         obj = Compound.objects.get(
             Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
         )
-        data['object_exists'] = obj.pk
+        data['object_exists'] = obj.get_absolute_url()
+        data['object_exists_name'] = obj.iupac_name
         return JsonResponse(data)
     except ObjectDoesNotExist:
         pass

@@ -42,8 +42,12 @@
   </div>
     <div class="col-sm-5 ">
         <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
-    <div id="compound_exists" style=" display: none; visibility: hidden;  position:absolute; left:0px; top:0px; width:300px; height:200px;">
-        
+    <div id="object_exists" style=" display: none; position:absolute; left:13px; top:50px; width:300px; height:200px;">
+      <h5>Compound exists in database: </h5>
+        <ul class="sidebar-nav">
+          <!--<li><a href="">Home</a></li>-->
+          <li><a href="{% url 'index' %}">Compounds index</a></li>
+      </ul>
     </div>
     <div style="text-align:left">
         <img id="compound_structure" src="" border="1">
@@ -56,7 +60,6 @@
   <script>
       $("#id_cas_number").change(function () {
       var cas_number = $(this).val();
-
       $.ajax({
         url: '{% url "process_cas" %}',
         data: {
@@ -71,6 +74,9 @@
             }
             if (data.object_exists)
             {
+               $("#object_exists").show();
+               $("#object_exists a").attr("href",data.object_exists);
+               $("#object_exists a").text(data.object_exists_name);
                alert(data.object_exists);
                console.log(data.object_exists);
             }

@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import Q
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 
 
 class CompoundCreateForm(forms.ModelForm):

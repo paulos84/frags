@@ -5,7 +5,7 @@ from django.db.models import Q
 import cirpy
 import pubchempy as pcp
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 from compounds.forms.compound_forms import CompoundCreateForm
 
 

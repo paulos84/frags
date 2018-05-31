@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 from compounds.forms.compound_forms import CompoundUpdateForm
 
 

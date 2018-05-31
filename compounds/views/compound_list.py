@@ -1,6 +1,6 @@
 from django.views import generic
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 
 
 class BaseCompoundListView(generic.ListView):

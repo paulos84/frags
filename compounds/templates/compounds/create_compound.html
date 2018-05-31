@@ -30,8 +30,8 @@
           {{ field }}
       {% endfor %}
       </table>
-      <!--<div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>-->
-      <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+      <div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
+      <script src='https://www.google.com/recaptcha/api.js'></script>
      <button type="submit" class="btn-submit">Submit</button>
     </form>
      <ul class="errorlist">
@@ -40,11 +40,14 @@
     {% endfor %}
 </ul>
   </div>
-  <div class="col-sm-5 ">
-      <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
-      <div style="text-align:left">
+    <div class="col-sm-5 ">
+        <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
+    <div id="compound_exists" style=" display: none; visibility: hidden;  position:absolute; left:0px; top:0px; width:300px; height:200px;">
+        
+    </div>
+    <div style="text-align:left">
         <img id="compound_structure" src="" border="1">
-      </div>
+    </div>
   </div>
 {% endblock %}
 {% block js %}

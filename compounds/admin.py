@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 from compounds.models.odor_type import OdorType
 
 

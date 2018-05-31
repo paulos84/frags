@@ -1,5 +1,5 @@
 from django.test import TestCase
-from compounds.models.compound import Compound
+from compounds.models import Compound
 
 
 class CompoundModelTestCase(TestCase):

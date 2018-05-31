@@ -3,13 +3,11 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
-import cirpy
 import pubchempy as pcp
 
-from compounds.models.managers.compound import CompoundManager
+from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
-from compounds.models.mixins.supplier import SupplierMixin
-from compounds.models.mixins.ajaxable_response import AjaxableResponseMixin
+from compounds.models.mixins import SupplierMixin
 
 
 class Compound(SupplierMixin, models.Model):

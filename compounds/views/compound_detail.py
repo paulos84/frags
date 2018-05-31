@@ -1,7 +1,7 @@
 from django.views import generic
 import pubchempy as pcp
 
-from compounds.models.compound import Compound
+from compounds.models import Compound
 
 
 class CompoundDetailView(generic.DetailView):

@@ -14,6 +14,8 @@ class CompoundUpdateView(UpdateView):
     form_class = CompoundUpdateForm
     template_name = 'compounds/update_compound.html'
 
+    def get_object(self):
+        return Compound.objects.get(pk=self.kwargs['pk'])
 
 
 

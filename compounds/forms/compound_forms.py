@@ -54,6 +54,12 @@ class CompoundUpdateForm(forms.ModelForm):
     class Meta:
         model = Compound
         fields = ['odor_description', 'odor_category', 'supplier', 'trade_name']
+        initial = {'odor_description': 'foo', 'trade_name': 'bar' }
+        widgets = {
+            'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
+            'odor_category': forms.SelectMultiple(attrs={'size': '8', }),
+            'trade_name': forms.TextInput(attrs={'size': 40, }),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CompoundUpdateForm, self).__init__(*args, **kwargs)
@@ -62,6 +68,8 @@ class CompoundUpdateForm(forms.ModelForm):
         self.fields['odor_category'].required = True
         # self.fields['name'].widget.attrs.update({'class': 'special'})
         # self.fields['comment'].widget.attrs.update(size='40')
+
+
 
 
 

@@ -9,6 +9,7 @@
 {% endblock %}
 {% block content %}
   <div class="col-sm-5 ">
+    <h4 style="line-height: 35px;">Add new fragrance compound</h4>
     <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
@@ -32,15 +33,15 @@
       <script src='https://www.google.com/recaptcha/api.js'></script>
      <button type="submit" class="btn-submit">Submit</button>
     </form>
-     <ul class="errorlist">
+    <ul class="errorlist">
     {% for key, value in form.errors.items %}
     <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
     {% endfor %}
-</ul>
+    </ul>
   </div>
-    <div class="col-sm-5 ">
+    <div class="col-sm-5"  style=" position:relative; top:27px;">
         <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
-    <div id="object_exists" style=" display: none; position:absolute; left:13px; top:50px; width:300px; height:200px;">
+    <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
       <h5>Compound exists in database: </h5>
         <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Compounds index</a></li>

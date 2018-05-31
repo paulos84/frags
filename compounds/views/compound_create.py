@@ -1,13 +1,12 @@
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
-from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 import cirpy
 import pubchempy as pcp
 
 from compounds.models import Compound
-from compounds.forms.compound_forms import CompoundCreateForm
+from compounds.forms import CompoundCreateForm
 
 
 class CompoundCreateView(CreateView):

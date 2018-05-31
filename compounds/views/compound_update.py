@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 
 from compounds.models import Compound
-from compounds.forms.compound_forms import CompoundUpdateForm
+from compounds.forms import CompoundUpdateForm
 
 
 # Bottom of page: using AJAX with formviews:

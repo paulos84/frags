@@ -1,8 +1,6 @@
 {% extends "base_generic.html" %}
 {% load static %}
-
 {% block title %}<title>Add Compound</title>{% endblock %}
-
 {% block head %}
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
@@ -45,7 +43,6 @@
     <div id="object_exists" style=" display: none; position:absolute; left:13px; top:50px; width:300px; height:200px;">
       <h5>Compound exists in database: </h5>
         <ul class="sidebar-nav">
-          <!--<li><a href="">Home</a></li>-->
           <li><a href="{% url 'index' %}">Compounds index</a></li>
       </ul>
     </div>
@@ -67,6 +64,7 @@
         },
         dataType: 'json',
         success: function (data) {
+            $("#object_exists").hide();
             if (data.error == 'No compound found for this CAS number')
             {
                alert(data.error);
@@ -93,5 +91,3 @@
     });
   </script>
 {% endblock %}
-
- <!--$('#add_model').modal('hide');-->

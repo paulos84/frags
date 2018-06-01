@@ -1,17 +1,10 @@
 {% extends "base_generic.html" %}
 
-<!-- https://stackoverflow.com/questions/9088870/creating-a-thumbnail-of-an-image-on-an-external-server
-https://gist.github.com/valberg/2429288-->
-
 {% load staticfiles %}
-
 
 {% block content %}
 
-<button id="about-btn" onClick="alert('You clicked the button using Javascript.');">
-       Click Me - I run Javascript
-</button>
-    <h2 class="page-header">Fragrance Compounds</h2>
+  <h4 class="page-header">All fragrance Compounds</h4>
     {% if compound_list %}
     <ul>
       {% for compound in compound_list %}
@@ -23,6 +16,15 @@ https://gist.github.com/valberg/2429288-->
     </ul>
     {% else %}
       <p>No compounds matched this query</p>
-    {% endif %}       
+    {% endif %}
+  <form method="get">
+    {{ compound_filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+  {% for cpd in compound_filter.qs %}
+    <li>{{ cpd.iupac_name }} - {{ cpd.structure_url }}</li>
+  {% endfor %}
+  </ul>
 {% endblock %}
-{
+

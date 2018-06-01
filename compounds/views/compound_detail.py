@@ -10,7 +10,7 @@ class CompoundDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(CompoundDetailView, self).get_context_data(**kwargs)
         cid_no = self.get_object().cid_number
-        context['structure_url'] = 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(cid_no)
+        context['structure_url'] = self.get_object().structure_url
         try:
             context['synonyms'] = ', '.join(pcp.get_compounds(cid_no)[0].synonyms)
             # PARSE OUT EC... from synonyms and FEMA...

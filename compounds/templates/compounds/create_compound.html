@@ -40,14 +40,22 @@
     </ul>
   </div>
     <div class="col-sm-5"  style=" position:relative; top:27px;">
-        <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
+      <input type="button" value="Refresh" onClick="window.location.reload()">
+          <div style=" position:relative; top:9px;">
+      <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
+         </div>
     <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
       <h5>Compound exists in database: </h5>
         <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Compounds index</a></li>
       </ul>
     </div>
-    <div style="text-align:left">
+    <div id="not_found" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
+        <ul class="sidebar-nav">
+          <li><h5>No compound found for this CAS number</h5></li>
+      </ul>
+    </div>
+    <div style="text-align:left; position:relative; top:7px;">
         <img id="compound_structure" src="" border="1">
     </div>
   </div>
@@ -66,9 +74,10 @@
         dataType: 'json',
         success: function (data) {
             $("#object_exists").hide();
+            $("#not_found").hide();
             if (data.error == 'No compound found for this CAS number')
             {
-               alert(data.error);
+               $("#not_found").show();
                console.log(data.error);
             }
             if (data.object_exists)
@@ -76,7 +85,6 @@
                $("#object_exists").show();
                $("#object_exists a").attr("href",data.object_exists);
                $("#object_exists a").text(data.object_exists_name);
-               alert(data.object_exists);
                console.log(data.object_exists);
             }
             else

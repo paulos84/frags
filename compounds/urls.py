@@ -4,10 +4,12 @@ from django.conf.urls.static import static
 
 from compounds.views import CompoundListView, CompoundCreateView, CompoundDetailView, CompoundUpdateView
 from compounds.views.compound_create import process_cas
+from compounds.views.compound_list import PhenolListView
 
 
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
+    re_path(r'^phenols/$', PhenolListView.as_view(), name='phenols'),
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
     re_path(r'^compound/update/(?P<pk>\d+)$', CompoundUpdateView.as_view(), name='compound-update'),

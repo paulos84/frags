@@ -16,7 +16,7 @@ class CompoundCreateForm(forms.ModelForm):
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
             'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 50,
-                                                 'placeholder': 'Enter CAS number to lookup compound', }),
+                                                 'placeholder': 'e.g. 58-08-2', }),
             'odor_category': forms.SelectMultiple(attrs={'size': '8', }),
             'trade_name': forms.TextInput(attrs={'size': 40, }),
         }
@@ -48,9 +48,6 @@ class CompoundCreateForm(forms.ModelForm):
 
 class CompoundUpdateForm(forms.ModelForm):
 
-    # https: // docs.djangoproject.com / en / 2.0 / topics / forms / modelforms /  # providing-initial-values
-
-
     class Meta:
         model = Compound
         fields = ['odor_description', 'odor_category', 'supplier', 'trade_name']
@@ -66,60 +63,3 @@ class CompoundUpdateForm(forms.ModelForm):
         self.fields['odor_description'].widget = forms.Textarea(attrs=None)
         self.fields['odor_description'].required = True
         self.fields['odor_category'].required = True
-        # self.fields['name'].widget.attrs.update({'class': 'special'})
-        # self.fields['comment'].widget.attrs.update(size='40')
-
-
-
-
-
-#sharegp = forms.ModelChoiceField(label='Share with groups', queryset=usergroups)
-
-    # def clean_zip_code(self):
-    #     return self.cleaned_data['zip_code'].upper()
-
-    # def clean_account_type(self):
-    #     account_type = self.cleaned_data["account_type"]
-    #     if account_type == "select":
-    #         raise forms.ValidationError("Select account type.")
-    #     return account_type
-    """
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        cc_myself = cleaned_data.get("cc_myself")
-        subject = cleaned_data.get("subject")
-
-        if cc_myself and subject and "help" not in subject:
-            msg = "Must put 'help' in subject when cc'ing yourself."
-            self.add_error('cc_myself', msg)
-            self.add_error('subject', msg)
-
-Field for form use a difference library to create a from. You need to import django.forms and use form.XXX for specific Field
-
-from django import forms
-
-
-class StudentForm(ModelForm):
-    class Meta:
-        model = Student
-
-    subject = forms.CharField(label='New label')
-
-In order to customize field in model form, you don't need to create it manually. Django model fields have special attributes:
-
-    verbose_name (goes to label of the field)
-    help_text (by default rendered as additional description below the field)
-
-So, all you need is:
-
-class Student(models.Model):
-    name = models.CharField(max_length=40,
-                            verbose_name="Student's Name",
-                            help_text="Please tell me your name")  # Optional
-    last_name = models.CharFIeld(max_length=40)
-    ...
-
-Then you don't need to do any customization in model form.
-    """

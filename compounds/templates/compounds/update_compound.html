@@ -10,7 +10,7 @@
 
 {% block content %}
   <div class="col-sm-5 ">
-    <h4 style="line-height: 35px;">Add new fragrance compound</h4>
+    <h4 style="line-height: 35px;">Update fragrance compound</h4>
     <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       <table border="1">
@@ -40,16 +40,13 @@
     {% endfor %}
     </ul>
   </div>
-    <div class="col-sm-5"  style=" position:relative; top:27px;">
-        <p>IUPAC name: <input type='text' name='text' id='iupac_name' size="80" ></p>
-    <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
-      <h5>Compound exists in database: </h5>
-        <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Compounds index</a></li>
-      </ul>
-    </div>
     <div style="text-align:left">
-        <img id="compound_structure" src="" border="1">
-    </div>
+        <div>
+          {{ compound.iupac_name }}
+          </div>
+        <div>
+          {{ compound.structure_url }}
+          <img id="compound_structure" src="" border="1">
+      </div>
   </div>
 {% endblock %}

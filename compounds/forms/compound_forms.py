@@ -12,19 +12,19 @@ class CompoundCreateForm(forms.ModelForm):
 
     class Meta:
         model = Compound
-        fields = ['cas_number', 'odor_description', 'odor_category', 'trade_name', 'supplier']
+        fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', 'supplier']
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
             'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 50,
                                                  'placeholder': 'e.g. 58-08-2', }),
-            'odor_category': forms.SelectMultiple(attrs={'size': '8', }),
+            'odor_categories': forms.SelectMultiple(attrs={'size': '8', }),
             'trade_name': forms.TextInput(attrs={'size': 40, }),
         }
 
     def __init__(self, *args, **kwargs):
         super(CompoundCreateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].required = True
-        self.fields['odor_category'].required = True
+        self.fields['odor_categories'].required = True
 
     def clean_cas_number(self):
         cas_no = self.cleaned_data.get('cas_number')
@@ -50,11 +50,11 @@ class CompoundUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Compound
-        fields = ['odor_description', 'odor_category', 'supplier', 'trade_name']
+        fields = ['odor_description', 'odor_categories', 'supplier', 'trade_name']
         initial = {'odor_description': 'foo', 'trade_name': 'bar' }
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
-            'odor_category': forms.SelectMultiple(attrs={'size': '8', }),
+            'odor_categories': forms.SelectMultiple(attrs={'size': '8', }),
             'trade_name': forms.TextInput(attrs={'size': 40, }),
         }
 
@@ -62,4 +62,4 @@ class CompoundUpdateForm(forms.ModelForm):
         super(CompoundUpdateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].widget = forms.Textarea(attrs=None)
         self.fields['odor_description'].required = True
-        self.fields['odor_category'].required = True
+        self.fields['odor_categories'].required = True

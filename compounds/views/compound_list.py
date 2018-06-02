@@ -38,4 +38,4 @@ class CompoundListView(BaseCompoundListView):
 class PhenolListView(BaseCompoundListView):
     queryset = Compound.objects.all_phenols().order_by('-trade_name', 'iupac_name')
     paginate_by = 40
-    template_name = 'compounds/phenol_list.html'
+    template_name = 'compounds/phenol_list2.html'

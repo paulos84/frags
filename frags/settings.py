@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compounds.apps.MoleculesConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

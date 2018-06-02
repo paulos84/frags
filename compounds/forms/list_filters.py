@@ -1,13 +1,21 @@
 from django.forms import forms
 import django_filters
 
-from compounds.models import Compound
+from compounds.models import Compound, OdorType
 
 
 class CompoundFilter(django_filters.FilterSet):
-    iupac_name = django_filters.CharFilter(lookup_expr='icontains')
-    trade_name = django_filters.CharFilter(lookup_expr='iexact')
+    iupac_name = django_filters.CharFilter(
+        lookup_expr='icontains', label='IUPAC name contains', )
+    trade_name = django_filters.CharFilter(
+        lookup_expr='iexact', )
+    odor_categories = django_filters.ModelMultipleChoiceFilter(
+        queryset=OdorType.objects.all(), label='Scent categories', )
+    odor_description = django_filters.CharFilter(
+        lookup_expr='icontains', label='Scent keywords', )
 
     class Meta:
         model = Compound
-        fields = ['cas_number', 'iupac_name', 'trade_name']
+        fields = [
+            'iupac_name', 'trade_name', 'odor_categories', 'odor_description',
+        ]

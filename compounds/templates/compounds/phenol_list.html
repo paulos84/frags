@@ -22,14 +22,21 @@
     <div class="col-sm-4">
         <div style=" position:relative; top:12px;">
             <form method="get">
-                {{ compound_filter.form.as_p }}
-                <button type="submit">Search</button>
+                <table>
+                    {{ compound_filter.form }}
+                </table>
+                      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
             </form>
             <ul>
-            {% for cpd in compound_filter.qs %}
-                <li>{{ cpd.cas_number }} - {{ cpd.iupac_name }}</li>
+            {% for compound in compound_filter.qs %}
+                <table>
+                    <li><a href="{{ compound.get_absolute_url }}">{{ compound }}</a></li>
+                </table>
             {% endfor %}
             </ul>
+
         </div>
     </div>
 {% endblock %}

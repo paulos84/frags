@@ -1,41 +1,57 @@
 from django.views import generic
-from django.http import Http404
+from django.shortcuts import get_object_or_404
 
-from compounds.models import Compound
+from compounds.models import Compound, OdorType
 from compounds.forms import CompoundFilter
 
 
 class BaseCompoundListView(generic.ListView):
     queryset = Compound.objects.all().order_by('-trade_name', 'iupac_name')
-    paginate_by = 20
-    
-    def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
-        allow_empty = self.get_allow_empty()
+    paginate_by = 25
 
-        if not allow_empty:
-            # When pagination is enabled and object_list is a queryset,
-            # it's better to do a cheap query than to load the unpaginated
-            # queryset in memory.
-            if self.get_paginate_by(self.object_list) is not None and hasattr(self.object_list, 'exists'):
-                is_empty = not self.object_list.exists()
-            else:
-                is_empty = len(self.object_list) == 0
-            if is_empty:
-                raise Http404(_("Empty list and '%(class_name)s.allow_empty' is False.") % {
-                    'class_name': self.__class__.__name__,
-                })
-        context = self.get_context_data()
-        compound_filter = CompoundFilter(request.GET, queryset=self.object_list)
+    def get_context_data(self, **kwargs):
+        context = super(BaseCompoundListView, self).get_context_data(**kwargs)
+        context['odor_types'] = OdorType.objects.values('term')
+        compound_filter = CompoundFilter(self.request.GET, queryset=self.object_list)
         context['compound_filter'] = compound_filter
-        return self.render_to_response(context)
+        return context
+
+
+# ToDo: Move the above compound_filter to a mixin so dont have to use in e.g. all compound list view
 
 
 class CompoundListView(BaseCompoundListView):
     pass
 
 
+class OdorTypeCompoundListView(BaseCompoundListView):
+    paginate_by = 25
+    template_name = 'compounds/odor_compound_list.html'
+
+    def get_queryset(self):
+        self.odor_type = get_object_or_404(OdorType, term=self.kwargs['odor'])
+        return Compound.objects.filter(odor_categories=self.odor_type)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['odor_type'] = self.odor_type
+        return context
+
+
+# Filter by custom model manager (e.g. phenolic, --- do aliphatic, aromatic, heterocyclic etc. as in book
+
 class PhenolListView(BaseCompoundListView):
     queryset = Compound.objects.all_phenols().order_by('-trade_name', 'iupac_name')
     paginate_by = 40
     template_name = 'compounds/phenol_list2.html'
+
+
+class PhenolListView(BaseCompoundListView):
+    queryset = Compound.objects.all_phenols().order_by('-trade_name', 'iupac_name')
+    paginate_by = 40
+    template_name = 'compounds/phenol_list2.html'
+
+
+
+
+

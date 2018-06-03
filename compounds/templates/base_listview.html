@@ -28,6 +28,9 @@
           <li><a href="">Advanced search - listview with django-filter</a></li>
         <div style=" position:relative; top:19px;">
           <h5>Scent Categories</h5>
+          {% for obj in odor_types %}
+          <a href="{% url 'odor-type-list' obj.term %}">{{ obj.term }}</a>
+      {% endfor %}
         </div>
         </div>
         </div>
@@ -57,7 +60,7 @@
       </div>
     </div>
     <footer>
-        <div style=" position:relative; left:13px; top:9px;">
+        <div style=" position:absolute; left:13px; bottom:9px;">
             <p data-size="10">Created by Paul Davis on behalf of <a href="http://www.metaclass.io/">Metaclass Software Ltd.</a></p>
         </div>
     </footer>

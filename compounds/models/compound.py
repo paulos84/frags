@@ -4,6 +4,7 @@ from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
 import pubchempy as pcp
+from rdkit import Chem
 
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
@@ -53,11 +54,17 @@ class Compound(SupplierMixin, models.Model):
     class Meta:
         pass
 
+    @property
+    def functional_groups(self):
+        fg_dict = {'carbonyl': 'C=O'}
+        smarts = {k: Chem.MolFromSmarts(v) for k, v in fg_dict.items()}
+        mol = Chem.MolFromSmiles(self.smiles)
+        return {k: mol.HasSubstructMatch(v) for k, v in smarts.items()}
+
     @cached_property
     def synonyms(self):
         try:
-            synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms)
-            # synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:8])
+            synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:8])
         except KeyError:
             synonyms = 'n/a'
         return synonyms
@@ -68,12 +75,12 @@ class Compound(SupplierMixin, models.Model):
 
     def save(self, *args, **kwargs):
         if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Someting went wrong_1')
+            raise ValidationError('Something went wrong')
         if not self.cid_number:
             try:
                 self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
             except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Someting went wrong 2')
+                raise ValidationError('Something went wrong')
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):

@@ -12,7 +12,7 @@ class BaseCompoundListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseCompoundListView, self).get_context_data(**kwargs)
-        context['odor_types'] = OdorType.objects.values('term')
+        # context['odor_types'] = '  '.join([a.term for a in )
         compound_filter = CompoundFilter(self.request.GET, queryset=self.object_list)
         context['compound_filter'] = compound_filter
         return context

@@ -4,7 +4,6 @@ from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
 import pubchempy as pcp
-from rdkit import Chem
 
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType

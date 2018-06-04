@@ -9,9 +9,10 @@
         {% if compound_list %}
             <ul>
             {% for compound in compound_list %}
-            <li class="list-unstyled">
-            <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
-            <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+            <li class="list-styled">
+                <h5>{{ compound.odor_categories.all }}</h5>
+                <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
+                <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
             </li>
             {% endfor %}
             </ul>

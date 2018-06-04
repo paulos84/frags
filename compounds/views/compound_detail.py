@@ -19,5 +19,3 @@ class CompoundDetailView(generic.DetailView):
         except KeyError:
             context['synonyms'] = 'n/a'
         return context
-
-    # override get_object  to add the select_related for ...  prefetch_related

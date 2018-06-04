@@ -12,14 +12,17 @@ class BaseCompoundListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseCompoundListView, self).get_context_data(**kwargs)
-        # context['odor_types'] = '  '.join([a.term for a in )
+        context['odor_types'] = OdorType.objects.values('term')
         compound_filter = CompoundFilter(self.request.GET, queryset=self.object_list)
         context['compound_filter'] = compound_filter
         return context
 
 
 class CompoundListView(BaseCompoundListView):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super(CompoundListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'All compounds         button to toggle div id="odor-type-terms"'
+        return context
 
 
 class OdorTypeCompoundListView(BaseCompoundListView):
@@ -32,6 +35,7 @@ class OdorTypeCompoundListView(BaseCompoundListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['page_header'] = self.odor_type
         context['odor_type'] = self.odor_type
         return context
 
@@ -40,18 +44,42 @@ class OdorTypeCompoundListView(BaseCompoundListView):
 class AliphaticCarbonylsListView(BaseCompoundListView):
     queryset = Compound.objects.aliphatic_carbonyls()
 
+    def get_context_data(self, **kwargs):
+        context = super(AliphaticCarbonylsListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'Aliphatic aldehydes, ketones and carboxylic acid derivatives'
+        return context
+
 
 class AliphaticAlcoholsListView(BaseCompoundListView):
     queryset = Compound.objects.aliphatic_alcohols()
+
+    def get_context_data(self, **kwargs):
+        context = super(AliphaticAlcoholsListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'Aliphatic alcohols'
+        return context
 
 
 class AromaticCarbonylsListView(BaseCompoundListView):
     queryset = Compound.objects.aromatic_carbonyls()
 
+    def get_context_data(self, **kwargs):
+        context = super(AromaticCarbonylsListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'Aromatic aldehydes, ketones and esters'
+        return context
 
 class AromaticAlcoholsListView(BaseCompoundListView):
     queryset = Compound.objects.aromatic_alcohols()
 
+    def get_context_data(self, **kwargs):
+        context = super(AromaticAlcoholsListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'Aromatic alcohols'
+        return context
+
 
 class HeteroaromaticsListView(BaseCompoundListView):
     queryset = Compound.objects.heteroaromatics()
+
+    def get_context_data(self, **kwargs):
+        context = super(HeteroaromaticsListView, self).get_context_data(**kwargs)
+        context['page_header'] = 'Heteroaromtic compounds and thiols'
+        return context

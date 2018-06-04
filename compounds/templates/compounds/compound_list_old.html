@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+  <h4 class="page-header">All fragrance Compounds</h4>
+    {% if compound_list %}
+    <ul>
+      {% for compound in compound_list %}
+      <li class="list-unstyled">
+          <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
+        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>No compounds matched this query</p>
+    {% endif %}
+  <form method="get">
+    {{ compound_filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+  {% for cpd in compound_filter.qs %}
+    <li>{{ cpd.iupac_name }} - {{ cpd.structure_url }}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
+

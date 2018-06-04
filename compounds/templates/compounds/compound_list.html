@@ -1,30 +1,58 @@
-{% extends "base_generic.html" %}
+{% extends "base_listview.html" %}
 
 {% load staticfiles %}
 
 {% block content %}
+     <h4 class="page-header">Phenolic compounds</h4>
+    <div class="col-sm-7">
 
-  <h4 class="page-header">All fragrance Compounds</h4>
-    {% if compound_list %}
-    <ul>
-      {% for compound in compound_list %}
-      <li class="list-unstyled">
-          <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
-        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-      <p>No compounds matched this query</p>
-    {% endif %}
-  <form method="get">
-    {{ compound_filter.form.as_p }}
-    <button type="submit">Search</button>
-  </form>
-  <ul>
-  {% for cpd in compound_filter.qs %}
-    <li>{{ cpd.iupac_name }} - {{ cpd.structure_url }}</li>
-  {% endfor %}
-  </ul>
+        {% if compound_list %}
+            <ul>
+            {% for compound in compound_list %}
+            <li class="list-unstyled">
+            <img class="structure-img" src={{ compound.structure_url }} title={{ compound.iupac_name }}  height="100" width="100">
+            <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+            </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+             <p>No compounds matched this query</p>
+        {% endif %}
+    </div>
+
+    <div class="col-sm-3">
+        {% load widget_tweaks %}
+        <form method="get">
+            <div class="well">
+              <div class="row">
+
+                  {{ compound_filter.form.cas_number.label_tag }}
+                  {% render_field compound_filter.form.cas_number class="form-control" %}
+
+                  {{ compound_filter.form.iupac_name.label_tag }}
+                  {% render_field compound_filter.form.iupac_name class="form-control" %}
+
+                  {{ compound_filter.form.trade_name.label_tag }}
+                  {% render_field compound_filter.form.trade_name class="form-control" %}
+
+                  {{ compound_filter.form.odor_description.label_tag }}
+                  {% render_field compound_filter.form.odor_description class="form-control" %}
+
+                  <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>Search</button>
+              </div>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <tbody>
+              {% for compound in compound_filter.qs %}
+                <tr>
+                  <td><a href="{{ compound.get_absolute_url }}">{{ compound }}</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
+
 

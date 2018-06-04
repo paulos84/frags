@@ -54,13 +54,6 @@ class Compound(SupplierMixin, models.Model):
     class Meta:
         pass
 
-    @property
-    def functional_groups(self):
-        fg_dict = {'carbonyl': 'C=O'}
-        smarts = {k: Chem.MolFromSmarts(v) for k, v in fg_dict.items()}
-        mol = Chem.MolFromSmiles(self.smiles)
-        return {k: mol.HasSubstructMatch(v) for k, v in smarts.items()}
-
     @cached_property
     def synonyms(self):
         try:

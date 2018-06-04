@@ -40,6 +40,9 @@
         {% if compound.additional_cas %}
           <p><strong>Alternative CAS no.:</strong>{{ compound.additional_cas }}</p>
         {% endif %}
+        {% if compound.odor_types %}
+          <p><strong>Odor types:</strong>{{ compound.odor_types }}</p>
+        {% endif %}
 </div>
 {% endblock %}
 

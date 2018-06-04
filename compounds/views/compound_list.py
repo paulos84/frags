@@ -7,6 +7,7 @@ from compounds.forms import CompoundFilter
 
 class BaseCompoundListView(generic.ListView):
     queryset = Compound.objects.all().order_by('-trade_name', 'iupac_name')
+    template_name = 'compounds/compound_list.html'
     paginate_by = 25
 
     def get_context_data(self, **kwargs):
@@ -15,9 +16,6 @@ class BaseCompoundListView(generic.ListView):
         compound_filter = CompoundFilter(self.request.GET, queryset=self.object_list)
         context['compound_filter'] = compound_filter
         return context
-
-
-# ToDo: Move the above compound_filter to a mixin so dont have to use in e.g. all compound list view
 
 
 class CompoundListView(BaseCompoundListView):
@@ -37,21 +35,23 @@ class OdorTypeCompoundListView(BaseCompoundListView):
         context['odor_type'] = self.odor_type
         return context
 
+# Use a listviewset for the bolow?
 
-# Filter by custom model manager (e.g. phenolic, --- do aliphatic, aromatic, heterocyclic etc. as in book
-
-class PhenolListView(BaseCompoundListView):
-    queryset = Compound.objects.all_phenols().order_by('-trade_name', 'iupac_name')
-    paginate_by = 40
-    template_name = 'compounds/phenol_list2.html'
+class AliphaticCarbonylsListView(BaseCompoundListView):
+    queryset = Compound.objects.aliphatic_carbonyls()
 
 
-class PhenolListView(BaseCompoundListView):
-    queryset = Compound.objects.all_phenols().order_by('-trade_name', 'iupac_name')
-    paginate_by = 40
-    template_name = 'compounds/phenol_list2.html'
+class AliphaticAlcoholsListView(BaseCompoundListView):
+    queryset = Compound.objects.aliphatic_alcohols()
 
 
+class AromaticCarbonylsListView(BaseCompoundListView):
+    queryset = Compound.objects.aromatic_carbonyls()
 
 
+class AromaticAlcoholsListView(BaseCompoundListView):
+    queryset = Compound.objects.aromatic_alcohols()
 
+
+class HeteroaromaticsListView(BaseCompoundListView):
+    queryset = Compound.objects.heteroaromatics()

@@ -6,7 +6,7 @@ from compounds.forms import CompoundFilter
 
 
 class BaseCompoundListView(generic.ListView):
-    queryset = Compound.objects.all().order_by('-trade_name', 'iupac_name')
+    queryset = Compound.objects.all()
     template_name = 'compounds/compound_list.html'
     paginate_by = 25
 
@@ -21,7 +21,7 @@ class BaseCompoundListView(generic.ListView):
 class CompoundListView(BaseCompoundListView):
     def get_context_data(self, **kwargs):
         context = super(CompoundListView, self).get_context_data(**kwargs)
-        context['page_header'] = 'All compounds         button to toggle div id="odor-type-terms"'
+        context['page_header'] = 'All compounds'
         return context
 
 
@@ -39,7 +39,6 @@ class OdorTypeCompoundListView(BaseCompoundListView):
         context['odor_type'] = self.odor_type
         return context
 
-# Use a listviewset for the bolow?
 
 class AliphaticCarbonylsListView(BaseCompoundListView):
     queryset = Compound.objects.aliphatic_carbonyls()

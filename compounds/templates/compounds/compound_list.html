@@ -7,6 +7,8 @@
         <div align="right">
         <button id="show-odor" class="btn btn-primary" onclick="$('#odor-terms').toggle();" style=" position:relative; ">
             <span class="glyphicon glyphicon-search"></span>Show scent categories</button>
+                    <button id="show-properties" class="btn btn-primary" onclick="$('#odor-terms').toggle();" style=" position:relative; ">
+            <span class="glyphicon glyphicon-search"></span>Show properties</button>
         </div>
         {% if compound_list %}
             <ul>
@@ -22,7 +24,7 @@
                         <div style=" position:relative; left:4px;">
                         <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
                         </div>
-                        <div id="odor-terms" style=" display: none; position:relative; left:8px;  ">
+                        <div id="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
                             <h5>{% for cpd in compound.odor_categories.all %}
                                       {{ cpd.term }} {% endfor %}
                             </h5>

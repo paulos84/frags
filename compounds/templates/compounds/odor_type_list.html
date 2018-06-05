@@ -1,0 +1,29 @@
+{% extends "base_listview.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+            <ul>
+            {% for obj in odor_type_list %}
+            <li>
+                <table>
+                <tr>
+                    <th>
+                        {{ obj.term }}
+                    </th>
+                    <td>
+                       {{ obj.description }}
+                    </td>
+                </tr>
+                </table>
+            </li>
+            {% endfor %}
+            </ul>
+
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+{% endblock %}
+
+

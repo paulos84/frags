@@ -3,7 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from compounds.views import (CompoundListView, CompoundCreateView, CompoundDetailView, CompoundUpdateView,
-                             OdorTypeCompoundListView, )
+                             OdorTypeCompoundListView, OdorTypeListView)
 
 from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *
@@ -11,7 +11,8 @@ from compounds.views.compound_list import *
 
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
-    path('compound/scent/<odor>', OdorTypeCompoundListView.as_view(), name='odor-type-list'),
+    path('compound/odor/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
+    path('compound/odor-types', OdorTypeListView.as_view(), name='odor-type-list'),
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
     re_path(r'^compound/update/(?P<pk>\d+)$', CompoundUpdateView.as_view(), name='compound-update'),

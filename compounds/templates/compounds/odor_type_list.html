@@ -2,25 +2,22 @@
 
 {% load staticfiles %}
 
-{% block content %}
 
+
+{% block content %}
             <ul>
             {% for obj in odor_type_list %}
             <li>
                 <table>
                 <tr>
-                    <th>
-                        {{ obj.term }}
-                    </th>
-                    <td>
-                       {{ obj.description }}
-                    </td>
+                        <h6><a href="{% url 'compound-odor-type-filter' obj.term %}" style="color: grey; ">
+                            {{ obj.term }}</a></h6>
+                        <p>{{ obj.description }}</p>
                 </tr>
                 </table>
             </li>
             {% endfor %}
             </ul>
-
 {% endblock %}
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>

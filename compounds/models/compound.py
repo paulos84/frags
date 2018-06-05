@@ -57,7 +57,7 @@ class Compound(SupplierMixin, models.Model):
     def synonyms(self):
         try:
             synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:8])
-        except KeyError:
+        except IndexError:
             synonyms = 'n/a'
         return synonyms
 

@@ -11,8 +11,8 @@ from compounds.views.compound_list import *
 
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
-    path('compound/odor/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
-    path('compound/odor-types', OdorTypeListView.as_view(), name='odor-type-list'),
+    path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
+    path('scents/description', OdorTypeListView.as_view(), name='odor-type-list'),
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
     re_path(r'^compound/update/(?P<pk>\d+)$', CompoundUpdateView.as_view(), name='compound-update'),

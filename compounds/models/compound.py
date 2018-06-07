@@ -7,6 +7,7 @@ import pubchempy as pcp
 
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
+from compounds.models.occurrence import Occurrence
 from compounds.models.mixins import SupplierMixin
 
 
@@ -14,39 +15,51 @@ class Compound(SupplierMixin, models.Model):
 
     cas_number = models.CharField(
         max_length=20,
-        verbose_name='CAS number',
         unique=True,
+        verbose_name='CAS number',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
     )
     additional_cas = models.CharField(
-        max_length=200, default='',
+        max_length=200,
+        default='',
         verbose_name='Additional registered CAS numbers',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
         blank=True,
     )
     smiles = models.CharField(
-        max_length=100, default='',
+        max_length=100,
+        default='',
         verbose_name='SMILES string',
         editable=False,
     )
     iupac_name = models.CharField(
-        max_length=200, default='',
+        max_length=200,
+        default='',
         verbose_name='IUPAC name',
         editable=False,
+        blank=True,
+    )
+    occurrence = models.ForeignKey(
+        Occurrence,
+        related_name='compounds',
+        verbose_name='Characteristic natural occurrence',
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    odor_categories = models.ManyToManyField(
+        OdorType,
+        related_name='compounds',
+        verbose_name='Odor categories',
+    )
+    odor_description = models.CharField(
+        max_length=500,
+        default='',
+        verbose_name='Odor description',
         blank=True,
     )
     cid_number = models.IntegerField(
         verbose_name='PubChem API CID number',
         editable=False,
-    )
-    odor_description = models.CharField(
-        max_length=500, default='',
-        verbose_name='Odor description',
-        blank=True,
-    )
-    odor_categories = models.ManyToManyField(
-        OdorType, related_name='compounds',
-        verbose_name='Odor categories',
     )
     objects = CompoundManager()
 

@@ -2,8 +2,8 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from compounds.views import (CompoundListView, CompoundCreateView, CompoundDetailView, CompoundUpdateView,
-                             OdorTypeCompoundListView, OdorTypeListView)
+from compounds.views import (CompoundListView, CompoundCreateView, CompoundDetailView, OdorTypeCompoundListView,
+                             OdorTypeListView)
 
 from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *
@@ -15,7 +15,6 @@ urlpatterns = [
     path('scents/description', OdorTypeListView.as_view(), name='odor-type-list'),
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
-    re_path(r'^compound/update/(?P<pk>\d+)$', CompoundUpdateView.as_view(), name='compound-update'),
     path('ajax/process_cas/', process_cas, name='process_cas'),
 ] + [
     re_path(r'^aliphatic-alcohols/$', AliphaticAlcoholsListView.as_view(), name='aliphatic-alcohols'),

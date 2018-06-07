@@ -19,7 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
     'compounds.apps.MoleculesConfig',
+    'api.apps.ApiConfig',
     'widget_tweaks',
 ]
 
@@ -100,3 +103,8 @@ STATICFILES_DIRS = [
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
 
+
+SWAGGER_SETTINGS = {
+    'enabled_methods': [
+        'get',
+        'post',]}

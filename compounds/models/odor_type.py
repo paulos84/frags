@@ -9,7 +9,6 @@ class OdorType(models.Model):
     def __str__(self):
         return self.term
 
-
     def get_absolute_url(self):
         return reverse(
             'compound-odor-type-filter',

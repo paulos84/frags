@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^compounds/', include('compounds.urls')),
+    re_path(r'^api/', include('api.urls')),
     re_path(r'^$', RedirectView.as_view(url='/compounds/', permanent=True)),
 ]
 

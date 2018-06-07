@@ -6,7 +6,6 @@ class OdorTypeModelTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up non-modified objects used by all test methods
         super(OdorTypeModelTestCase, cls).setUpClass()
         cls.odor_type = OdorType.objects.create(
             term='Citrus',

@@ -5,14 +5,12 @@ from .compound_list import (
                             AliphaticAlcoholsListView, AromaticAlcoholsListView, AromaticCarbonylsListView,
                             HeteroaromaticsListView,
                             )
-from .compound_update import CompoundUpdateView
 from .odor_type_list import OdorTypeListView
 
 __all__ = [
     CompoundCreateView,
     CompoundDetailView,
     CompoundListView,
-    CompoundUpdateView,
     AliphaticCarbonylsListView,
     AliphaticAlcoholsListView,
     AromaticAlcoholsListView,

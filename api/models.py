@@ -1,3 +1,6 @@
-from django.db import models
+from compounds.models import Compound, OdorType
 
-# Create your models here.
+__all__ = [
+    Compound,
+    OdorType,
+    ]

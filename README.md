@@ -13,7 +13,11 @@ load fixture data:
     $ python manage.py loaddata odor.yaml
 
 
-A prototype API for serving recent and historical air pollution measurements from sites within an automated monitoring network.
+An application
+ accessing and storing information related to perfumery, flavor and
+ fragrance materials. And assist in perfumery composition and in
+ olfactory aspects consumer product development
+
 
 The API serves data in JSON format and supports basic HTTP methods and CRUD operations. It was built using Flask, Flask-Login, Flask-SQLAlchemy and [Marshmallow](http://marshmallow.readthedocs.io/).
 

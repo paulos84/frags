@@ -30,6 +30,6 @@ class SupplierMixin(models.Model):
         abstract = True
 
     def clean(self):
-        if self.supplier is not None and self.trade_name is None:
+        if self.supplier and not self.trade_name:
             raise ValidationError('Trade name required if a supplier is entered')
         super(SupplierMixin, self).clean()

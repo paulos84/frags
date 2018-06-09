@@ -1,3 +1,4 @@
+from copy import deepcopy
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from unittest.mock import patch
@@ -19,11 +20,12 @@ class CompoundModelTestCase(TestCase):
         cls.cpd_data = {'cas_number': '26252-11-9', 'additional_cas': '1122-33-44, 556-6677-8', 'cid_number': 1234,
                         'smiles': 'CCCCCC(O)C(/C)=C/CC', 'iupac_name': '(e)-4-methyldec-3-en-5-ol', }
         cls.compound = Compound.objects.create(**cls.cpd_data)
-        cls.cpd_data.update({'cas_number': '123-456-78', 'trade_name': 'Undecavertol', 'supplier': 'Giv.'})
-        cls.compound2 = Compound.objects.create(**cls.cpd_data)
+        cpd_data2 = deepcopy(cls.cpd_data)
+        cpd_data2.update({'cas_number': '123-456-78', 'trade_name': 'Undecavertol', 'supplier': 'Giv.'})
+        cls.compound2 = Compound.objects.create(**cpd_data2)
 
     def test_cas_number_regex_validator(self):
-        cpd_data = self.cpd_data
+        cpd_data = deepcopy(self.cpd_data)
         cpd_data.update({'cas_number': '12345678'})
         with self.assertRaises(ValidationError):
             Compound.objects.create(**cpd_data).full_clean()
@@ -52,18 +54,17 @@ class CompoundModelTestCase(TestCase):
     @patch('compounds.models.compound.pcp.get_compounds')
     def test_save_method_generates_cid_number(self, pcp_patch):
         pcp_patch.return_value = [MockPubChemPyObject('synonyms', cid=5678)]
-        self.cpd_data.update({'cid_number': ''})
-        compound = Compound(**self.cpd_data)
-        compound.save()
-        self.assertIn(compound, [a for a in Compound.objects.all()])
-        pcp_patch.assert_called_with(compound.smiles, 'smiles')
-        self.assertEqual(Compound.objects.get(cid_number=5678).cid_number, 5678)
+        data = deepcopy(self.cpd_data)
+        data.update({'cid_number': '', 'cas_number': '123-345-678'})
+        compound = Compound.objects.create(**data)
+        self.assertEqual(compound.cid_number, 5678)
 
     @patch('compounds.models.compound.pcp.get_compounds')
     def test_save_method_handles_no_cid_number_found(self, pcp_patch):
         pcp_patch.side_effect = IndexError
-        self.cpd_data.update({'cid_number': ''})
-        compound = Compound(**self.cpd_data)
+        data = deepcopy(self.cpd_data)
+        data.update({'cid_number': ''})
+        compound = Compound(**data)
         with self.assertRaises(ValidationError):
             compound.save()
 
@@ -71,6 +72,28 @@ class CompoundModelTestCase(TestCase):
         compound = Compound(cas_number='123-456-78')
         with self.assertRaises(ValidationError):
             compound.save()
+
+    def test_supplier_mixin_trade_name_max_length(self):
+        max_length = Compound._meta.get_field('trade_name').max_length
+        self.assertEqual(max_length, 20)
+
+    def test_supplier_mixin_trade_name_verbose_name(self):
+        verbose_name = Compound._meta.get_field('trade_name').verbose_name
+        self.assertEqual(verbose_name, 'Trade name')
+
+    @patch('compounds.models.compound.pcp.get_compounds')
+    def test_supplier_clean_field_method(self, pcp_patch):
+        pcp_patch.return_value = [MockPubChemPyObject('synonyms', cid=5678)]
+        data = self.cpd_data.copy()
+        data.update({'supplier': Compound.supplier_choices[0][0]})
+        compound = Compound(**data)
+        with self.assertRaises(ValidationError):
+            compound.save()
+
+    def test_substructure_matches_for_valid_matching_smiles_string(self):
+        output = Compound.substructure_matches('CCCCCC(O)')
+        self.assertIn(self.compound.id, [a.id for a in output])
+        self.assertIsNone(Compound.substructure_matches('invalid_smiles'))
 
     def test_str_method(self):
         self.assertEqual(str(self.compound), self.compound.iupac_name)

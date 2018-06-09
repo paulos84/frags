@@ -9,8 +9,6 @@ from ruamel.yaml.parser import ParserError
 with open(sys.argv[-1], encoding="utf8") as w:
     text = w.read()
 
-class TextToCompoundFixtures:
-
 matches = re.findall('\[[^\[\]]*\]', text)
 lst = []
 for a in set(matches):

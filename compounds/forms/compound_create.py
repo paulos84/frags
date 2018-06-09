@@ -6,6 +6,9 @@ from compounds.models import Compound
 
 
 class CompoundCreateForm(forms.ModelForm):
+
+    """ Form for creating Compound model instances """
+
     smiles = forms.CharField(widget=forms.HiddenInput())
     iupac_name = forms.CharField(widget=forms.HiddenInput())
     cid_number = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'hidden_cid'}))

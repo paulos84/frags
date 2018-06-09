@@ -4,14 +4,16 @@ from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
 import pubchempy as pcp
+from rdkit import Chem
 
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
 from compounds.models.occurrence import Occurrence
-from compounds.models.mixins import SupplierMixin
 
 
-class Compound(SupplierMixin, models.Model):
+class Compound(models.Model):
+    """ Represents a fragrance compound which can be uniquely identified through its registered CAS number and from
+     which values for setting various attributes can be obtained """
 
     cas_number = models.CharField(
         max_length=20,
@@ -43,6 +45,7 @@ class Compound(SupplierMixin, models.Model):
         Occurrence,
         related_name='compounds',
         verbose_name='Characteristic natural occurrence',
+        blank=True,
         null=True,
         on_delete=models.SET_NULL,
     )
@@ -60,6 +63,30 @@ class Compound(SupplierMixin, models.Model):
     cid_number = models.IntegerField(
         verbose_name='PubChem API CID number',
         editable=False,
+        blank=True,
+    )
+    supplier_choices = (
+        ('BASF', 'BASF AG, Germany'),
+        ('Danisco', 'Danisco A/S, Denmark'),
+        ('Firmenich', 'Firmenich SA, Switzerland'),
+        ('Giv.', 'Givaudan SA, Switzerland'),
+        ('IFF', 'International Flavors & Fragrances, USA'),
+        ('Quest', 'Quest International, UK'),
+        ('Symrise', 'Symrise GmbH & Co KG, Germany'),
+        ('Takasago', 'Takasago Perfumery Co., Japan'),
+        ('Vioryl', 'Vioryl SA, Greece'),
+    )
+    supplier = models.CharField(
+        max_length=25,
+        default='',
+        choices=supplier_choices,
+        blank=True,
+    )
+    trade_name = models.CharField(
+        max_length=20,
+        default='',
+        verbose_name='Trade name',
+        blank=True,
     )
     objects = CompoundManager()
 
@@ -78,7 +105,13 @@ class Compound(SupplierMixin, models.Model):
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
+    def clean_supplier(self):
+        if self.supplier and not self.trade_name:
+            raise ValidationError('Trade name required if a supplier is entered')
+
     def save(self, *args, **kwargs):
+        """ Override method to run validation logic and set the cid_number with a value from a pubchempy API call """
+        self.clean_supplier()
         if not all([self.smiles, self.iupac_name]):
             raise ValidationError('Something went wrong')
         if not self.cid_number:
@@ -98,3 +131,27 @@ class Compound(SupplierMixin, models.Model):
             'compound-detail',
             args=[str(self.pk)],
         )
+
+    @classmethod
+    def substructure_matches(cls, pattern, queryset=None):
+        """ Filters instances by those matching a structural fragment represented by a smiles string
+
+        Args:
+            pattern (str): A string in smiles format which represents a chemical substructure
+            queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None, thereby the
+                method will filter by all model instances
+
+        Returns:
+            A QuerySet if a valid smiles fragment is supplied, otherwise None.
+
+        Example:
+            >>> Compound.substructure_matches('C1=CC=CS1').count()
+            42
+
+        """
+        mol_fragment = Chem.MolFromSmiles(pattern)
+        if hasattr(mol_fragment, 'GetAtoms'):
+            all_smiles = queryset.values('id', 'smiles') if queryset else cls.objects.values('id', 'smiles')
+            matches = [a['id'] for a in all_smiles if
+                       Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]
+            return cls.objects.filter(id__in=matches)

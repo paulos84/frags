@@ -17,8 +17,8 @@ class CompoundCreateForm(forms.ModelForm):
         model = Compound
         fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', 'supplier']
         widgets = {
-            'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 52, }),
-            'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 50,
+            'odor_description': forms.Textarea(attrs={'rows': 5, 'cols': 42, }),
+            'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 44,
                                                  'placeholder': 'e.g. 58-08-2', }),
             'odor_categories': forms.SelectMultiple(attrs={'size': '8', }),
             'trade_name': forms.TextInput(attrs={'size': 40, }),

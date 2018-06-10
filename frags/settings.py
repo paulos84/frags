@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'compounds.apps.MoleculesConfig',
     'api.apps.ApiConfig',
     'widget_tweaks',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'compounds/static/'
+STATIC_ROOT = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -103,6 +104,7 @@ STATICFILES_DIRS = [
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
 
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 SWAGGER_SETTINGS = {
     'enabled_methods': [

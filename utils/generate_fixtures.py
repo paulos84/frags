@@ -4,8 +4,8 @@ A module containing a class which parses CAS numbers from specified text input a
 fixture data in either yaml or json format.
 
 Examples:
-    Run as a script and redirect stdout to obtain .yaml format Django fixture data:
-        $ python generate_fixture.py input.txt > compound_data.yaml
+    Run as a script and redirect stdout to obtain yaml format Django fixture data:
+        $ python generate_fixtures.py input.txt > compound_data.yaml
 
     Instantiate the class and call its methods through the Python interpreter:
         >>> MakeCompoundFixtures('input.txt', 'compound_data.json').get_json()
@@ -25,15 +25,16 @@ from ruamel.yaml.parser import ParserError
 
 class MakeCompoundFixtures:
 
-    """ Filters instances by those matching a structural fragment represented by a smiles string
+    """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
 
     Args:
-        file (str): asdfgfsdgf
-        output (:obj:'str', optional): daafa
+        input_file (str): path to text file containing CAS numbers
+        output_file (:obj:'str', optional): path to write fixture data to
 
     Attributes:
-        file (str): asdfgfsdgf
-        output (:obj:'str', optional): daafa
+        input_file (str): path to text file containing CAS numbers
+        output_file (str): path to write fixture data to
+        cirpy_data (list): dictionary containing compound data obtained through cirpy API query
     """
 
     def __init__(self, input_file, output_file=None):
@@ -67,6 +68,7 @@ class MakeCompoundFixtures:
                             'iupac_name': name.lower(),
                             'cid_number': cid_no,
                         })
+            # may help avoid timeout with pcp.get_compounds
             sleep(5)
 
     def to_json_format(self):

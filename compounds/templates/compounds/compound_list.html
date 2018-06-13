@@ -3,11 +3,13 @@
 {% load staticfiles %}
 
 {% block content %}
-    <div class="col-sm-7">
-        <div align="right">
-        <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();" style=" position:relative; ">
+
+
+<div class="col-sm-7">
+        <div align="right" style=" position:relative; right:106px">
+        <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();" style=" position:relative; border: none; background-color: #bad0ba;">
             <span class="glyphicon glyphicon"></span>Scent categories</button>
-                    <button id="show-uses" class="btn btn-primary" onclick="$('.natural-occurrences').toggle();" style=" position:relative; ">
+                    <button id="show-uses" class="btn btn-primary" onclick="$('.natural-occurrences').toggle();" style=" position:relative; border: none; background-color: #bad0ba; ">
             <span class="glyphicon glyphicon"></span>Natural occurrences</button>
         </div>
         {% if compound_list %}

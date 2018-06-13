@@ -4,9 +4,11 @@ from django.conf.urls import include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', LoginView.as_view(), name='login'),
     re_path(r'^compounds/', include('compounds.urls')),
     re_path(r'^api/', include('api.urls')),
     re_path(r'^$', RedirectView.as_view(url='/compounds/', permanent=True)),

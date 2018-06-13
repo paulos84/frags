@@ -14,6 +14,10 @@ class CompoundCreateView(CreateView):
     form_class = CompoundCreateForm
     template_name = 'compounds/create_compound.html'
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 
 def process_cas(request):
     cas_no = request.GET.get('cas_number')

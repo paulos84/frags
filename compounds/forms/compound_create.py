@@ -25,6 +25,7 @@ class CompoundCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        # self.request = kwargs.pop('request', None)
         super(CompoundCreateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = True
@@ -44,6 +45,8 @@ class CompoundCreateForm(forms.ModelForm):
         obj.iupac_name = self.cleaned_data['iupac_name']
         obj.smiles = self.cleaned_data['smiles']
         obj.cid_number = self.cleaned_data['cid_number']
+        # if self.request:
+        #     obj.created_by = self.request.user
         if commit:
             obj.save()
         return obj

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
@@ -42,6 +43,15 @@ class Compound(models.Model):
         editable=False,
         blank=True,
     )
+    # User has a page where can view their own compounds entry list view
+    created_by = models.ForeignKey(
+        User,
+        related_name='compounds',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
     occurrence = models.ForeignKey(
         Occurrence,
         related_name='compounds',

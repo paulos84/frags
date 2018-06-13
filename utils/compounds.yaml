@@ -1,0 +1,28 @@
+- model: compounds.compound
+  pk: 1
+  fields:
+    cas_number: 90-87-9
+    smiles: COC(OC)C(C)c1ccccc1
+    iupac_name: 1,1-dimethoxypropan-2-ylbenzene
+    cid_number: 62336
+- model: compounds.compound
+  pk: 3
+  fields:
+    cas_number: 65443-14-3
+    smiles: CCCCCC1(C)CCC(C)(C)C1=O
+    iupac_name: 2,2,5-trimethyl-5-pentylcyclopentan-1-one
+    cid_number: 103402
+- model: compounds.compound
+  pk: 4
+  fields:
+    cas_number: 72089-08-8
+    smiles: CC(CO)CCC1CC=C(C)C1(C)C
+    iupac_name: 2-methyl-4-(2,2,3-trimethyl-1-cyclopent-3-enyl)butan-1-ol
+    cid_number: 166220
+- model: compounds.compound
+  pk: 5
+  fields:
+    cas_number: 123-69-3
+    smiles: O=C1CCCCC\C=C/CCCCCCCCO1
+    iupac_name: (8z)-1-oxacycloheptadec-8-en-2-one
+    cid_number: 5365703

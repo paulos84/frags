@@ -14,8 +14,8 @@ from compounds.models.occurrence import Occurrence
 
 
 class Compound(models.Model):
-    """ Represents a fragrance compound which can be uniquely identified through its registered CAS number and from
-     which values for setting various attributes can be obtained """
+    """ Fragrance compound which can be uniquely identified through its registered CAS number and from
+     which API queries can be made to obtain additional data """
 
     cas_number = models.CharField(
         max_length=20,
@@ -121,7 +121,7 @@ class Compound(models.Model):
             raise ValidationError('Trade name required if a supplier is entered')
 
     def save(self, *args, **kwargs):
-        """ Override method to run validation logic and set the cid_number with a value from a pubchempy API call """
+        """ Runs validation logic and sets cid_number """
         self.clean_supplier()
         if not all([self.smiles, self.iupac_name]):
             raise ValidationError('Something went wrong')

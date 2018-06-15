@@ -6,7 +6,7 @@
 
 
 <div class="col-sm-7">
-        <div align="right" style=" position:relative; right:106px">
+        <div align="right" style=" position:relative; right:6px">
         <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();" style=" position:relative; border: none; background-color: #bad0ba;">
             <span class="glyphicon glyphicon"></span>Scent categories</button>
                     <button id="show-uses" class="btn btn-primary" onclick="$('.natural-occurrences').toggle();" style=" position:relative; border: none; background-color: #bad0ba; ">
@@ -67,13 +67,12 @@
                   {{ compound_filter.form.odor_description.label_tag }}
                   {% render_field compound_filter.form.odor_description class="form-control" %}
 
-                  <button type="submit" class="btn btn-primary"
-                          onclick="$('#show-search-results').show();event.preventDefault();">
+                  <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>Search</button>
               </div>
             </div>
         </form>
-        <div id="show-search-results" style="display: none;">
+        <div id="show-search-results" >
         <table class="table table-bordered">
             <tbody>
               {% for compound in compound_filter.qs %}

@@ -19,10 +19,7 @@ class BaseCompoundListView(generic.ListView):
 
 
 class CompoundListView(BaseCompoundListView):
-    def get_context_data(self, **kwargs):
-        context = super(CompoundListView, self).get_context_data(**kwargs)
-        context['page_header'] = 'All compounds'
-        return context
+    pass
 
 
 class OdorTypeCompoundListView(BaseCompoundListView):

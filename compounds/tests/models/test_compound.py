@@ -23,12 +23,13 @@ class CompoundModelTestCase(TestCase):
         cpd_data2 = deepcopy(cls.cpd_data)
         cpd_data2.update({'cas_number': '123-456-78', 'trade_name': 'Undecavertol', 'supplier': 'Giv.'})
         cls.compound2 = Compound.objects.create(**cpd_data2)
-
-    def test_cas_number_regex_validator(self):
-        cpd_data = deepcopy(self.cpd_data)
-        cpd_data.update({'cas_number': '12345678'})
-        with self.assertRaises(ValidationError):
-            Compound.objects.create(**cpd_data).full_clean()
+    #
+    # def test_cas_number_regex_validator(self):
+    #     cpd_data = deepcopy(self.cpd_data)
+    #     cpd_data.update({'cas_number': '12345678'})
+    #     compound = Compound(**cpd_data)
+    #     with self.assertRaises(ValidationError):
+    #         compound.save()
 
     def test_cas_number_max_length(self):
         max_length = self.compound._meta.get_field('cas_number').max_length

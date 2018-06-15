@@ -6,7 +6,17 @@ to auto-complete fields such as the IUPAC name field, as well as displaying
 the chemical structure. If the compound already exists in the database,
 the user is provided with a link to the detail view.
 
+From CAS numbers the SMILES notation string which representing the chemical
+structure is obtained from a request to CIRpy, the Python interface for
+a service which resolves chemical identities.
+The open-source cheminformatics toolkit RDKit is able to decode
+the SMILES string into a class representing a molecule.
 
+The models within the compounds app implement various levels of abstraction
+in representing molecules in order to support different use cases.
+
+
+cirpy api to build smile
 
 load fixture data:
 

@@ -52,6 +52,9 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>Hi</li>
+          {% endif %}
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -67,20 +70,29 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-  <div class="container-fluid">
+   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
       <ul class="sidebar-nav">
         <div style=" position:relative; left:6px; top:9px;">
-          <li><a href="{% url 'index' %}">All compounds</a></li>
-          <li><a href="{% url 'compound-add' %}">Add compounds</a></li>
-        <div style=" position:relative; top:19px;">
-          <li><a href="{% url 'index' %}">All compounds</a></li>
-        <div style=" position:relative; top:19px;">
-          <h5>Placeholder</h5>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Substructure search</a>
+            <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
         </div>
-        </div>
-        </div>
+          <div>
+          {% if not user.is_authenticated %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <p><label for="id_username">Username:</label> <input id="id_username" type="text" name="username" maxlength="30" /></p>
+                <p><label for="id_password">Password:</label> <input type="password" name="password" id="id_password" /></p>
+
+                <input type="submit" value="Log in" />
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+            </form>
+          {% else %}
+              <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
+          {% endif %}
+          </div>
       </ul>
      {% block sidebar %}
      {% endblock %}

@@ -6,12 +6,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
+from compounds.views import signup
+
 urlpatterns = [
+    path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
+    path('register/', signup, name='signup'),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
-    re_path(r'compounds/', include('compounds.urls')),
-    re_path(r'api/', include('api.urls')),
+    path('logout/', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
+    path('compounds/', include('compounds.urls')),
     re_path(r'', RedirectView.as_view(url='/compounds/', permanent=True)),
 ]
 

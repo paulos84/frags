@@ -116,15 +116,15 @@ class Compound(models.Model):
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    def clean_supplier(self):
+    def clean_fields(self, exclude=None):
         if self.supplier and not self.trade_name:
             raise ValidationError('Trade name required if a supplier is entered')
+        if not all([self.smiles, self.iupac_name]):
+            raise ValidationError('Something went wrong')
 
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
-        self.clean_supplier()
-        if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong')
+        self.clean_fields()
         if not self.cid_number:
             try:
                 self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid

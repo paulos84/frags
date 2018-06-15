@@ -16,6 +16,7 @@ urlpatterns = [
     re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
     path('ajax/process_cas/', process_cas, name='process_cas'),
+
 ] + [
     re_path(r'^aliphatic-alcohols/$', AliphaticAlcoholsListView.as_view(), name='aliphatic-alcohols'),
     re_path(r'^aliphatic-carbonyls/$', AliphaticCarbonylsListView.as_view(), name='aliphatic-carbonyls'),

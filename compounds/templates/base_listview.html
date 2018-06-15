@@ -44,12 +44,24 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left">
+      {% if not user.is_authenticated %}
+        <form method="post" action="{% url 'login' %}" class="navbar-form navbar-left">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+            <form >
+                {% csrf_token %}
+                <input class="form-control" id="id_username" type="text" placeholder="Username" name="username" maxlength="30" />
+                <input class="form-control" type="password" name="password" placeholder="Password" id="id_password" />
+                <input type="submit" class="btn btn-default" value="Log in" />
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+            </form>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+      {% else %}
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+          <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
+                </div>
+            </div>
+      {% endif %}
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
         <li class="dropdown">

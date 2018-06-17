@@ -1,14 +1,14 @@
 from django import forms
 
-from compounds.models import CompoundNotes
+from compounds.models import CompoundNotes, Compound, Profile
 
 
 class CompoundNotesForm(forms.ModelForm):
 
     """ Form for users to create a CompoundNote for a given Compound model instance """
 
-    user = forms.ModelChoiceField(widget=forms.HiddenInput())
-    compound = forms.ModelChoiceField(widget=forms.HiddenInput())
+    user = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
+    compound = forms.ModelChoiceField(queryset=Compound.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
         model = CompoundNotes
@@ -23,7 +23,5 @@ class CompoundNotesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user_auth = kwargs.pop('user_auth', None)
         super(CompoundNotesForm, self).__init__(*args, **kwargs)
-        self.fields['user'].required = False
-        self.fields['compound'].required = False
         if not user_auth:
             self.fields['notes'].widget.attrs['placeholder'] = 'Login to access notes'

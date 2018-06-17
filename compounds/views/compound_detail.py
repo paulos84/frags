@@ -24,6 +24,15 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             self.profile_activity(context)
         return context
 
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """
+        initial = super(CompoundDetailView, self).get_initial()
+        initial['compound'] = self.object
+        initial['user'] = self.request.user.profile
+        return initial
+
     def profile_activity(self, context):
         try:
             notes_object = CompoundNotes.objects.get(
@@ -44,8 +53,6 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         self.object = self.get_object() # assign the object to the view
         form = self.get_form()
         if form.is_valid():
-            form.cleaned_data['compound'] = self.object
-            form.cleaned_data['user'] = self.request.user.profile
             return self.form_valid(form)
         else:
             print (form.errors)

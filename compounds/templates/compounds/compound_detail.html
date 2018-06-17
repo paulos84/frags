@@ -1,4 +1,6 @@
 {% extends "base_generic.html" %}
+{% load bootstrap3 %}
+
 {% block title %}
     {% if compound.trade_name %}
     <title>{{ compound.trade_name }}</title>
@@ -29,6 +31,22 @@
             {% for odor in compound.odor.all %}
                {{ odor }}
             {% endfor %}
+        {% endif %}
+        {% if user.is_authenticated %}
+            {% if user_notes %}
+                {{ user_notes }}
+            {% else %}
+                <form method="post" novalidate>
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+                <button type="submit">Submit</button>
+                </form>
+            {% endif %}
+        {% else %}
+                <form method="post" novalidate>
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+                <button type="submit" disabled>Submit</button>
         {% endif %}
         </div>
         <div class="col-sm-5 ">

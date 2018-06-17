@@ -10,12 +10,14 @@ from compounds.models import Compound
 
 
 class Profile(models.Model):
-    """ How to use   https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html  """
+    """ How to use   https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+      - how do the post save signals work"""
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username + '_profile'
 
 
 @receiver(post_save, sender=User)
@@ -36,12 +38,16 @@ class CompoundNotes(models.Model):
     compound = models.ForeignKey(
         Compound,
         on_delete=models.CASCADE,
+        related_name='notes',
     )
     user = models.ForeignKey(
-        User,
+        Profile,
         on_delete=models.CASCADE,
+        related_name='notes',
     )
     # activities = GenericRelation(Activity)
+    def __str__(self):
+        return 'notes: ' + str(self.compound) + '_' + str(self.user)
 
 
 # class Activity(models.Model):

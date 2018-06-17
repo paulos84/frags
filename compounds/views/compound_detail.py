@@ -18,4 +18,6 @@ class CompoundDetailView(generic.DetailView):
             # PARSE OUT EC... from synonyms and FEMA...
         except KeyError:
             context['synonyms'] = 'n/a'
+        if self.request.user.is_authenticated:
+            context['notes'] = 'bar'
         return context

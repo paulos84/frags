@@ -18,6 +18,7 @@ urlpatterns = [
     re_path(r'', RedirectView.as_view(url='/compounds/', permanent=True)),
 ]
 
+
 # Use static() to add url mapping to serve static files during development only
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
@@ -26,3 +27,4 @@ if settings.DEBUG:
     urlpatterns = [
         path(r'debug', include(debug_toolbar.urls)),
     ] + urlpatterns
+

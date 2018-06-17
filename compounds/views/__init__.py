@@ -6,6 +6,7 @@ from .compound_list import (
                             HeteroaromaticsListView,
                             )
 from .odor_type_list import OdorTypeListView
+from .substructure_list import SubstructureListView
 from .user_auth import signup
 
 __all__ = [
@@ -18,5 +19,6 @@ __all__ = [
     AromaticCarbonylsListView,
     HeteroaromaticsListView,
     OdorTypeListView,
+    SubstructureListView,
     signup,
     ]

@@ -112,3 +112,8 @@ SWAGGER_SETTINGS = {
     'enabled_methods': [
         'get',
         'post',]}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+

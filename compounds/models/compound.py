@@ -10,7 +10,6 @@ from rdkit import Chem
 
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
-from compounds.models.occurrence import Occurrence
 
 
 class Compound(models.Model):
@@ -47,15 +46,6 @@ class Compound(models.Model):
     created_by = models.ForeignKey(
         User,
         related_name='compounds',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-    )
-
-    occurrence = models.ForeignKey(
-        Occurrence,
-        related_name='compounds',
-        verbose_name='Characteristic natural occurrence',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,

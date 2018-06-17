@@ -7,10 +7,16 @@
 
 <div class="col-sm-7">
         <div align="right" style=" position:relative; right:6px">
-        <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();" style=" position:relative; border: none; background-color: #bad0ba;">
-            <span class="glyphicon glyphicon"></span>Scent categories</button>
-                    <button id="show-uses" class="btn btn-primary" onclick="$('.natural-occurrences').toggle();" style=" position:relative; border: none; background-color: #bad0ba; ">
-            <span class="glyphicon glyphicon"></span>Natural occurrences</button>
+            <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();"
+                    style=" position:relative; border: none; background-color: #bad0ba;">
+                <span class="glyphicon glyphicon"></span>Scent categories</button>
+            {% if user.is_authenticated %}
+                <button class="btn btn-primary">
+                    <span class="glyphicon glyphicon"></span>Personal notes</button>
+            {% else %}
+                <button style=" position:relative; border: none; background-color: #bad0ba;" class="btn btn-primary" disabled>
+                    <span class="glyphicon glyphicon"></span>Personal notes</button>
+            {% endif %}
         </div>
         {% if compound_list %}
             <ul style="list-style-type: none;">
@@ -34,9 +40,9 @@
                         </div>
                         <div class="natural-occurrences" style=" display: none; position:relative; left:8px; color: grey ">
                             <h5>
-                                {% if compound.occurrence %}
-                                    {{ compound.occurrence }}
-                                {% endif %}
+                                <!--{% if compound.occurrence %}-->
+                                    <!--{{ compound.occurrence }}-->
+                                <!--{% endif %}-->
                             </h5>
                         </div>
                     </td>

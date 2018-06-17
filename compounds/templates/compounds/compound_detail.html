@@ -11,9 +11,9 @@
 {% block content %}
     <div class="col-sm-5 ">
         {% if compound.trade_name %}
-            <h3 class="page-header"> {{ compound.trade_name }}</h3>
+            <h4 class="intro"> {{ compound.trade_name }}</h4>
         {% else %}
-            <h3 class="page-header">{{ compound.iupac_name }}</h3>
+            <h4 class="intro">{{ compound.iupac_name }}</h4>
         {% endif %}
         {% if compound.supplier %}
             <p><strong>Supplier:</strong> {{ compound.get_supplier_display }}</p>
@@ -39,14 +39,15 @@
                 <form method="post" novalidate>
                   {% csrf_token %}
                   {% bootstrap_form form %}
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" >
+                    <span class="glyphicon glyphicon"></span>Submit</button>
                 </form>
             {% endif %}
         {% else %}
                 <form method="post" novalidate>
                   {% csrf_token %}
                   {% bootstrap_form form %}
-                <button type="submit" disabled>Submit</button>
+                    </form>
         {% endif %}
         </div>
         <div class="col-sm-5 ">

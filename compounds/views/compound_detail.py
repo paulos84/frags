@@ -36,14 +36,21 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         kwargs = super(CompoundDetailView, self).get_form_kwargs()
         if self.request.method == 'GET':
             kwargs.update({
-                'user': self.request.user,
+                'user_auth': self.request.user.is_authenticated,
             })
         return kwargs
 
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """
+        initial = super(CompoundDetailView, self).get_initial()
+        initial['user'] = self.request.user.profile
+        initial['compound'] = self.get_object().id
+        return initial
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        form.fields['user'] = self.request.user.profile
-        form.fields['compound'] = self.get_object()
         if form.is_valid():
             return self.form_valid(form)
         else:

@@ -39,11 +39,13 @@ class CompoundNotes(models.Model):
         Compound,
         on_delete=models.CASCADE,
         related_name='notes',
+        blank=True,
     )
     user = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
         related_name='notes',
+        blank=True,
     )
     # activities = GenericRelation(Activity)
     def __str__(self):

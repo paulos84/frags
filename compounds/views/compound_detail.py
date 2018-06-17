@@ -40,22 +40,19 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             })
         return kwargs
 
-    def get_initial(self):
-        """
-        Returns the initial data to use for forms on this view.
-        """
-        initial = super(CompoundDetailView, self).get_initial()
-        initial['user'] = self.request.user.profile
-        initial['compound'] = self.get_object().id
-        return initial
-
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object() # assign the object to the view
         form = self.get_form()
         if form.is_valid():
+            form.cleaned_data['compound'] = self.object
+            form.cleaned_data['user'] = self.request.user.profile
             return self.form_valid(form)
         else:
+            print (form.errors)
             return self.form_invalid(form)
 
     def form_valid(self, form):
+
+
         form.save()
         return super(CompoundDetailView, self).form_valid(form)

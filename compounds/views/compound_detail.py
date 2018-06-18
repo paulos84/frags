@@ -1,7 +1,7 @@
 from django.views import generic
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
-import pubchempy as pcp
+from django.urls import reverse
 
 from compounds.models import Compound, CompoundNotes
 from compounds.forms import CompoundNotesForm
@@ -26,7 +26,7 @@ class CompoundDetailView(FormMixin, generic.DetailView):
 
     def get_initial(self):
         """
-        Returns the initial data to use for forms on this view.
+        Returns the initial data to use in the form
         """
         initial = super(CompoundDetailView, self).get_initial()
         initial['compound'] = self.object
@@ -50,7 +50,7 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         return kwargs
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object() # assign the object to the view
+        self.object = self.get_object()  # assign the object to the view
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
@@ -59,7 +59,8 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-
-
         form.save()
         return super(CompoundDetailView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('compound-detail', kwargs={'pk': self.object.pk})

@@ -49,8 +49,6 @@
 # #     cas_no = self.cleaned_data.get('cas_number')
 # #     try:
 # #         Compound.objects.get(
-# #             Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
-# #         )
 # #         raise ValidationError('Compound already exists in database')
 # #     except ObjectDoesNotExist:
 # #         return cas_no

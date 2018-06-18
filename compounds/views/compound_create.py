@@ -1,7 +1,6 @@
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 import cirpy
 import pubchempy as pcp
 
@@ -23,9 +22,7 @@ def process_cas(request):
     cas_no = request.GET.get('cas_number')
     data = {}
     try:
-        obj = Compound.objects.get(
-            Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
-        )
+        obj = Compound.objects.get(cas_number__exact=cas_no)
         data['object_exists'] = obj.get_absolute_url()
         data['object_exists_name'] = obj.iupac_name
         return JsonResponse(data)

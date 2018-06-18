@@ -1,10 +1,10 @@
 from .compound_create import CompoundCreateView
 from .compound_detail import CompoundDetailView
 from .compound_list import (
-                            CompoundListView, OdorTypeCompoundListView, AliphaticCarbonylsListView,
-                            AliphaticAlcoholsListView, AromaticAlcoholsListView, AromaticCarbonylsListView,
-                            HeteroaromaticsListView,
+                            CompoundListView, OdorTypeCompoundListView,
                             )
+from .filtered_lists import (AliphaticCarbonylsListView, AliphaticAlcoholsListView, AromaticAlcoholsListView,
+                             AromaticCarbonylsListView, HeteroaromaticsListView)
 from .odor_type_list import OdorTypeListView
 from .substructure_list import SubstructureListView
 from .user_auth import signup

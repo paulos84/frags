@@ -8,26 +8,19 @@ from django.utils.functional import cached_property
 import pubchempy as pcp
 from rdkit import Chem
 
+from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models.managers import CompoundManager
 from compounds.models.odor_type import OdorType
 
 
-class Substructure(models.Model):
-    """ Fragranc       obtain additional data """
+class Substructure(ChemDescriptorMixin, models.Model):
+    """ A model representing a molecule fragment common to a number of model instances,
+     allowing them to be grouped according their structure """
 
-    smiles = models.CharField(
-        max_length=100,
-        default='',
-        verbose_name='SMILES string',
-    )
     name = models.CharField(
         max_length=50,
         default='',
         verbose_name='Substructure class name',
-    )
-    cid_number = models.IntegerField(
-        verbose_name='PubChem API CID number',
-        blank=True,
     )
     description = models.CharField(
         max_length=200,
@@ -40,7 +33,7 @@ class Substructure(models.Model):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
     def save(self, *args, **kwargs):
-
+        self.set_cid_number()
         super(Substructure, self).save(*args, **kwargs)
 
     def __str__(self):

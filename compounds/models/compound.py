@@ -8,11 +8,12 @@ from django.utils.functional import cached_property
 import pubchempy as pcp
 from rdkit import Chem
 
+from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models.managers import CompoundManager
-from compounds.models.odor_type import OdorType
+from compounds.models import CompoundNotes, OdorType
 
 
-class Compound(models.Model):
+class Compound(ChemDescriptorMixin, models.Model):
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from
      which API queries can be made to obtain additional data """
 
@@ -21,19 +22,6 @@ class Compound(models.Model):
         unique=True,
         verbose_name='CAS number',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
-    )
-    additional_cas = models.CharField(
-        max_length=200,
-        default='',
-        verbose_name='Additional registered CAS numbers',
-        validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
-        blank=True,
-    )
-    smiles = models.CharField(
-        max_length=100,
-        default='',
-        verbose_name='SMILES string',
-        editable=False,
     )
     iupac_name = models.CharField(
         max_length=200,
@@ -61,11 +49,6 @@ class Compound(models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-    cid_number = models.IntegerField(
-        verbose_name='PubChem API CID number',
-        editable=False,
-        blank=True,
-    )
     supplier_choices = (
         ('BASF', 'BASF AG, Germany'),
         ('Danisco', 'Danisco A/S, Denmark'),
@@ -91,9 +74,6 @@ class Compound(models.Model):
     )
     objects = CompoundManager()
 
-    class Meta:
-        pass
-
     @cached_property
     def synonyms(self):
         try:
@@ -106,20 +86,13 @@ class Compound(models.Model):
     def structure_url(self):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    def clean_fields(self, exclude=None):
+    def save(self, *args, **kwargs):
+        """ Runs validation logic and sets cid_number """
+        self.set_cid_number()
         if self.supplier and not self.trade_name:
             raise ValidationError('Trade name required if a supplier is entered')
         if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong')
-
-    def save(self, *args, **kwargs):
-        """ Runs validation logic and sets cid_number """
-        self.clean_fields()
-        if not self.cid_number:
-            try:
-                self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
-            except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong')
+            raise ValidationError('Something went wrong {}'.format(self.iupac_name))
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):

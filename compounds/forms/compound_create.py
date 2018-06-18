@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.db.models import Q
 
 from compounds.models import Compound
 
@@ -33,9 +32,7 @@ class CompoundCreateForm(forms.ModelForm):
     def clean_cas_number(self):
         cas_no = self.cleaned_data.get('cas_number')
         try:
-            Compound.objects.get(
-                Q(cas_number__exact=cas_no) | Q(additional_cas__contains=cas_no)
-            )
+            Compound.objects.get(cas_number__exact=cas_no)
             raise ValidationError('Compound already exists in database')
         except ObjectDoesNotExist:
             return cas_no

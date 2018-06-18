@@ -23,6 +23,7 @@ class CompoundNotes(models.Model):
         blank=True,
     )
     # activities = GenericRelation(Activity)
+
     def __str__(self):
         return 'notes: ' + str(self.compound) + '_' + str(self.user)
 

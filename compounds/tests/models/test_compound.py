@@ -17,7 +17,7 @@ class CompoundModelTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
         super(CompoundModelTestCase, cls).setUpClass()
-        cls.cpd_data = {'cas_number': '26252-11-9', 'additional_cas': '1122-33-44, 556-6677-8', 'cid_number': 1234,
+        cls.cpd_data = {'cas_number': '26252-11-9', 'cid_number': 1234,
                         'smiles': 'CCCCCC(O)C(/C)=C/CC', 'iupac_name': '(e)-4-methyldec-3-en-5-ol', }
         cls.compound = Compound.objects.create(**cls.cpd_data)
         cpd_data2 = deepcopy(cls.cpd_data)

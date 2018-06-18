@@ -20,6 +20,7 @@
           <option value="compounds.views.compound_create.CompoundCreateView.request" />
           <option value="compounds.views.compound_detail.CompoundDetailView.*" />
           <option value="compounds.models.profile.CompoundNotes.*" />
+          <option value="compounds.models.activity.CompoundNotes.*" />
         </list>
       </option>
     </inspection_tool>

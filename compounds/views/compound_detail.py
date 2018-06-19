@@ -34,6 +34,9 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         return initial
 
     def profile_activity(self, context):
+        """
+        Adds to the context dictionary any compound notes by a user
+        """
         try:
             notes_object = CompoundNotes.objects.get(
                 user=self.request.user.profile, compound=self.get_object())

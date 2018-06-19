@@ -4,6 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 
 from compounds.models import Compound, Profile
+from .managers.activity import ActivityManager
 
 
 class CompoundNotes(models.Model):
@@ -23,6 +24,8 @@ class CompoundNotes(models.Model):
         blank=True,
     )
     # activities = GenericRelation(Activity)
+
+    # objects = ActivityManager()
 
     def __str__(self):
         return 'notes: ' + str(self.compound) + '_' + str(self.user)

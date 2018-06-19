@@ -3,7 +3,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from compounds.views import (CompoundListView, CompoundCreateView, CompoundDetailView, OdorTypeCompoundListView,
-                             OdorTypeListView, SubstructureListView)
+                             OdorTypeListView, SubstructureListView, AliphaticAlcoholsListView, HeteroaromaticsListView,
+                             AromaticAlcoholsListView, AromaticCarbonylsListView, AliphaticCarbonylsListView,
+                             )
 
 from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *

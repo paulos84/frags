@@ -2,8 +2,6 @@ from django.db import models
 from django.db.models import Q
 from rdkit import Chem
 
-#TODO: chemdraw substrucutre searching http://www.rdkit.org/Python_Docs/rdkit.Chem.rdchem.Mol-class.html
-
 
 class CompoundQuerySet(models.QuerySet):
 

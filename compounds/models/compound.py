@@ -10,7 +10,6 @@ from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models.managers import CompoundManager
-from compounds.models import CompoundNotes, OdorType
 
 
 class Compound(ChemDescriptorMixin, models.Model):
@@ -39,7 +38,7 @@ class Compound(ChemDescriptorMixin, models.Model):
         on_delete=models.SET_NULL,
     )
     odor_categories = models.ManyToManyField(
-        OdorType,
+        'compounds.OdorType',
         related_name='compounds',
         verbose_name='Odor categories',
     )

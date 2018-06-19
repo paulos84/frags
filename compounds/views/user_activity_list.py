@@ -7,27 +7,29 @@ from compounds.models import Compound, CompoundNotes
 
 
 class ActivityListView(BaseCompoundListView):
-    queryset = Compound.objects.all()
-    template_name = 'compounds/compound_notes_list.html'
-    context_object_name = 'notes_list'
-    paginate_by = 20
-
-    def get_queryset(self):
-        notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
-        if not notes_qs:
-            return Compound.objects.none()
-        cpd_id_list = [a['compound'] for a in notes_qs]
-        queryset = Compound.objects.filter(id__in=cpd_id_list)
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_header'] = 'My compound notes'
-        return context
+    pass
 
 
-# class CompoundNotesListView(BaseCompoundListView):
-#     queryset = Compound.objects.all()
+    # queryset = Compound.objects.all()
+    # template_name = 'compounds/compound_notes_list.html'
+    # context_object_name = 'notes_list'
+    # paginate_by = 20
+    #
+    # def get_queryset(self):
+    #     notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
+    #     if not notes_qs:
+    #         return Compound.objects.none()
+    #     cpd_id_list = [a['compound'] for a in notes_qs]
+    #     queryset = Compound.objects.filter(id__in=cpd_id_list)
+    #     return queryset
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['page_header'] = 'My compound notes'
+    #     return context
+
+#
+# class UserCompoundListView(BaseCompoundListView):
 #     template_name = 'compounds/compound_notes_list.html'
 #     context_object_name = 'notes_list'
 #     paginate_by = 20
@@ -39,9 +41,3 @@ class ActivityListView(BaseCompoundListView):
 #         cpd_id_list = [a['compound'] for a in notes_qs]
 #         queryset = Compound.objects.filter(id__in=cpd_id_list)
 #         return queryset
-#
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['page_header'] = 'My compound notes'
-#         return context

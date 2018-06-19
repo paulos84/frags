@@ -128,3 +128,5 @@ class Compound(ChemDescriptorMixin, models.Model):
             matches = [a['id'] for a in all_smiles if
                        Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]
             return cls.objects.filter(id__in=matches)
+
+

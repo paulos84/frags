@@ -1,7 +1,8 @@
 from django.views import generic
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from compounds.models import Compound, OdorType
+from compounds.models import Compound, CompoundNotes, OdorType
 from compounds.forms import CompoundFilter
 
 
@@ -38,4 +39,23 @@ class OdorTypeCompoundListView(BaseCompoundListView):
         context = super().get_context_data(**kwargs)
         context['page_header'] = self.odor_type
         context['odor_type'] = self.odor_type
+        return context
+
+
+class UserCompoundListView(LoginRequiredMixin, BaseCompoundListView):
+    template_name = 'compounds/user_compound_list.html'
+    context_object_name = 'compound_list'
+    paginate_by = 20
+
+    def get_queryset(self):
+        notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
+        if not notes_qs:
+            return Compound.objects.none()
+        cpd_id_list = [a['compound'] for a in notes_qs]
+        queryset = Compound.objects.filter(id__in=cpd_id_list)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_header'] = 'My compound notes'
         return context

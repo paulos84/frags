@@ -1,7 +1,7 @@
 from .compound_create import CompoundCreateView
 from .compound_detail import CompoundDetailView
 from .compound_list import (
-                            CompoundListView, OdorTypeCompoundListView,
+                            CompoundListView, OdorTypeCompoundListView, UserCompoundListView,
                             )
 from .filtered_lists import (AliphaticCarbonylsListView, AliphaticAlcoholsListView, AromaticAlcoholsListView,
                              AromaticCarbonylsListView, HeteroaromaticsListView)
@@ -21,4 +21,5 @@ __all__ = [
     OdorTypeListView,
     SubstructureListView,
     signup,
+    UserCompoundListView,
     ]

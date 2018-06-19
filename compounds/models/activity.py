@@ -14,13 +14,13 @@ class CompoundNotes(models.Model):
     compound = models.ForeignKey(
         Compound,
         on_delete=models.CASCADE,
-        related_name='notes',
+        related_name='notes_set',
         blank=True,
     )
     user = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        related_name='notes',
+        related_name='notes_set',
         blank=True,
     )
     # activities = GenericRelation(Activity)

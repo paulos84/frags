@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.functional import cached_property
 import pubchempy as pcp
 from rdkit import Chem
@@ -19,11 +20,14 @@ class Substructure(ChemDescriptorMixin, models.Model):
 
     name = models.CharField(
         max_length=50,
-        default='',
         verbose_name='Substructure class name',
     )
     description = models.CharField(
         max_length=200,
+        default='',
+        blank=True,
+    )
+    slug = models.SlugField(
         default='',
         blank=True,
     )
@@ -33,6 +37,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
         self.set_cid_number()
         super(Substructure, self).save(*args, **kwargs)
 
@@ -41,6 +46,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'compound-detail',
-            args=[str(self.pk)],
+            'substructure-detail',
+            args=[self.slug],
         )
+

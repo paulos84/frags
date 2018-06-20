@@ -7,8 +7,8 @@ the chemical structure. If the compound already exists in the database,
 the user is provided with a link to the detail view.
 
 From CAS numbers the SMILES notation string which representing the chemical
-structure is obtained from a request to CIRpy, the Python interface for
-a service which resolves chemical identities.
+structure is obtained from a request to CIRpy, a Python wrapper for an
+API which resolves chemical identities.
 The open-source cheminformatics toolkit RDKit is able to decode
 the SMILES string into a class representing a molecule.
 

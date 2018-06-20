@@ -10,9 +10,9 @@ from compounds.models import Compound
 
 
 class Profile(models.Model):
-    """ How to use   https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
-      - how do the post save signals work"""
-
+    """
+    A model representing a User and their activity
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
 
@@ -22,12 +22,18 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Creates an instance when a User instance is created
+    """
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    """
+    Updates an instance when a User instance is updated
+    """
     instance.profile.save()
 
 

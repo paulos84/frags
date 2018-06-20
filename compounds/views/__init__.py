@@ -6,6 +6,7 @@ from .compound_list import (
 from .filtered_lists import (AliphaticCarbonylsListView, AliphaticAlcoholsListView, AromaticAlcoholsListView,
                              AromaticCarbonylsListView, HeteroaromaticsListView)
 from .odor_type_list import OdorTypeListView
+from .substructure_detail import SubstructureDetail
 from .substructure_list import SubstructureListView
 from .user_auth import signup
 

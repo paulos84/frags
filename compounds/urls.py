@@ -2,24 +2,25 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from compounds.views import (CompoundListView, CompoundCreateView, CompoundDetailView, OdorTypeCompoundListView,
-                             OdorTypeListView, SubstructureListView, AliphaticAlcoholsListView, HeteroaromaticsListView,
-                             AromaticAlcoholsListView, AromaticCarbonylsListView, AliphaticCarbonylsListView,
+from compounds.views import (CompoundCreateView, CompoundDetailView, OdorTypeListView, SubstructureListView,
+                             SubstructureDetail,
                              )
 
 from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *
+from compounds.views.filtered_lists import *
 
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
-    path('all', UserCompoundListView.as_view(), name='user-compound-list'),
-    # path('all/<kwarg-to-filter-by>', .as_view(), name='substructures'),
+    re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
+    path('compound/add', CompoundCreateView.as_view(), name='compound-add'),
+    path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
     path('scents/description', OdorTypeListView.as_view(), name='odor-type-list'),
     path('substructure', SubstructureListView.as_view(), name='substructures'),
-    re_path(r'^compound/(?P<pk>\d+)$', CompoundDetailView.as_view(), name='compound-detail'),
-    path('compound/add/', CompoundCreateView.as_view(), name='compound-add'),
-    path('ajax/process_cas/', process_cas, name='process_cas'),
+    path('substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
+    path('all', UserCompoundListView.as_view(), name='user-compound-list'),
+    # path('all/<kwarg-to-filter-by>', .as_view(), name='substructures'),
 
 ] + [
     re_path(r'^aliphatic-alcohols/$', AliphaticAlcoholsListView.as_view(), name='aliphatic-alcohols'),

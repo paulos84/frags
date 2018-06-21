@@ -30,12 +30,13 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         """
         initial = super(CompoundDetailView, self).get_initial()
         initial['compound'] = self.object
-        initial['user'] = self.request.user.profile
+        if self.request.user.is_authenticated:
+            initial['user'] = self.request.user.profile
         return initial
 
     def profile_activity(self, context):
         """
-        Adds to the context dictionary any compound notes by a user
+        Adds any existing user activity to the context dictionary
         """
         try:
             notes_object = CompoundNotes.objects.get(

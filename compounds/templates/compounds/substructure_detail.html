@@ -1,22 +1,25 @@
 {% extends "base_listview.html" %}
 {% load bootstrap3 %}
-
+{% load static %}
 {% block title %}
     <title>{{ substructure.name }}</title>
-
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="col-sm-5 ">
+    <div class="col-sm-3 ">
+            <div >
+            <img class="center-cropped" src={{ substructure.structure_url }}
+                 style="width:200px;height:200px;" title={{compound.iupac_name}} ></div>
+    </div>
+    <div class="col-sm-7 ">
         {{ substructure }}
         {{ substructure.slug }}
        {% for compound in page_obj %}
         {{ compound }}
         {% endfor %}
         </div>
-{{ syn }}
-        <div class="col-sm-5 ">
-        <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
-    </div>
     <div class="col-sm-10 ">
         <br>
         <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>

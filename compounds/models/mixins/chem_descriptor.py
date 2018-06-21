@@ -16,6 +16,10 @@ class ChemDescriptorMixin(models.Model):
         blank=True,
     )
 
+    @property
+    def structure_url(self):
+        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
+
     def set_cid_number(self):
         if not self.cid_number:
             try:

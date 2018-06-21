@@ -1,12 +1,15 @@
 {% extends "base_generic.html" %}
 {% load bootstrap3 %}
-
+{% load static %}
 {% block title %}
     {% if compound.trade_name %}
     <title>{{ compound.trade_name }}</title>
     {% else %}
     <title>{{ compound.iupac_name }}</title>
     {% endif %}
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
 {% block content %}
     <div class="col-sm-5 ">
@@ -39,7 +42,7 @@
                 <form method="post" novalidate>
                   {% csrf_token %}
                   {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary" >
+                <button type="submit"  class="btn btn-primary" >
                     <span class="glyphicon glyphicon"></span>Submit</button>
                 </form>
             {% endif %}
@@ -47,17 +50,41 @@
                 <form method="post" novalidate>
                   {% csrf_token %}
                   {% bootstrap_form form %}
-                    </form>
+                <button type="submit" class="btn btn-primary" disabled>
+                    <span class="glyphicon glyphicon"></span>Submit</button>
+                </form>
         {% endif %}
         </div>
+
         <div class="col-sm-5 ">
         <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
     </div>
     <div class="col-sm-10 ">
         <br>
         <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>
+        {% if compound.additional_cas %}
+          <p><strong>Alternative CAS no.:</strong>{{ compound.additional_cas }}</p>
+        {% endif %}
         {% if compound.odor_types %}
           <p><strong>Odor types:</strong>{{ compound.odor_types }}</p>
         {% endif %}
 </div>
 {% endblock %}
+
+
+
+
+<!-- <p><strong>Genre:</strong> {% for genre in compound.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Copies</h4>
+
+    {% for copy in compound.compoundinstance_set.all %}
+    <hr>
+    <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+    {% if copy.status != 'a' %}<p><strong>Due to be returned:</strong> {{copy.due_back}}</p>{% endif %}
+    <p><strong>Imprint:</strong> {{copy.imprint}}</p>
+    <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+    {% endfor %}
+  </div>
+    -->

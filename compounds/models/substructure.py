@@ -32,10 +32,6 @@ class Substructure(ChemDescriptorMixin, models.Model):
         blank=True,
     )
 
-    @property
-    def structure_url(self):
-        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         self.set_cid_number()

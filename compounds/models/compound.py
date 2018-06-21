@@ -81,10 +81,6 @@ class Compound(ChemDescriptorMixin, models.Model):
             synonyms = 'n/a'
         return synonyms
 
-    @property
-    def structure_url(self):
-        return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
-
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
         self.set_cid_number()
@@ -108,19 +104,15 @@ class Compound(ChemDescriptorMixin, models.Model):
     @classmethod
     def substructure_matches(cls, pattern, queryset=None):
         """ Filters instances by those matching a structural fragment represented by a smiles string
-
         Args:
             pattern (str): A string in smiles format which represents a chemical substructure
             queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None, thereby the
                 method will filter by all model instances
-
         Returns:
             A QuerySet if a valid smiles fragment is supplied, otherwise None.
-
         Example:
             >>> Compound.substructure_matches('C1=CC=CS1').count()
             42
-
         """
         mol_fragment = Chem.MolFromSmiles(pattern)
         if hasattr(mol_fragment, 'GetAtoms'):

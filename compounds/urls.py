@@ -23,7 +23,7 @@ urlpatterns = [
     path('user/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserCompoundListView.as_view(), name='user-compound-list'),
     # path('all/<kwarg-to-filter-by>', .as_view(), name='substructures'),
-    path('filter/<chem_filter>', ChemFilterListView.as_view(), name='chem-filter'),
+    path('filter/<chem_type>', ChemFilterListView.as_view(), name='chem-filter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -83,12 +83,26 @@
       <div class="col-sm-2">
       <ul class="sidebar-nav">
         <div style=" position:relative; left:6px; top:9px;">
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
-            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px">Substructure search</a>
-            <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
+            <a href="{% url 'index' %}" type="button" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">All compounds</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructure search</a>
+            <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Add new compounds</a>
             {% if user.is_authenticated %}
-                <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px">My compounds</a>
+                <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">My compounds</a>
             {% endif %}
+            <div style=" position:relative; top:19px;">
+                <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}"
+                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Heteroaromatics</a>
+                <a href="{% url 'chem-filter' chem_type='aliphatic_alcohols' %}"
+                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aliphatic alcohols</a>
+                <a href="{% url 'chem-filter' chem_type='aromatic_alcohols' %}"
+                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aromatic alcohols</a>
+                <a href="{% url 'chem-filter' chem_type='aliphatic_carbonyls' %}"
+                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aliphatic carbonyls</a>
+                <a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}"
+                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aromatic carbonyls</a>
+            </div>
+<li><h6></h6></li>
+
         <div style=" position:relative; top:19px;">
           <h5><a href="{% url 'odor-type-list' %}" style="color: #04781d; ">Scent Categories</a></h5>
           {% for obj in odor_types %}

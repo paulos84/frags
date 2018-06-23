@@ -48,23 +48,6 @@ class Compound(ChemDescriptorMixin, models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-    supplier_choices = (
-        ('BASF', 'BASF AG, Germany'),
-        ('Danisco', 'Danisco A/S, Denmark'),
-        ('Firmenich', 'Firmenich SA, Switzerland'),
-        ('Giv.', 'Givaudan SA, Switzerland'),
-        ('IFF', 'International Flavors & Fragrances, USA'),
-        ('Quest', 'Quest International, UK'),
-        ('Symrise', 'Symrise GmbH & Co KG, Germany'),
-        ('Takasago', 'Takasago Perfumery Co., Japan'),
-        ('Vioryl', 'Vioryl SA, Greece'),
-    )
-    supplier = models.CharField(
-        max_length=25,
-        default='',
-        choices=supplier_choices,
-        blank=True,
-    )
     trade_name = models.CharField(
         max_length=20,
         default='',
@@ -91,8 +74,8 @@ class Compound(ChemDescriptorMixin, models.Model):
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):
-        if self.trade_name and self.supplier:
-            return '{} ({}) | {}'.format(self.trade_name, self.supplier, self.iupac_name)
+        if self.trade_name:
+            return '{} | {}'.format(self.trade_name, self.supplier, self.iupac_name)
         return self.iupac_name
 
     def get_absolute_url(self):

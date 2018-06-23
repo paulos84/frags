@@ -14,7 +14,7 @@ class CompoundCreateForm(forms.ModelForm):
 
     class Meta:
         model = Compound
-        fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', 'supplier']
+        fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', ]
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 2, 'cols': 42, }),
             'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 44,

@@ -18,9 +18,6 @@
         {% else %}
             <h4 class="intro">{{ compound.iupac_name }}</h4>
         {% endif %}
-        {% if compound.supplier %}
-            <p><strong>Supplier:</strong> {{ compound.get_supplier_display }}</p>
-        {% endif %}
         {% if compound.trade_name %}
             <p><strong>IUPAC name:</strong> {{ compound.iupac_name }}</p>
         {% endif %}

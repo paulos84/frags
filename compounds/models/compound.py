@@ -67,15 +67,13 @@ class Compound(ChemDescriptorMixin, models.Model):
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
         self.set_cid_number()
-        if self.supplier and not self.trade_name:
-            raise ValidationError('Trade name required if a supplier is entered')
         if not all([self.smiles, self.iupac_name]):
             raise ValidationError('Something went wrong {}'.format(self.iupac_name))
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):
         if self.trade_name:
-            return '{} | {}'.format(self.trade_name, self.supplier, self.iupac_name)
+            return '{} | {}'.format(self.trade_name, self.iupac_name)
         return self.iupac_name
 
     def get_absolute_url(self):

@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from compounds.views import (ChemFilterSubstructureDetail, CompoundCreateView, CompoundDetailView, OdorTypeListView,
+from compounds.views import (ChemFilterSubstructureDetail, CompoundCreateView, CompoundDetailView,
                              SubstructureListView, SubstructureDetail, UserSubstructureDetail,
                              )
 
@@ -16,7 +16,6 @@ urlpatterns = [
     path('compound/add', CompoundCreateView.as_view(), name='compound-add'),
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
-    path('scents/description', OdorTypeListView.as_view(), name='odor-type-list'),
     path('substructure', SubstructureListView.as_view(), name='substructures'),
     path('substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
     path('substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(), name='filtered-substructure'),

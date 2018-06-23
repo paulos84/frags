@@ -55,6 +55,7 @@
                 <input type="hidden" name="next" value="{{ request.get_full_path }}" />
             </form>
         </div>
+        </form>
       {% else %}
             <div class="navbar-form navbar-left">
                 <div class="form-group">
@@ -89,28 +90,57 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">My compounds</a>
             {% endif %}
-            <div style=" position:relative; top:19px;">
-                <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}"
-                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Heteroaromatics</a>
-                <a href="{% url 'chem-filter' chem_type='aliphatic_alcohols' %}"
-                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aliphatic alcohols</a>
-                <a href="{% url 'chem-filter' chem_type='aromatic_alcohols' %}"
-                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aromatic alcohols</a>
-                <a href="{% url 'chem-filter' chem_type='aliphatic_carbonyls' %}"
-                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aliphatic carbonyls</a>
-                <a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}"
-                   class="btn btn-default btn-sm" style="width: 170px; background-color: #fbfcfb; ">Aromatic carbonyls</a>
+        <div class="btn-group" style="top:20px; ">
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Compound categories<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            <li><a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">Heteroaromatics</a></li>
+            <li><a href="{% url 'chem-filter' chem_type='aliphatic_alcohols' %}">Aliphatic alcohols</a></li>
+            <li><a href="{% url 'chem-filter' chem_type='aliphatic_carbonyls' %}">Aliphatic carbonyls</a></li>
+            <li><a href="{% url 'chem-filter' chem_type='aromatic_alcohols' %}">Aromatic alcohols</a></li>
+            <li><a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}">Aromatic carbonyls</a></li>
+            </ul>
+        </div>
+        <div class="btn-group" style="top:20px; ">
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" style="width: 170px;">
+            Odor categories<span class="caret"></span></button>
+             <ul class="dropdown-menu">
+            {% for obj in odor_types %}
+                <li><a href="{% url 'compound-odor-type-filter' obj.term %}">{{ obj.term }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </ul>
+        <div style=" position:relative; top: 40px ">
+         {% load widget_tweaks %}
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                  {{ compound_filter.form.cas_number.label_tag }}
+                  {% render_field compound_filter.form.cas_number class="form-control" %}
+                  {{ compound_filter.form.iupac_name.label_tag }}
+                  {% render_field compound_filter.form.iupac_name class="form-control" %}
+                  {{ compound_filter.form.trade_name.label_tag }}
+                  {% render_field compound_filter.form.trade_name class="form-control" %}
+                  {{ compound_filter.form.odor_description.label_tag }}
+                  {% render_field compound_filter.form.odor_description class="form-control" %}
+                  <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>Search</button>
+              </div>
             </div>
-<li><h6></h6></li>
-
-        <div style=" position:relative; top:19px;">
-          <h5><a href="{% url 'odor-type-list' %}" style="color: #04781d; ">Scent Categories</a></h5>
-          {% for obj in odor_types %}
-          <a href="{% url 'compound-odor-type-filter' obj.term %}">{{ obj.term }}</a>
-      {% endfor %}
+        </form>
+        <div id="show-search-results" >
+        <table class="table table-bordered">
+            <tbody>
+              {% for compound in compound_filter.qs %}
+                <tr>
+                  <td><a href="{{ compound.get_absolute_url }}">{{ compound }}</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
         </div>
         </div>
-      </ul>
      {% block sidebar %}
      {% endblock %}
       </div>
@@ -141,7 +171,6 @@
 {% endblock %}
   </div>
     </div>
-      </div>
 {% block js %}{% endblock %}
   </body>
 </html>

@@ -27,6 +27,12 @@ class CompoundManager(models.Manager):
     def heteroaromatics(self):
         return self.get_queryset().heteroaromatic()
 
+    def aromatic(self):
+        return self.get_queryset().aromatic()
+
+    def aliphatic(self):
+        return self.get_queryset().aliphatic()
+
     def functional_groups(self, func_group):
         smarts = Chem.MolFromSmarts(func_group)
         qs_values = self.get_queryset().values_list('id', 'smiles')
@@ -34,13 +40,13 @@ class CompoundManager(models.Manager):
                 Chem.MolFromSmiles(cpd[1]).HasSubstructMatch(smarts)]
 
     def aliphatic_carbonyls(self):
-        return self.get_queryset().aliphatic().filter(pk__in=self.functional_groups('C=O'))
+        return self.aliphatic().filter(pk__in=self.functional_groups('C=O'))
 
     def aromatic_carbonyls(self):
-        return self.get_queryset().aromatic().filter(pk__in=self.functional_groups('C=O'))
+        return self.aromatic().filter(pk__in=self.functional_groups('C=O'))
 
     def aliphatic_alcohols(self):
-        return self.get_queryset().aliphatic().filter(iupac_name__contains='ol')
+        return self.aliphatic().filter(iupac_name__contains='ol')
 
     def aromatic_alcohols(self):
-        return self.get_queryset().aromatic().filter(iupac_name__contains='ol')
+        return self.aromatic().filter(iupac_name__contains='ol')

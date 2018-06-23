@@ -89,14 +89,6 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px">My compounds</a>
             {% endif %}
-        <div style=" position:relative; left:6px; top:19px;">
-            <li><h5 style="color: #04781d; ">Functional Groups</h5>
-            <li><a href="{% url 'aliphatic-alcohols' %}">Aliphatic alcohols</a></li>
-            <li><a href="{% url 'aliphatic-carbonyls' %}">Aliphatic carbonyls</a></li>
-            <li><a href="{% url 'aromatic-alcohols' %}">Aromatic alcohols</a></li>
-            <li><a href="{% url 'aromatic-carbonyls' %}">Aromatic carbonyls</a></li>
-            <li><a href="{% url 'heteroaromatics' %}">Heteroaromatics</a></li>
-            <li><h6></h6></li>
         <div style=" position:relative; top:19px;">
           <h5><a href="{% url 'odor-type-list' %}" style="color: #04781d; ">Scent Categories</a></h5>
           {% for obj in odor_types %}
@@ -104,35 +96,38 @@
       {% endfor %}
         </div>
         </div>
-        </div>
       </ul>
      {% block sidebar %}
      {% endblock %}
       </div>
-      <div class="col-sm-10 ">
-                     <h5 style="color: #565c70; ">{{ page_header }}</h5>
-          {% block content %}
-          {% endblock %}
-            {% block pagination %}
-              {% if is_paginated %}
-                  <div class="pagination">
-                      <span class="page-links">
-                          {% if page_obj.has_previous %}
-                              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                          {% endif %}
-                          <span class="page-current">
-                              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                          </span>
-                          {% if page_obj.has_next %}
-                              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                          {% endif %}
-                      </span>
-                  </div>
-              {% endif %}
-            {% endblock %}
-      </div>
+{% block content %}
+{% endblock %}
+{% block pagination %}
+ {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}
+  </div>
     </div>
       </div>
-    {% block js %}{% endblock %}
+{% block js %}{% endblock %}
   </body>
 </html>

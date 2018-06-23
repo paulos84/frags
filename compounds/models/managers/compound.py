@@ -44,6 +44,3 @@ class CompoundManager(models.Manager):
 
     def aromatic_alcohols(self):
         return self.get_queryset().aromatic().filter(iupac_name__contains='ol')
-
-
-

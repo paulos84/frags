@@ -1,13 +1,8 @@
 {% extends "base_listview.html" %}
-
 {% load staticfiles %}
-
 {% block content %}
-
-
 <div class="col-sm-7">
         <div align="right" style=" position:relative; right:6px">
-
             <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();"
                     style=" position:relative; border: none; background-color: #bad0ba;">
                 <span class="glyphicon glyphicon"></span>Scent categories</button>
@@ -18,8 +13,13 @@
                 <button style=" position:relative; border: none; background-color: #bad0ba;" class="btn btn-primary" disabled>
                     <span class="glyphicon glyphicon"></span>Personal notes</button>
             {% endif %}
+                 <a href="{% url 'chem-filter' chem_filter='heteroaromatics' %}">
+                <button  class="btn btn-primary"
+                    style=" position:relative; border: none; background-color: #bad0ba;">
+                <span class="glyphicon glyphicon"></span>Heteroaromatics</button></a>
         </div>
         {% if compound_list %}
+         <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
             <ul style="list-style-type: none;">
             {% for compound in compound_list %}
             <li>
@@ -30,18 +30,13 @@
                              title={{ compound.iupac_name }}  height="100" width="100">
                     </th>
                     <td>
-                        <div style=" position:relative; left:4px;">
+                        <div style=" position:relative; left:7px;">
                         <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
                         </div>
                         <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
                             <h5>{% for cpd in compound.odor_categories.all %}
                                     {{ cpd.term }}
                                 {% endfor %}
-                            </h5>
-                        </div>
-                        <div class="natural-occurrences" style=" position:relative; left:8px; color: grey ">
-                            <h5>
-
                             </h5>
                         </div>
                     </td>

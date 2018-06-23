@@ -9,7 +9,7 @@ from compounds.forms import CompoundFilter
 class BaseCompoundListView(generic.ListView):
     queryset = Compound.objects.all()
     template_name = 'compounds/compound_list.html'
-    paginate_by = 25
+    paginate_by = 24
 
     def get_context_data(self, **kwargs):
         context = super(BaseCompoundListView, self).get_context_data(**kwargs)

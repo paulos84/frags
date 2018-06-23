@@ -1,17 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.text import slugify
-from django.utils.functional import cached_property
-import pubchempy as pcp
-from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
-from compounds.models.managers import CompoundManager
-from compounds.models.odor_type import OdorType
 
 
 class Substructure(ChemDescriptorMixin, models.Model):
@@ -23,7 +15,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         verbose_name='Substructure class name',
     )
     description = models.CharField(
-        max_length=200,
+        max_length=625,
         default='',
         blank=True,
     )

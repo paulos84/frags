@@ -13,13 +13,11 @@
             </li>
             <li>
             {% for substruct in substructure_list %}
-<div>
-<a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a>
-</div>
- {% endfor %}
-
+                <div>
+                    <a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a>
+                </div>
+            {% endfor %}
             </li>
-
             </ul>
         {% else %}
              <p>No compounds matched this query</p>

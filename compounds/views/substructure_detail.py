@@ -20,27 +20,14 @@ class SubstructureDetail(SingleObjectMixin, ListView):
         return Compound.substructure_matches(self.object.smiles)
 
 
-class ChemFilterSubstructureDetail(SingleObjectMixin, ListView):
-    paginate_by = 14
-    template_name = "compounds/substructure_detail.html"
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object(queryset=Substructure.objects.all())
-        return super(SubstructureDetail, self).get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(SubstructureDetail, self).get_context_data(**kwargs)
-        context['substructure'] = self.object
-        return context
-
+class ChemFilterSubstructureDetail(SubstructureDetail):
     def get_queryset(self):
-        return Compound.substructure_matches(self.object.smiles)
+        unfiltered = super(ChemFilterSubstructureDetail, self).get_queryset
+        filter_method = getattr(Compound.objects, self.kwargs['chem_type'], unfiltered)
+        return Compound.substructure_matches(self.object.smiles, filter_method())
 
 
 class UserSubstructureDetail(SubstructureDetail):
-    paginate_by = 14
-    template_name = "compounds/user_substructure_detail.html"
-
     def get_queryset(self):
         notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:

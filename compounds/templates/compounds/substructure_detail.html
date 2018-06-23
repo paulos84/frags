@@ -28,9 +28,9 @@
                <button class="btn btn-primary" style="border: none; ">
                <span class="glyphicon glyphicon"></span>Aromatic</button>
            </a>
-           <a href="{% url 'user-substructure-detail' slug=substructure.slug %}">
+           <a href="{% url 'filtered-substructure' slug=substructure.slug chem_type='heteroaromatics' %}">
                <button class="btn btn-primary" style="border: none; ">
-               <span class="glyphicon glyphicon"></span>Aliphatic</button>
+               <span class="glyphicon glyphicon"></span>Heteroaromatics</button>
            </a>
            <a href="{% url 'user-substructure-detail' slug=substructure.slug %}">
                <button class="btn btn-primary" style="border: none; ">

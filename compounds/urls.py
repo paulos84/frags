@@ -19,10 +19,9 @@ urlpatterns = [
     path('scents/description', OdorTypeListView.as_view(), name='odor-type-list'),
     path('substructure', SubstructureListView.as_view(), name='substructures'),
     path('substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
-    path('substructure/<slug>/<chem_filter>', ChemFilterSubstructureDetail.as_view(), name='substructure-detail'),
+    path('substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(), name='filtered-substructure'),
     path('user/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserCompoundListView.as_view(), name='user-compound-list'),
-    # path('all/<kwarg-to-filter-by>', .as_view(), name='substructures'),
     path('filter/<chem_type>', ChemFilterListView.as_view(), name='chem-filter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

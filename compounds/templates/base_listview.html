@@ -84,7 +84,7 @@
       <ul class="sidebar-nav">
         <div style=" position:relative; left:6px; top:9px;">
             <a href="{% url 'index' %}" type="button" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">All compounds</a>
-            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructure search</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructures</a>
             <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Add new compounds</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">My compounds</a>

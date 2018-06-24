@@ -106,7 +106,13 @@ STATICFILES_DIRS = [
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'sdfgdfdfsafgda'
+# EMAIL_HOST_PASSWORD = 'djhgfsda'
+# EMAIL_PORT = 587
 
 SWAGGER_SETTINGS = {
     'enabled_methods': [

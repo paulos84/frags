@@ -103,16 +103,14 @@ STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'sdfgdfdfsafgda'
-# EMAIL_HOST_PASSWORD = 'djhgfsda'
-# EMAIL_PORT = 587
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'pauldavism@gmail.com'
+EMAIL_HOST_PASSWORD = 'gliveevil'
+EMAIL_USE_TLS = True
 
 SWAGGER_SETTINGS = {
     'enabled_methods': [
@@ -121,5 +119,3 @@ SWAGGER_SETTINGS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-

@@ -8,7 +8,6 @@ from django.utils import six
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 
 from compounds.forms import SignupForm
@@ -59,7 +58,7 @@ def activate(request, uidb64, token):
         user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect('home')
+        return redirect('index')
     else:
         return render(request, 'registration/activation_invalid.html')
 

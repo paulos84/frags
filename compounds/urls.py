@@ -21,6 +21,7 @@ urlpatterns = [
     path('substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(), name='filtered-substructure'),
     path('user/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserCompoundListView.as_view(), name='user-compound-list'),
+    path('user/filter/<chem_type>', UserChemFilterListView.as_view(), name='user-chem-filter'),
     path('filter/<chem_type>', ChemFilterListView.as_view(), name='chem-filter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

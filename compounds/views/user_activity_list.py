@@ -1,7 +1,7 @@
 from django.views import generic
 
 from .compound_list import BaseCompoundListView
-from compounds.models import Compound, CompoundNotes
+from compounds.models import Compound, UserNotes
 
 # TODO if notes go beyond area use ... truncation
 

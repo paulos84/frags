@@ -1,5 +1,5 @@
 from .compound_list import BaseCompoundListView
-from compounds.models import Compound, CompoundNotes
+from compounds.models import Compound, UserNotes
 
 
 class ChemFilterListView(BaseCompoundListView):
@@ -23,7 +23,7 @@ class UserChemFilterListView(ChemFilterListView):
     context_object_name = 'compound_list'
 
     def get_queryset(self):
-        notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
+        notes_qs = UserNotes.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
             return Compound.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]

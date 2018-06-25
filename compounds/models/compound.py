@@ -54,7 +54,13 @@ class Compound(ChemDescriptorMixin, models.Model):
         verbose_name='Trade name',
         blank=True,
     )
+
     objects = CompoundManager()
+
+    class Meta:
+        permissions = (
+            ('edit_od', 'Update odor description'),
+        )
 
     @cached_property
     def synonyms(self):

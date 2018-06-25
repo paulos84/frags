@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'widget_tweaks',
     'bootstrap3',
+    # 'guardian',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # 'guardian.backends.ObjectPermissionBackend',
+)
 
 LOGIN_REDIRECT_URL = '/'
 

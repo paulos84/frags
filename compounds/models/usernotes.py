@@ -4,7 +4,7 @@ from compounds.models import Compound, Profile
 from .managers.activity import ActivityManager
 
 
-class CompoundNotes(models.Model):
+class UserNotes(models.Model):
     notes = models.TextField(
         max_length=500,
     )

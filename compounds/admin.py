@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from compounds.models import Compound, CompoundNotes, OdorType, Profile, Substructure
+from compounds.models import Compound, UserNotes, OdorType, Profile, Substructure
 
 
 @admin.register(Compound)
@@ -8,7 +8,7 @@ class CompoundAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(CompoundNotes)
+@admin.register(UserNotes)
 class CompoundNotesAdmin(admin.ModelAdmin):
     pass
 

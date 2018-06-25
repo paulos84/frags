@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
-from compounds.models import Compound, CompoundNotes, OdorType, Substructure
+from compounds.models import Compound, UserNotes, OdorType, Substructure
 
 
 class SubstructureDetail(SingleObjectMixin, ListView):
@@ -29,7 +29,7 @@ class ChemFilterSubstructureDetail(SubstructureDetail):
 
 class UserSubstructureDetail(SubstructureDetail):
     def get_queryset(self):
-        notes_qs = CompoundNotes.objects.filter(user=self.request.user.profile).values('compound')
+        notes_qs = UserNotes.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
             return Compound.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]

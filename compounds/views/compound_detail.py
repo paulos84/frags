@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
-from compounds.models import Compound, CompoundNotes
+from compounds.models import Compound, UserNotes
 from compounds.forms import CompoundNotesForm
 
 
@@ -39,7 +39,7 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            notes_object = CompoundNotes.objects.get(
+            notes_object = UserNotes.objects.get(
                 user=self.request.user.profile, compound=self.get_object())
             context['user_notes'] = notes_object.notes
         except ObjectDoesNotExist:

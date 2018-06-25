@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from compounds.models import CompoundNotes, Compound, Profile
+from compounds.models import UserNotes, Compound, Profile
 
 
 class CompoundNotesForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class CompoundNotesForm(forms.ModelForm):
     compound = forms.ModelChoiceField(queryset=Compound.objects.all(), widget=forms.HiddenInput())
 
     class Meta:
-        model = CompoundNotes
+        model = UserNotes
         fields = ['notes', 'user', 'compound']
         widgets = {
             'notes': forms.Textarea(attrs={'rows': 5, 'cols': 42,

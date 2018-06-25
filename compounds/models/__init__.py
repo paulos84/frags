@@ -2,11 +2,11 @@ from .compound import Compound
 from .odor_type import OdorType
 from .substructure import Substructure
 from .profile import Profile
-from .activity import CompoundNotes
+from .usernotes import UserNotes
 
 __all__ = [
     Compound,
-    CompoundNotes,
+    UserNotes,
     Profile,
     OdorType,
     Substructure,

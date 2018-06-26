@@ -13,6 +13,7 @@ from compounds.models.managers import CompoundManager
 
 
 class Compound(ChemDescriptorMixin, models.Model):
+
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from
      which API queries can be made to obtain additional data """
 
@@ -31,7 +32,7 @@ class Compound(ChemDescriptorMixin, models.Model):
     )
     # User has a page where can view their own compounds entry list view
     created_by = models.ForeignKey(
-        User,
+        'compounds.Profile',
         related_name='compounds',
         blank=True,
         null=True,
@@ -56,11 +57,6 @@ class Compound(ChemDescriptorMixin, models.Model):
     )
 
     objects = CompoundManager()
-
-    class Meta:
-        permissions = (
-            ('edit_od', 'Update odor description'),
-        )
 
     @cached_property
     def synonyms(self):

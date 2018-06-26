@@ -4,25 +4,40 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
 from compounds.models import Compound, UserNotes
-from compounds.forms import CompoundNotesForm
+from compounds.forms import CompoundNotesForm, CompoundUpdateForm
 
 
 class CompoundDetailView(FormMixin, generic.DetailView):
     model = Compound
     form_class = CompoundNotesForm
+    form_class2 = CompoundUpdateForm
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CompoundDetailView, self).get_context_data(**kwargs)
-        odor_types = self.get_object().odor_categories.values_list('term')
+        compound = self.get_object()
+        odor_types = compound.odor_categories.values_list('term')
         context['odor_types'] = ', '.join([a[0] for a in odor_types])
-        context['synonyms'] = self.get_object().synonyms
-        context['structure_url'] = self.get_object().structure_url
+        context['synonyms'] = compound.synonyms
+        context['structure_url'] = compound.structure_url
+        if not compound.odor_description or compound.created_by is self.request.user.profile:
+            context['form2'] = self.form_class2
         if self.request.user.is_authenticated:
-            self.profile_activity(context)
+            self.add_profile_activity(context)
         return context
+
+    def add_profile_activity(self, context):
+        """
+        Adds any existing user activity to the context dictionary
+        """
+        try:
+            notes_object = UserNotes.objects.get(
+                user=self.request.user.profile, compound=self.get_object())
+            context['user_notes'] = notes_object.notes
+        except ObjectDoesNotExist:
+            context['user_notes'] = ''
 
     def get_initial(self):
         """
@@ -34,16 +49,7 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             initial['user'] = self.request.user.profile
         return initial
 
-    def profile_activity(self, context):
-        """
-        Adds any existing user activity to the context dictionary
-        """
-        try:
-            notes_object = UserNotes.objects.get(
-                user=self.request.user.profile, compound=self.get_object())
-            context['user_notes'] = notes_object.notes
-        except ObjectDoesNotExist:
-            context['user_notes'] = ''
+
 
     def get_form_kwargs(self):
         kwargs = super(CompoundDetailView, self).get_form_kwargs()

@@ -14,7 +14,7 @@ class CompoundCreateView(CreateView):
     template_name = 'compounds/create_compound.html'
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
+        form.instance.created_by = self.request.user.profile
         return super().form_valid(form)
 
 

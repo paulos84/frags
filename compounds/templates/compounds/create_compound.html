@@ -22,8 +22,14 @@
       </table>
       <!--<div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>-->
       <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+
+      {% if user.is_authenticated %}
       <button type="submit" class="btn btn-success" style="float: right;"><span class="glyphicon glyphicon-ok">
         </span>Submit</button>
+      {% else %}
+      <button type="submit" class="btn btn-success" style="float: right;"><span class="glyphicon glyphicon-ok" disabled>
+        </span>Submit</button>
+      {% endif %}
     </form>
   </div>
     <div class="col-sm-5"  style=" position:relative; top:27px;">

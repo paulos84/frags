@@ -13,26 +13,40 @@
 {% endblock %}
 {% block content %}
     <div class="col-sm-5 ">
+         <h4 class="intro">{{ compound.iupac_name }}</h4>
         {% if compound.trade_name %}
-            <h4 class="intro"> {{ compound.trade_name }}</h4>
-        {% else %}
-            <h4 class="intro">{{ compound.iupac_name }}</h4>
-        {% endif %}
-        {% if compound.trade_name %}
-            <p><strong>IUPAC name:</strong> {{ compound.iupac_name }}</p>
+            <p><strong>Trade name:</strong> {{ compound.trade_name }}</p>
         {% endif %}
         <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
         <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
+        {% if compound.odor_types %}
+          <p><strong>Odor types:</strong>{{ compound.odor_types }}</p>
+        {% endif %}
+        {% if odor_types %}
+             <p><strong>Odor categories: </strong>{{ odor_types }}</p>
+        {% endif %}
         {% if compound.odor_description %}
             <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
+        {% elif form2 %}
+            <form method="post" novalidate>
+            {% csrf_token %}
+            {% bootstrap_form form2 %}
+                <button type="submit"  class="btn btn-primary" >
+                <span class="glyphicon glyphicon"></span>Submit</button>
+            </form>
         {% endif %}
-        {% if compound.odor.all %}
-             <p><strong>Odor categories:</strong></p>
-            {% for odor in compound.odor.all %}
-               {{ odor }}
-            {% endfor %}
-        {% endif %}
-        {% if user.is_authenticated %}
+        </div>
+    <div class="col-sm-5 ">
+        <div style=" position:relative; top:28px">
+            <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
+        </div>
+        <div style=" position:relative; top:44px; width:320px; left:24px">
+            <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>
+        </div>
+    </div>
+    <div class="col-sm-10 ">
+        <br>
+          {% if user.is_authenticated %}
             {% if user_notes %}
                 {{ user_notes }}
             {% else %}
@@ -51,19 +65,6 @@
                     <span class="glyphicon glyphicon"></span>Submit</button>
                 </form>
         {% endif %}
-        </div>
 
-        <div class="col-sm-5 ">
-        <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
     </div>
-    <div class="col-sm-10 ">
-        <br>
-        <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>
-        {% if compound.additional_cas %}
-          <p><strong>Alternative CAS no.:</strong>{{ compound.additional_cas }}</p>
-        {% endif %}
-        {% if compound.odor_types %}
-          <p><strong>Odor types:</strong>{{ compound.odor_types }}</p>
-        {% endif %}
-</div>
 {% endblock %}

@@ -68,9 +68,10 @@ class Compound(ChemDescriptorMixin, models.Model):
 
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
-        self.set_cid_number()
-        if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong {}'.format(self.iupac_name))
+        # if not self.cid_number:
+        #     self.set_cid_number()
+        # if not all([self.smiles, self.iupac_name]):
+        #     raise ValidationError('Something went wrong {}'.format(self.iupac_name))
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):

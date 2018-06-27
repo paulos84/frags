@@ -25,6 +25,7 @@ class CompoundNotesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user_auth = kwargs.pop('user_auth', None)
         super(CompoundNotesForm, self).__init__(*args, **kwargs)
+        # self.fields['notes'].required = True
         if not user_auth:
             self.fields['notes'].widget.attrs['placeholder'] = 'Login to access notes'
 

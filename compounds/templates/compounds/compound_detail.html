@@ -28,7 +28,7 @@
         {% if compound.odor_description %}
             <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
         {% elif form2 %}
-            <form method="post" novalidate>
+            <form method="post">
             {% csrf_token %}
             {% bootstrap_form form2 %}
                 <button type="submit"  class="btn btn-primary" >
@@ -37,20 +37,21 @@
         {% endif %}
         </div>
     <div class="col-sm-5 ">
-        <div style=" position:relative; top:28px">
+        <div style=" position:relative; top:8px">
             <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
         </div>
-        <div style=" position:relative; top:44px; width:320px; left:24px">
-            <p><strong>Synonyms:</strong> {{ compound.synonyms }}</p>
+        <div style=" position:relative; top:24px; width:320px; left:24px">
+            <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:132 }}</p>
         </div>
     </div>
     <div class="col-sm-10 ">
         <br>
           {% if user.is_authenticated %}
             {% if user_notes %}
+                <div><p><strong>My notes</strong></div>
                 {{ user_notes }}
             {% else %}
-                <form method="post" novalidate>
+                <form method="post">
                   {% csrf_token %}
                   {% bootstrap_form form %}
                 <button type="submit"  class="btn btn-primary" >

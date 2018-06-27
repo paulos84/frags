@@ -1,0 +1,4 @@
+
+
+Detailview of compound - if missing odor description, any user can update this through a form on the page.
+If user is logged in notes relating to compound shown along with any usages e.g. in fragrance formulation.

@@ -1,4 +1,5 @@
 from django.views import generic
+from django.shortcuts import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
@@ -9,11 +10,9 @@ from compounds.forms import CompoundNotesForm, CompoundUpdateForm
 
 class CompoundDetailView(FormMixin, generic.DetailView):
     model = Compound
+    template_name = 'compounds/compound_detail.html'
     form_class = CompoundNotesForm
-    form_class2 = CompoundUpdateForm
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    second_form_class = CompoundUpdateForm
 
     def get_context_data(self, **kwargs):
         context = super(CompoundDetailView, self).get_context_data(**kwargs)
@@ -22,8 +21,12 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         context['odor_types'] = ', '.join([a[0] for a in odor_types])
         context['synonyms'] = compound.synonyms
         context['structure_url'] = compound.structure_url
-        if not compound.odor_description or compound.created_by is self.request.user.profile:
-            context['form2'] = self.form_class2
+        if 'form' not in context:
+            context['form'] = self.form_class(request=self.request)
+        if 'form2' not in context:
+            initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
+                                                                 'odor_description', 'smiles', 'trade_name']}
+            context['form2'] = self.second_form_class(initial=initial_data)
         if self.request.user.is_authenticated:
             self.add_profile_activity(context)
         return context
@@ -49,8 +52,6 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             initial['user'] = self.request.user.profile
         return initial
 
-
-
     def get_form_kwargs(self):
         kwargs = super(CompoundDetailView, self).get_form_kwargs()
         if self.request.method == 'GET':
@@ -59,14 +60,32 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             })
         return kwargs
 
+    def form_invalid(self, **kwargs):
+        return self.render_to_response(self.get_context_data(**kwargs))
+
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()  # assign the object to the view
-        form = self.get_form()
-        if form.is_valid():
+        self.object = self.get_object()
+        if request.POST.get('odor_description'):
+            form_class = self.second_form_class
+            form = self.get_form(form_class)
+            form_name = 'form2'
+        else:
+            form = self.get_form()
+            form_name = 'form'
+        if form.is_valid() and form_name == 'form2':
+            for attr in form.cleaned_data:
+                if attr != 'odor_categories':
+                    setattr(self.object, attr, form.cleaned_data[attr])
+            self.object.save()
+            for a in form.cleaned_data['odor_categories']:
+                self.object.odor_categories.add(a)
+            self.object.save()
+            return HttpResponseRedirect(self.get_success_url())
+        elif form.is_valid():
             return self.form_valid(form)
         else:
             print (form.errors)
-            return self.form_invalid(form)
+            return self.form_invalid(**{form_name: form})
 
     def form_valid(self, form):
         form.save()

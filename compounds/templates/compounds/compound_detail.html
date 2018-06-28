@@ -27,7 +27,8 @@
         {% endif %}
         {% if compound.odor_description %}
             <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
-        {% elif form2 %}
+        {% endif %}
+        {% if form2 %}
             <form method="post">
             {% csrf_token %}
             {% bootstrap_form form2 %}

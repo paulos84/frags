@@ -23,7 +23,7 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         context['structure_url'] = compound.structure_url
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
-        if 'form2' not in context:
+        if not all([compound.odor_categories.all(), compound.odor_description, compound.trade_name]):
             initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
                                                                  'odor_description', 'smiles', 'trade_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
@@ -76,7 +76,6 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             for attr in form.cleaned_data:
                 if attr != 'odor_categories':
                     setattr(self.object, attr, form.cleaned_data[attr])
-            self.object.save()
             for a in form.cleaned_data['odor_categories']:
                 self.object.odor_categories.add(a)
             self.object.save()
@@ -84,7 +83,6 @@ class CompoundDetailView(FormMixin, generic.DetailView):
         elif form.is_valid():
             return self.form_valid(form)
         else:
-            print (form.errors)
             return self.form_invalid(**{form_name: form})
 
     def form_valid(self, form):

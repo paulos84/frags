@@ -19,6 +19,13 @@
         {% endif %}
         <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
         <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
+
+        {% if compound.created_by == request.user.profile %}
+          food
+        {% elif request.user.is_superuser %}
+        bard
+        {% endif %}
+
         {% if compound.odor_types %}
           <p><strong>Odor types: </strong>{{ compound.odor_types }}</p>
         {% endif %}
@@ -32,8 +39,10 @@
             <form method="post">
             {% csrf_token %}
             {% bootstrap_form form2 %}
+                {% if user.is_authenticated %}
                 <button type="submit"  class="btn btn-primary" >
                 <span class="glyphicon glyphicon"></span>Submit</button>
+                    {% endif %}
             </form>
         {% endif %}
         </div>

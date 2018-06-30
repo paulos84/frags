@@ -30,6 +30,12 @@ class Substructure(ChemDescriptorMixin, models.Model):
         default=list,
         blank=True
     )
+    odor_categories = models.ManyToManyField(
+        'compounds.OdorType',
+        related_name='Substructures',
+        verbose_name='Odor categories',
+        blank=True,
+    )
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

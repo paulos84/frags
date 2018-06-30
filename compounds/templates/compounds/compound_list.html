@@ -45,8 +45,8 @@
                         <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
                         </div>
                         <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
-                            <h5>{% for cpd in compound.odor_categories.all %}
-                                    {{ cpd.term }}
+                            <h5>{% for odor_type in compound.odor_categories.all %}
+                                    {{ odor_type.term }}
                                 {% endfor %}
                             </h5>
                         </div>

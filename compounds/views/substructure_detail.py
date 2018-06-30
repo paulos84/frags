@@ -13,7 +13,7 @@ class SubstructureDetail(SingleObjectMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SubstructureDetail, self).get_context_data(**kwargs)
-        context['substructure'] = self.object
+        context['odor_types'] = OdorType.objects.values('term')
         return context
 
     def get_queryset(self):

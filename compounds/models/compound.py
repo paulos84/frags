@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
+import cirpy
 import pubchempy as pcp
 from rdkit import Chem
 
@@ -12,6 +12,7 @@ from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models.managers import CompoundManager
 
 
+# noinspection PyTypeChecker
 class Compound(ChemDescriptorMixin, models.Model):
 
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from
@@ -22,13 +23,6 @@ class Compound(ChemDescriptorMixin, models.Model):
         unique=True,
         verbose_name='CAS number',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
-    )
-    iupac_name = models.CharField(
-        max_length=200,
-        default='',
-        verbose_name='IUPAC name',
-        editable=False,
-        blank=True,
     )
     # User has a page where can view their own compounds entry list view
     created_by = models.ForeignKey(
@@ -67,12 +61,22 @@ class Compound(ChemDescriptorMixin, models.Model):
             synonyms = 'n/a'
         return synonyms
 
+    def set_smiles(self):
+        if not self.smiles:
+            cirpy_query = cirpy.query(self.cas_number, 'smiles')
+            if not cirpy_query:
+                raise ValidationError('No compound matches the CAS number')
+            self.smiles = cirpy_query[0].value
+
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
-        if not self.cid_number:
-            self.set_cid_number()
+        self.set_smiles()
+        self.set_pcp_data()
+        print (self.smiles)
+        print (self.cid_number)
+        print (self.iupac_name)
         if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong {}'.format(self.iupac_name))
+            raise ValidationError('Something went wrong')
         super(Compound, self).save(*args, **kwargs)
 
     def __str__(self):

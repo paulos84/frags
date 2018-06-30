@@ -14,6 +14,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
     name = models.CharField(
         max_length=50,
         verbose_name='Substructure class name',
+        help_text='Empirical name e.g. tetrahydrolinalools'
     )
     description = models.CharField(
         max_length=625,
@@ -32,7 +33,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        self.set_cid_number()
+        self.set_pcp_data()
         super(Substructure, self).save(*args, **kwargs)
 
     def __str__(self):

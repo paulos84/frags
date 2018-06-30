@@ -88,11 +88,11 @@ class Compound(ChemDescriptorMixin, models.Model):
 
     @classmethod
     def substructure_matches(cls, pattern, queryset=None):
-        """ Filters instances by those matching a structural fragment represented by a smiles string
+        """
+        Filters instances by those matching a structural fragment represented by a smiles string
         Args:
             pattern (str): A string in smiles format which represents a chemical substructure
-            queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None, thereby the
-                method will filter by all model instances
+            queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None.
         Returns:
             A QuerySet if a valid smiles fragment is supplied, otherwise None.
         Example:
@@ -106,4 +106,25 @@ class Compound(ChemDescriptorMixin, models.Model):
                        Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]
             return cls.objects.filter(id__in=matches)
 
+    @classmethod
+    def iupac_name_matches(cls, substrings, queryset=None):
+        """
+        Filters instances by those matching a structural fragment according to IUPAC name patterns
+        Args:
+            substrings ('list'): list of substrings in order in which they should appear
+            queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None.
+        Returns:
+            A QuerySet containing any instance whose iupac_name attribute match the pattern
+        Example:
+        >>> Compound.iupac_name_match(['3,7-dimethyl', 'oct', 'ol']).count()
+        16
+        """
+        if not substrings:
+            return cls.objects.none()
 
+        def check_name_match(iupac_name):
+            if [s for s in substrings if s in iupac_name] == substrings:
+                return True
+        all_names = queryset.values('id', 'iupac_name') if queryset else cls.objects.values('id', 'iupac_name')
+        matches = [a['id'] for a in all_names if check_name_match(a['iupac_name'])]
+        return cls.objects.filter(id__in=matches)

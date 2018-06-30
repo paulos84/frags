@@ -17,7 +17,8 @@ class SubstructureDetail(SingleObjectMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Compound.substructure_matches(self.object.smiles)
+        return Compound.substructure_matches(self.object.smiles) | Compound.iupac_name_matches(
+            self.object.iupac_name_pattern)
 
 
 class ChemFilterSubstructureDetail(SubstructureDetail):

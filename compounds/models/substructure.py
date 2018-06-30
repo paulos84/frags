@@ -2,6 +2,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.contrib.postgres.fields import ArrayField
 
 from compounds.models.mixins import ChemDescriptorMixin
 
@@ -22,6 +23,11 @@ class Substructure(ChemDescriptorMixin, models.Model):
     slug = models.SlugField(
         default='',
         blank=True,
+    )
+    iupac_name_pattern = ArrayField(
+        (models.CharField(max_length=30, blank=True)),
+        default=list,
+        blank=True
     )
 
     def save(self, *args, **kwargs):

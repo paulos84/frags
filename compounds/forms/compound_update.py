@@ -1,11 +1,12 @@
 from django import forms
 
 from compounds.models import Compound
+from compounds.forms import CompoundCreateForm
 
 
 class CompoundUpdateForm(forms.ModelForm):
 
-    """ Form for updating Compound model instances """
+    """ Form for updating incomplete fields of Compound model instances """
 
     cas_number = forms.CharField(widget=forms.HiddenInput())
     smiles = forms.CharField(widget=forms.HiddenInput())
@@ -29,3 +30,17 @@ class CompoundUpdateForm(forms.ModelForm):
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = False
         self.fields['trade_name'].required = False
+
+
+class EditCompoundForm(forms.ModelForm):
+
+    """ Form for updating Compound model instances """
+
+    class Meta:
+        model = Compound
+        fields = ('odor_description', 'odor_categories', 'trade_name')
+        widgets = {
+            'odor_description': forms.Textarea(attrs={'rows': 2, 'cols': 42, }),
+            'odor_categories': forms.SelectMultiple(attrs={'size': '5', }),
+            'trade_name': forms.TextInput(attrs={'size': 40, }),
+        }

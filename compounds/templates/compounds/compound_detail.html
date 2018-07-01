@@ -42,8 +42,17 @@
                 {% if user.is_authenticated %}
                 <button type="submit"  class="btn btn-primary" >
                 <span class="glyphicon glyphicon"></span>Submit</button>
-                    {% endif %}
+                {% else %}
+                <button type="submit"  class="btn btn-primary" disabled>
+                <span class="glyphicon glyphicon"></span>Submit</button>
+                {% endif %}
             </form>
+        {% elif compound.created_by == request.user.profile or request.user.is_superuser %}
+            <a href="{% url 'compound-update' pk=compound.pk %}">
+            <button type="button" class="btn btn-secondary">Edit</button></a>
+        {% else %}
+            <a href="{% url 'compound-update' pk=compound.pk %}">
+            <button type="button" class="btn btn-secondary" disabled>Edit</button></a>
         {% endif %}
         </div>
     <div class="col-sm-5 ">

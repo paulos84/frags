@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 
-from compounds.models import Compound
+from compounds.models import Compound, Profile
 
 
 class Usage(models.Model):
@@ -17,12 +17,20 @@ class Usage(models.Model):
         max_length=30,
         default='untitled',
     )
-
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+    updated_at = models.DateTimeField(
+        null=True,
+    )
+    created_by = models.ForeignKey(
+        Profile,
+        related_name='usages',
+    )
     # for use with type 1.
     ingredients = models.ManyToManyField(
         Compound,
         through='Component')
-
     # def save(...):
         #Validate ingredients add up to 100% and such
 

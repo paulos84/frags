@@ -1,5 +1,6 @@
 from .compound_create import CompoundCreateView
 from .compound_detail import CompoundDetailView
+from .compound_update import CompoundUpdateView
 from .compound_list import (
                             CompoundListView, OdorTypeCompoundListView, UserCompoundListView,
                             )

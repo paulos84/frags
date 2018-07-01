@@ -1,27 +1,16 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="myValues">
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
         <value>
           <list size="4">
-            <item index="0" class="java.lang.String" itemvalue="compound.pubchem.thumb_url" />
-            <item index="1" class="java.lang.String" itemvalue="}}" />
-            <item index="2" class="java.lang.String" itemvalue="compound.structure_url" />
-            <item index="3" class="java.lang.String" itemvalue="compound.iupac_name" />
+            <item index="0" class="java.lang.String" itemvalue="Django" />
+            <item index="1" class="java.lang.String" itemvalue="psycopg2" />
+            <item index="2" class="java.lang.String" itemvalue="lxml" />
+            <item index="3" class="java.lang.String" itemvalue="pytz" />
           </list>
         </value>
-      </option>
-      <option name="myCustomValuesEnabled" value="true" />
-    </inspection_tool>
-    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
-      <option name="ignoredIdentifiers">
-        <list>
-          <option value="compounds.views.compound_create.CompoundCreateView.request" />
-          <option value="compounds.views.compound_detail.CompoundDetailView.*" />
-          <option value="compounds.models.profile.CompoundNotes.*" />
-          <option value="compounds.models.activity.CompoundNotes.*" />
-        </list>
       </option>
     </inspection_tool>
   </profile>

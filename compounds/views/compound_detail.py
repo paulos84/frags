@@ -1,4 +1,4 @@
-from django.views import generic
+from django.views.generic import DetailView
 from django.shortcuts import HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
@@ -8,7 +8,7 @@ from compounds.models import Compound, UserNotes
 from compounds.forms import CompoundNotesForm, CompoundUpdateForm
 
 
-class CompoundDetailView(FormMixin, generic.DetailView):
+class CompoundDetailView(FormMixin, DetailView):
     model = Compound
     template_name = 'compounds/compound_detail.html'
     form_class = CompoundNotesForm
@@ -27,6 +27,17 @@ class CompoundDetailView(FormMixin, generic.DetailView):
             initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
                                                                  'odor_description', 'smiles', 'trade_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
+        elif self.request.user.profile == compound.created_by or self.request.user.is_superuser:
+            pass
+            #button that onclick reveals update form, uses logic as above to set initial so that already within widget textinput
+        #     Try render_value=True on password
+        # The easiest way would be to pre-populate the fields with what's already there. Do this on the template with {{ account.name }} or whatever.
+        # https://stackoverflow.com/questions/18343361/django-only-update-fields-that-have-been-changed-in-updateview
+        # https://stackoverflow.com/questions/26548821/updateview-form-pre-populate-error -see bottom SOLVED
+
+        # FIRST: make edit link button which redirects to updateview
+
+
         if self.request.user.is_authenticated:
             self.add_profile_activity(context)
         return context

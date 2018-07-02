@@ -14,27 +14,6 @@
 {% block content %}
     <div class="col-sm-5 ">
          <h4 class="intro">{{ compound.iupac_name }}</h4>
-        {% if compound.trade_name %}
-            <p><strong>Trade name:</strong> {{ compound.trade_name }}</p>
-        {% endif %}
-        <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
-        <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
-
-        {% if compound.created_by == request.user.profile %}
-          food
-        {% elif request.user.is_superuser %}
-        bard
-        {% endif %}
-
-        {% if compound.odor_types %}
-          <p><strong>Odor types: </strong>{{ compound.odor_types }}</p>
-        {% endif %}
-        {% if odor_types %}
-             <p><strong>Odor categories: </strong>{{ odor_types }}</p>
-        {% endif %}
-        {% if compound.odor_description %}
-            <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
-        {% endif %}
         <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}

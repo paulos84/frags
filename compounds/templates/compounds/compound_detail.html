@@ -19,13 +19,6 @@
         {% endif %}
         <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
         <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
-
-        {% if compound.created_by == request.user.profile %}
-          food
-        {% elif request.user.is_superuser %}
-        bard
-        {% endif %}
-
         {% if compound.odor_types %}
           <p><strong>Odor types: </strong>{{ compound.odor_types }}</p>
         {% endif %}
@@ -69,6 +62,17 @@
             {% if user_notes %}
                 <div><p><strong>My notes</strong></div>
                 {{ user_notes }}
+                <div style="position: relative; top:16px">
+
+                    <a href="{% url 'user-notes-delete' pk=user_notes_pk %}">
+                    <button type="button" class="btn btn-secondary">Edit</button></a>
+                <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
+                    {% csrf_token %}
+                    <button type="submit"  class="btn btn-primary" >
+                        <span class="glyphicon glyphicon-remove"></span>Delete</button>
+                </form>
+
+                </div>
             {% else %}
                 <form method="post">
                   {% csrf_token %}

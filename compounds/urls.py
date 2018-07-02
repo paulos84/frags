@@ -3,7 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from compounds.views import (ChemFilterSubstructureDetail, CompoundCreateView, CompoundDetailView, CompoundUpdateView,
-                             SubstructureListView, SubstructureDetail, UserSubstructureDetail, )
+                             SubstructureListView, SubstructureDetail, UserSubstructureDetail,
+                             UserCompoundNotesDeleteView )
 
 from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *
@@ -13,6 +14,7 @@ urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
     path('compound/<int:pk>', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/edit/<int:pk>', CompoundUpdateView.as_view(), name='compound-update'),
+    path('compound/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('compound/add', CompoundCreateView.as_view(), name='compound-add'),
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),

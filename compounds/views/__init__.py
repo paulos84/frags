@@ -8,6 +8,7 @@ from .filtered_lists import ChemFilterListView, UserChemFilterListView
 from .substructure_detail import ChemFilterSubstructureDetail, SubstructureDetail, UserSubstructureDetail
 from .substructure_list import SubstructureListView
 from .user_auth import signup
+from .user_activity import UserCompoundNotesDeleteView
 
 __all__ = [
     CompoundCreateView,

@@ -13,6 +13,8 @@ class CompoundDetailView(FormMixin, DetailView):
     template_name = 'compounds/compound_detail.html'
     form_class = CompoundNotesForm
     second_form_class = CompoundUpdateForm
+    success_message = "Thing was deleted successfully."
+    notes_object = None
 
     def get_context_data(self, **kwargs):
         context = super(CompoundDetailView, self).get_context_data(**kwargs)
@@ -23,21 +25,10 @@ class CompoundDetailView(FormMixin, DetailView):
         context['structure_url'] = compound.structure_url
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
-        if not all([compound.odor_categories.all(), compound.odor_description, compound.trade_name]):
+        if not all([compound.odor_categories.all(), compound.odor_description]):
             initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
                                                                  'odor_description', 'smiles', 'trade_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
-        elif self.request.user.profile == compound.created_by or self.request.user.is_superuser:
-            pass
-            #button that onclick reveals update form, uses logic as above to set initial so that already within widget textinput
-        #     Try render_value=True on password
-        # The easiest way would be to pre-populate the fields with what's already there. Do this on the template with {{ account.name }} or whatever.
-        # https://stackoverflow.com/questions/18343361/django-only-update-fields-that-have-been-changed-in-updateview
-        # https://stackoverflow.com/questions/26548821/updateview-form-pre-populate-error -see bottom SOLVED
-
-        # FIRST: make edit link button which redirects to updateview
-
-
         if self.request.user.is_authenticated:
             self.add_profile_activity(context)
         return context
@@ -47,16 +38,14 @@ class CompoundDetailView(FormMixin, DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            notes_object = UserNotes.objects.get(
+            self.notes_object = UserNotes.objects.get(
                 user=self.request.user.profile, compound=self.get_object())
-            context['user_notes'] = notes_object.notes
+            context['user_notes'] = self.notes_object.notes
+            context['user_notes_pk'] = self.notes_object.pk
         except ObjectDoesNotExist:
             context['user_notes'] = ''
 
     def get_initial(self):
-        """
-        Returns the initial data to use in the form
-        """
         initial = super(CompoundDetailView, self).get_initial()
         initial['compound'] = self.object
         if self.request.user.is_authenticated:
@@ -76,6 +65,7 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        print (request.POST)
         if request.POST.get('odor_description'):
             form_class = self.second_form_class
             form = self.get_form(form_class)
@@ -102,3 +92,5 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def get_success_url(self):
         return reverse('compound-detail', kwargs={'pk': self.object.pk})
+
+

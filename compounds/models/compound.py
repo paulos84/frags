@@ -72,9 +72,6 @@ class Compound(ChemDescriptorMixin, models.Model):
         """ Runs validation logic and sets cid_number """
         self.set_smiles()
         self.set_pcp_data()
-        print (self.smiles)
-        print (self.cid_number)
-        print (self.iupac_name)
         if not all([self.smiles, self.iupac_name]):
             raise ValidationError('Something went wrong')
         super(Compound, self).save(*args, **kwargs)

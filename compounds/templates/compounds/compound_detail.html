@@ -49,46 +49,58 @@
         {% endif %}
         </div>
     <div class="col-sm-5 ">
-        <div style=" position:relative; top:8px">
-            <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
+        <div style=" position:relative; top:16px">
+            <img class="structure-img" src={{ compound.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
             <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:132 }}</p>
         </div>
     </div>
-    <div class="col-sm-10 ">
+    <div class="col-sm-10 " style="margin-top:10px">
+        {% if substructures %}
+            <p><strong>Structural fragments</strong>
+            {% for substruct in substructures %}
+                <a href="{{ substruct.get_absolute_url }}">
+                    <img src={{ substruct.structure_url }} height="120" width="120" title={{ substruct }} >
+            </a></p>
+            {% endfor %}
+        {% endif %}
         <br>
           {% if user.is_authenticated %}
             {% if user_notes %}
                 <div><p><strong>My notes</strong></div>
                 {{ user_notes }}
-                <div style="position: relative; top:16px">
 
-                    <a href="{% url 'user-notes-delete' pk=user_notes_pk %}">
-                    <button type="button" class="btn btn-secondary">Edit</button></a>
-                <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
-                    {% csrf_token %}
-                    <button type="submit"  class="btn btn-primary" >
-                        <span class="glyphicon glyphicon-remove"></span>Delete</button>
-                </form>
-
-                </div>
-            {% else %}
-                <form method="post">
-                  {% csrf_token %}
-                  {% bootstrap_form form %}
-                <button type="submit"  class="btn btn-primary" >
-                    <span class="glyphicon glyphicon"></span>Submit</button>
-                </form>
-            {% endif %}
-        {% else %}
-                <form method="post" novalidate>
-                  {% csrf_token %}
-                  {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary" disabled>
-                    <span class="glyphicon glyphicon"></span>Submit</button>
-                </form>
-        {% endif %}
-
+<div style="position: relative; top: 13px; width:400px;">
+    <div style="float: left; width: 130px; ">
+        <a href="{% url 'user-notes-delete' pk=user_notes_pk %}">
+                    <button type="button" class="btn btn-secondary"
+                            style="width: 150px; background-color: #fbfcfb; ">Edit</button></a>
     </div>
+    <div style="float: right; width: 155px; ">
+        <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
+            {% csrf_token %}
+            <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');"
+                    style="width: 150px; background-color: #fbfcfb; ">
+                <span class="glyphicon glyphicon"></span>Delete</button>
+        </form>
+    </div>
+    </div>
+        {% else %}
+            <form method="post">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+            <button type="submit"  class="btn btn-primary" >
+                <span class="glyphicon glyphicon"></span>Submit</button>
+            </form>
+        {% endif %}
+    {% else %}
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary" disabled>
+                <span class="glyphicon glyphicon"></span>Submit</button>
+            </form>
+    {% endif %}
+</div>
 {% endblock %}

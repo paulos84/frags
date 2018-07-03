@@ -12,7 +12,6 @@ from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models.managers import CompoundManager
 
 
-# noinspection PyTypeChecker
 class Compound(ChemDescriptorMixin, models.Model):
 
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from

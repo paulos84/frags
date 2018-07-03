@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.postgres.fields import ArrayField
+from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
 
@@ -50,4 +51,24 @@ class Substructure(ChemDescriptorMixin, models.Model):
             'substructure-detail',
             args=[self.slug],
         )
+
+    @classmethod
+    def compound_matches(cls, compound):
+        """
+        Filters instances by those which are a core substructure of a specified compound
+        Args:
+            queryset (:obj:'Compound'): Compound instance from which a SMILES string can be accessed
+        Returns:
+            A QuerySet containing instances whose SMILES string corresponds to a substructure of a Compound instance
+        Example:
+        >>> c = Compound.objects.get(pk=2)
+        >>> Substructure.compound_matches(c)
+        <QuerySet [<Substructure: Acyclic terpene>]>
+        """
+        all_smiles = cls.objects.values('id', 'smiles')
+        matches = [a['id'] for a in all_smiles if
+                   Chem.MolFromSmiles(compound.smiles).HasSubstructMatch(
+                       Chem.MolFromSmiles(a['smiles']))]
+        return cls.objects.filter(id__in=matches)
+
 

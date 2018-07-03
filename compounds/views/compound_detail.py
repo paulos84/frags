@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
-from compounds.models import Compound, UserNotes
+from compounds.models import Compound, Substructure, UserNotes
 from compounds.forms import CompoundNotesForm, CompoundUpdateForm
 
 
@@ -23,6 +23,7 @@ class CompoundDetailView(FormMixin, DetailView):
         context['odor_types'] = ', '.join([a[0] for a in odor_types])
         context['synonyms'] = compound.synonyms
         context['structure_url'] = compound.structure_url
+        context['substructures'] = Substructure.compound_matches(compound)
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):

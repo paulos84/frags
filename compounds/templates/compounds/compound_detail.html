@@ -66,34 +66,43 @@
             {% endfor %}
         {% endif %}
         <br>
-          {% if user.is_authenticated %}
-            {% if user_notes %}
-                <div><p><strong>My notes</strong></div>
-                {{ user_notes }}
-
-<div style="position: relative; top: 13px; width:400px;">
-    <div style="float: left; width: 130px; ">
-        <a href="{% url 'user-notes-delete' pk=user_notes_pk %}">
-                    <button type="button" class="btn btn-secondary"
-                            style="width: 150px; background-color: #fbfcfb; ">Edit</button></a>
-    </div>
-    <div style="float: right; width: 155px; ">
-        <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
-            {% csrf_token %}
-            <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');"
-                    style="width: 150px; background-color: #fbfcfb; ">
-                <span class="glyphicon glyphicon"></span>Delete</button>
-        </form>
-    </div>
-    </div>
-        {% else %}
+        {% if user.is_authenticated %}
+        <div id="user-notes">
+        {% if user_notes %}
+            <div><p><strong>My notes</strong></div>
+            {{ user_notes }}
+        </div>
+        <div id="notes-form" style="display: none;">
             <form method="post">
-              {% csrf_token %}
-              {% bootstrap_form form %}
-            <button type="submit"  class="btn btn-primary" >
+            {% csrf_token %}
+            {% bootstrap_form form %}
+                <button type="submit"  class="btn btn-primary" >
                 <span class="glyphicon glyphicon"></span>Submit</button>
             </form>
-        {% endif %}
+        </div>
+        <div style="position: relative; top: 13px; width:400px;">
+            <div style="float: left; width: 130px; ">
+                <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
+                        onclick="$('#user-notes, #notes-form').toggle();">
+                Edit</button></div>
+             </div>
+        <div style="float: right; width: 155px; ">
+            <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
+                {% csrf_token %}
+                <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');"
+                    style="width: 150px; background-color: #fbfcfb; ">
+                <span class="glyphicon glyphicon"></span>Delete</button>
+            </form>
+        </div>
+        </div>
+    {% else %}
+        <form method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+        <button type="submit"  class="btn btn-primary" >
+            <span class="glyphicon glyphicon"></span>Submit</button>
+        </form>
+    {% endif %}
     {% else %}
             <form method="post" novalidate>
               {% csrf_token %}

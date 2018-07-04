@@ -11,23 +11,28 @@ class CompoundNotesForm(forms.ModelForm):
 
     user = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
     compound = forms.ModelChoiceField(queryset=Compound.objects.all(), widget=forms.HiddenInput())
+    notes = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 42, 'placeholder': 'Enter notes',
+                                                         'style': 'border-color: green;', }))
 
     class Meta:
         model = UserNotes
         fields = ['notes', 'user', 'compound']
-        widgets = {
-            'notes': forms.Textarea(attrs={'rows': 5, 'cols': 42,
-                                           'placeholder': 'Enter notes',
-                                           'style': 'border-color: green;',
-                                           }),
-        }
 
     def __init__(self, *args, **kwargs):
         user_auth = kwargs.pop('user_auth', None)
+        notes = kwargs.pop('notes', None)
         super(CompoundNotesForm, self).__init__(*args, **kwargs)
-        # self.fields['notes'].required = True
+        if notes:
+            self.fields['notes'].initial = notes
         if not user_auth:
             self.fields['notes'].widget.attrs['placeholder'] = 'Login to access notes'
+
+    def save(self, **kwargs):
+        try:
+            UserNotes.objects.get(compound=self.cleaned_data['compound']).delete()
+        except UserNotes.DoesNotExist:
+            pass
+        super(CompoundNotesForm, self).save(**kwargs)
 
 
 class SignupForm(UserCreationForm):

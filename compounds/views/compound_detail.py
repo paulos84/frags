@@ -15,6 +15,7 @@ class CompoundDetailView(FormMixin, DetailView):
     second_form_class = CompoundUpdateForm
     success_message = "Thing was deleted successfully."
     notes_object = None
+    user_auth = False
 
     def get_context_data(self, **kwargs):
         context = super(CompoundDetailView, self).get_context_data(**kwargs)
@@ -24,14 +25,17 @@ class CompoundDetailView(FormMixin, DetailView):
         context['synonyms'] = compound.synonyms
         context['structure_url'] = compound.structure_url
         context['substructures'] = Substructure.compound_matches(compound)
+        if self.request.user.is_authenticated:
+            self.user_auth = True
+            self.add_profile_activity(context)
+        if self.notes_object:
+            context['form'] = self.form_class(notes=self.notes_object.notes, instance=self.notes_object)
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):
             initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
                                                                  'odor_description', 'smiles', 'trade_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
-        if self.request.user.is_authenticated:
-            self.add_profile_activity(context)
         return context
 
     def add_profile_activity(self, context):
@@ -66,7 +70,6 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print (request.POST)
         if request.POST.get('odor_description'):
             form_class = self.second_form_class
             form = self.get_form(form_class)
@@ -83,8 +86,11 @@ class CompoundDetailView(FormMixin, DetailView):
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         elif form.is_valid():
+            if self.notes_object:
+                self.notes_object.delete()
             return self.form_valid(form)
         else:
+            print(form.errors)
             return self.form_invalid(**{form_name: form})
 
     def form_valid(self, form):

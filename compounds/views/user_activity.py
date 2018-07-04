@@ -1,4 +1,4 @@
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, UpdateView
 from django.shortcuts import reverse, HttpResponseRedirect
 
 from .compound_list import BaseCompoundListView

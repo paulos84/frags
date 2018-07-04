@@ -40,9 +40,10 @@
                 <span class="glyphicon glyphicon"></span>Submit</button>
                 {% endif %}
             </form>
-        {% elif compound.created_by == request.user.profile or request.user.is_superuser %}
+        {% endif %}
+        {% if compound.created_by == request.user.profile or request.user.is_superuser %}
             <a href="{% url 'compound-update' pk=compound.pk %}">
-            <button type="button" class="btn btn-secondary">Edit</button></a>
+            <button type="button" class="btn btn-secondary" style="margin-top: 3px; width: 70px">Edit</button></a>
         {% else %}
             <a href="{% url 'compound-update' pk=compound.pk %}">
             <button type="button" class="btn btn-secondary" disabled>Edit</button></a>
@@ -53,7 +54,7 @@
             <img class="structure-img" src={{ compound.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
-            <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:132 }}</p>
+            <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:124 }}</p>
         </div>
     </div>
     <div class="col-sm-10 " style="margin-top:10px">
@@ -81,16 +82,13 @@
             </form>
         </div>
         <div style="position: relative; top: 13px; width:400px;">
-            <div style="float: left; width: 130px; ">
+            <div style="float: left; width: 80px; ">
                 <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
                         onclick="$('#user-notes, #notes-form').toggle();">
                 Edit</button></div>
-             </div>
-        <div style="float: right; width: 155px; ">
             <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
                 {% csrf_token %}
-                <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');"
-                    style="width: 150px; background-color: #fbfcfb; ">
+                <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');" style="color: #6aaf6a">
                 <span class="glyphicon glyphicon"></span>Delete</button>
             </form>
         </div>

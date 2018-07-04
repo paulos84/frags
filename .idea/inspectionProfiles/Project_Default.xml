@@ -31,6 +31,8 @@
         <list>
           <option value="compounds.models.substructure.Substructure.*" />
           <option value="compounds.views.compound_detail.CompoundDetailView.*" />
+          <option value="compounds.models.usernotes.UserNotes.*" />
+          <option value="compounds.models.profile.Profile.*" />
         </list>
       </option>
     </inspection_tool>

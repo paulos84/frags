@@ -13,7 +13,6 @@ class CompoundDetailView(FormMixin, DetailView):
     template_name = 'compounds/compound_detail.html'
     form_class = CompoundNotesForm
     second_form_class = CompoundUpdateForm
-    success_message = "Thing was deleted successfully."
     notes_object = None
     user_auth = False
 
@@ -86,11 +85,8 @@ class CompoundDetailView(FormMixin, DetailView):
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         elif form.is_valid():
-            if self.notes_object:
-                self.notes_object.delete()
             return self.form_valid(form)
         else:
-            print(form.errors)
             return self.form_invalid(**{form_name: form})
 
     def form_valid(self, form):

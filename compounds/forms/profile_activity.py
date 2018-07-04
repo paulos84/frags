@@ -7,7 +7,7 @@ from compounds.models import UserNotes, Compound, Profile
 
 class CompoundNotesForm(forms.ModelForm):
 
-    """ Form for users to create a CompoundNote for a given Compound model instance """
+    """ Form for users to create a CompoundNote instance for a given Compound instance """
 
     user = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
     compound = forms.ModelChoiceField(queryset=Compound.objects.all(), widget=forms.HiddenInput())

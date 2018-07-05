@@ -11,7 +11,11 @@
                 <button type="button" class="btn btn-secondary">Aliphatic</button></a>
             <a href="{% url 'chem-filter' chem_type='aromatic' %}">
                 <button type="button" class="btn btn-secondary">Aromatic</button></a>
-        <div class="btn-group">
+
+            <label style="float:left; margin-top:6px" class="text-muted" >Show: </label>
+            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a" onclick="$('.odor-terms').toggle();">
+                Odor types</button>
+
                {% if user.is_authenticated and chem_type %}
            <a href="{% url 'user-chem-filter' chem_type=chem_type %}">
                <button class="btn btn-secondary" style="color: #6aaf6a">
@@ -26,8 +30,7 @@
             <button style="color: #6aaf6a" class="btn btn-secondary" disabled>
                 <span class="glyphicon glyphicon"></span>My notes</button>
         {% endif %}
-        <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a" onclick="$('.odor-terms').toggle();">
-                Show odor types</button></div>
+
     </div>
         {% if compound_list %}
          <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>

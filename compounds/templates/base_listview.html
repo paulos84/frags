@@ -130,17 +130,7 @@
               </div>
             </div>
         </form>
-        <div id="show-search-results" >
-        <table class="table table-bordered">
-            <tbody>
-              {% for compound in compound_filter.qs %}
-                <tr>
-                  <td><a href="{{ compound.get_absolute_url }}">{{ compound }}</a></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-        </div>
+
         </div>
      {% block sidebar %}
      {% endblock %}

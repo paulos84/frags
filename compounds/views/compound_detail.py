@@ -42,8 +42,7 @@ class CompoundDetailView(FormMixin, DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            self.notes_object = UserNotes.objects.get(
-                user=self.request.user.profile, compound=self.get_object())
+            self.notes_object = UserNotes.objects.get(user=self.request.user.profile, compound=self.get_object())
             context['user_notes'] = self.notes_object.notes
             context['user_notes_pk'] = self.notes_object.pk
         except ObjectDoesNotExist:
@@ -69,7 +68,7 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if request.POST.get('odor_description'):
+        if request.POST.get():
             form_class = self.second_form_class
             form = self.get_form(form_class)
             form_name = 'form2'

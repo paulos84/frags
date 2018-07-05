@@ -19,7 +19,7 @@ class CompoundCreateView(CreateView):
 
 
 def process_cas(request):
-    cas_no = request.GET.get('cas_number')
+    cas_no = request.GET.get()
     data = {}
     try:
         obj = Compound.objects.get(cas_number__exact=cas_no)

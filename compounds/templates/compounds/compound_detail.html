@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% load bootstrap3 %}
 {% load static %}
+
 {% block title %}
     {% if compound.trade_name %}
     <title>{{ compound.trade_name }}</title>
@@ -8,9 +9,11 @@
     <title>{{ compound.iupac_name }}</title>
     {% endif %}
 {% endblock %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
+
 {% block content %}
     <div class="col-sm-5 ">
          <h4 class="intro">{{ compound.iupac_name }}</h4>

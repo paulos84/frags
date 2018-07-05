@@ -1,22 +1,14 @@
 {% extends "base_listview.html" %}
 {% load staticfiles %}
+
 {% block content %}
 <div class="col-sm-10">
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="top:10px; bottom:6px; left:185px">
-                 <label >   </label>    <label >   </label> <label >   </label>
-         <label class="text-muted" >    Filter by: </label>
-            <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">
-                <button type="button" class="btn btn-secondary">Heteroaromatic</button></a>
-            <a href="{% url 'chem-filter' chem_type='aliphatic' %}">
-                <button type="button" class="btn btn-secondary">Aliphatic</button></a>
-            <a href="{% url 'chem-filter' chem_type='aromatic' %}">
-                <button type="button" class="btn btn-secondary">Aromatic</button></a>
 
-            <label style="float:left; margin-top:6px" class="text-muted" >Show: </label>
+         <label style="float:left; margin-top:6px; margin-right:4px; " class="text-muted" >Show: </label>
             <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a" onclick="$('.odor-terms').toggle();">
                 Odor types</button>
-
-               {% if user.is_authenticated and chem_type %}
+           {% if user.is_authenticated and chem_type %}
            <a href="{% url 'user-chem-filter' chem_type=chem_type %}">
                <button class="btn btn-secondary" style="color: #6aaf6a">
                <span class="glyphicon glyphicon"></span>My notes</button>
@@ -31,8 +23,46 @@
                 <span class="glyphicon glyphicon"></span>My notes</button>
         {% endif %}
 
+        <label class="text-muted" style="position:relative; margin-left:8px">    Filter by: </label>
+            <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">
+                <button type="button" class="btn btn-secondary">Heteroaromatic</button></a>
+            <a href="{% url 'chem-filter' chem_type='aliphatic' %}">
+                <button type="button" class="btn btn-secondary">Aliphatic</button></a>
+            <a href="{% url 'chem-filter' chem_type='aromatic' %}">
+                <button type="button" class="btn btn-secondary">Aromatic</button></a>
+
     </div>
-        {% if compound_list %}
+
+
+    {% if compound_filter.qs %}
+         <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
+            <ul style="list-style-type: none;">
+            {% for compound in compound_filter.qs %}
+            <li>
+                <table>
+                <tr>
+                    <th>
+                        <img class="structure-img" src={{ compound.structure_url }}
+                             title={{ compound.iupac_name }}  height="100" width="100">
+                    </th>
+                    <td>
+                        <div style=" position:relative; left:7px;">
+                        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+                        </div>
+                        <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
+                            <h5>{% for odor_type in compound.odor_categories.all %}
+                                    {{ odor_type.term }}
+                                {% endfor %}
+                            </h5>
+                        </div>
+                    </td>
+                </tr>
+                </table>
+            </li>
+            {% endfor %}
+            </ul>
+
+        {% elif compound_list %}
          <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
             <ul style="list-style-type: none;">
             {% for compound in compound_list %}
@@ -64,6 +94,7 @@
         {% endif %}
     </div>
 {% endblock %}
+
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>
 {% endblock %}

@@ -16,7 +16,6 @@ urlpatterns = [
     path('compound/edit/<int:pk>', CompoundUpdateView.as_view(), name='compound-update'),
     path('compound/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('compound/add', CompoundCreateView.as_view(), name='compound-add'),
-    path('compound/add', CompoundCreateView.as_view(), name='search-results'),
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='compound-odor-type-filter'),
     path('substructure', SubstructureListView.as_view(), name='substructures'),

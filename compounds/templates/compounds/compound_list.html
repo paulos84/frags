@@ -47,7 +47,7 @@
                     </th>
                     <td>
                         <div style=" position:relative; left:7px;">
-                        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+                        <a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:72 }}</a>
                         </div>
                         <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
                             <h5>{% for odor_type in compound.odor_categories.all %}
@@ -75,7 +75,7 @@
                     </th>
                     <td>
                         <div style=" position:relative; left:7px;">
-                        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
+                        <a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:72  }}</a>
                         </div>
                         <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
                             <h5>{% for odor_type in compound.odor_categories.all %}

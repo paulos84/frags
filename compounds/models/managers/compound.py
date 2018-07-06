@@ -5,17 +5,17 @@ from rdkit import Chem
 
 class CompoundQuerySet(models.QuerySet):
 
-    def heteroaromatic(self):
+    def heteroaromatics(self):
         heteroatoms = ['n', 'S', 'o']
         condition = Q(smiles__contains=heteroatoms[0])
         for atom in heteroatoms[1:]:
             condition |= Q(smiles__contains=atom)
         return self.filter(condition)
 
-    def aromatic(self):
+    def aromatics(self):
         return self.filter(smiles__contains='c')
 
-    def aliphatic(self):
+    def aliphatics(self):
         return self.exclude(smiles__contains='c')
 
 
@@ -25,13 +25,13 @@ class CompoundManager(models.Manager):
         return CompoundQuerySet(self.model, using=self._db).prefetch_related('odor_categories')
 
     def heteroaromatics(self):
-        return self.get_queryset().heteroaromatic()
+        return self.get_queryset().heteroaromatics()
 
-    def aromatic(self):
-        return self.get_queryset().aromatic()
+    def aromatics(self):
+        return self.get_queryset().aromatics()
 
-    def aliphatic(self):
-        return self.get_queryset().aliphatic()
+    def aliphatics(self):
+        return self.get_queryset().aliphatics()
 
     def functional_groups(self, func_group):
         smarts = Chem.MolFromSmarts(func_group)
@@ -40,13 +40,13 @@ class CompoundManager(models.Manager):
                 Chem.MolFromSmiles(cpd[1]).HasSubstructMatch(smarts)]
 
     def aliphatic_carbonyls(self):
-        return self.aliphatic().filter(pk__in=self.functional_groups('C=O'))
+        return self.aliphatics().filter(pk__in=self.functional_groups('C=O'))
 
     def aromatic_carbonyls(self):
-        return self.aromatic().filter(pk__in=self.functional_groups('C=O'))
+        return self.aromatics().filter(pk__in=self.functional_groups('C=O'))
 
     def aliphatic_alcohols(self):
-        return self.aliphatic().filter(iupac_name__contains='ol')
+        return self.aliphatics().filter(iupac_name__contains='ol')
 
     def aromatic_alcohols(self):
-        return self.aromatic().filter(iupac_name__contains='ol')
+        return self.aromatics().filter(iupac_name__contains='ol')

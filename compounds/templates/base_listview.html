@@ -80,6 +80,8 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+{% block sidebar %}
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
@@ -130,16 +132,18 @@
               </div>
             </div>
         </form>
-
         </div>
-     {% block sidebar %}
-     {% endblock %}
       </div>
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
 {% block content %}
 {% endblock %}
 {% block pagination %}
  {% if is_paginated %}
-  <ul class="pagination">
+  <ul class="pagination" style="float:right; margin-right:80px">
     {% if page_obj.has_previous %}
       <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
     {% else %}

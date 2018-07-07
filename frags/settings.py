@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'compounds.apps.MoleculesConfig',
     'api.apps.ApiConfig',
+    'widget_tweaks',
     'bootstrap3',
 ]
 

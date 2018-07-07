@@ -1,19 +1,15 @@
-from collections import namedtuple
-
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
 
 from compounds.models import Compound, UserNotes, OdorType
 from compounds.forms import CompoundSearchForm
 
 
 class BaseCompoundListView(generic.ListView):
-    #     queryset = Compound.objects.all()
     queryset = Compound.objects.all()
     template_name = 'compounds/compound_list.html'
-    paginate_by = 20
+    paginate_by = 32
 
     def get_queryset(self):
         qs = super(BaseCompoundListView, self).get_queryset()
@@ -25,23 +21,10 @@ class BaseCompoundListView(generic.ListView):
             qs = qs.filter(iupac_name__icontains=iupac_name)
         return qs
 
-    # def get(self, request, *args, **kwargs):
-    #     search_data = [request.GET.get('cas_number', ''), request.GET.get('iupac_name', '')]
-    #     if any(search_data):
-    #         print('foobar')
-    #         self.queryset = Compound.objects.filter(iupac_name__exact=request.GET.get('cas_number', '')).filter(
-    #             iupac_name__icontains=request.GET.get('iupac_name', ''))
-    #     else:
-    #         print('no search!!!')
-    #     return super(BaseCompoundListView, self).get(request, *args, **kwargs)
-    # #
-    # def search_filter(self, query):
-
     def get_context_data(self, **kwargs):
         context = super(BaseCompoundListView, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
         context['compound_search'] = CompoundSearchForm()
-
         return context
 
 
@@ -52,11 +35,6 @@ class CompoundListView(BaseCompoundListView):
         context['page_header'] = 'All compounds'
         return context
 
-
-class FilterSearchListVIew(BaseCompoundListView):
-    def get_queryset(self):
-        print(self.request.GET)
-        return Compound.objects.all()
 
 class OdorTypeCompoundListView(BaseCompoundListView):
     template_name = 'compounds/odor_compound_list.html'

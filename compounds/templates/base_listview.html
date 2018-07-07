@@ -4,14 +4,15 @@
 <!-- Add additional CSS in static file  -->
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  {% block title %}<title>Fragrance Compounds</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     {% block head %}{% endblock %}
+{% block title %}<title>Fragrance Compounds</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% block head %}{% endblock %}
 </head>
+{% load bootstrap3 %}
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -25,7 +26,6 @@
       </button>
       <a class="navbar-brand" href="#">Brand</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -118,8 +118,8 @@
         <form method="get" >
             <div class="well">
               <div class="row">
-                  {{ compound_search }}
-                  <button type="submit" class="btn btn-primary" style="margin-top:8px">
+                        {% bootstrap_form compound_search %}
+                  <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>Search</button>
               </div>
             </div>
@@ -137,7 +137,7 @@
  {% if is_paginated %}
   <ul class="pagination" style="float:right; margin-right:80px">
     {% if page_obj.has_previous %}
-      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+      <li><a href="{{ request.get_full_path }}?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
     {% else %}
           <li class="disabled"><span>&laquo;</span></li>
     {% endif %}
@@ -145,11 +145,11 @@
       {% if page_obj.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <li><a href="{{ request.get_full_path }}?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
-      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+      <li><a href="{{ request.get_full_path }}?page={{ page_obj.next_page_number }}">&raquo;</a></li>
     {% else %}
       <li class="disabled"><span>&raquo;</span></li>
     {% endif %}

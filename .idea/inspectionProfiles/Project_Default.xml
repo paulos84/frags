@@ -33,6 +33,7 @@
           <option value="compounds.views.compound_detail.CompoundDetailView.*" />
           <option value="compounds.models.usernotes.UserNotes.*" />
           <option value="compounds.models.profile.Profile.*" />
+          <option value="compounds.views.compound_list.BaseCompoundListView.*" />
         </list>
       </option>
     </inspection_tool>

@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/all', UserCompoundListView.as_view(), name='user-compound-list'),
     path('user/filter/<chem_type>', UserChemFilterListView.as_view(), name='user-chem-filter'),
     path('filter/<chem_type>', ChemFilterListView.as_view(), name='chem-filter'),
+    path('filter/search', CompoundCreateView.as_view(), name='search-filter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

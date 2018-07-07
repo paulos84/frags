@@ -18,7 +18,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         help_text='Empirical name e.g. tetrahydrolinalools'
     )
     description = models.CharField(
-        max_length=625,
+        max_length=340,
         default='',
         blank=True,
     )

@@ -13,3 +13,6 @@ class SubstructureAdminForm(forms.ModelForm):
     class Meta:
         model = Substructure
         fields = '__all__'
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3, 'cols': 60}),
+        }

@@ -31,7 +31,7 @@ class CompoundUpdateForm(BaseCompoundUpdateForm):
     def __init__(self, *args, **kwargs):
         super(CompoundUpdateForm, self).__init__(*args, **kwargs)
         for field in ['odor_description', 'trade_name']:
-            if kwargs['initial'].get():
+            if kwargs['initial'].get(field):
                 self.fields[field].widget = forms.HiddenInput()
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = False

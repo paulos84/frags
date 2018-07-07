@@ -3,6 +3,10 @@ from django.shortcuts import reverse
 
 from compounds.models import Compound, Profile
 
+# cost
+# notes
+# rating value
+
 
 class Usage(models.Model):
 

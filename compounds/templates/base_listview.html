@@ -115,19 +115,11 @@
       </div>
     </ul>
         <div style=" position:relative; top: 40px ">
-         {% load widget_tweaks %}
         <form method="get" >
             <div class="well">
               <div class="row">
-                  {{ compound_filter.form.cas_number.label_tag }}
-                  {% render_field compound_filter.form.cas_number class="form-control" %}
-                  {{ compound_filter.form.iupac_name.label_tag }}
-                  {% render_field compound_filter.form.iupac_name class="form-control" %}
-                  {{ compound_filter.form.trade_name.label_tag }}
-                  {% render_field compound_filter.form.trade_name class="form-control" %}
-                  {{ compound_filter.form.odor_description.label_tag }}
-                  {% render_field compound_filter.form.odor_description class="form-control" %}
-                  <button type="submit" class="btn btn-primary">
+                  {{ compound_search }}
+                  <button type="submit" class="btn btn-primary" style="margin-top:8px">
                     <span class="glyphicon glyphicon-search"></span>Search</button>
               </div>
             </div>

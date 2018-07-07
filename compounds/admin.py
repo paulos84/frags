@@ -9,7 +9,7 @@ class CompoundAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('cas_number', 'iupac_name', 'smiles')
+            return self.readonly_fields + ('cas_number', 'cid_number', 'iupac_name', 'smiles')
         return self.readonly_fields
 
 

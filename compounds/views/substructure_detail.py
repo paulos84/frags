@@ -2,7 +2,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 
 from compounds.models import Compound, UserNotes, OdorType, Substructure
-from compounds.forms import CompoundFilter
+from compounds.forms import CompoundSearchForm
 
 
 class SubstructureDetail(SingleObjectMixin, ListView):
@@ -16,7 +16,7 @@ class SubstructureDetail(SingleObjectMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(SubstructureDetail, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
-        compound_filter = CompoundFilter(self.request.GET, queryset=self.get_queryset())
+        compound_filter = CompoundSearchForm(self.request.GET, queryset=Compound.objects.all())
         context['compound_filter'] = compound_filter
         return context
 

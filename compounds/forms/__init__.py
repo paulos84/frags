@@ -1,12 +1,12 @@
 from .compound_create import CompoundCreateForm
 from .compound_update import CompoundUpdateForm, EditCompoundForm
-from .list_filters import CompoundFilter
+from .compound_search import CompoundSearchForm
 from .profile_activity import CompoundNotesForm, SignupForm
 
 __all__ = [
     CompoundCreateForm,
     CompoundUpdateForm,
-    CompoundFilter,
+    CompoundSearchForm,
     CompoundNotesForm,
     EditCompoundForm,
     SignupForm,

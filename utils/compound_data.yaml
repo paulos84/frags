@@ -1,0 +1,38 @@
+- model: compounds.compound
+  pk: 1
+  fields:
+    cas_number: 2451-01-6
+    smiles: O.CC(C)(O)C1CCC(C)(O)CC1
+    iupac_name: 4-(2-hydroxypropan-2-yl)-1-methylcyclohexan-1-ol hydrate
+    cid_number: 17141
+    chemical_properties: {hac: 13, synonyms: 'TERPIN HYDRATE, 2451-01-6, Terpin (hydrate),
+        p-Menthane-1,8-diol monohydrate, Terpin monohydrate', rbc: 1, hetac: 3, mw: 190,
+      xlogp: None}
+- model: compounds.compound
+  pk: 2
+  fields:
+    cas_number: 120-58-1
+    smiles: C/C=C/c1ccc2OCOc2c1
+    iupac_name: 5-prop-1-enyl-1,3-benzodioxole
+    cid_number: 637796
+    chemical_properties: {hac: 12, synonyms: 'ISOSAFROLE, Izosafrol, beta-Isosafrole,
+        Isosafrol, (E)-Isosafrole', rbc: 1, hetac: 2, mw: 162, xlogp: 3.1}
+- model: compounds.compound
+  pk: 3
+  fields:
+    cas_number: 127-51-5
+    smiles: CC(=O)C(\C)=C/C1C(=CCCC1(C)C)C
+    iupac_name: (z)-3-methyl-4-(2,6,6-trimethyl-1-cyclohex-2-enyl)but-3-en-2-one
+    cid_number: 5356787
+    chemical_properties: {hac: 15, synonyms: '.alpha.-Cetone, Isomethyl-.alpha.-ionone,
+        Methyl-.alpha.-isoionone, Iso-.alpha.-methyl ionone, .alpha.-Ionone, isomethyl-',
+      rbc: 2, hetac: 1, mw: 206, xlogp: 3.3}
+- model: compounds.compound
+  pk: 4
+  fields:
+    cas_number: 14073-97-3
+    smiles: CC(C)[C@@H]1CC[C@@H](C)CC1=O
+    iupac_name: (2s,5r)-5-methyl-2-propan-2-ylcyclohexan-1-one
+    cid_number: 26447
+    chemical_properties: {hac: 11, synonyms: '(-)-Menthone, l-MENTHONE, MENTHONE,
+        14073-97-3, trans-Menthone', rbc: 1, hetac: 1, mw: 154, xlogp: 2.7}

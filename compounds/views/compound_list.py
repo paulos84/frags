@@ -1,4 +1,5 @@
-from django.views import generic
+from django.views.generic import ListView
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -6,7 +7,7 @@ from compounds.models import Compound, UserNotes, OdorType
 from compounds.forms import CompoundSearchForm
 
 
-class BaseCompoundListView(generic.ListView):
+class BaseCompoundListView(ListView):
     queryset = Compound.objects.all()
     template_name = 'compounds/compound_list.html'
     paginate_by = 32
@@ -18,7 +19,8 @@ class BaseCompoundListView(generic.ListView):
         if cas_number:
             qs = qs.filter(iupac_name__exact=cas_number)
         elif iupac_name:
-            qs = qs.filter(iupac_name__icontains=iupac_name)
+            qs = qs.filter(Q(iupac_name__icontains=iupac_name) |
+                           Q(chemical_properties__icontains={'synonyms': iupac_name}))
         return qs
 
     def get_context_data(self, **kwargs):

@@ -16,8 +16,7 @@ class SubstructureDetail(SingleObjectMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(SubstructureDetail, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
-        compound_filter = CompoundSearchForm(self.request.GET, queryset=Compound.objects.all())
-        context['compound_filter'] = compound_filter
+        context['compound_search'] = CompoundSearchForm()
         return context
 
     def get_queryset(self):

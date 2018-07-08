@@ -19,8 +19,8 @@ class CompoundCreateView(CreateView):
 
 
 def process_cas(request):
-    cas_no = request.GET.get()
     data = {}
+    cas_no = request.GET.get('cas_number')
     try:
         obj = Compound.objects.get(cas_number__exact=cas_no)
         data['object_exists'] = obj.get_absolute_url()

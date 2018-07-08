@@ -30,7 +30,7 @@ class CompoundCreateForm(forms.ModelForm):
         self.fields['odor_categories'].required = True
 
     def clean_cas_number(self):
-        cas_no = self.cleaned_data.get()
+        cas_no = self.cleaned_data.get('cas_number')
         try:
             Compound.objects.get(cas_number__exact=cas_no)
             raise ValidationError('Compound already exists in database')

@@ -23,7 +23,7 @@ import ruamel.yaml
 from ruamel.yaml.parser import ParserError
 
 
-class MakeCompoundFixtures:
+class MakeCompoundFixtureData:
 
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
 
@@ -39,7 +39,7 @@ class MakeCompoundFixtures:
 
     def __init__(self, input_file, output_file=None):
         self.file = input_file
-        self.cirpy_data = []
+        self.compound_data = []
         self.output_file = output_file
 
         if output_file is not None:
@@ -58,24 +58,33 @@ class MakeCompoundFixtures:
             if cirpy_query:
                 smiles = cirpy_query[0].value
                 name = cirpy.Molecule(smiles).iupac_name
+                # usually a string but sometimes a list of strings
                 name = name[0] if isinstance(name, list) else name
                 if name:
-                    cid_no = pcp.get_compounds(smiles, 'smiles')[0].cid
-                    if cid_no:
-                        self.cirpy_data.append({
-                            'cas_number': cas_no,
-                            'smiles': smiles,
-                            'iupac_name': name.lower(),
-                            'cid_number': cid_no,
-                        })
+                    pcp_data = pcp.get_compounds(smiles, 'smiles')
+                    cid_no = pcp_data[0].cid
+                    chem_properties = {a: getattr(pcp_data[0], b) for a, b in
+                            (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
+                    chem_properties.update({
+                        'mw': int(pcp_data[0].molecular_weight),
+                        'synonyms': ', '.join(pcp_data[0].synonyms[:5]),
+                        'hetac': len(''.join([i for i in smiles if i in ['O', 'N', 'S', ]]))
+                    })
+                    self.compound_data.append({
+                        'cas_number': cas_no,
+                        'smiles': smiles,
+                        'iupac_name': name.lower(),
+                        'cid_number': cid_no,
+                        'chemical_properties': chem_properties,
+                    })
             # may help avoid timeout with pcp.get_compounds
             sleep(5)
 
     def to_json_format(self):
         fixture_data = []
-        if not self.cirpy_data:
+        if not self.compound_data:
             self.call_compound_data()
-        for index, mol in enumerate(self.cirpy_data):
+        for index, mol in enumerate(self.compound_data):
             obj_data = {
                 "model": "compounds.compound",
                 "pk": index + 1,
@@ -84,6 +93,7 @@ class MakeCompoundFixtures:
                     "smiles": mol['smiles'],
                     "iupac_name": mol['iupac_name'].lower(),
                     "cid_number": mol['cid_number'],
+                    "chemical_properties": mol['chemical_properties'],
                 }
             }
             fixture_data.append(obj_data)
@@ -97,9 +107,9 @@ class MakeCompoundFixtures:
         return json.dumps(data)
 
     def get_yaml(self):
-        if not self.cirpy_data:
+        if not self.compound_data:
             self.call_compound_data()
-        for index, mol in enumerate(self.cirpy_data):
+        for index, mol in enumerate(self.compound_data):
             inp = """\
             - model: compounds.compound
               pk: {}
@@ -108,7 +118,9 @@ class MakeCompoundFixtures:
                 smiles: {}
                 iupac_name: {}
                 cid_number: {}
-            """.format(index + 1, mol['cas_number'], mol['smiles'], mol['iupac_name'].lower(), mol['cid_number'])
+                chemical_properties: {}
+            """.format(index + 1, mol['cas_number'], mol['smiles'], mol['iupac_name'].lower(), mol['cid_number'],
+                       mol['chemical_properties'])
             try:
                 code = ruamel.yaml.load(inp, ruamel.yaml.RoundTripLoader)
             except ParserError:
@@ -118,6 +130,6 @@ class MakeCompoundFixtures:
 if __name__ == '__main__':
     if sys.argv[-1]:
         file = sys.argv[-1]
-        MakeCompoundFixtures(file).get_yaml()
+        MakeCompoundFixtureData(file).get_yaml()
     else:
         print('Please provide file as an argument')

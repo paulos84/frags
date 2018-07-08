@@ -11,7 +11,7 @@ class CompoundSearchForm(forms.Form):
             attrs={'placeholder': 'e.g. 80-54-6', }),
     )
     iupac_name = forms.CharField(
-        label='Compound name',
+        label='Name contains',
         max_length=30,
         required=False,
         widget=forms.TextInput(

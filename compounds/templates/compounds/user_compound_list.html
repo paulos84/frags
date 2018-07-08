@@ -4,8 +4,7 @@
 
 {% block content %}
 
-
-<div class="col-sm-7">
+<div class="col-sm-10">
         <div align="right" style=" position:relative; right:6px">
             <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();"
                     style=" position:relative; border: none; background-color: #bad0ba;">
@@ -20,75 +19,43 @@
         </div>
         {% if compound_list %}
             <ul style="list-style-type: none;">
-            {% for compound in compound_list %}
-            <li>
-                <table>
-                <tr>
-                    <th>
-                        <img class="structure-img" src={{ compound.structure_url }}
-                             title={{ compound.iupac_name }}  height="100" width="100">
-                    </th>
-                    <td>
-                        <div style=" position:relative; left:4px;">
-                        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
-                        </div>
-                        <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
-                            <h5>{% for category in compound.odor_categories.all %}
-                                    {{ category.term }}
-                                {% endfor %}
-                            </h5>
-                        </div>
+  {% for compound in compound_list %}
+        <li>
+            <table>
+            <tr>
+                <th>
+                    <img class="structure-img" src={{ compound.structure_url }}
+                         title={{ compound.iupac_name }}  height="100" width="100">
+                </th>
+                <td>
+                    <div style=" position:relative; left:7px; width: 440px">
+                    <a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:62  }}</a>
+                    </div>
+                    <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
+                        <h5>{% for odor_type in compound.odor_categories.all %}
+                                {{ odor_type.term }}
+                            {% endfor %}
+                        </h5>
+                    </div>
                         <div class="compound-notes" style=" position:relative; left:8px; color: grey ">
                             <h5>
                                 {% for obj in compound.notes_set.all %}
-                                     {{ obj.notes }}
+                                     {{ obj.notes|truncatechars:62 }}
                                 {% endfor %}
                             </h5>
                         </div>
-                    </td>
-                </tr>
-                </table>
-            </li>
-            {% endfor %}
+                </td>
+                <td style=" text-align:right; margin-left: 16px; color: grey ">
+                        {{ compound.chemical_properties.synonyms|truncatechars:50 }}
+                   </td>
+            </tr>
+            </table>
+        </li>
+        {% endfor %}
             </ul>
         {% else %}
              <p>There are no compounds which you have created notes for</p>
         {% endif %}
-    </div>
-    <div class="col-sm-3">
-        {% load widget_tweaks %}
-        <form method="get">
-            <div class="well">
-              <div class="row">
-
-                  {{ compound_filter.form.cas_number.label_tag }}
-                  {% render_field compound_filter.form.cas_number class="form-control" %}
-
-                  {{ compound_filter.form.iupac_name.label_tag }}
-                  {% render_field compound_filter.form.iupac_name class="form-control" %}
-
-                  {{ compound_filter.form.trade_name.label_tag }}
-                  {% render_field compound_filter.form.trade_name class="form-control" %}
-
-                  {{ compound_filter.form.odor_description.label_tag }}
-                  {% render_field compound_filter.form.odor_description class="form-control" %}
-
-                  <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"></span>Search</button>
-              </div>
-            </div>
-        </form>
-        <div id="show-search-results" >
-        <table class="table table-bordered">
-            <tbody>
-              {% for compound in compound_filter.qs %}
-                <tr>
-                  <td><a href="{{ compound.get_absolute_url }}">{{ compound }}</a></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-        </table>
-        </div>
     </div>
 {% endblock %}
 {% block js %}

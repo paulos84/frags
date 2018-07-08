@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 
@@ -20,8 +21,18 @@ class SubstructureDetail(SingleObjectMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Compound.substructure_matches(self.object.smiles) | Compound.iupac_name_matches(
+        qs = Compound.substructure_matches(self.object.smiles) | Compound.iupac_name_matches(
             self.object.iupac_name_pattern)
+        cas_number = self.request.GET.get('cas_number')
+        iupac_name = self.request.GET.get('iupac_name')
+        if cas_number:
+            qs = qs.filter(iupac_name__exact=cas_number)
+        elif iupac_name:
+            qs = qs.filter(Q(iupac_name__icontains=iupac_name) |
+                           Q(trade_name__icontains=iupac_name) |
+                           Q(chemical_properties__synonyms__icontains=iupac_name))
+        return qs
+
 
 
 class ChemFilterSubstructureDetail(SubstructureDetail):

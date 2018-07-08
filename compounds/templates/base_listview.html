@@ -114,7 +114,8 @@
         </div>
       </div>
     </ul>
-        <div style=" position:relative; top: 40px ">
+      {% if compound_search %}
+        <div style=" position:relative; top: 34px ">
         <form method="get" >
             <div class="well">
               <div class="row">
@@ -125,6 +126,7 @@
             </div>
         </form>
         </div>
+      {% endif %}
       </div>
 {% endblock %}
 

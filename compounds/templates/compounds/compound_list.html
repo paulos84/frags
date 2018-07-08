@@ -22,7 +22,6 @@
             <button style="color: #6aaf6a" class="btn btn-secondary" disabled>
                 <span class="glyphicon glyphicon"></span>My notes</button>
         {% endif %}
-
         <label class="text-muted" style="position:relative; margin-left:8px">    Filter by: </label>
             <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">
                 <button type="button" class="btn btn-secondary">Heteroaromatic</button></a>
@@ -30,41 +29,47 @@
                 <button type="button" class="btn btn-secondary">Aliphatic</button></a>
             <a href="{% url 'chem-filter' chem_type='aromatic' %}">
                 <button type="button" class="btn btn-secondary">Aromatic</button></a>
-
     </div>
+    {% if compound_list %}
+     <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
+        <ul style="list-style-type: none;">
+        {% for compound in compound_list %}
+        <li>
+            <table>
+            <tr>
+                <th>
+                    <img class="structure-img" src={{ compound.structure_url }}
+                         title={{ compound.iupac_name }}  height="100" width="100">
+                </th>
+
+                <td>
+                    <div style=" position:relative; left:7px; width: 440px">
+                    <a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:62  }}</a>
+                    </div>
+
+                    <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
+                        <h5>{% for odor_type in compound.odor_categories.all %}
+                                {{ odor_type.term }}
+                            {% endfor %}
+                        </h5>
+                    </div>
+
+                </td>
+                <td style=" text-align:right; margin-left: 16px; color: grey ">
+                        {{ compound.chemical_properties.synonyms|truncatechars:50 }}
+                   </td>
 
 
-         {% if compound_list %}
-         <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
-            <ul style="list-style-type: none;">
-            {% for compound in compound_list %}
-            <li>
-                <table>
-                <tr>
-                    <th>
-                        <img class="structure-img" src={{ compound.structure_url }}
-                             title={{ compound.iupac_name }}  height="100" width="100">
-                    </th>
-                    <td>
-                        <div style=" position:relative; left:7px;">
-                        <a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:72  }}</a>
-                        </div>
-                        <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
-                            <h5>{% for odor_type in compound.odor_categories.all %}
-                                    {{ odor_type.term }}
-                                {% endfor %}
-                            </h5>
-                        </div>
-                    </td>
-                </tr>
-                </table>
-            </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-             <p>No compounds matched this query</p>
-        {% endif %}
-    </div>
+
+            </tr>
+            </table>
+        </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+         <p>No compounds matched this query</p>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block js %}

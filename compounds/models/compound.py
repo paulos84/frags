@@ -154,3 +154,7 @@ class Compound(ChemDescriptorMixin, models.Model):
         all_names = queryset.values('id', 'iupac_name') if queryset else cls.objects.values('id', 'iupac_name')
         matches = [a['id'] for a in all_names if check_name_match(a['iupac_name'])]
         return cls.objects.filter(id__in=matches)
+
+    @classmethod
+    def compound_stats(cls):
+        pass

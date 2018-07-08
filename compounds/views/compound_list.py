@@ -20,7 +20,7 @@ class BaseCompoundListView(ListView):
             qs = qs.filter(iupac_name__exact=cas_number)
         elif iupac_name:
             qs = qs.filter(Q(iupac_name__icontains=iupac_name) |
-                           Q(chemical_properties__icontains={'synonyms': iupac_name}))
+                           Q(chemical_properties__synonyms__icontains=iupac_name))
         return qs
 
     def get_context_data(self, **kwargs):

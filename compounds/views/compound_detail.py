@@ -68,7 +68,7 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if request.POST.get():
+        if request.POST.get('odor_description'):
             form_class = self.second_form_class
             form = self.get_form(form_class)
             form_name = 'form2'

@@ -22,7 +22,7 @@ class CompoundQuerySet(models.QuerySet):
 class CompoundManager(models.Manager):
 
     def get_queryset(self):
-        return CompoundQuerySet(self.model, using=self._db).prefetch_related('odor_categories')
+        return CompoundQuerySet(self.model, using=self._db).prefetch_related('odor_categories').order_by('iupac_name')
 
     def heteroaromatics(self):
         return self.get_queryset().heteroaromatics()

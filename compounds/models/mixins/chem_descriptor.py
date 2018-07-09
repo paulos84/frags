@@ -8,12 +8,14 @@ class ChemDescriptorMixin(models.Model):
     """ A mixin to provide fields whose values allow chemical properties to be obtained """
 
     smiles = models.CharField(
+        db_index=True,
         max_length=100,
         default='',
         verbose_name='SMILES string',
         blank=True,
     )
     iupac_name = models.CharField(
+        db_index=True,
         max_length=200,
         default='',
         verbose_name='IUPAC name',

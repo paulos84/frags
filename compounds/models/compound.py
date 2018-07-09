@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from collections import Counter
+
 import cirpy
 from django.db import models
 from django.contrib.postgres.fields import JSONField
@@ -19,6 +21,7 @@ class Compound(ChemDescriptorMixin, models.Model):
      which API queries can be made to obtain additional data """
 
     cas_number = models.CharField(
+        db_index=True,
         max_length=20,
         unique=True,
         verbose_name='CAS number',
@@ -156,5 +159,18 @@ class Compound(ChemDescriptorMixin, models.Model):
         return cls.objects.filter(id__in=matches)
 
     @classmethod
-    def compound_stats(cls):
-        pass
+    def compound_stats(cls, queryset=None):
+        queryset = queryset or cls.objects.all()
+        data = [{a: c.chemical_properties.get(a) for a in
+                 ['mw', 'xlog', 'hac', 'rbc', 'hetac']} for c in queryset]
+        return data
+
+    """
+                data = {a: getattr(pcp_query[0], b) for a, b in
+                    (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
+            data.update({
+                'mw': int(pcp_query[0].molecular_weight),
+                'synonyms': ', '.join(pcp_query[0].synonyms[:5]),
+                'hetac': len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
+                         })
+    """

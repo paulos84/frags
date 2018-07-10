@@ -159,10 +159,10 @@ class Compound(ChemDescriptorMixin, models.Model):
         return cls.objects.filter(id__in=matches)
 
     @classmethod
-    def compound_stats(cls, queryset=None):
+    def chemical_data(cls, queryset=None):
         queryset = queryset or cls.objects.all()
         data = [{a: c.chemical_properties.get(a) for a in
-                 ['mw', 'xlog', 'hac', 'rbc', 'hetac']} for c in queryset]
+                 ['mw', 'xlogp', 'hac', 'rbc', 'hetac']} for c in queryset]
         return data
 
     """

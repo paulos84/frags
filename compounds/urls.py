@@ -10,10 +10,13 @@ from compounds.views.compound_create import process_cas
 from compounds.views.compound_list import *
 from compounds.views.filtered_lists import *
 
+from compounds.views.example import example
+
 urlpatterns = [
     re_path(r'^$', CompoundListView.as_view(), name='index'),
     path('compound/<int:pk>', CompoundDetailView.as_view(), name='compound-detail'),
     path('compound/edit/<int:pk>', CompoundUpdateView.as_view(), name='compound-update'),
+    path('compound/test', example, name='compound-test'),
     path('compound/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('compound/add', CompoundCreateView.as_view(), name='compound-add'),
     path('ajax/process_cas', process_cas, name='process_cas'),

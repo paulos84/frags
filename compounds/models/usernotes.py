@@ -23,6 +23,8 @@ class UserNotes(models.Model):
         blank=True,
     )
 
+    # TODO: ADD SOURCE AND CHANGE MODEL....LINK TO SHOP AND/OR PRODUCTS
+
     objects = ActivityManager()
 
     def __str__(self):

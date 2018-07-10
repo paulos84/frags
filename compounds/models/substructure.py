@@ -6,6 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
+from compounds.models import Compound
 
 
 class Substructure(ChemDescriptorMixin, models.Model):
@@ -52,6 +53,11 @@ class Substructure(ChemDescriptorMixin, models.Model):
             args=[self.slug],
         )
 
+    def compound_set(self):
+        qs = Compound.substructure_matches(self.smiles) | Compound.iupac_name_matches(
+            self.iupac_name_pattern)
+        return qs
+
     @classmethod
     def compound_matches(cls, compound):
         """
@@ -70,5 +76,3 @@ class Substructure(ChemDescriptorMixin, models.Model):
                    Chem.MolFromSmiles(compound.smiles).HasSubstructMatch(
                        Chem.MolFromSmiles(a['smiles']))]
         return cls.objects.filter(id__in=matches)
-
-

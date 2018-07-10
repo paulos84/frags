@@ -21,8 +21,7 @@ class SubstructureDetail(SingleObjectMixin, ListView):
         return context
 
     def get_queryset(self):
-        qs = Compound.substructure_matches(self.object.smiles) | Compound.iupac_name_matches(
-            self.object.iupac_name_pattern)
+        qs = self.object.compound_set()
         cas_number = self.request.GET.get('cas_number')
         iupac_name = self.request.GET.get('iupac_name')
         if cas_number:
@@ -32,7 +31,6 @@ class SubstructureDetail(SingleObjectMixin, ListView):
                            Q(trade_name__icontains=iupac_name) |
                            Q(chemical_properties__synonyms__icontains=iupac_name))
         return qs
-
 
 
 class ChemFilterSubstructureDetail(SubstructureDetail):

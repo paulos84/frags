@@ -164,13 +164,3 @@ class Compound(ChemDescriptorMixin, models.Model):
         data = [{a: c.chemical_properties.get(a) for a in
                  ['mw', 'xlogp', 'hac', 'rbc', 'hetac']} for c in queryset]
         return data
-
-    """
-                data = {a: getattr(pcp_query[0], b) for a, b in
-                    (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
-            data.update({
-                'mw': int(pcp_query[0].molecular_weight),
-                'synonyms': ', '.join(pcp_query[0].synonyms[:5]),
-                'hetac': len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
-                         })
-    """

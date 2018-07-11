@@ -57,6 +57,14 @@ class Substructure(ChemDescriptorMixin, models.Model):
         qs = Compound.substructure_matches(self.smiles) | Compound.iupac_name_matches(
             self.iupac_name_pattern)
         return qs
+    #
+    # @classmethod
+    # def get_chem_properties(cls):
+    #     # args either of: ['xlogp', 'hac', 'rbc', 'hetac', 'mw']
+    #     for a in cls.objects.all():
+    #         a.compounds().annotate(val=KeyTextTransform('mw', 'chemical_properties')).annotate(
+    #             as_int=Cast('val', IntegerField())).aggregate(Avg('as_int'))
+    #
 
     @classmethod
     def compound_matches(cls, compound):

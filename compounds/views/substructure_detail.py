@@ -21,7 +21,7 @@ class SubstructureDetail(SingleObjectMixin, ListView):
         return context
 
     def get_queryset(self):
-        qs = self.object.compound_set()
+        qs = self.object.compounds
         cas_number = self.request.GET.get('cas_number')
         iupac_name = self.request.GET.get('iupac_name')
         if cas_number:

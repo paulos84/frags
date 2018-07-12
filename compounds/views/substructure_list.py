@@ -22,6 +22,7 @@ class SubstructureListView(generic.ListView):
         script, div = components(plot, CDN)
         context['plot_script'] = script
         context['plot_div'] = div
+        print(self.request.GET)
         return context
 
     def make_plot(self, chem_property='mw'):

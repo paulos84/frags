@@ -18,15 +18,16 @@ class SubstructureListView(generic.ListView):
         context = super(SubstructureListView, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
         context['choice_form'] = ChemDataChoiceForm
-        plot = self.make_plot()
-        script, div = components(plot, CDN)
-        context['plot_script'] = script
-        context['plot_div'] = div
-        print(self.request.GET)
+        property_choice = self.request.GET.get('property_choice')
+        if property_choice:
+            plot = self.make_plot(property_choice)
+            script, div = components(plot, CDN)
+            context['plot_script'] = script
+            context['plot_div'] = div
         return context
 
-    def make_plot(self, chem_property='mw'):
-        averages = Substructure.compound_sets_averages('mw')
+    def make_plot(self, chem_property):
+        averages = Substructure.compound_sets_averages(chem_property)
         plot_data = list(averages.keys()), list(averages.values())
         title = chemical_properties_label_map.get(chem_property, chem_property)
         source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1], color=Spectral6))

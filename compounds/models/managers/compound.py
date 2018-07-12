@@ -1,6 +1,6 @@
 from django.contrib.postgres.fields.jsonb import KeyTextTransform
 from django.db import models
-from django.db.models import Avg, IntegerField, Q
+from django.db.models import Avg, FloatField, Q
 from django.db.models.functions import Cast
 
 from rdkit import Chem
@@ -21,7 +21,7 @@ class CompoundQuerySet(models.QuerySet):
         """
         return self.annotate(
             val=KeyTextTransform(property_key, 'chemical_properties')).annotate(
-            as_int=Cast('val', IntegerField())).aggregate(Avg('as_int'))
+            as_float=Cast('val', FloatField())).aggregate(Avg('as_float'))
 
     def heteroaromatics(self):
         heteroatoms = ['n', 'S', 'o']

@@ -62,7 +62,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
     def compound_sets_averages(cls, chem_property):
         data = {}
         for qs in cls.objects.all():
-            data[qs.name] = qs.compound_set().chemical_property_avg(chem_property).get('as_int__avg')
+            data[qs.name] = qs.compound_set().chemical_property_avg(chem_property).get('as_float__avg')
         return data
 
     @classmethod

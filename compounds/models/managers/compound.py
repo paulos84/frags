@@ -8,7 +8,17 @@ from rdkit import Chem
 
 class CompoundQuerySet(models.QuerySet):
 
-    def chem_property_avg(self, property_key):
+    def chemical_property_avg(self, property_key):
+        """
+        Returns a queryset's average value for a chemical property stored in the JSONField
+        Args:
+            property_key (str): a key in ['xlogp', 'hac', 'rbc', 'hetac', 'mw']
+        Returns:
+            A float representing the average value
+        Example:
+        >>> Compound.objects.aromatics().chem_property_avg('mw').get('as_int__avg')
+        190.38532110091742
+        """
         return self.annotate(
             val=KeyTextTransform(property_key, 'chemical_properties')).annotate(
             as_int=Cast('val', IntegerField())).aggregate(Avg('as_int'))

@@ -1,6 +1,7 @@
 from django.views import generic
 
 from compounds.models import Substructure, OdorType
+from compounds.utils.general import chemical_properties_label_map
 
 from bokeh.resources import CDN
 from bokeh.embed import components
@@ -22,13 +23,15 @@ class SubstructureListView(generic.ListView):
         context['the_div'] = div
         return context
 
-    def make_plot(self):
-        fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-        counts = [5, 3, 4, 2, 4, 6]
-        source = ColumnDataSource(data=dict(fruits=fruits, counts=counts, color=Spectral6))
-        p = figure(x_range=fruits, y_range=(0, 9), plot_height=250, title="Fruit Counts",
+    def make_plot(self, chem_property='mw'):
+        averages = Substructure.compound_sets_averages('mw')
+        plot_data = list(averages.keys()), list(averages.values())
+        title = chemical_properties_label_map.get(chem_property, chem_property)
+        source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1], color=Spectral6))
+        p = figure(x_range=plot_data[0], y_range=(0, max(plot_data[1]) + 60), plot_height=250, title=title,
                    toolbar_location=None, tools="")
-        p.vbar(x='fruits', top='counts', width=0.9, color='color', source=source)
+        p.vbar(x='substructures', top='avg_vals', width=0.9, color='color', source=source)
         p.xgrid.grid_line_color = None
+        p.ygrid.grid_line_color = None
         return p
 

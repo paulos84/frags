@@ -164,3 +164,5 @@ class Compound(ChemDescriptorMixin, models.Model):
         data = [{a: c.chemical_properties.get(a) for a in
                  ['mw', 'xlogp', 'hac', 'rbc', 'hetac']} for c in queryset]
         return data
+
+

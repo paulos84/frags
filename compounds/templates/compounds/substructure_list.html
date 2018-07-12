@@ -1,5 +1,6 @@
 {% extends "base_listview.html" %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 {% block head %}
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
@@ -28,11 +29,17 @@
         {% else %}
              <p>No compounds matched this query</p>
         {% endif %}
-
-
-    {{ the_div|safe }}
-
-    {{ the_script|safe }}
+          <div style=" position:relative; margin-left: 46px; top: 8px ">
+            <form method="get" style="width: 250px" >
+                  <div class="row">
+                        {% bootstrap_form choice_form %}
+                  </div>
+            </form>
+            </div>
+    {% if plot_div %}
+        {{ plot_div|safe }}
+        {{ plot_script|safe }}
+    {% endif %}
 
     </div>
 {% endblock %}

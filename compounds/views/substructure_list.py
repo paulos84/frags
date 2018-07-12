@@ -1,13 +1,13 @@
-from django.views import generic
-
-from compounds.models import Substructure, OdorType
-from compounds.utils.general import chemical_properties_label_map
-
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource
 from bokeh.palettes import Spectral6
 from bokeh.plotting import figure
+from django.views import generic
+
+from compounds.models import Substructure, OdorType
+from compounds.forms import ChemDataChoiceForm
+from compounds.utils.general import chemical_properties_label_map
 
 
 class SubstructureListView(generic.ListView):
@@ -17,10 +17,11 @@ class SubstructureListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(SubstructureListView, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
+        context['choice_form'] = ChemDataChoiceForm
         plot = self.make_plot()
         script, div = components(plot, CDN)
-        context['the_script'] = script
-        context['the_div'] = div
+        context['plot_script'] = script
+        context['plot_div'] = div
         return context
 
     def make_plot(self, chem_property='mw'):
@@ -34,4 +35,3 @@ class SubstructureListView(generic.ListView):
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
         return p
-

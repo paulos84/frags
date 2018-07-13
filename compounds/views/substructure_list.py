@@ -41,6 +41,14 @@ class SubstructureListView(generic.ListView):
 
 
 class CompoundMatchSubstructureListView(SubstructureListView):
+    template_name = 'compounds/compound_substructures.html'
+    compound = None
+
     def get_queryset(self):
-        compound = Compound.objects.get(self.kwargs['pk'])
-        return Substructure.compound_matches(compound)
+        self.compound = Compound.objects.get(id=self.kwargs['pk'])
+        return Substructure.compound_matches(self.compound)
+
+    def get_context_data(self, **kwargs):
+        context = super(CompoundMatchSubstructureListView, self).get_context_data(**kwargs)
+        context['compound'] = self.compound
+        return context

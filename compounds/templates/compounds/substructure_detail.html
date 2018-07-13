@@ -1,13 +1,21 @@
 {% extends "base_listview.html" %}
 {% load bootstrap3 %}
 {% load static %}
+
 {% block title %}
     <title>{{ substructure.name }}</title>
 {% endblock %}
+
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
+
 {% block content %}
+<ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
+  <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+  <li><a class="breadcrumb-item" href="{% url 'substructures' %}">Substructures</a></li>
+  <li><a class="breadcrumb-item active" href="{% url 'substructure-detail' slug=substructure.slug %}">{{ substructure.name|capfirst }}</a></li>
+</ul>
     <div class="col-sm-2 ">
         <div >
         <img class="center-cropped" src={{ substructure.structure_url }}
@@ -107,6 +115,7 @@
                             {% endfor %}
                         </h5>
                     </div>
+                    {% block user_notes %}{% endblock %}
                 </td>
                 <td style=" text-align:right; margin-left: 16px; color: grey ">
                         {{ compound.chemical_properties.synonyms|truncatechars:50 }}

@@ -1,78 +1,11 @@
-{% extends "base_listview.html" %}
-{% load bootstrap3 %}
-{% load static %}
-{% block title %}
-    <title>{{ substructure.name }}</title>
-{% endblock %}
-{% block head %}
-    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
-{% endblock %}
-{% block content %}
-    <div class="col-sm-3 ">
-            <div >
-            <img class="center-cropped" src={{ substructure.structure_url }}
-                 style="width:170px;height:170px;" title={{compound.iupac_name}} ></div>
-    </div>
-    <div class="col-sm-7 ">
-        <h4 class="intro"> {{ substructure.name }}</h4>
-        <p>{{ substructure.description }}</p>
-        </div>
+{% extends "compounds/substructure_detail.html" %}
 
-    <div class="col-sm-10 ">
-
-        <div align="left" style=" position:relative; left:8px; top: 5px">
-            <button id="show-odor" class="btn btn-primary" onclick="$('.odor-terms').toggle();"
-                    style=" position:relative; border: none; background-color: #bad0ba;">
-                <span class="glyphicon glyphicon"></span>Scent categories</button>
-            {% if user.is_authenticated %}
-               <a href="{% url 'user-substructure-detail' slug=substructure.slug %}">
-                   <button class="btn btn-primary" style="border: none; ">
-                   <span class="glyphicon glyphicon"></span>Personal notes</button>
-               </a>
-            {% else %}
-                <button style=" position:relative; border: none; background-color: #bad0ba;" class="btn btn-primary" disabled>
-                    <span class="glyphicon glyphicon"></span>Personal notes</button>
-            {% endif %}
-        </div>
- </div>
-<div class="col-sm-10 ">
-    <div style=" position:relative; top:14px">
- {% if page_obj %}
-            <ul style="list-style-type: none;">
-            {% for compound in page_obj %}
-            <li>
-                <table>
-                <tr>
-                    <th>
-                        <img class="structure-img" src={{ compound.structure_url }}
-                             title={{ compound.iupac_name }}  height="100" width="100">
-                    </th>
-                    <td>
-                        <div style=" position:relative; left:12px;">
-                        <a href="{{ compound.get_absolute_url }}">{{ compound }}</a>
-                        </div>
-                        <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
-                            <h5>{% for cpd in compound.odor_categories.all %}
-                                    {{ cpd.term }}
-                                {% endfor %}
-                            </h5>
-                        </div>
-                        <div class="compound-notes" style=" position:relative; left:8px; color: grey ">
-                            <h5>
-                                {% for obj in compound.notes_set.all %}
-                                     {{ obj.notes|truncatechars:330 }}
-                                {% endfor %}
-                            </h5>
-                        </div>
-                    </td>
-                </tr>
-                </table>
-            </li>
+{% block user_notes %}
+    <div class="compound-notes" style=" position:relative; left:8px; color: grey ">
+        <h5>
+            {% for obj in compound.notes_set.all %}
+                 {{ obj.notes|truncatechars:330 }}
             {% endfor %}
-            </ul>
-        {% else %}
-             <p>No compounds matched this query</p>
-        {% endif %}
-        </div>
-</div>
+        </h5>
+    </div>
 {% endblock %}

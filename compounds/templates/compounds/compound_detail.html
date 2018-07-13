@@ -14,6 +14,32 @@
     <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
 
+{% block sidebar %}
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+       <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
+        </div>
+      </ul>
+
+      <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Fragrance compounds</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
+            <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
+        </div>
+      </ul>
+        <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+                        <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">
+                <button type="button" class="btn btn-secondary">Substructure matches</button></a>
+        </div>
+      </ul>
+ {% endblock %}
+
 {% block content %}
     <div class="col-sm-5 ">
          <h4 class="intro">{{ compound.iupac_name }}</h4>

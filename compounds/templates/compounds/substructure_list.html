@@ -8,12 +8,12 @@
 {% endblock %}
 
 {% block content %}
-{% if substructure_list %}
+  {% if substructure_list %}
     {% for substruct in substructure_list %}
         {% if forloop.first %}<div class="row">{% endif %}
-            <div class="col-xs-3" style="float: right">
+            <div class="col-xs-3" style="float: right; right: 54px">
                  <a href="{{ substruct.get_absolute_url }}"><img class="structure-img" src={{ substruct.structure_url }}
-                title={{ substruct.name }}  height="215" width="215"></a>
+                title={{ substruct.name }}  height="190" width="190"></a>
             <div>
                 <a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a>
             </div>
@@ -21,14 +21,14 @@
         {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
     {% endfor %}
-{% else %}
-<div class="col-sm-10" style="margin-left: 180px">
-   <p>No compounds matched this query</p>
-</div>
-{% endif %}
-<div class="col-sm-10" style=" position:relative; margin-left: 260px; top: 28px" >
-      <div>
-        <form method="get" style="width: 250px; margin-left:28px" >
+  {% else %}
+    <div class="col-sm-10" style="margin-left: 180px">
+      <p>No compounds matched this query</p>
+    </div>
+  {% endif %}
+  <div class="col-sm-10" style=" position:relative; margin-left: 220px; top: 28px" >
+    <div>
+        <form method="get" style="width: 250px; margin-left:48px" >
           <div class="row">
             {% bootstrap_form choice_form %}
           </div>
@@ -37,9 +37,7 @@
     {% if plot_div %}
         {{ plot_div|safe }}
         {{ plot_script|safe }}
-
     {% endif %}
-
     </div>
 </div>
 {% endblock %}

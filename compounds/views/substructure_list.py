@@ -5,7 +5,7 @@ from bokeh.palettes import Spectral6
 from bokeh.plotting import figure
 from django.views import generic
 
-from compounds.models import Substructure, OdorType
+from compounds.models import Compound, Substructure, OdorType
 from compounds.forms import ChemDataChoiceForm
 from compounds.utils.general import chemical_properties_label_map
 
@@ -38,3 +38,9 @@ class SubstructureListView(generic.ListView):
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
         return p
+
+
+class CompoundMatchSubstructureListView(SubstructureListView):
+    def get_queryset(self):
+        compound = Compound.objects.get(self.kwargs['pk'])
+        return Substructure.compound_matches(compound)

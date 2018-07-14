@@ -1,5 +1,5 @@
 from .compound_list import BaseCompoundListView
-from compounds.models import Compound, UserNotes
+from compounds.models import Odorant, UserNotes
 
 
 class ChemFilterListView(BaseCompoundListView):
@@ -13,18 +13,18 @@ class ChemFilterListView(BaseCompoundListView):
 
     def get_queryset(self):
         unfiltered = super(ChemFilterListView, self).get_queryset
-        filter_method = getattr(Compound.objects, self.kwargs['chem_type'], unfiltered)
+        filter_method = getattr(Odorant.objects, self.kwargs['chem_type'], unfiltered)
         return filter_method()
 
 
 class UserChemFilterListView(ChemFilterListView):
-    template_name = 'compounds/user_compound_list.html'
+    template_name = 'odorants/user_odorant_list.html'
     context_object_name = 'compound_list'
 
     def get_queryset(self):
         notes_qs = UserNotes.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
-            return Compound.objects.none()
+            return Odorant.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]
         queryset = super(UserChemFilterListView, self).get_queryset().filter(id__in=cpd_id_list)
         return queryset

@@ -1,4 +1,4 @@
-- model: compounds.compound
+- model: odorants.compound
   pk: 1
   fields:
     cas_number: 2451-01-6
@@ -8,7 +8,7 @@
     chemical_properties: {hac: 13, synonyms: 'TERPIN HYDRATE, 2451-01-6, Terpin (hydrate),
         p-Menthane-1,8-diol monohydrate, Terpin monohydrate', rbc: 1, hetac: 3, mw: 190,
       xlogp: None}
-- model: compounds.compound
+- model: odorants.compound
   pk: 2
   fields:
     cas_number: 120-58-1
@@ -17,7 +17,7 @@
     cid_number: 637796
     chemical_properties: {hac: 12, synonyms: 'ISOSAFROLE, Izosafrol, beta-Isosafrole,
         Isosafrol, (E)-Isosafrole', rbc: 1, hetac: 2, mw: 162, xlogp: 3.1}
-- model: compounds.compound
+- model: odorants.compound
   pk: 3
   fields:
     cas_number: 127-51-5
@@ -27,7 +27,7 @@
     chemical_properties: {hac: 15, synonyms: '.alpha.-Cetone, Isomethyl-.alpha.-ionone,
         Methyl-.alpha.-isoionone, Iso-.alpha.-methyl ionone, .alpha.-Ionone, isomethyl-',
       rbc: 2, hetac: 1, mw: 206, xlogp: 3.3}
-- model: compounds.compound
+- model: odorants.compound
   pk: 4
   fields:
     cas_number: 14073-97-3

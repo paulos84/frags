@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from compounds.models import Compound, UserNotes, OdorType, Profile, Substructure
+from compounds.models import Odorant, UserNotes, OdorType, Profile, Substructure
 from compounds.forms.admin import SubstructureAdminForm
 
 
-@admin.register(Compound)
-class CompoundAdmin(admin.ModelAdmin):
+@admin.register(Odorant)
+class OdorantAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object

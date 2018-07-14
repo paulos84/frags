@@ -1,9 +1,9 @@
-{% extends "compounds/substructure_detail.html" %}
+{% extends "odorants/substructure_detail.html" %}
 
 {% block user_notes %}
     <div class="compound-notes" style=" position:relative; left:8px; color: grey ">
         <h5>
-            {% for obj in compound.notes_set.all %}
+            {% for obj in .notes_set.all %}
                  {{ obj.notes|truncatechars:330 }}
             {% endfor %}
         </h5>

@@ -1,8 +1,8 @@
 # from django.test import TestCase
 # from unittest.mock import patch
 #
-# from compounds.models import Compound, OdorType
-# from compounds.forms import CompoundCreateForm
+# from odorants.models import Compound, OdorType
+# from odorants.forms import CompoundCreateForm
 #
 #
 # class CompoundModelTestCase(TestCase):

@@ -1,5 +1,5 @@
-from .compound import CompoundManager
+from .odorant import OdorantManager
 
 __all__ = [
-    CompoundManager,
+    OdorantManager,
     ]

@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MoleculesConfig(AppConfig):
+class CompoundsConfig(AppConfig):
     name = 'compounds'

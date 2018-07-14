@@ -1,2188 +1,2188 @@
-- model: compounds.compound
+- model: compounds.odorant
   pk: 43
   fields:
     cas_number: 14073-97-3
     smiles: CC(C)[C@@H]1CC[C@@H](C)CC1=O
     iupac_name: (2s,5r)-5-methyl-2-propan-2-ylcyclohexan-1-one
     cid_number: 26447
-- model: compounds.compound
+- model: compounds.odorant
   pk: 44
   fields:
     cas_number: 55066-48-3
     smiles: CC(CCO)CCc1ccccc1
     iupac_name: 3-methyl-5-phenylpentan-1-ol
     cid_number: 108312
-- model: compounds.compound
+- model: compounds.odorant
   pk: 46
   fields:
     cas_number: 122-40-7
     smiles: CCCCC/C(C=O)=C/c1ccccc1
     iupac_name: (2z)-2-(phenylmethylidene)heptanal
     cid_number: 1712058
-- model: compounds.compound
+- model: compounds.odorant
   pk: 47
   fields:
     cas_number: 4602-84-0
     smiles: CC(C)=CCC\C(C)=C\CC\C(C)=C\CO
     iupac_name: 3,7,11-trimethyldodeca-2,6,10-trien-1-ol
     cid_number: 445070
-- model: compounds.compound
+- model: compounds.odorant
   pk: 48
   fields:
     cas_number: 607-91-0
     smiles: COc1cc(CC=C)cc2OCOc12
     iupac_name: 4-methoxy-6-prop-2-enyl-1,3-benzodioxole
     cid_number: 4276
-- model: compounds.compound
+- model: compounds.odorant
   pk: 49
   fields:
     cas_number: 103-48-0
     smiles: CC(C)C(=O)OCCc1ccccc1
     iupac_name: 2-phenylethyl 2-methylpropanoate
     cid_number: 7655
-- model: compounds.compound
+- model: compounds.odorant
   pk: 50
   fields:
     cas_number: 4695-62-9
     smiles: CC1(C)[C@@H]2CC[C@@](C)(C2)C1=O
     iupac_name: (1s,4r)-1,3,3-trimethylbicyclo[2.2.1]heptan-2-one
     cid_number: 1201521
-- model: compounds.compound
+- model: compounds.odorant
   pk: 51
   fields:
     cas_number: 104-46-1
     smiles: COc1ccc(\C=C\C)cc1
     iupac_name: 1-methoxy-4-[(e)-prop-1-enyl]benzene
     cid_number: 637563
-- model: compounds.compound
+- model: compounds.odorant
   pk: 52
   fields:
     cas_number: 10032-05-0
     smiles: CCCCCCC(OC)OC
     iupac_name: 1,1-dimethoxyheptane
     cid_number: 61453
-- model: compounds.compound
+- model: compounds.odorant
   pk: 54
   fields:
     cas_number: 3613-30-7
     smiles: COC(C)(C)CCCC(C)CC=O
     iupac_name: 7-methoxy-3,7-dimethyloctanal
     cid_number: 19223
-- model: compounds.compound
+- model: compounds.odorant
   pk: 55
   fields:
     cas_number: 471-15-8
     smiles: CC(C)[C@@]12C[C@H]1[C@H](C)C(=O)C2
     iupac_name: (1s,4s,5s)-4-methyl-1-propan-2-ylbicyclo[3.1.0]hexan-3-one
     cid_number: 249286
-- model: compounds.compound
+- model: compounds.odorant
   pk: 56
   fields:
     cas_number: 121-39-1
     smiles: CCOC(=O)C1OC1c2ccccc2
     iupac_name: ethyl 3-phenyloxirane-2-carboxylate
     cid_number: 8469
-- model: compounds.compound
+- model: compounds.odorant
   pk: 57
   fields:
     cas_number: 16587-71-6
     smiles: CCC(C)(C)C1CCC(=O)CC1
     iupac_name: 4-(2-methylbutan-2-yl)cyclohexan-1-one
     cid_number: 27941
-- model: compounds.compound
+- model: compounds.odorant
   pk: 58
   fields:
     cas_number: 4105-12-8
     smiles: CC1C2CC(CC2C3CCCC(O)C3)C1(C)C
     iupac_name: 3-(2,3,3-trimethyl-6-bicyclo[2.2.1]heptanyl)cyclohexan-1-ol
     cid_number: 103005
-- model: compounds.compound
+- model: compounds.odorant
   pk: 59
   fields:
     cas_number: 70788-30-6
     smiles: CCCC(O)CCC1C(C)CCCC1(C)C
     iupac_name: 1-(2,2,6-trimethylcyclohexyl)hexan-3-ol
     cid_number: 116699
-- model: compounds.compound
+- model: compounds.odorant
   pk: 60
   fields:
     cas_number: 101-48-4
     smiles: COC(Cc1ccccc1)OC
     iupac_name: 2,2-dimethoxyethylbenzene
     cid_number: 60995
-- model: compounds.compound
+- model: compounds.odorant
   pk: 61
   fields:
     cas_number: 24048-13-3
     smiles: CC(CC\C=C(C)\CCC=C(C)C)C=O
     iupac_name: (5e)-2,6,10-trimethylundeca-5,9-dienal
     cid_number: 6538156
-- model: compounds.compound
+- model: compounds.odorant
   pk: 62
   fields:
     cas_number: 137-03-1
     smiles: CCCCCCCC1CCCC1=O
     iupac_name: 2-heptylcyclopentan-1-one
     cid_number: 8710
-- model: compounds.compound
+- model: compounds.odorant
   pk: 64
   fields:
     cas_number: 111-79-5
     smiles: CCCCCC\C=C/C(=O)OC
     iupac_name: methyl (z)-non-2-enoate
     cid_number: 5357388
-- model: compounds.compound
+- model: compounds.odorant
   pk: 65
   fields:
     cas_number: 18172-67-3
     smiles: CC1(C)[C@H]2CCC(=C)[C@@H]1C2
     iupac_name: (1s,5s)-7,7-dimethyl-4-methylidenebicyclo[3.1.1]heptane
     cid_number: 440967
-- model: compounds.compound
+- model: compounds.odorant
   pk: 66
   fields:
     cas_number: 89-83-8
     smiles: CC(C)c1ccc(C)cc1O
     iupac_name: 5-methyl-2-propan-2-ylphenol
     cid_number: 6989
-- model: compounds.compound
+- model: compounds.odorant
   pk: 67
   fields:
     cas_number: 126-90-9
     smiles: CC(C)=CCC[C@](C)(O)C=C
     iupac_name: (3s)-3,7-dimethylocta-1,6-dien-3-ol
     cid_number: 67179
-- model: compounds.compound
+- model: compounds.odorant
   pk: 68
   fields:
     cas_number: 21145-77-7
     smiles: CC1CC(C)(C)c2cc(C(C)=O)c(C)cc2C1(C)C
     iupac_name: 1-(3,5,5,6,8,8-hexamethyl-6,7-dihydronaphthalen-2-yl)ethanone
     cid_number: 89440
-- model: compounds.compound
+- model: compounds.odorant
   pk: 69
   fields:
     cas_number: 15764-04-2
     smiles: C[C@@H]1CC(=O)C=C2CCC(C[C@@]12C)=C(C)C
     iupac_name: (4r,4as)-4,4a-dimethyl-6-propan-2-ylidene-4,5,7,8-tetrahydro-3h-naphthalen-2-one
     cid_number: 442405
-- model: compounds.compound
+- model: compounds.odorant
   pk: 70
   fields:
     cas_number: 2556-10-7
     smiles: CCOC(C)OCCc1ccccc1
     iupac_name: 2-(1-ethoxyethoxy)ethylbenzene
     cid_number: 102849
-- model: compounds.compound
+- model: compounds.odorant
   pk: 71
   fields:
     cas_number: 67674-46-8
     smiles: COC(OC)C(C)(C)CC=C(C)C
     iupac_name: 6,6-dimethoxy-2,5,5-trimethylhex-2-ene
     cid_number: 106766
-- model: compounds.compound
+- model: compounds.odorant
   pk: 72
   fields:
     cas_number: 1128-08-1
     smiles: CCCCCC1=C(C)CCC1=O
     iupac_name: 3-methyl-2-pentylcyclopent-2-en-1-one
     cid_number: 62378
-- model: compounds.compound
+- model: compounds.odorant
   pk: 73
   fields:
     cas_number: 68140-48-7
     smiles: CC(C)C1C(C)C(C)(C)c2cc(C)c(cc12)C(C)=O
     iupac_name: 1-(1,1,2,6-tetramethyl-3-propan-2-yl-2,3-dihydroinden-5-yl)ethanone
     cid_number: 91696
-- model: compounds.compound
+- model: compounds.odorant
   pk: 74
   fields:
     cas_number: 13360-65-1
     smiles: CCc1nc(C)cnc1C
     iupac_name: 3-ethyl-2,5-dimethylpyrazine
     cid_number: 25916
-- model: compounds.compound
+- model: compounds.odorant
   pk: 75
   fields:
     cas_number: 464-49-3
     smiles: CC1(C)[C@H]2CC[C@@]1(C)C(=O)C2
     iupac_name: (1r,4s)-1,7,7-trimethylbicyclo[2.2.1]heptan-2-one
     cid_number: 230921
-- model: compounds.compound
+- model: compounds.odorant
   pk: 76
   fields:
     cas_number: 3391-86-4
     smiles: CCCCCC(O)C=C
     iupac_name: oct-1-en-3-ol
     cid_number: 18827
-- model: compounds.compound
+- model: compounds.odorant
   pk: 77
   fields:
     cas_number: 104-21-2
     smiles: COc1ccc(COC(C)=O)cc1
     iupac_name: (4-methoxyphenyl)methyl acetate
     cid_number: 7695
-- model: compounds.compound
+- model: compounds.odorant
   pk: 78
   fields:
     cas_number: 2244-16-8
     smiles: CC(=C)[C@H]1CC=C(C)C(=O)C1
     iupac_name: (5s)-2-methyl-5-prop-1-en-2-ylcyclohex-2-en-1-one
     cid_number: 16724
-- model: compounds.compound
+- model: compounds.odorant
   pk: 80
   fields:
     cas_number: 4573-50-6
     smiles: CC(C)[C@H]1CCC(=CC1=O)C
     iupac_name: (6r)-3-methyl-6-propan-2-ylcyclohex-2-en-1-one
     cid_number: 107561
-- model: compounds.compound
+- model: compounds.odorant
   pk: 81
   fields:
     cas_number: 104-53-0
     smiles: O=CCCc1ccccc1
     iupac_name: 3-phenylpropanal
     cid_number: 7707
-- model: compounds.compound
+- model: compounds.odorant
   pk: 82
   fields:
     cas_number: 101-97-3
     smiles: CCOC(=O)Cc1ccccc1
     iupac_name: ethyl 2-phenylacetate
     cid_number: 7590
-- model: compounds.compound
+- model: compounds.odorant
   pk: 83
   fields:
     cas_number: 106-21-8
     smiles: CC(C)CCCC(C)CCO
     iupac_name: 3,7-dimethyloctan-1-ol
     cid_number: 7792
-- model: compounds.compound
+- model: compounds.odorant
   pk: 84
   fields:
     cas_number: 1222-05-5
     smiles: CC1COCc2cc3c(cc12)C(C)(C)C(C)C3(C)C
     iupac_name: 4,6,6,7,8,8-hexamethyl-1,3,4,7-tetrahydrocyclopenta[g]isochromene
     cid_number: 91497
-- model: compounds.compound
+- model: compounds.odorant
   pk: 85
   fields:
     cas_number: 106-27-4
     smiles: CCCC(=O)OCCC(C)C
     iupac_name: 3-methylbutyl butanoate
     cid_number: 7795
-- model: compounds.compound
+- model: compounds.odorant
   pk: 87
   fields:
     cas_number: 489-86-1
     smiles: C[C@H]1CC[C@H](CC2=C1CC[C@@H]2C)C(C)(C)O
     iupac_name: 2-[(3s,5r,8s)-3,8-dimethyl-1,2,3,4,5,6,7,8-octahydroazulen-5-yl]propan-2-ol
     cid_number: 227829
-- model: compounds.compound
+- model: compounds.odorant
   pk: 88
   fields:
     cas_number: 79-70-9
     smiles: CC1CCC(=C(\C=C\C(C)=O)C1(C)C)C
     iupac_name: (e)-4-(2,5,6,6-tetramethyl-1-cyclohexenyl)but-3-en-2-one
     cid_number: 5375215
-- model: compounds.compound
+- model: compounds.odorant
   pk: 90
   fields:
     cas_number: 81786-73-4
     smiles: CC(C(/C)=C(\C)C(C)=O)C(C)(C)C
     iupac_name: (e)-3,4,5,6,6-pentamethylhept-3-en-2-one
     cid_number: 6365813
-- model: compounds.compound
+- model: compounds.odorant
   pk: 91
   fields:
     cas_number: 2102-58-1
     smiles: CC(=C)[C@@H]1CC=C(C)[C@@H](O)C1
     iupac_name: (1s,5r)-2-methyl-5-prop-1-en-2-ylcyclohex-2-en-1-ol
     cid_number: 94221
-- model: compounds.compound
+- model: compounds.odorant
   pk: 92
   fields:
     cas_number: 4510-34-3
     smiles: OC/C=C/c1ccccc1
     iupac_name: 3-phenylprop-2-en-1-ol
     cid_number: 5315892
-- model: compounds.compound
+- model: compounds.odorant
   pk: 94
   fields:
     cas_number: 67650-82-2
     smiles: CC(CCOC(C)=O)CCC=C(C)C
     iupac_name: 3,7-dimethyloct-6-enyl acetate
     cid_number: 9017
-- model: compounds.compound
+- model: compounds.odorant
   pk: 95
   fields:
     cas_number: 5273-86-9
     smiles: COc1cc(OC)c(\C=C/C)cc1OC
     iupac_name: 1,2,4-trimethoxy-5-[(z)-prop-1-enyl]benzene
     cid_number: 5281758
-- model: compounds.compound
+- model: compounds.odorant
   pk: 96
   fields:
     cas_number: 1196-31-2
     smiles: CC(C)[C@H]1CC[C@@H](C)CC1=O
     iupac_name: (2r,5r)-5-methyl-2-propan-2-ylcyclohexan-1-one
     cid_number: 70962
-- model: compounds.compound
+- model: compounds.odorant
   pk: 97
   fields:
     cas_number: 25634-93-9
     smiles: Cc1cccc(CCCCCO)c1
     iupac_name: 5-(3-methylphenyl)pentan-1-ol
     cid_number: 117568
-- model: compounds.compound
+- model: compounds.odorant
   pk: 98
   fields:
     cas_number: 91-62-3
     smiles: Cc1ccc2ncccc2c1
     iupac_name: 6-methylquinoline
     cid_number: 7059
-- model: compounds.compound
+- model: compounds.odorant
   pk: 99
   fields:
     cas_number: 54464-57-2
     smiles: CC1CC2=C(CC1(C)C(C)=O)C(C)(C)CCC2
     iupac_name: 1-(2,3,8,8-tetramethyl-1,3,4,5,6,7-hexahydronaphthalen-2-yl)ethanone
     cid_number: 108242
-- model: compounds.compound
+- model: compounds.odorant
   pk: 100
   fields:
     cas_number: 1211-29-6
     smiles: CC\C=C/C[C@@H]1[C@H](CCC1=O)CC(=O)OC
     iupac_name: methyl 2-[(1r,2r)-3-oxo-2-[(z)-pent-2-enyl]cyclopentyl]acetate
     cid_number: 5281929
-- model: compounds.compound
+- model: compounds.odorant
   pk: 101
   fields:
     cas_number: 479-16-3
     smiles: COC(=O)c1c(C)cc(OC(=O)c2c(C)c(Cl)c(O)c(C=O)c2O)c(C)c1O
     iupac_name: (3-hydroxy-4-methoxycarbonyl-2,5-dimethylphenyl) 5-chloro-3-formyl-2,4-dihydroxy-6-methylbenzoate
     cid_number: 68065
-- model: compounds.compound
+- model: compounds.odorant
   pk: 102
   fields:
     cas_number: 120-51-4
     smiles: O=C(OCc1ccccc1)c2ccccc2
     iupac_name: phenylmethyl benzoate
     cid_number: 2345
-- model: compounds.compound
+- model: compounds.odorant
   pk: 103
   fields:
     cas_number: 5989-54-8
     smiles: CC(=C)[C@H]1CCC(=CC1)C
     iupac_name: (4s)-1-methyl-4-prop-1-en-2-ylcyclohexene
     cid_number: 439250
-- model: compounds.compound
+- model: compounds.odorant
   pk: 104
   fields:
     cas_number: 81-14-1
     smiles: CC(=O)c1c(C)c(c(c(c1C)[N+]([O-])=O)C(C)(C)C)[N+]([O-])=O
     iupac_name: 1-(4-tert-butyl-2,6-dimethyl-3,5-dinitrophenyl)ethanone
     cid_number: 6669
-- model: compounds.compound
+- model: compounds.odorant
   pk: 105
   fields:
     cas_number: 104-09-6
     smiles: Cc1ccc(CC=O)cc1
     iupac_name: 2-(4-methylphenyl)acetaldehyde
     cid_number: 61006
-- model: compounds.compound
+- model: compounds.odorant
   pk: 106
   fields:
     cas_number: 13254-34-7
     smiles: CC(C)CCCC(C)(C)O
     iupac_name: 2,6-dimethylheptan-2-ol
     cid_number: 83268
-- model: compounds.compound
+- model: compounds.odorant
   pk: 107
   fields:
     cas_number: 101-84-8
     smiles: O(c1ccccc1)c2ccccc2
     iupac_name: phenoxybenzene
     cid_number: 7583
-- model: compounds.compound
+- model: compounds.odorant
   pk: 108
   fields:
     cas_number: 109-21-7
     smiles: CCCCOC(=O)CCC
     iupac_name: butyl butanoate
     cid_number: 7983
-- model: compounds.compound
+- model: compounds.odorant
   pk: 109
   fields:
     cas_number: 495-60-3
     smiles: C[C@@H](CCC=C(C)C)[C@H]1CC=C(C)C=C1
     iupac_name: (5r)-2-methyl-5-[(2s)-6-methylhept-5-en-2-yl]cyclohexa-1,3-diene
     cid_number: 92776
-- model: compounds.compound
+- model: compounds.odorant
   pk: 112
   fields:
     cas_number: 13828-37-0
     smiles: CC(C)C1CCC(CO)CC1
     iupac_name: (4-propan-2-ylcyclohexyl)methanol
     cid_number: 83763
-- model: compounds.compound
+- model: compounds.odorant
   pk: 113
   fields:
     cas_number: 111-12-6
     smiles: CCCCCC#CC(=O)OC
     iupac_name: methyl oct-2-ynoate
     cid_number: 8092
-- model: compounds.compound
+- model: compounds.odorant
   pk: 114
   fields:
     cas_number: 94-86-0
     smiles: CCOc1ccc(\C=C\C)cc1O
     iupac_name: 2-ethoxy-5-[(e)-prop-1-enyl]phenol
     cid_number: 5354280
-- model: compounds.compound
+- model: compounds.odorant
   pk: 115
   fields:
     cas_number: 722-97-4
     smiles: CN1C(=O)N(C)C(=O)C(CC=C)(CC=C)C1=O
     iupac_name: 1,3-dimethyl-5,5-di(prop-2-enyl)-1,3-diazinane-2,4,6-trione
     cid_number: 12880
-- model: compounds.compound
+- model: compounds.odorant
   pk: 116
   fields:
     cas_number: 5989-27-5
     smiles: CC(=C)[C@@H]1CCC(=CC1)C
     iupac_name: (4r)-1-methyl-4-prop-1-en-2-ylcyclohexene
     cid_number: 440917
-- model: compounds.compound
+- model: compounds.odorant
   pk: 117
   fields:
     cas_number: 124-76-5
     smiles: CC1(C)[C@H]2CC[C@@]1(C)[C@H](O)C2
     iupac_name: (1r,4s,6r)-1,7,7-trimethylbicyclo[2.2.1]heptan-6-ol
     cid_number: 61060
-- model: compounds.compound
+- model: compounds.odorant
   pk: 118
   fields:
     cas_number: 28371-99-5
     smiles: CC(=O)C1CCC(=C\CCC(=C/C/C=C1/C)\C)/C
     iupac_name: 1-[(2z,5z,9z)-2,6,10-trimethyl-1-cyclododeca-2,5,9-trienyl]ethanone
     cid_number: 6438191
-- model: compounds.compound
+- model: compounds.odorant
   pk: 119
   fields:
     cas_number: 100-06-1
     smiles: COc1ccc(cc1)C(C)=O
     iupac_name: 1-(4-methoxyphenyl)ethanone
     cid_number: 7476
-- model: compounds.compound
+- model: compounds.odorant
   pk: 120
   fields:
     cas_number: 37172-53-5
     smiles: CCCCCCC1C(CCC1=O)C(=O)OC
     iupac_name: methyl 2-hexyl-3-oxocyclopentane-1-carboxylate
     cid_number: 162249
-- model: compounds.compound
+- model: compounds.odorant
   pk: 121
   fields:
     cas_number: 106-02-5
     smiles: O=C1CCCCCCCCCCCCCCO1
     iupac_name: 1-oxacyclohexadecan-2-one
     cid_number: 235414
-- model: compounds.compound
+- model: compounds.odorant
   pk: 122
   fields:
     cas_number: 28069-72-9
     smiles: CC/C=C/CC\C=C\CO
     iupac_name: (2e,6e)-nona-2,6-dien-1-ol
     cid_number: 5320191
-- model: compounds.compound
+- model: compounds.odorant
   pk: 123
   fields:
     cas_number: 13351-61-6
     smiles: CC(C)(CO)Cc1ccccc1
     iupac_name: 2,2-dimethyl-3-phenylpropan-1-ol
     cid_number: 83367
-- model: compounds.compound
+- model: compounds.odorant
   pk: 124
   fields:
     cas_number: 91-64-5
     smiles: O=C1Oc2ccccc2C=C1
     iupac_name: chromen-2-one
     cid_number: 323
-- model: compounds.compound
+- model: compounds.odorant
   pk: 125
   fields:
     cas_number: 103-45-7
     smiles: CC(=O)OCCc1ccccc1
     iupac_name: 2-phenylethyl acetate
     cid_number: 7654
-- model: compounds.compound
+- model: compounds.odorant
   pk: 127
   fields:
     cas_number: 7540-51-4
     smiles: C[C@H](CCO)CCC=C(C)C
     iupac_name: (3s)-3,7-dimethyloct-6-en-1-ol
     cid_number: 7793
-- model: compounds.compound
+- model: compounds.odorant
   pk: 128
   fields:
     cas_number: 6789-88-4
     smiles: CCCCCCOC(=O)c1ccccc1
     iupac_name: hexyl benzoate
     cid_number: 23235
-- model: compounds.compound
+- model: compounds.odorant
   pk: 129
   fields:
     cas_number: 122-63-4
     smiles: CCC(=O)OCc1ccccc1
     iupac_name: phenylmethyl propanoate
     cid_number: 31219
-- model: compounds.compound
+- model: compounds.odorant
   pk: 86
   fields:
     cas_number: 51566-62-2
     smiles: CC(CCC=C(C)C)CC#N
     iupac_name: 3,7-dimethyloct-6-enenitrile
     cid_number: 3033030
-- model: compounds.compound
+- model: compounds.odorant
   pk: 43
   fields:
     cas_number: 104-61-0
     smiles: CCCCC[C@H]1CCC(=O)O1
     iupac_name: (5s)-5-pentyloxolan-2-one
     cid_number: 441574
-- model: compounds.compound
+- model: compounds.odorant
   pk: 171
   fields:
     cas_number: 33704-61-9
     smiles: CC1C(C)(C)C2=C(C(=O)CCC2)C1(C)C
     iupac_name: 1,1,2,3,3-pentamethyl-2,5,6,7-tetrahydroinden-4-one
     cid_number: 92292
-- model: compounds.compound
+- model: compounds.odorant
   pk: 130
   fields:
     cas_number: 107-75-5
     smiles: CC(CCCC(C)(C)O)CC=O
     iupac_name: 7-hydroxy-3,7-dimethyloctanal
     cid_number: 7888
-- model: compounds.compound
+- model: compounds.odorant
   pk: 131
   fields:
     cas_number: 90-17-5
     smiles: CC(=O)OC(c1ccccc1)C(Cl)(Cl)Cl
     iupac_name: (2,2,2-trichloro-1-phenylethyl) acetate
     cid_number: 7007
-- model: compounds.compound
+- model: compounds.odorant
   pk: 132
   fields:
     cas_number: 470-67-7
     smiles: CC(C)C12CCC(C)(CC1)O2
     iupac_name: 4-methyl-1-propan-2-yl-7-oxabicyclo[2.2.1]heptane
     cid_number: 10106
-- model: compounds.compound
+- model: compounds.odorant
   pk: 133
   fields:
     cas_number: 25152-84-5
     smiles: CCCCC/C=C/C=C/C=O
     iupac_name: deca-2,4-dienal
     cid_number: 5283349
-- model: compounds.compound
+- model: compounds.odorant
   pk: 134
   fields:
     cas_number: 18444-79-6
     smiles: C[C@@H]1CC(=O)C=C(C)[C@@]12CCC(C2)=C(C)C
     iupac_name: (5r,6r)-6,10-dimethyl-3-propan-2-ylidenespiro[4.5]dec-9-en-8-one
     cid_number: 442406
-- model: compounds.compound
+- model: compounds.odorant
   pk: 135
   fields:
     cas_number: 103694-68-4
     smiles: Cc1cccc(CC(C)(C)CO)c1
     iupac_name: 2,2-dimethyl-3-(3-methylphenyl)propan-1-ol
     cid_number: 175948
-- model: compounds.compound
+- model: compounds.odorant
   pk: 136
   fields:
     cas_number: 5146-66-7
     smiles: CC(C)=CCC\C(C)=C\C#N
     iupac_name: (2e)-3,7-dimethylocta-2,6-dienenitrile
     cid_number: 1551246
-- model: compounds.compound
+- model: compounds.odorant
   pk: 137
   fields:
     cas_number: 10022-28-3
     smiles: CCCCCCCC(OC)OC
     iupac_name: 1,1-dimethoxyoctane
     cid_number: 61431
-- model: compounds.compound
+- model: compounds.odorant
   pk: 138
   fields:
     cas_number: 10411-92-4
     smiles: CC(=O)OC1CCC(CC1)C(C)(C)C
     iupac_name: (4-tert-butylcyclohexyl) acetate
     cid_number: 36081
-- model: compounds.compound
+- model: compounds.odorant
   pk: 139
   fields:
     cas_number: 106-30-9
     smiles: CCCCCCC(=O)OCC
     iupac_name: ethyl heptanoate
     cid_number: 7797
-- model: compounds.compound
+- model: compounds.odorant
   pk: 140
   fields:
     cas_number: 166432-52-6
     smiles: CCCCCC#C\C=C\C=C
     iupac_name: (3e)-undeca-1,3-dien-5-yne
     cid_number: 6433089
-- model: compounds.compound
+- model: compounds.odorant
   pk: 141
   fields:
     cas_number: 3623-52-7
     smiles: CC(C)[C@H]1CC[C@@H](C)C[C@H]1O
     iupac_name: (1r,2r,5r)-5-methyl-2-propan-2-ylcyclohexan-1-ol
     cid_number: 19244
-- model: compounds.compound
+- model: compounds.odorant
   pk: 142
   fields:
     cas_number: 100-86-7
     smiles: CC(C)(O)Cc1ccccc1
     iupac_name: 2-methyl-1-phenylpropan-2-ol
     cid_number: 7531
-- model: compounds.compound
+- model: compounds.odorant
   pk: 143
   fields:
     cas_number: 87-20-7
     smiles: CC(C)CCOC(=O)c1ccccc1O
     iupac_name: 3-methylbutyl 2-hydroxybenzoate
     cid_number: 6874
-- model: compounds.compound
+- model: compounds.odorant
   pk: 144
   fields:
     cas_number: 67801-20-1
     smiles: CC(O)C(C)\C=C/C1CC=C(C)C1(C)C
     iupac_name: (z)-3-methyl-5-(2,2,3-trimethyl-1-cyclopent-3-enyl)pent-4-en-2-ol
     cid_number: 6437266
-- model: compounds.compound
+- model: compounds.odorant
   pk: 145
   fields:
     cas_number: 62006-39-7
     smiles: CCCCC1OC(=O)C2=C1CCC=C2
     iupac_name: 3-butyl-4,5-dihydro-3h-2-benzofuran-1-one
     cid_number: 173843
-- model: compounds.compound
+- model: compounds.odorant
   pk: 146
   fields:
     cas_number: 25485-88-5
     smiles: Oc1ccccc1C(=O)OC2CCCCC2
     iupac_name: cyclohexyl 2-hydroxybenzoate
     cid_number: 101330
-- model: compounds.compound
+- model: compounds.odorant
   pk: 147
   fields:
     cas_number: 101-86-0
     smiles: CCCCCC\C(C=O)=C/c1ccccc1
     iupac_name: 2-(phenylmethylidene)octanal
     cid_number: 1550884
-- model: compounds.compound
+- model: compounds.odorant
   pk: 148
   fields:
     cas_number: 515-03-7
     smiles: CC1(C)CCC[C@@]2(C)C1CC[C@@](C)(O)[C@@H]2CC[C@@](C)(O)C=C
     iupac_name: (1r,2r,8as)-1-[(3r)-3-hydroxy-3-methylpent-4-enyl]-2,5,5,8a-tetramethyl-3,4,4a,6,7,8-hexahydro-1h-naphthalen-2-ol
     cid_number: 73114
-- model: compounds.compound
+- model: compounds.odorant
   pk: 149
   fields:
     cas_number: 68039-49-6
     smiles: CC1C=C(C)CCC1C=O
     iupac_name: 2,4-dimethylcyclohex-3-ene-1-carbaldehyde
     cid_number: 93375
-- model: compounds.compound
+- model: compounds.odorant
   pk: 150
   fields:
     cas_number: 2102-59-2
     smiles: CC(=C)C1CC=C(C)C(O)C1
     iupac_name: 2-methyl-5-prop-1-en-2-ylcyclohex-2-en-1-ol
     cid_number: 7438
-- model: compounds.compound
+- model: compounds.odorant
   pk: 151
   fields:
     cas_number: 4630-07-3
     smiles: CC1CCC=C2CCC(CC12C)C(C)=C
     iupac_name: 4a,5-dimethyl-3-prop-1-en-2-yl-2,3,4,5,6,7-hexahydro-1h-naphthalene
     cid_number: 288227
-- model: compounds.compound
+- model: compounds.odorant
   pk: 152
   fields:
     cas_number: 139504-68-0
     smiles: CCC(O)COC1CCCCC1C(C)(C)C
     iupac_name: 1-(2-tert-butylcyclohexyl)oxybutan-2-ol
     cid_number: 164422
-- model: compounds.compound
+- model: compounds.odorant
   pk: 153
   fields:
     cas_number: 140-11-4
     smiles: CC(=O)OCc1ccccc1
     iupac_name: phenylmethyl acetate
     cid_number: 8785
-- model: compounds.compound
+- model: compounds.odorant
   pk: 154
   fields:
     cas_number: 53767-93-4
     smiles: CC(CCCC(C)(C)OC(C)=O)C=C
     iupac_name: 2,6-dimethyloct-7-en-2-yl acetate
     cid_number: 103826
-- model: compounds.compound
+- model: compounds.odorant
   pk: 155
   fields:
     cas_number: 93-08-3
     smiles: CC(=O)c1ccc2ccccc2c1
     iupac_name: 1-naphthalen-2-ylethanone
     cid_number: 7122
-- model: compounds.compound
+- model: compounds.odorant
   pk: 156
   fields:
     cas_number: 13215-88-8
     smiles: C\C=C\C=C1/C(=CC(=O)CC1(C)C)C
     iupac_name: (4z)-4-[(e)-but-2-enylidene]-3,5,5-trimethylcyclohex-2-en-1-one
     cid_number: 6437599
-- model: compounds.compound
+- model: compounds.odorant
   pk: 157
   fields:
     cas_number: 7785-26-4
     smiles: CC1=CC[C@H]2C[C@@H]1C2(C)C
     iupac_name: (1s,5s)-4,7,7-trimethylbicyclo[3.1.1]hept-3-ene
     cid_number: 440968
-- model: compounds.compound
+- model: compounds.odorant
   pk: 158
   fields:
     cas_number: 106-68-3
     smiles: CCCCCC(=O)CC
     iupac_name: octan-3-one
     cid_number: 246728
-- model: compounds.compound
+- model: compounds.odorant
   pk: 159
   fields:
     cas_number: 3623-51-6
     smiles: CC(C)[C@H]1CC[C@@H](C)CC1O
     iupac_name: (2r,5r)-5-methyl-2-propan-2-ylcyclohexan-1-ol
     cid_number: 19243
-- model: compounds.compound
+- model: compounds.odorant
   pk: 160
   fields:
     cas_number: 90-87-9
     smiles: COC(OC)C(C)c1ccccc1
     iupac_name: 1,1-dimethoxypropan-2-ylbenzene
     cid_number: 62336
-- model: compounds.compound
+- model: compounds.odorant
   pk: 162
   fields:
     cas_number: 541-91-3
     smiles: CC1CCCCCCCCCCCCC(=O)C1
     iupac_name: 3-methylcyclopentadecan-1-one
     cid_number: 10947
-- model: compounds.compound
+- model: compounds.odorant
   pk: 163
   fields:
     cas_number: 34322-09-3
     smiles: CCC(C)SC(=O)C=C(C)C
     iupac_name: s-butan-2-yl 3-methylbut-2-enethioate
     cid_number: 118148
-- model: compounds.compound
+- model: compounds.odorant
   pk: 164
   fields:
     cas_number: 127-41-3
     smiles: CC(=O)/C=C/C1C(=CCCC1(C)C)C
     iupac_name: 4-(2,6,6-trimethyl-1-cyclohex-2-enyl)but-3-en-2-one
     cid_number: 5282108
-- model: compounds.compound
+- model: compounds.odorant
   pk: 165
   fields:
     cas_number: 93-28-7
     smiles: COc1cc(CC=C)ccc1OC(C)=O
     iupac_name: (2-methoxy-4-prop-2-enylphenyl) acetate
     cid_number: 7136
-- model: compounds.compound
+- model: compounds.odorant
   pk: 166
   fields:
     cas_number: 15537-55-0
     smiles: CC(C)C12CCC(C)(O)C1C2
     iupac_name: 4-methyl-1-propan-2-ylbicyclo[3.1.0]hexan-4-ol
     cid_number: 62367
-- model: compounds.compound
+- model: compounds.odorant
   pk: 167
   fields:
     cas_number: 24237-00-1
     smiles: CCCCC1OC(C)CC(=C1)C
     iupac_name: 2-butyl-4,6-dimethyl-5,6-dihydro-2h-pyran
     cid_number: 91147
-- model: compounds.compound
+- model: compounds.odorant
   pk: 168
   fields:
     cas_number: 27606-09-3
     smiles: CC1OC(C)C2Cc3ccccc3C2O1
     iupac_name: 2,4-dimethyl-4,4a,5,9b-tetrahydroindeno(1,2-d)dioxin
     cid_number: 119674
-- model: compounds.compound
+- model: compounds.odorant
   pk: 169
   fields:
     cas_number: 77-42-9
     smiles: CC(/CO)=C/CCC1(C)C2CCC(C2)C1=C
     iupac_name: (z)-2-methyl-5-(6-methyl-5-methylidene-6-bicyclo[2.2.1]heptanyl)pent-2-en-1-ol
     cid_number: 5281532
-- model: compounds.compound
+- model: compounds.odorant
   pk: 170
   fields:
     cas_number: 28219-61-6
     smiles: CC\C(CO)=C/CC1CC=C(C)C1(C)C
     iupac_name: (e)-2-ethyl-4-(2,2,3-trimethyl-1-cyclopent-3-enyl)but-2-en-1-ol
     cid_number: 6438196
-- model: compounds.compound
+- model: compounds.odorant
   pk: 172
   fields:
     cas_number: 65405-77-8
     smiles: CC/C=C/CCOC(=O)c1ccccc1O
     iupac_name: hex-3-enyl 2-hydroxybenzoate
     cid_number: 6021887
-- model: compounds.compound
+- model: compounds.odorant
   pk: 174
   fields:
     cas_number: 22451-73-6
     smiles: CC1CCC2=C(C)CCC(CC12)C(C)(C)O
     iupac_name: 2-(3,8-dimethyl-1,2,3,3a,4,5,6,7-octahydroazulen-5-yl)propan-2-ol
     cid_number: 90785
-- model: compounds.compound
+- model: compounds.odorant
   pk: 176
   fields:
     cas_number: 19883-29-5
     smiles: CCCCC/C=C/C=C/C=C
     iupac_name: (3e,5e)-undeca-1,3,5-triene
     cid_number: 5367412
-- model: compounds.compound
+- model: compounds.odorant
   pk: 177
   fields:
     cas_number: 112-45-8
     smiles: C=CCCCCCCCCC=O
     iupac_name: undec-10-enal
     cid_number: 8187
-- model: compounds.compound
+- model: compounds.odorant
   pk: 178
   fields:
     cas_number: 54546-26-8
     smiles: CCCCC1OC(C)CC(C)(C)O1
     iupac_name: 2-butyl-4,4,6-trimethyl-1,3-dioxane
     cid_number: 94569
-- model: compounds.compound
+- model: compounds.odorant
   pk: 179
   fields:
     cas_number: 111-80-8
     smiles: CCCCCCC#CC(=O)OC
     iupac_name: methyl non-2-ynoate
     cid_number: 8137
-- model: compounds.compound
+- model: compounds.odorant
   pk: 180
   fields:
     cas_number: 488-10-8
     smiles: CC\C=C/CC1=C(C)CCC1=O
     iupac_name: 3-methyl-2-[(z)-pent-2-enyl]cyclopent-2-en-1-one
     cid_number: 1549018
-- model: compounds.compound
+- model: compounds.odorant
   pk: 181
   fields:
     cas_number: 79-69-6
     smiles: C[C@@H]1CC=C(C)[C@H](\C=C\C(C)=O)C1(C)C
     iupac_name: (e)-4-[(1s,5r)-2,5,6,6-tetramethyl-1-cyclohex-2-enyl]but-3-en-2-one
     cid_number: 5281521
-- model: compounds.compound
+- model: compounds.odorant
   pk: 182
   fields:
     cas_number: 13171-00-1
     smiles: CC(=O)c1cc(cc2c1CCC2(C)C)C(C)(C)C
     iupac_name: 1-(6-tert-butyl-1,1-dimethyl-2,3-dihydroinden-4-yl)ethanone
     cid_number: 61585
-- model: compounds.compound
+- model: compounds.odorant
   pk: 183
   fields:
     cas_number: 103-53-7
     smiles: O=C(OCCc1ccccc1)/C=C/c2ccccc2
     iupac_name: 2-phenylethyl 3-phenylprop-2-enoate
     cid_number: 5369459
-- model: compounds.compound
+- model: compounds.odorant
   pk: 184
   fields:
     cas_number: 103-95-7
     smiles: CC(C)c1ccc(cc1)C(C)CC=O
     iupac_name: 3-(4-propan-2-ylphenyl)butanal
     cid_number: 7687
-- model: compounds.compound
+- model: compounds.odorant
   pk: 185
   fields:
     cas_number: 65113-99-7
     smiles: CC(O)C(C)CCC1CC=C(C)C1(C)C
     iupac_name: 3-methyl-5-(2,2,3-trimethyl-1-cyclopent-3-enyl)pentan-2-ol
     cid_number: 103212
-- model: compounds.compound
+- model: compounds.odorant
   pk: 186
   fields:
     cas_number: 60066-88-8
     smiles: CC(/CC\C=C(/C)C=O)=C\CCC(=C)C=C
     iupac_name: 2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal
     cid_number: 5281535
-- model: compounds.compound
+- model: compounds.odorant
   pk: 187
   fields:
     cas_number: 103-60-6
     smiles: CC(C)C(=O)OCCOc1ccccc1
     iupac_name: 2-(phenoxy)ethyl 2-methylpropanoate
     cid_number: 61005
-- model: compounds.compound
+- model: compounds.odorant
   pk: 188
   fields:
     cas_number: 87-22-9
     smiles: Oc1ccccc1C(=O)OCCc2ccccc2
     iupac_name: 2-phenylethyl 2-hydroxybenzoate
     cid_number: 62332
-- model: compounds.compound
+- model: compounds.odorant
   pk: 189
   fields:
     cas_number: 10486-19-8
     smiles: CCCCCCCCCCCCC=O
     iupac_name: tridecanal
     cid_number: 25311
-- model: compounds.compound
+- model: compounds.odorant
   pk: 190
   fields:
     cas_number: 6707-60-4
     smiles: O=C1CCCCCCCCCCOCCCCO1
     iupac_name: 1,6-dioxacycloheptadecan-7-one
     cid_number: 23173
-- model: compounds.compound
+- model: compounds.odorant
   pk: 191
   fields:
     cas_number: 102-20-5
     smiles: O=C(Cc1ccccc1)OCCc2ccccc2
     iupac_name: 2-phenylethyl 2-phenylacetate
     cid_number: 7601
-- model: compounds.compound
+- model: compounds.odorant
   pk: 193
   fields:
     cas_number: 77-83-8
     smiles: CCOC(=O)C1OC1(C)c2ccccc2
     iupac_name: ethyl 3-methyl-3-phenyloxirane-2-carboxylate
     cid_number: 6501
-- model: compounds.compound
+- model: compounds.odorant
   pk: 194
   fields:
     cas_number: 5989-33-3
     smiles: CC(C)(O)C1CCC(C)(O1)C=C
     iupac_name: 2-(5-ethenyl-5-methyloxolan-2-yl)propan-2-ol
     cid_number: 22310
-- model: compounds.compound
+- model: compounds.odorant
   pk: 195
   fields:
     cas_number: 17066-67-0
     smiles: CC(=C)[C@@H]1CC[C@@]2(C)CCCC(=C)[C@@H]2C1
     iupac_name: (3r,4as,8ar)-8a-methyl-5-methylidene-3-prop-1-en-2-yl-1,2,3,4,4a,6,7,8-octahydronaphthalene
     cid_number: 442393
-- model: compounds.compound
+- model: compounds.odorant
   pk: 196
   fields:
     cas_number: 7416-35-5
     smiles: C\C=C(/C)C1CCC(C)(C)O1
     iupac_name: 5-[(e)-but-2-en-2-yl]-2,2-dimethyloxolane
     cid_number: 5363526
-- model: compounds.compound
+- model: compounds.odorant
   pk: 197
   fields:
     cas_number: 77851-07-1
     smiles: CCOC(=O)C1C(=C(C)CCC1(C)C)C
     iupac_name: ethyl 2,3,6,6-tetramethylcyclohex-2-ene-1-carboxylate
     cid_number: 166500
-- model: compounds.compound
+- model: compounds.odorant
   pk: 198
   fields:
     cas_number: 79-89-0
     smiles: CC(=O)C(\C)=C/C1=C(C)CCCC1(C)C
     iupac_name: (z)-3-methyl-4-(2,6,6-trimethyl-1-cyclohexenyl)but-3-en-2-one
     cid_number: 5356788
-- model: compounds.compound
+- model: compounds.odorant
   pk: 200
   fields:
     cas_number: 25773-40-4
     smiles: COc1nccnc1C(C)C
     iupac_name: 2-methoxy-3-propan-2-ylpyrazine
     cid_number: 33166
-- model: compounds.compound
+- model: compounds.odorant
   pk: 201
   fields:
     cas_number: 2986-54-1
     smiles: COC1CCCCCCCCCCC1
     iupac_name: methoxycyclododecane
     cid_number: 76334
-- model: compounds.compound
+- model: compounds.odorant
   pk: 202
   fields:
     cas_number: 58567-11-6
     smiles: CCOCOC1CCCCCCCCCCC1
     iupac_name: ethoxymethoxycyclododecane
     cid_number: 94111
-- model: compounds.compound
+- model: compounds.odorant
   pk: 203
   fields:
     cas_number: 141-10-6
     smiles: CC(C)=CCC\C(C)=C\C=C\C(C)=O
     iupac_name: 6,10-dimethylundeca-3,5,9-trien-2-one
     cid_number: 1757003
-- model: compounds.compound
+- model: compounds.odorant
   pk: 205
   fields:
     cas_number: 43052-87-5
     smiles: C/C=C/C(=O)C1C(=CCCC1(C)C)C
     iupac_name: (e)-1-(2,6,6-trimethyl-1-cyclohex-2-enyl)but-2-en-1-one
     cid_number: 5366077
-- model: compounds.compound
+- model: compounds.odorant
   pk: 206
   fields:
     cas_number: 35044-59-8
     smiles: CCOC(=O)C1=C(C)C=CCC1(C)C
     iupac_name: ethyl 2,6,6-trimethylcyclohexa-1,3-diene-1-carboxylate
     cid_number: 118201
-- model: compounds.compound
+- model: compounds.odorant
   pk: 207
   fields:
     cas_number: 60241-52-3
     smiles: CCC(O)CCC1C(C)CCCC1(C)C
     iupac_name: 1-(2,2,6-trimethylcyclohexyl)pentan-3-ol
     cid_number: 108424
-- model: compounds.compound
+- model: compounds.odorant
   pk: 208
   fields:
     cas_number: 74410-10-9
     smiles: C[C@@H]1CO[C@H]2C=C(C)CC[C@@H]12
     iupac_name: (3s,3as,7ar)-3,6-dimethyl-2,3,3a,4,5,7a-hexahydro-1-benzofuran
     cid_number: 126537
-- model: compounds.compound
+- model: compounds.odorant
   pk: 209
   fields:
     cas_number: 68922-10-1
     smiles: CC(C)CC(=O)OCCC(C)CCC=C(C)C
     iupac_name: 3,7-dimethyloct-6-enyl 3-methylbutanoate
     cid_number: 111440
-- model: compounds.compound
+- model: compounds.odorant
   pk: 210
   fields:
     cas_number: 14595-54-1
     smiles: O=C1CCCCCCCCCC\C=C/CC1
     iupac_name: (4z)-cyclopentadec-4-en-1-one
     cid_number: 6365389
-- model: compounds.compound
+- model: compounds.odorant
   pk: 211
   fields:
     cas_number: 59323-76-1
     smiles: CCCC1CCOC(C)S1
     iupac_name: 2-methyl-4-propyl-1,3-oxathiane
     cid_number: 101010
-- model: compounds.compound
+- model: compounds.odorant
   pk: 212
   fields:
     cas_number: 110-41-8
     smiles: CCCCCCCCCC(C)C=O
     iupac_name: 2-methylundecanal
     cid_number: 61031
-- model: compounds.compound
+- model: compounds.odorant
   pk: 213
   fields:
     cas_number: 54082-68-7
     smiles: CC(CC\C=C(C)\CCC=C(C)C)C=O
     iupac_name: (5e)-2,6,10-trimethylundeca-5,9-dienal
     cid_number: 6538156
-- model: compounds.compound
+- model: compounds.odorant
   pk: 214
   fields:
     cas_number: 7493-74-5
     smiles: C=CCOC(=O)COc1ccccc1
     iupac_name: prop-2-enyl 2-(phenoxy)acetate
     cid_number: 24117
-- model: compounds.compound
+- model: compounds.odorant
   pk: 215
   fields:
     cas_number: 39255-32-8
     smiles: CCCC(C)C(=O)OCC
     iupac_name: ethyl 2-methylpentanoate
     cid_number: 62902
-- model: compounds.compound
+- model: compounds.odorant
   pk: 216
   fields:
     cas_number: 37677-14-8
     smiles: CC(C)=CCCC1=CCC(CC1)C=O
     iupac_name: 4-(4-methylpent-3-enyl)cyclohex-3-ene-1-carbaldehyde
     cid_number: 93199
-- model: compounds.compound
+- model: compounds.odorant
   pk: 217
   fields:
     cas_number: 93-15-2
     smiles: COc1ccc(CC=C)cc1OC
     iupac_name: 1,2-dimethoxy-4-prop-2-enylbenzene
     cid_number: 7127
-- model: compounds.compound
+- model: compounds.odorant
   pk: 218
   fields:
     cas_number: 689-67-8
     smiles: CC(C)=CCC\C(C)=C\CCC(C)=O
     iupac_name: (5e)-6,10-dimethylundeca-5,9-dien-2-one
     cid_number: 1549778
-- model: compounds.compound
+- model: compounds.odorant
   pk: 219
   fields:
     cas_number: 60241-53-4
     smiles: CC(O)C(C)CC1C(C)CCCC1(C)C
     iupac_name: 3-methyl-4-(2,2,6-trimethylcyclohexyl)butan-2-ol
     cid_number: 108425
-- model: compounds.compound
+- model: compounds.odorant
   pk: 220
   fields:
     cas_number: 26489-01-0
     smiles: C[C@H](CCO)CCC=C(C)C
     iupac_name: (3s)-3,7-dimethyloct-6-en-1-ol
     cid_number: 7793
-- model: compounds.compound
+- model: compounds.odorant
   pk: 221
   fields:
     cas_number: 557-48-2
     smiles: CC\C=C/CC\C=C\C=O
     iupac_name: (2e,6z)-nona-2,6-dienal
     cid_number: 643731
-- model: compounds.compound
+- model: compounds.odorant
   pk: 222
   fields:
     cas_number: 97-89-2
     smiles: CC(CCOC(=O)C(C)C)CCC=C(C)C
     iupac_name: 3,7-dimethyloct-6-enyl 2-methylpropanoate
     cid_number: 60985
-- model: compounds.compound
+- model: compounds.odorant
   pk: 223
   fields:
     cas_number: 22457-23-4
     smiles: CCC(C)C\C(CC)=N\O
     iupac_name: (ne)-n-(5-methylheptan-3-ylidene)hydroxylamine
     cid_number: 6180775
-- model: compounds.compound
+- model: compounds.odorant
   pk: 224
   fields:
     cas_number: 80-25-1
     smiles: CC1CCC(CC1)C(C)(C)OC(C)=O
     iupac_name: 2-(4-methylcyclohexyl)propan-2-yl acetate
     cid_number: 6631
-- model: compounds.compound
+- model: compounds.odorant
   pk: 225
   fields:
     cas_number: 2550-52-9
     smiles: O=C1CCCCCCCCCCCCCCC1
     iupac_name: cyclohexadecanone
     cid_number: 75695
-- model: compounds.compound
+- model: compounds.odorant
   pk: 226
   fields:
     cas_number: 14901-07-6
     smiles: CC(=O)/C=C/C1=C(C)CCCC1(C)C
     iupac_name: 4-(2,6,6-trimethyl-1-cyclohexenyl)but-3-en-2-one
     cid_number: 638014
-- model: compounds.compound
+- model: compounds.odorant
   pk: 227
   fields:
     cas_number: 3155-71-3
     smiles: C\C(C=O)=C/CC1=C(C)CCCC1(C)C
     iupac_name: 2-methyl-4-(2,6,6-trimethyl-1-cyclohexenyl)but-2-enal
     cid_number: 5369997
-- model: compounds.compound
+- model: compounds.odorant
   pk: 228
   fields:
     cas_number: 99-87-6
     smiles: CC(C)c1ccc(C)cc1
     iupac_name: 1-methyl-4-propan-2-ylbenzene
     cid_number: 7463
-- model: compounds.compound
+- model: compounds.odorant
   pk: 229
   fields:
     cas_number: 112-43-6
     smiles: OCCCCCCCCCC=C
     iupac_name: undec-10-en-1-ol
     cid_number: 8185
-- model: compounds.compound
+- model: compounds.odorant
   pk: 230
   fields:
     cas_number: 4221-98-1
     smiles: CC(C)[C@H]1CC=C(C)C=C1
     iupac_name: (5r)-2-methyl-5-propan-2-ylcyclohexa-1,3-diene
     cid_number: 442482
-- model: compounds.compound
+- model: compounds.odorant
   pk: 231
   fields:
     cas_number: 6379-72-2
     smiles: COc1ccc(\C=C\C)cc1OC
     iupac_name: 1,2-dimethoxy-4-prop-1-enylbenzene
     cid_number: 637776
-- model: compounds.compound
+- model: compounds.odorant
   pk: 232
   fields:
     cas_number: 28645-51-4
     smiles: O=C1CCCCCCC\C=C/CCCCCCO1
     iupac_name: 1-oxacycloheptadec-10-en-2-one
     cid_number: 5355293
-- model: compounds.compound
+- model: compounds.odorant
   pk: 233
   fields:
     cas_number: 141-13-9
     smiles: CC(CCCC(C)C=O)CCC=C(C)C
     iupac_name: 2,6,10-trimethylundec-9-enal
     cid_number: 98403
-- model: compounds.compound
+- model: compounds.odorant
   pk: 234
   fields:
     cas_number: 79-92-5
     smiles: CC1(C)C2CCC(C2)C1=C
     iupac_name: 6,6-dimethyl-5-methylidenebicyclo[2.2.1]heptane
     cid_number: 6616
-- model: compounds.compound
+- model: compounds.odorant
   pk: 235
   fields:
     cas_number: 18871-14-2
     smiles: CCCCCC1COCCC1OC(C)=O
     iupac_name: (3-pentyloxan-4-yl) acetate
     cid_number: 86799
-- model: compounds.compound
+- model: compounds.odorant
   pk: 236
   fields:
     cas_number: 464-45-9
     smiles: CC1(C)[C@@H]2CC[C@]1(C)[C@H](O)C2
     iupac_name: (1s,4r,6r)-1,7,7-trimethylbicyclo[2.2.1]heptan-6-ol
     cid_number: 10049
-- model: compounds.compound
+- model: compounds.odorant
   pk: 237
   fields:
     cas_number: 40135-38-4
     smiles: CC(C)=CCCC(C)(OC(C)=O)C=C
     iupac_name: 3,7-dimethylocta-1,6-dien-3-yl acetate
     cid_number: 8294
-- model: compounds.compound
+- model: compounds.odorant
   pk: 239
   fields:
     cas_number: 151-05-3
     smiles: CC(=O)OC(C)(C)Cc1ccccc1
     iupac_name: (2-methyl-1-phenylpropan-2-yl) acetate
     cid_number: 9024
-- model: compounds.compound
+- model: compounds.odorant
   pk: 240
   fields:
     cas_number: 15356-70-4
     smiles: CC(C)C1CCC(C)CC1O
     iupac_name: 5-methyl-2-propan-2-ylcyclohexan-1-ol
     cid_number: 1254
-- model: compounds.compound
+- model: compounds.odorant
   pk: 241
   fields:
     cas_number: 56011-02-0
     smiles: CC(C)CCOCCc1ccccc1
     iupac_name: 2-(3-methylbutoxy)ethylbenzene
     cid_number: 91978
-- model: compounds.compound
+- model: compounds.odorant
   pk: 242
   fields:
     cas_number: 77129-48-7
     smiles: CC(C)=CCC\C(C)=C\CCC(=C)C=C
     iupac_name: 7,11-dimethyl-3-methylidenedodeca-1,6,10-triene
     cid_number: 5281517
-- model: compounds.compound
+- model: compounds.odorant
   pk: 243
   fields:
     cas_number: 13720-12-2
     smiles: CC(=O)CCC1C(=C)CCCC1(C)C
     iupac_name: 4-(2,2-dimethyl-6-methylidenecyclohexyl)butan-2-one
     cid_number: 114558
-- model: compounds.compound
+- model: compounds.odorant
   pk: 244
   fields:
     cas_number: 4819-67-4
     smiles: CCCCCC1CCCC1=O
     iupac_name: 2-pentylcyclopentan-1-one
     cid_number: 20959
-- model: compounds.compound
+- model: compounds.odorant
   pk: 245
   fields:
     cas_number: 57378-68-4
     smiles: C/C=C/C(=O)C1C(C)C=CCC1(C)C
     iupac_name: (e)-1-(2,6,6-trimethyl-1-cyclohex-3-enyl)but-2-en-1-one
     cid_number: 5365916
-- model: compounds.compound
+- model: compounds.odorant
   pk: 246
   fields:
     cas_number: 543-39-5
     smiles: CC(C)(O)CCCC(=C)C=C
     iupac_name: 2-methyl-6-methylideneoct-7-en-2-ol
     cid_number: 10975
-- model: compounds.compound
+- model: compounds.odorant
   pk: 247
   fields:
     cas_number: 123-68-2
     smiles: CCCCCC(=O)OCC=C
     iupac_name: prop-2-enyl hexanoate
     cid_number: 31266
-- model: compounds.compound
+- model: compounds.odorant
   pk: 248
   fields:
     cas_number: 80-54-6
     smiles: CC(Cc1ccc(cc1)C(C)(C)C)C=O
     iupac_name: 3-(4-tert-butylphenyl)-2-methylpropanal
     cid_number: 228987
-- model: compounds.compound
+- model: compounds.odorant
   pk: 249
   fields:
     cas_number: 22629-49-8
     smiles: CCCCCCCCCC\C=C\C#N
     iupac_name: tridec-2-enenitrile
     cid_number: 6538105
-- model: compounds.compound
+- model: compounds.odorant
   pk: 250
   fields:
     cas_number: 18479-57-7
     smiles: CCC(C)CCCC(C)(C)O
     iupac_name: 2,6-dimethyloctan-2-ol
     cid_number: 86751
-- model: compounds.compound
+- model: compounds.odorant
   pk: 251
   fields:
     cas_number: 38462-22-5
     smiles: CC1CCC(C(=O)C1)C(C)(C)S
     iupac_name: 5-methyl-2-(2-sulfanylpropan-2-yl)cyclohexan-1-one
     cid_number: 61982
-- model: compounds.compound
+- model: compounds.odorant
   pk: 252
   fields:
     cas_number: 6066-49-5
     smiles: CCCCC1OC(=O)c2ccccc12
     iupac_name: 3-butyl-3h-2-benzofuran-1-one
     cid_number: 61361
-- model: compounds.compound
+- model: compounds.odorant
   pk: 253
   fields:
     cas_number: 52474-60-9
     smiles: CC(C)=CCCC1=CCCC(C)(C1)C=O
     iupac_name: 1-methyl-3-(4-methylpent-3-enyl)cyclohex-3-ene-1-carbaldehyde
     cid_number: 103648
-- model: compounds.compound
+- model: compounds.odorant
   pk: 254
   fields:
     cas_number: 1506-02-1
     smiles: CC1CC(C)(C)c2cc(C(C)=O)c(C)cc2C1(C)C
     iupac_name: 1-(3,5,5,6,8,8-hexamethyl-6,7-dihydronaphthalen-2-yl)ethanone
     cid_number: 89440
-- model: compounds.compound
+- model: compounds.odorant
   pk: 255
   fields:
     cas_number: 51447-08-6
     smiles: CCCCC/C=C/C=C/C=C
     iupac_name: (3e,5e)-undeca-1,3,5-triene
     cid_number: 5367412
-- model: compounds.compound
+- model: compounds.odorant
   pk: 256
   fields:
     cas_number: 706-14-9
     smiles: CCCCCCC1CCC(=O)O1
     iupac_name: 5-hexyloxolan-2-one
     cid_number: 12813
-- model: compounds.compound
+- model: compounds.odorant
   pk: 257
   fields:
     cas_number: 71048-82-3
     smiles: C/C=C/C(=O)C1C(C)C=CCC1(C)C
     iupac_name: (e)-1-(2,6,6-trimethyl-1-cyclohex-3-enyl)but-2-en-1-one
     cid_number: 5365916
-- model: compounds.compound
+- model: compounds.odorant
   pk: 258
   fields:
     cas_number: 106-24-1
     smiles: CC(C)=CCC\C(C)=C\CO
     iupac_name: (2e)-3,7-dimethylocta-2,6-dien-1-ol
     cid_number: 637566
-- model: compounds.compound
+- model: compounds.odorant
   pk: 259
   fields:
     cas_number: 80-26-2
     smiles: CC(=O)OC(C)(C)C1CCC(=CC1)C
     iupac_name: 2-(4-methyl-1-cyclohex-3-enyl)propan-2-yl acetate
     cid_number: 111037
-- model: compounds.compound
+- model: compounds.odorant
   pk: 260
   fields:
     cas_number: 87061-04-9
     smiles: CC(C)C1CCC(C)CC1OCC(O)CO
     iupac_name: 3-(5-methyl-2-propan-2-ylcyclohexyl)oxypropane-1,2-diol
     cid_number: 5362595
-- model: compounds.compound
+- model: compounds.odorant
   pk: 261
   fields:
     cas_number: 94-59-7
     smiles: C=CCc1ccc2OCOc2c1
     iupac_name: 5-prop-2-enyl-1,3-benzodioxole
     cid_number: 5144
-- model: compounds.compound
+- model: compounds.odorant
   pk: 262
   fields:
     cas_number: 7492-66-2
     smiles: CCOC(OCC)\C=C(C)\CCC=C(C)C
     iupac_name: 1,1-diethoxy-3,7-dimethylocta-2,6-diene
     cid_number: 5365794
-- model: compounds.compound
+- model: compounds.odorant
   pk: 263
   fields:
     cas_number: 99-86-5
     smiles: CC(C)C1=CC=C(C)CC1
     iupac_name: 1-methyl-4-propan-2-ylcyclohexa-1,3-diene
     cid_number: 7462
-- model: compounds.compound
+- model: compounds.odorant
   pk: 264
   fields:
     cas_number: 1205-17-0
     smiles: CC(Cc1ccc2OCOc2c1)C=O
     iupac_name: 3-(1,3-benzodioxol-5-yl)-2-methylpropanal
     cid_number: 64805
-- model: compounds.compound
+- model: compounds.odorant
   pk: 265
   fields:
     cas_number: 106-26-3
     smiles: CC(C)=CCC\C(C)=C/C=O
     iupac_name: (2z)-3,7-dimethylocta-2,6-dienal
     cid_number: 643779
-- model: compounds.compound
+- model: compounds.odorant
   pk: 266
   fields:
     cas_number: 23089-26-1
     smiles: CC(C)=CCC[C@](C)(O)[C@H]1CCC(=CC1)C
     iupac_name: (2s)-6-methyl-2-[(1s)-4-methyl-1-cyclohex-3-enyl]hept-5-en-2-ol
     cid_number: 442343
-- model: compounds.compound
+- model: compounds.odorant
   pk: 267
   fields:
     cas_number: 5471-51-2
     smiles: CC(=O)CCc1ccc(O)cc1
     iupac_name: 4-(4-hydroxyphenyl)butan-2-one
     cid_number: 21648
-- model: compounds.compound
+- model: compounds.odorant
   pk: 268
   fields:
     cas_number: 63500-71-0
     smiles: CC(C)CC1CC(C)(O)CCO1
     iupac_name: 4-methyl-2-(2-methylpropyl)oxan-4-ol
     cid_number: 3017432
-- model: compounds.compound
+- model: compounds.odorant
   pk: 269
   fields:
     cas_number: 123-66-0
     smiles: CCCCCC(=O)OCC
     iupac_name: ethyl hexanoate
     cid_number: 31265
-- model: compounds.compound
+- model: compounds.odorant
   pk: 270
   fields:
     cas_number: 523-80-8
     smiles: COc1cc(CC=C)c(OC)c2OCOc12
     iupac_name: 4,7-dimethoxy-5-prop-2-enyl-1,3-benzodioxole
     cid_number: 10659
-- model: compounds.compound
+- model: compounds.odorant
   pk: 271
   fields:
     cas_number: 13679-86-2
     smiles: CC(=C)C1CCC(C)(O1)C=C
     iupac_name: 2-ethenyl-2-methyl-5-prop-1-en-2-yloxolane
     cid_number: 61665
-- model: compounds.compound
+- model: compounds.odorant
   pk: 273
   fields:
     cas_number: 78-69-3
     smiles: CCC(C)(O)CCCC(C)C
     iupac_name: 3,7-dimethyloctan-3-ol
     cid_number: 6548
-- model: compounds.compound
+- model: compounds.odorant
   pk: 274
   fields:
     cas_number: 705-86-2
     smiles: CCCCCC1CCCC(=O)O1
     iupac_name: 6-pentyloxan-2-one
     cid_number: 12810
-- model: compounds.compound
+- model: compounds.odorant
   pk: 275
   fields:
     cas_number: 1786-08-9
     smiles: CC(C)=CC1CC(=CCO1)C
     iupac_name: 4-methyl-2-(2-methylprop-1-enyl)-3,6-dihydro-2h-pyran
     cid_number: 61275
-- model: compounds.compound
+- model: compounds.odorant
   pk: 276
   fields:
     cas_number: 99-85-4
     smiles: CC(C)C1=CCC(=CC1)C
     iupac_name: 1-methyl-4-propan-2-ylcyclohexa-1,4-diene
     cid_number: 7461
-- model: compounds.compound
+- model: compounds.odorant
   pk: 277
   fields:
     cas_number: 123-35-3
     smiles: CC(C)=CCCC(=C)C=C
     iupac_name: 7-methyl-3-methylideneocta-1,6-diene
     cid_number: 31253
-- model: compounds.compound
+- model: compounds.odorant
   pk: 278
   fields:
     cas_number: 112-66-3
     smiles: CCCCCCCCCCCCOC(C)=O
     iupac_name: dodecyl acetate
     cid_number: 8205
-- model: compounds.compound
+- model: compounds.odorant
   pk: 279
   fields:
     cas_number: 4674-50-4
     smiles: CC1CC(=O)C=C2CCC(CC12C)C(C)=C
     iupac_name: 4,4a-dimethyl-6-prop-1-en-2-yl-3,4,5,6,7,8-hexahydronaphthalen-2-one
     cid_number: 20797
-- model: compounds.compound
+- model: compounds.odorant
   pk: 280
   fields:
     cas_number: 546-80-5
     smiles: CC(C)[C@@]12C[C@@H]1[C@@H](C)C(=O)C2
     iupac_name: (1s,4r,5r)-4-methyl-1-propan-2-ylbicyclo[3.1.0]hexan-3-one
     cid_number: 261491
-- model: compounds.compound
+- model: compounds.odorant
   pk: 281
   fields:
     cas_number: 40188-41-8
     smiles: CC(C)CCCC(C)CC#N
     iupac_name: 3,7-dimethyloctanenitrile
     cid_number: 170284
-- model: compounds.compound
+- model: compounds.odorant
   pk: 282
   fields:
     cas_number: 85-91-6
     smiles: CNc1ccccc1C(=O)OC
     iupac_name: methyl 2-methylaminobenzoate
     cid_number: 6826
-- model: compounds.compound
+- model: compounds.odorant
   pk: 284
   fields:
     cas_number: 79-78-7
     smiles: CC1=CCCC(C)(C)C1\C=C\C(=O)CCC=C
     iupac_name: (1e)-1-(2,6,6-trimethyl-1-cyclohex-2-enyl)hepta-1,6-dien-3-one
     cid_number: 5365976
-- model: compounds.compound
+- model: compounds.odorant
   pk: 287
   fields:
     cas_number: 106-25-2
     smiles: CC(C)=CCC\C(C)=C/CO
     iupac_name: (2z)-3,7-dimethylocta-2,6-dien-1-ol
     cid_number: 643820
-- model: compounds.compound
+- model: compounds.odorant
   pk: 288
   fields:
     cas_number: 4707-47-5
     smiles: COC(=O)c1c(C)cc(O)c(C)c1O
     iupac_name: methyl 2,4-dihydroxy-3,6-dimethylbenzoate
     cid_number: 78435
-- model: compounds.compound
+- model: compounds.odorant
   pk: 289
   fields:
     cas_number: 5182-36-5
     smiles: CC1CC(C)(OC(C)O1)c2ccccc2
     iupac_name: 2,4,6-trimethyl-4-phenyl-1,3-dioxane
     cid_number: 107381
-- model: compounds.compound
+- model: compounds.odorant
   pk: 291
   fields:
     cas_number: 142-19-8
     smiles: CCCCCCC(=O)OCC=C
     iupac_name: prop-2-enyl heptanoate
     cid_number: 8878
-- model: compounds.compound
+- model: compounds.odorant
   pk: 292
   fields:
     cas_number: 23986-74-5
     smiles: CC(C)C/1CCC(=C/CCC(=C)\C=C1)/C
     iupac_name: (1e,6e)-1-methyl-5-methylidene-8-propan-2-ylcyclodeca-1,6-diene
     cid_number: 6436582
-- model: compounds.compound
+- model: compounds.odorant
   pk: 293
   fields:
     cas_number: 141-92-4
     smiles: COC(CC(C)CCCC(C)(C)O)OC
     iupac_name: 8,8-dimethoxy-2,6-dimethyloctan-2-ol
     cid_number: 8863
-- model: compounds.compound
+- model: compounds.odorant
   pk: 294
   fields:
     cas_number: 15356-60-2
     smiles: CC(C)[C@@H]1CC[C@@H](C)C[C@@H]1O
     iupac_name: (1s,2s,5r)-5-methyl-2-propan-2-ylcyclohexan-1-ol
     cid_number: 439263
-- model: compounds.compound
+- model: compounds.odorant
   pk: 295
   fields:
     cas_number: 54982-83-1
     smiles: O=C1CCCCCCCCCCC(=O)OCCO1
     iupac_name: 1,4-dioxacyclohexadecane-5,16-dione
     cid_number: 41270
-- model: compounds.compound
+- model: compounds.odorant
   pk: 296
   fields:
     cas_number: 3025-30-7
     smiles: CCCCC\C=C/C=C/C(=O)OCC
     iupac_name: ethyl (2e,4z)-deca-2,4-dienoate
     cid_number: 5281162
-- model: compounds.compound
+- model: compounds.odorant
   pk: 297
   fields:
     cas_number: 78-35-3
     smiles: CC(C)C(=O)OC(C)(CCC=C(C)C)C=C
     iupac_name: 3,7-dimethylocta-1,6-dien-3-yl 2-methylpropanoate
     cid_number: 6532
-- model: compounds.compound
+- model: compounds.odorant
   pk: 298
   fields:
     cas_number: 7705-14-8
     smiles: CC(=C)C1CCC(=CC1)C
     iupac_name: 1-methyl-4-prop-1-en-2-ylcyclohexene
     cid_number: 22311
-- model: compounds.compound
+- model: compounds.odorant
   pk: 299
   fields:
     cas_number: 104-50-7
     smiles: CCCCC1CCC(=O)O1
     iupac_name: 5-butyloxolan-2-one
     cid_number: 7704
-- model: compounds.compound
+- model: compounds.odorant
   pk: 302
   fields:
     cas_number: 98-55-5
     smiles: CC1=CC[C@@H](CC1)C(C)(C)O
     iupac_name: 2-[(1r)-4-methyl-1-cyclohex-3-enyl]propan-2-ol
     cid_number: 442501
-- model: compounds.compound
+- model: compounds.odorant
   pk: 304
   fields:
     cas_number: 87-44-5
     smiles: C\C1=C/CCC(=C)[C@H]2CC(C)(C)[C@@H]2CC1
     iupac_name: (1r,4e,9s)-4,11,11-trimethyl-8-methylidenebicyclo[7.2.0]undec-4-ene
     cid_number: 5281515
-- model: compounds.compound
+- model: compounds.odorant
   pk: 305
   fields:
     cas_number: 3558-60-9
     smiles: COCCc1ccccc1
     iupac_name: 2-methoxyethylbenzene
     cid_number: 19089
-- model: compounds.compound
+- model: compounds.odorant
   pk: 306
   fields:
     cas_number: 14371-10-9
     smiles: O=C/C=C/c1ccccc1
     iupac_name: (e)-3-phenylprop-2-enal
     cid_number: 637511
-- model: compounds.compound
+- model: compounds.odorant
   pk: 307
   fields:
     cas_number: 106-72-9
     smiles: CC(CCC=C(C)C)C=O
     iupac_name: 2,6-dimethylhept-5-enal
     cid_number: 61016
-- model: compounds.compound
+- model: compounds.odorant
   pk: 308
   fields:
     cas_number: 1754-62-7
     smiles: COC(=O)\C=C\c1ccccc1
     iupac_name: methyl (e)-3-phenylprop-2-enoate
     cid_number: 637520
-- model: compounds.compound
+- model: compounds.odorant
   pk: 309
   fields:
     cas_number: 2705-87-5
     smiles: C=CCOC(=O)CCC1CCCCC1
     iupac_name: prop-2-enyl 3-cyclohexylpropanoate
     cid_number: 17617
-- model: compounds.compound
+- model: compounds.odorant
   pk: 310
   fields:
     cas_number: 120-58-1
     smiles: C/C=C/c1ccc2OCOc2c1
     iupac_name: 5-prop-1-enyl-1,3-benzodioxole
     cid_number: 637796
-- model: compounds.compound
+- model: compounds.odorant
   pk: 311
   fields:
     cas_number: 6658-48-6
     smiles: CC(C)Cc1ccc(CC(C)C=O)cc1
     iupac_name: 2-methyl-3-[4-(2-methylpropyl)phenyl]propanal
     cid_number: 110914
-- model: compounds.compound
+- model: compounds.odorant
   pk: 312
   fields:
     cas_number: 3691-12-1
     smiles: CC1CCC(CC2=C1CCC2C)C(C)=C
     iupac_name: 1,4-dimethyl-7-prop-1-en-2-yl-1,2,3,4,5,6,7,8-octahydroazulene
     cid_number: 107152
-- model: compounds.compound
+- model: compounds.odorant
   pk: 313
   fields:
     cas_number: 3691-11-0
     smiles: C[C@H]1CCC2=C(C)CC[C@H](C[C@@H]12)C(C)=C
     iupac_name: (3s,3as,5r)-3,8-dimethyl-5-prop-1-en-2-yl-1,2,3,3a,4,5,6,7-octahydroazulene
     cid_number: 94275
-- model: compounds.compound
+- model: compounds.odorant
   pk: 315
   fields:
     cas_number: 499-75-2
     smiles: CC(C)c1ccc(C)c(O)c1
     iupac_name: 2-methyl-5-propan-2-ylphenol
     cid_number: 10364
-- model: compounds.compound
+- model: compounds.odorant
   pk: 316
   fields:
     cas_number: 25225-08-5
     smiles: CC(OC=O)C1CCCC(C)(C)C1
     iupac_name: 1-(3,3-dimethylcyclohexyl)ethyl formate
     cid_number: 91337
-- model: compounds.compound
+- model: compounds.odorant
   pk: 318
   fields:
     cas_number: 125109-85-5
     smiles: CC(C)c1cccc(c1)C(C)CC=O
     iupac_name: 3-(3-propan-2-ylphenyl)butanal
     cid_number: 86209
-- model: compounds.compound
+- model: compounds.odorant
   pk: 320
   fields:
     cas_number: 110-93-0
     smiles: CC(C)=CCCC(C)=O
     iupac_name: 6-methylhept-5-en-2-one
     cid_number: 9862
-- model: compounds.compound
+- model: compounds.odorant
   pk: 321
   fields:
     cas_number: 6259-76-3
     smiles: CCCCCCOC(=O)c1ccccc1O
     iupac_name: hexyl 2-hydroxybenzoate
     cid_number: 22629
-- model: compounds.compound
+- model: compounds.odorant
   pk: 322
   fields:
     cas_number: 126-91-0
     smiles: CC(C)=CCC[C@@](C)(O)C=C
     iupac_name: (3r)-3,7-dimethylocta-1,6-dien-3-ol
     cid_number: 443158
-- model: compounds.compound
+- model: compounds.odorant
   pk: 323
   fields:
     cas_number: 7787-20-4
     smiles: CC1(C)[C@H]2CC[C@](C)(C2)C1=O
     iupac_name: (1r,4s)-1,3,3-trimethylbicyclo[2.2.1]heptan-2-one
     cid_number: 82229
-- model: compounds.compound
+- model: compounds.odorant
   pk: 324
   fields:
     cas_number: 18127-01-0
     smiles: CC(C)(C)c1ccc(CCC=O)cc1
     iupac_name: 3-(4-tert-butylphenyl)propanal
     cid_number: 64832
-- model: compounds.compound
+- model: compounds.odorant
   pk: 325
   fields:
     cas_number: 141-27-5
     smiles: CC(C)=CCC\C(C)=C\C=O
     iupac_name: (2e)-3,7-dimethylocta-2,6-dienal
     cid_number: 638011
-- model: compounds.compound
+- model: compounds.odorant
   pk: 326
   fields:
     cas_number: 3387-41-5
     smiles: CC(C)C12CCC(=C)C1C2
     iupac_name: 4-methylidene-1-propan-2-ylbicyclo[3.1.0]hexane
     cid_number: 18818
-- model: compounds.compound
+- model: compounds.odorant
   pk: 327
   fields:
     cas_number: 502-72-7
     smiles: O=C1CCCCCCCCCCCCCC1
     iupac_name: cyclopentadecanone
     cid_number: 10409
-- model: compounds.compound
+- model: compounds.odorant
   pk: 328
   fields:
     cas_number: 1074-95-9
     smiles: CC(C)C1CCC(C)CC1=O
     iupac_name: 5-methyl-2-propan-2-ylcyclohexan-1-one
     cid_number: 6986
-- model: compounds.compound
+- model: compounds.odorant
   pk: 330
   fields:
     cas_number: 14049-11-7
     smiles: CC1(C)OC(C)(CCC1O)C=C
     iupac_name: 6-ethenyl-2,2,6-trimethyloxan-3-ol
     cid_number: 26396
-- model: compounds.compound
+- model: compounds.odorant
   pk: 331
   fields:
     cas_number: 3391-83-1
     smiles: O=C1CCCCCCCCCOCCCCCO1
     iupac_name: 1,7-dioxacycloheptadecan-8-one
     cid_number: 18826
-- model: compounds.compound
+- model: compounds.odorant
   pk: 332
   fields:
     cas_number: 103-41-3
     smiles: O=C(OCc1ccccc1)/C=C/c2ccccc2
     iupac_name: phenylmethyl 3-phenylprop-2-enoate
     cid_number: 5273469
-- model: compounds.compound
+- model: compounds.odorant
   pk: 333
   fields:
     cas_number: 498-15-7
     smiles: CC1=CC[C@@H]2[C@H](C1)C2(C)C
     iupac_name: (1s,6r)-3,7,7-trimethylbicyclo[4.1.0]hept-3-ene
     cid_number: 443156
-- model: compounds.compound
+- model: compounds.odorant
   pk: 334
   fields:
     cas_number: 13925-07-0
     smiles: CCc1ncc(C)nc1C
     iupac_name: 2-ethyl-3,5-dimethylpyrazine
     cid_number: 26334
-- model: compounds.compound
+- model: compounds.odorant
   pk: 335
   fields:
     cas_number: 29171-20-8
     smiles: CC(C)=CCCC(C)(O)C#C
     iupac_name: 3,7-dimethyloct-6-en-1-yn-3-ol
     cid_number: 62842
-- model: compounds.compound
+- model: compounds.odorant
   pk: 336
   fields:
     cas_number: 7785-70-8
     smiles: CC1=CC[C@@H]2C[C@H]1C2(C)C
     iupac_name: (1r,5r)-4,7,7-trimethylbicyclo[3.1.1]hept-3-ene
     cid_number: 82227
-- model: compounds.compound
+- model: compounds.odorant
   pk: 337
   fields:
     cas_number: 473-15-4
     smiles: CC(C)(O)[C@@H]1CC[C@@]2(C)CCCC(=C)[C@@H]2C1
     iupac_name: 2-[(2r,4ar,8as)-4a-methyl-8-methylidene-1,2,3,4,5,6,7,8a-octahydronaphthalen-2-yl]propan-2-ol
     cid_number: 91457
-- model: compounds.compound
+- model: compounds.odorant
   pk: 339
   fields:
     cas_number: 470-82-6
     smiles: CC12CCC(CC1)C(C)(C)O2
     iupac_name: 4,7,7-trimethyl-8-oxabicyclo[2.2.2]octane
     cid_number: 2758
-- model: compounds.compound
+- model: compounds.odorant
   pk: 340
   fields:
     cas_number: 529-05-5
     smiles: CCc1ccc(C)c2ccc(C)c2c1
     iupac_name: 7-ethyl-1,4-dimethylazulene
     cid_number: 10719
-- model: compounds.compound
+- model: compounds.odorant
   pk: 342
   fields:
     cas_number: 58461-27-1
     smiles: CC(C)=CCC(CO)C(C)=C
     iupac_name: 5-methyl-2-prop-1-en-2-ylhex-4-en-1-ol
     cid_number: 94060
-- model: compounds.compound
+- model: compounds.odorant
   pk: 343
   fields:
     cas_number: 479-20-9
     smiles: COC(=O)c1c(C)cc(OC(=O)c2c(C)cc(O)c(C=O)c2O)c(C)c1O
     iupac_name: methyl 4-(3-formyl-2,4-dihydroxy-6-methylbenzoyl)oxy-2-hydroxy-3,6-dimethylbenzoate
     cid_number: 68066
-- model: compounds.compound
+- model: compounds.odorant
   pk: 344
   fields:
     cas_number: 28219-60-5
     smiles: CC(/CO)=C\CC1CC=C(C)C1(C)C
     iupac_name: (e)-2-methyl-4-(2,2,3-trimethyl-1-cyclopent-3-enyl)but-2-en-1-ol
     cid_number: 6438195
-- model: compounds.compound
+- model: compounds.odorant
   pk: 346
   fields:
     cas_number: 502-47-6
     smiles: CC(CCC=C(C)C)CC(O)=O
     iupac_name: 3,7-dimethyloct-6-enoic acid
     cid_number: 10402
-- model: compounds.compound
+- model: compounds.odorant
   pk: 347
   fields:
     cas_number: 39711-79-0
     smiles: CCNC(=O)C1CC(C)CCC1C(C)C
     iupac_name: n-ethyl-5-methyl-2-propan-2-ylcyclohexane-1-carboxamide
     cid_number: 62907
-- model: compounds.compound
+- model: compounds.odorant
   pk: 348
   fields:
     cas_number: 121-32-4
     smiles: CCOc1cc(C=O)ccc1O
     iupac_name: 3-ethoxy-4-hydroxybenzaldehyde
     cid_number: 8467
-- model: compounds.compound
+- model: compounds.odorant
   pk: 349
   fields:
     cas_number: 6290-17-1
     smiles: CCOC(=O)CC1(C)OCC(C)O1
     iupac_name: ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate
     cid_number: 95392
-- model: compounds.compound
+- model: compounds.odorant
   pk: 350
   fields:
     cas_number: 124-19-6
     smiles: CCCCCCCCC=O
     iupac_name: nonanal
     cid_number: 31289
-- model: compounds.compound
+- model: compounds.odorant
   pk: 351
   fields:
     cas_number: 120-14-9
     smiles: COc1ccc(C=O)cc1OC
     iupac_name: 3,4-dimethoxybenzaldehyde
     cid_number: 8419
-- model: compounds.compound
+- model: compounds.odorant
   pk: 352
   fields:
     cas_number: 81782-77-6
     smiles: CCCCCC(O)C(/C)=C/CC
     iupac_name: (e)-4-methyldec-3-en-5-ol
     cid_number: 6441135
-- model: compounds.compound
+- model: compounds.odorant
   pk: 353
   fields:
     cas_number: 140-67-0
     smiles: COc1ccc(CC=C)cc1
     iupac_name: 1-methoxy-4-prop-2-enylbenzene
     cid_number: 8815
-- model: compounds.compound
+- model: compounds.odorant
   pk: 354
   fields:
     cas_number: 465-28-1
     smiles: CC(C)[C@H]1CC[C@]2(C)CC=C(C)CC[C@]12O
     iupac_name: (3r,3as,8ar)-6,8a-dimethyl-3-propan-2-yl-1,2,3,4,5,8-hexahydroazulen-3a-ol
     cid_number: 442347
-- model: compounds.compound
+- model: compounds.odorant
   pk: 355
   fields:
     cas_number: 542-46-1
     smiles: O=C1CCCCCCC\C=C/CCCCCCC1
     iupac_name: (9z)-cycloheptadec-9-en-1-one
     cid_number: 5315941
-- model: compounds.compound
+- model: compounds.odorant
   pk: 356
   fields:
     cas_number: 1900-69-2
     smiles: CC(=O)OC1CCC(CC1)C(C)(C)C
     iupac_name: (4-tert-butylcyclohexyl) acetate
     cid_number: 36081
-- model: compounds.compound
+- model: compounds.odorant
   pk: 357
   fields:
     cas_number: 53243-59-7
     smiles: CC(/CCc1ccccc1)=C/C#N
     iupac_name: (z)-3-methyl-5-phenylpent-2-enenitrile
     cid_number: 1381163
-- model: compounds.compound
+- model: compounds.odorant
   pk: 358
   fields:
     cas_number: 83-34-1
     smiles: Cc1c[nH]c2ccccc12
     iupac_name: 3-methyl-1h-indole
     cid_number: 6736
-- model: compounds.compound
+- model: compounds.odorant
   pk: 359
   fields:
     cas_number: 5949-05-3
     smiles: C[C@@H](CCC=C(C)C)CC=O
     iupac_name: (3s)-3,7-dimethyloct-6-enal
     cid_number: 443157
-- model: compounds.compound
+- model: compounds.odorant
   pk: 360
   fields:
     cas_number: 56973-85-4
     smiles: CC1(C)CCC=C(C1)C(=O)CCC=C
     iupac_name: 1-(5,5-dimethyl-1-cyclohexenyl)pent-4-en-1-one
     cid_number: 92606
-- model: compounds.compound
+- model: compounds.odorant
   pk: 361
   fields:
     cas_number: 72089-08-8
     smiles: CC(CO)CCC1CC=C(C)C1(C)C
     iupac_name: 2-methyl-4-(2,2,3-trimethyl-1-cyclopent-3-enyl)butan-1-ol
     cid_number: 166220
-- model: compounds.compound
+- model: compounds.odorant
   pk: 362
   fields:
     cas_number: 41199-19-3
     smiles: CC1(O)CCC2C(=CCCC2(C)C)C1
     iupac_name: 2,5,5-trimethyl-1,3,4,4a,6,7-hexahydronaphthalen-2-ol
     cid_number: 162452
-- model: compounds.compound
+- model: compounds.odorant
   pk: 364
   fields:
     cas_number: 20407-84-5
     smiles: CCCCCCCCC\C=C\C=O
     iupac_name: (e)-dodec-2-enal
     cid_number: 5283361
-- model: compounds.compound
+- model: compounds.odorant
   pk: 365
   fields:
     cas_number: 26489-02-1
     smiles: CC(CCC=C(C)C)CC=O
     iupac_name: 3,7-dimethyloct-6-enal
     cid_number: 7794
-- model: compounds.compound
+- model: compounds.odorant
   pk: 366
   fields:
     cas_number: 28588-75-2
     smiles: Cc1occc1SSc2ccoc2C
     iupac_name: 2-methyl-3-(2-methylfuran-3-yl)disulfanylfuran
     cid_number: 526624
-- model: compounds.compound
+- model: compounds.odorant
   pk: 367
   fields:
     cas_number: 18368-95-1
     smiles: CC(=C)C1=CC=C(C)CC1
     iupac_name: 1-methyl-4-prop-1-en-2-ylcyclohexa-1,3-diene
     cid_number: 176983
-- model: compounds.compound
+- model: compounds.odorant
   pk: 368
   fields:
     cas_number: 5462-06-6
     smiles: COc1ccc(CC(C)C=O)cc1
     iupac_name: 3-(4-methoxyphenyl)-2-methylpropanal
     cid_number: 64813
-- model: compounds.compound
+- model: compounds.odorant
   pk: 369
   fields:
     cas_number: 2216-51-5
     smiles: CC(C)[C@@H]1CC[C@@H](C)C[C@H]1O
     iupac_name: (1r,2s,5r)-5-methyl-2-propan-2-ylcyclohexan-1-ol
     cid_number: 16666
-- model: compounds.compound
+- model: compounds.odorant
   pk: 370
   fields:
     cas_number: 57934-97-1
     smiles: CCOC(=O)C1C(=CCCC1(C)C)CC
     iupac_name: ethyl 2-ethyl-6,6-dimethylcyclohex-2-ene-1-carboxylate
     cid_number: 93847
-- model: compounds.compound
+- model: compounds.odorant
   pk: 371
   fields:
     cas_number: 18309-32-5
     smiles: CC1=CC(=O)C2CC1C2(C)C
     iupac_name: 2,7,7-trimethylbicyclo[3.1.1]hept-2-en-4-one
     cid_number: 29025
-- model: compounds.compound
+- model: compounds.odorant
   pk: 372
   fields:
     cas_number: 1725-01-5
     smiles: O=C1CCCCCCCCOCCCCCCO1
     iupac_name: 1,8-dioxacycloheptadecan-9-one
     cid_number: 74408
-- model: compounds.compound
+- model: compounds.odorant
   pk: 373
   fields:
     cas_number: 89-79-2
     smiles: CC1CCC(C(O)C1)C(C)=C
     iupac_name: 5-methyl-2-prop-1-en-2-ylcyclohexan-1-ol
     cid_number: 24585
-- model: compounds.compound
+- model: compounds.odorant
   pk: 374
   fields:
     cas_number: 142-92-7
     smiles: CCCCCCOC(C)=O
     iupac_name: hexyl acetate
     cid_number: 8908
-- model: compounds.compound
+- model: compounds.odorant
   pk: 375
   fields:
     cas_number: 112-44-7
     smiles: CCCCCCCCCCC=O
     iupac_name: undecanal
     cid_number: 8186
-- model: compounds.compound
+- model: compounds.odorant
   pk: 376
   fields:
     cas_number: 6485-40-1
     smiles: CC(=C)[C@@H]1CC=C(C)C(=O)C1
     iupac_name: (5r)-2-methyl-5-prop-1-en-2-ylcyclohex-2-en-1-one
     cid_number: 439570
-- model: compounds.compound
+- model: compounds.odorant
   pk: 377
   fields:
     cas_number: 10415-87-9
     smiles: CCC(C)(O)CCc1ccccc1
     iupac_name: 3-methyl-1-phenylpentan-3-ol
     cid_number: 61516
-- model: compounds.compound
+- model: compounds.odorant
   pk: 378
   fields:
     cas_number: 103-38-8
     smiles: CC(C)CC(=O)OCc1ccccc1
     iupac_name: phenylmethyl 3-methylbutanoate
     cid_number: 7651
-- model: compounds.compound
+- model: compounds.odorant
   pk: 379
   fields:
     cas_number: 93-18-5
     smiles: CCOc1ccc2ccccc2c1
     iupac_name: 2-ethoxynaphthalene
     cid_number: 7129
-- model: compounds.compound
+- model: compounds.odorant
   pk: 380
   fields:
     cas_number: 18479-58-8
     smiles: CC(CCCC(C)(C)O)C=C
     iupac_name: 2,6-dimethyloct-7-en-2-ol
     cid_number: 29096
-- model: compounds.compound
+- model: compounds.odorant
   pk: 381
   fields:
     cas_number: 15323-35-0
     smiles: CC1C(C)(C)c2cc(C)c(cc2C1(C)C)C(C)=O
     iupac_name: 1-(1,1,2,3,3,6-hexamethyl-2h-inden-5-yl)ethanone
     cid_number: 47167
-- model: compounds.compound
+- model: compounds.odorant
   pk: 382
   fields:
     cas_number: 7212-44-4
     smiles: CC(C)=CCC\C(C)=C\CCC(C)(O)C=C
     iupac_name: 3,7,11-trimethyldodeca-1,6,10-trien-3-ol
     cid_number: 5284507
-- model: compounds.compound
+- model: compounds.odorant
   pk: 383
   fields:
     cas_number: 78-36-4
     smiles: CCCC(=O)OC(C)(CCC=C(C)C)C=C
     iupac_name: 3,7-dimethylocta-1,6-dien-3-yl butanoate
     cid_number: 62321
-- model: compounds.compound
+- model: compounds.odorant
   pk: 384
   fields:
     cas_number: 2385-77-5
     smiles: C[C@H](CCC=C(C)C)CC=O
     iupac_name: (3r)-3,7-dimethyloct-6-enal
     cid_number: 75427
-- model: compounds.compound
+- model: compounds.odorant
   pk: 385
   fields:
     cas_number: 4360-47-8
     smiles: N#C/C=C/c1ccccc1
     iupac_name: 3-phenylprop-2-enenitrile
     cid_number: 1550846
-- model: compounds.compound
+- model: compounds.odorant
   pk: 386
   fields:
     cas_number: 3661-77-6
@@ -2190,210 +2190,210 @@
     iupac_name: cycloheptadecanone
     cid_number: 77226
 
-- model: compounds.compound
+- model: compounds.odorant
   pk: 388
   fields:
     cas_number: 41890-92-0
     smiles: COC(C)(C)CCCC(C)C(C)O
     iupac_name: 7-methoxy-3,7-dimethyloctan-2-ol
     cid_number: 162053
-- model: compounds.compound
+- model: compounds.odorant
   pk: 389
   fields:
     cas_number: 23726-94-5
     smiles: C\C=C/C(=O)C1C(=CCCC1(C)C)C
     iupac_name: (z)-1-(2,6,6-trimethyl-1-cyclohex-2-enyl)but-2-en-1-one
     cid_number: 6436548
-- model: compounds.compound
+- model: compounds.odorant
   pk: 391
   fields:
     cas_number: 4407-36-7
     smiles: OC/C=C/c1ccccc1
     iupac_name: 3-phenylprop-2-en-1-ol
     cid_number: 5315892
-- model: compounds.compound
+- model: compounds.odorant
   pk: 392
   fields:
     cas_number: 713-95-1
     smiles: CCCCCCCC1CCCC(=O)O1
     iupac_name: 6-heptyloxan-2-one
     cid_number: 12844
-- model: compounds.compound
+- model: compounds.odorant
   pk: 393
   fields:
     cas_number: 5912-86-7
     smiles: COc1cc(\C=C/C)ccc1O
     iupac_name: 2-methoxy-4-[(z)-prop-1-enyl]phenol
     cid_number: 1549041
-- model: compounds.compound
+- model: compounds.odorant
   pk: 394
   fields:
     cas_number: 36306-87-3
     smiles: CCOC(=C)C1C(C)(C)CC(=O)CC1(C)C
     iupac_name: 4-(1-ethoxyethenyl)-3,3,5,5-tetramethylcyclohexan-1-one
     cid_number: 118292
-- model: compounds.compound
+- model: compounds.odorant
   pk: 395
   fields:
     cas_number: 26252-11-9
     smiles: CC(C)C1CCC(C)(CC1)OC(C)=O
     iupac_name: (1-methyl-4-propan-2-ylcyclohexyl) acetate
     cid_number: 117304
-- model: compounds.compound
+- model: compounds.odorant
   pk: 396
   fields:
     cas_number: 6413-10-1
     smiles: CCOC(=O)CC1(C)OCCO1
     iupac_name: ethyl 2-(2-methyl-1,3-dioxolan-2-yl)acetate
     cid_number: 80865
-- model: compounds.compound
+- model: compounds.odorant
   pk: 397
   fields:
     cas_number: 75147-23-8
     smiles: CC12CCCC(C)(CC1)C2=NO
     iupac_name: n-(1,5-dimethyl-8-bicyclo[3.2.1]octanylidene)hydroxylamine
     cid_number: 166450
-- model: compounds.compound
+- model: compounds.odorant
   pk: 398
   fields:
     cas_number: 2173-57-1
     smiles: CC(C)COc1ccc2ccccc2c1
     iupac_name: 2-(2-methylpropoxy)naphthalene
     cid_number: 16582
-- model: compounds.compound
+- model: compounds.odorant
   pk: 399
   fields:
     cas_number: 13786-79-3
     smiles: C\C1=C/CCC2(C)OC2CCC(=C/CC1)/C
     iupac_name: (4e,8e)-1,5,9-trimethyl-13-oxabicyclo[10.1.0]trideca-4,8-diene
     cid_number: 6436727
-- model: compounds.compound
+- model: compounds.odorant
   pk: 400
   fields:
     cas_number: 24683-00-9
     smiles: COc1nccnc1CC(C)C
     iupac_name: 2-methoxy-3-(2-methylpropyl)pyrazine
     cid_number: 32594
-- model: compounds.compound
+- model: compounds.odorant
   pk: 401
   fields:
     cas_number: 140-26-1
     smiles: CC(C)CC(=O)OCCc1ccccc1
     iupac_name: 2-phenylethyl 3-methylbutanoate
     cid_number: 8792
-- model: compounds.compound
+- model: compounds.odorant
   pk: 402
   fields:
     cas_number: 586-62-9
     smiles: CC(C)=C1CCC(=CC1)C
     iupac_name: 1-methyl-4-propan-2-ylidenecyclohexene
     cid_number: 11463
-- model: compounds.compound
+- model: compounds.odorant
   pk: 403
   fields:
     cas_number: 124-13-0
     smiles: CCCCCCCC=O
     iupac_name: octanal
     cid_number: 454
-- model: compounds.compound
+- model: compounds.odorant
   pk: 404
   fields:
     cas_number: 36386-52-4
     smiles: CC(=O)OC1CC2CCC1(C)C2(C)C
     iupac_name: (1,7,7-trimethyl-6-bicyclo[2.2.1]heptanyl) acetate
     cid_number: 6448
-- model: compounds.compound
+- model: compounds.odorant
   pk: 405
   fields:
     cas_number: 10094-34-5
     smiles: CCCC(=O)OC(C)(C)Cc1ccccc1
     iupac_name: (2-methyl-1-phenylpropan-2-yl) butanoate
     cid_number: 24915
-- model: compounds.compound
+- model: compounds.odorant
   pk: 406
   fields:
     cas_number: 105-85-1
     smiles: CC(CCOC=O)CCC=C(C)C
     iupac_name: 3,7-dimethyloct-6-enyl formate
     cid_number: 7778
-- model: compounds.compound
+- model: compounds.odorant
   pk: 407
   fields:
     cas_number: 39212-23-2
     smiles: CCCCC1OC(=O)CC1C
     iupac_name: 5-butyl-4-methyloxolan-2-one
     cid_number: 62900
-- model: compounds.compound
+- model: compounds.odorant
   pk: 408
   fields:
     cas_number: 93-53-8
     smiles: CC(C=O)c1ccccc1
     iupac_name: 2-phenylpropanal
     cid_number: 7146
-- model: compounds.compound
+- model: compounds.odorant
   pk: 410
   fields:
     cas_number: 106-32-1
     smiles: CCCCCCCC(=O)OCC
     iupac_name: ethyl octanoate
     cid_number: 7799
-- model: compounds.compound
+- model: compounds.odorant
   pk: 411
   fields:
     cas_number: 51115-67-4
     smiles: CNC(=O)C(C)(C(C)C)C(C)C
     iupac_name: n,2,3-trimethyl-2-propan-2-ylbutanamide
     cid_number: 65300
-- model: compounds.compound
+- model: compounds.odorant
   pk: 412
   fields:
     cas_number: 28940-11-6
     smiles: Cc1ccc2OCC(=O)COc2c1
     iupac_name: 8-methyl-1,5-benzodioxepin-3-one
     cid_number: 120101
-- model: compounds.compound
+- model: compounds.odorant
   pk: 413
   fields:
     cas_number: 7251-61-8
     smiles: Cc1cnc2ccccc2n1
     iupac_name: 2-methylquinoxaline
     cid_number: 23686
-- model: compounds.compound
+- model: compounds.odorant
   pk: 414
   fields:
     cas_number: 118-58-1
     smiles: Oc1ccccc1C(=O)OCc2ccccc2
     iupac_name: phenylmethyl 2-hydroxybenzoate
     cid_number: 8363
-- model: compounds.compound
+- model: compounds.odorant
   pk: 415
   fields:
     cas_number: 93-04-9
     smiles: COc1ccc2ccccc2c1
     iupac_name: 2-methoxynaphthalene
     cid_number: 7119
-- model: compounds.compound
+- model: compounds.odorant
   pk: 416
   fields:
     cas_number: 101-94-0
     smiles: Cc1ccc(OC(=O)Cc2ccccc2)cc1
     iupac_name: (4-methylphenyl) 2-phenylacetate
     cid_number: 60997
-- model: compounds.compound
+- model: compounds.odorant
   pk: 417
   fields:
     cas_number: 53243-60-0
     smiles: CC(/CCc1ccccc1)=C\C#N
     iupac_name: (e)-3-methyl-5-phenylpent-2-enenitrile
     cid_number: 1585264
-- model: compounds.compound
+- model: compounds.odorant
   pk: 418
   fields:
     cas_number: 15186-51-3
     smiles: CC(C)=CCc1occc1C
     iupac_name: 3-methyl-2-(3-methylbut-2-enyl)furan
     cid_number: 84825
-- model: compounds.compound
+- model: compounds.odorant
   pk: 419
   fields:
     cas_number: 102-22-7

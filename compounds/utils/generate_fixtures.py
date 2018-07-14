@@ -23,7 +23,7 @@ import ruamel.yaml
 from ruamel.yaml.parser import ParserError
 
 
-class MakeCompoundFixtureData:
+class MakeOdorantFixtureData:
 
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
 
@@ -86,7 +86,7 @@ class MakeCompoundFixtureData:
             self.call_compound_data()
         for index, mol in enumerate(self.compound_data):
             obj_data = {
-                "model": "compounds.compound",
+                "model": "odorants.compound",
                 "pk": index + 1,
                 "fields": {
                     "cas_number": mol['cas_number'],
@@ -111,7 +111,7 @@ class MakeCompoundFixtureData:
             self.call_compound_data()
         for index, mol in enumerate(self.compound_data):
             inp = """\
-            - model: compounds.compound
+            - model: odorants.compound
               pk: {}
               fields:
                 cas_number: {}
@@ -130,6 +130,6 @@ class MakeCompoundFixtureData:
 if __name__ == '__main__':
     if sys.argv[-1]:
         file = sys.argv[-1]
-        MakeCompoundFixtureData(file).get_yaml()
+        MakeOdorantFixtureData(file).get_yaml()
     else:
         print('Please provide file as an argument')

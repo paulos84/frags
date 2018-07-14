@@ -3,10 +3,10 @@
 {% load static %}
 
 {% block title %}
-    {% if compound.trade_name %}
-    <title>{{ compound.trade_name }}</title>
+    {% if odorant.trade_name %}
+    <title>{{ odorant.trade_name }}</title>
     {% else %}
-    <title>{{ compound.iupac_name }}</title>
+    <title>{{ odorant.iupac_name }}</title>
     {% endif %}
 {% endblock %}
 
@@ -20,7 +20,7 @@
       <div class="col-sm-2">
        <ul class="sidebar-nav">
         <div style=" position:relative; left:6px;">
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All fragrance compounds</a>
             <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
         </div>
       </ul>
@@ -29,12 +29,12 @@
         <div style=" position:relative; left:6px;">
             <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Fragrance compounds</a>
             <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
-            <a href="{% url 'compound-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
+            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compound</a>
         </div>
       </ul>
         <ul class="sidebar-nav">
         <div style=" position:relative; left:6px;">
-                        <a href="{% url 'compound-substructures' pk=compound.pk %}">
+                        <a href="{% url 'odorant-substructures' pk=odorant.pk %}">
                 <button type="button" class="btn btn-secondary">Substructure matches</button></a>
         </div>
       </ul>
@@ -42,20 +42,20 @@
 
 {% block content %}
     <div class="col-sm-5 ">
-         <h4 class="intro">{{ compound.iupac_name }}</h4>
-        {% if compound.trade_name %}
-            <p><strong>Trade name:</strong> {{ compound.trade_name }}</p>
+         <h4 class="intro">{{ odorant.iupac_name }}</h4>
+        {% if odorant.trade_name %}
+            <p><strong>Trade name:</strong> {{ odorant.trade_name }}</p>
         {% endif %}
-        <p><strong>CAS number:</strong> {{ compound.cas_number }}</a></p>
-        <p><strong>SMILES:</strong> {{ compound.smiles }}</p>
-        {% if compound.odor_types %}
-          <p><strong>Odor types: </strong>{{ compound.odor_types }}</p>
+        <p><strong>CAS number:</strong> {{ odorant.cas_number }}</a></p>
+        <p><strong>SMILES:</strong> {{ odorant.smiles }}</p>
+        {% if odorant.odor_types %}
+          <p><strong>Odor types: </strong>{{ odorant.odor_types }}</p>
         {% endif %}
         {% if odor_types %}
              <p><strong>Odor categories: </strong>{{ odor_types }}</p>
         {% endif %}
-        {% if compound.odor_description %}
-            <p><strong>Odor description:</strong> {{ compound.odor_description }}</p>
+        {% if odorant.odor_description %}
+            <p><strong>Odor description:</strong> {{ odorant.odor_description }}</p>
         {% endif %}
         {% if form2 %}
             <form method="post">
@@ -70,22 +70,22 @@
                 {% endif %}
             </form>
         {% endif %}
-        {% if compound.created_by == request.user.profile or request.user.is_superuser %}
-            <a href="{% url 'compound-update' pk=compound.pk %}">
+        {% if odorant.created_by == request.user.profile or request.user.is_superuser %}
+            <a href="{% url 'odorant-update' pk=odorant.pk %}">
             <button type="button" class="btn btn-secondary" style="margin-top: 3px; width: 70px">Edit</button></a>
         {% else %}
-            <a href="{% url 'compound-update' pk=compound.pk %}">
+            <a href="{% url 'odorant-update' pk=odorant.pk %}">
             <button type="button" class="btn btn-secondary" disabled>Edit</button></a>
         {% endif %}
         </div>
     <div class="col-sm-5 ">
         <div style=" position:relative; top:16px" >
-            <img width="280" height="280" class="structure-img" src={{ compound.structure_url }} title={{substructure}} >
+            <img width="280" height="280" class="structure-img" src={{ odorant.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
-            <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:124 }}</p>
+            <p><strong>Synonyms:</strong> {{ odorant.synonyms|truncatechars:124 }}</p>
         </div>
-        {{ compound.chemical_properties.hetac }}
+        {{ odorant.chemical_properties.hetac }}
     </div>
     <div class="col-sm-10 " style="margin-top:10px">
         {% if substructures %}

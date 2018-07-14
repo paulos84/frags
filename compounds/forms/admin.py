@@ -1,6 +1,6 @@
 from django import forms
 
-from compounds.models import Compound, OdorType, Profile, Substructure
+from compounds.models import Odorant, OdorType, Profile, Substructure
 
 
 class SubstructureAdminForm(forms.ModelForm):

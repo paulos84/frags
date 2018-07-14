@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 
-from compounds.models import Compound, Profile
+from compounds.models import Odorant, Profile
 
 # cost
 # notes
@@ -33,7 +33,7 @@ class Usage(models.Model):
     )
     # for use with type 1.
     ingredients = models.ManyToManyField(
-        Compound,
+        Odorant,
         through='Component')
     # def save(...):
         #Validate ingredients add up to 100% and such
@@ -45,7 +45,7 @@ class Component(models.Model):
         on_delete=models.CASCADE,
     )
     compound = models.ForeignKey(
-        Compound,
+        Odorant,
         on_delete=models.CASCADE,
     )
     proportion = models.DecimalField(

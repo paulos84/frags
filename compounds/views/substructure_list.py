@@ -5,14 +5,14 @@ from bokeh.palettes import Spectral6
 from bokeh.plotting import figure
 from django.views import generic
 
-from compounds.models import Compound, Substructure, OdorType
+from compounds.models import Odorant, Substructure, OdorType
 from compounds.forms import ChemDataChoiceForm
 from compounds.utils.general import chemical_properties_label_map
 
 
 class SubstructureListView(generic.ListView):
     queryset = Substructure.objects.all()
-    template_name = 'compounds/substructure_list.html'
+    template_name = 'odorants/substructure_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(SubstructureListView, self).get_context_data(**kwargs)
@@ -41,11 +41,11 @@ class SubstructureListView(generic.ListView):
 
 
 class CompoundMatchSubstructureListView(SubstructureListView):
-    template_name = 'compounds/compound_substructures.html'
+    template_name = 'odorants/odorant_substructures.html'
     compound = None
 
     def get_queryset(self):
-        self.compound = Compound.objects.get(id=self.kwargs['pk'])
+        self.compound = Odorant.objects.get(id=self.kwargs['pk'])
         return Substructure.compound_matches(self.compound)
 
     def get_context_data(self, **kwargs):

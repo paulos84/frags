@@ -4,14 +4,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseForbidden
 
-from compounds.models import Compound
-from compounds.forms import CompoundUpdateForm, EditCompoundForm
+from compounds.models import Odorant
+from compounds.forms import OdorantUpdateForm, OdorantCompoundForm
 
 
 class CompoundUpdateView(UpdateView):
-    model = Compound
-    form_class = EditCompoundForm
-    template_name = 'compounds/compound_update.html'
+    model = Odorant
+    form_class = OdorantCompoundForm
+    template_name = 'odorants/odorant_update.html'
     # success_url = "/accounts/profile/"
     context_object_name = 'compound'
 

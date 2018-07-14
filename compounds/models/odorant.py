@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from collections import Counter
-
 import cirpy
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
@@ -11,11 +9,14 @@ from django.utils.functional import cached_property
 import pubchempy as pcp
 from rdkit import Chem
 
-from compounds.models.mixins import ChemDescriptorMixin
-from compounds.models.managers import CompoundManager
+from compounds.models.mixins import ChemDescriptorMixin, CompoundMixin
+from compounds.models.managers import OdorantManager
+
+from compounds.models.odor_type import OdorType
+from compounds.models.profile import Profile
 
 
-class Compound(ChemDescriptorMixin, models.Model):
+class Odorant(ChemDescriptorMixin, CompoundMixin, models.Model):
 
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from
      which API queries can be made to obtain additional data """
@@ -28,8 +29,8 @@ class Compound(ChemDescriptorMixin, models.Model):
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
     )
     odor_categories = models.ManyToManyField(
-        'compounds.OdorType',
-        related_name='compounds',
+        OdorType,
+        related_name='odorants',
         verbose_name='Odor categories',
         blank=True,
     )
@@ -39,36 +40,16 @@ class Compound(ChemDescriptorMixin, models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-    chemical_properties = JSONField(
-        default=dict,
-        editable=False,
-        blank=True,
-    )
-    trade_name = models.CharField(
-        max_length=20,
-        default='',
-        verbose_name='Trade name',
-        blank=True,
-    )
-    # User has a page where can view their own compounds entry list view
+    # User has a page where can view their own odorants entry list view
     created_by = models.ForeignKey(
-        'compounds.Profile',
-        related_name='compounds',
+        Profile,
+        related_name='odorant',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
     )
 
-    objects = CompoundManager()
-
-    # TODO: remove
-    @property
-    def heavy_atom_count(self):
-        return len(''.join([i for i in self.smiles if i.isalpha()]))
-
-    @property
-    def heteroatom_count(self):
-        return len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
+    objects = OdorantManager()
 
     @cached_property
     def synonyms(self):
@@ -80,29 +61,22 @@ class Compound(ChemDescriptorMixin, models.Model):
             synonyms = 'n/a'
         return synonyms
 
-    def set_chemical_data(self):
-        if not self.smiles or not self.chemical_properties:
-            cirpy_query = cirpy.query(self.cas_number, 'smiles')
-            if not cirpy_query:
-                raise ValidationError('No compound matches the CAS number')
-            self.smiles = cirpy_query[0].value
-            pcp_query = pcp.get_compounds(self.smiles, 'smiles')
-            data = {a: getattr(pcp_query[0], b) for a, b in
-                    (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
-            data.update({
-                'mw': int(pcp_query[0].molecular_weight),
-                'synonyms': ', '.join(pcp_query[0].synonyms[:5]),
-                'hetac': len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
-                         })
-            self.chemical_properties = data
+    def set_pcp_data(self):
+        if not self.cid_number:
+            try:
+                self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
+            except (IndexError, pcp.BadRequestError):
+                raise ValidationError('Something went wrong B')
+        if not self.iupac_name:
+            self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
 
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets cid_number """
-        self.set_chemical_data()
+        self.set_chemical_data(identifier=self.cas_number)
         self.set_pcp_data()
         if not all([self.smiles, self.iupac_name]):
             raise ValidationError('Something went wrong')
-        super(Compound, self).save(*args, **kwargs)
+        super(Odorant, self).save(*args, **kwargs)
 
     def __str__(self):
         if self.trade_name:
@@ -111,7 +85,7 @@ class Compound(ChemDescriptorMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'compound-detail',
+            'odorant-detail',
             args=[str(self.pk)],
         )
 
@@ -125,7 +99,7 @@ class Compound(ChemDescriptorMixin, models.Model):
         Returns:
             A QuerySet if a valid smiles fragment is supplied, otherwise None.
         Example:
-            >>> Compound.substructure_matches('C1=CC=CS1').count()
+            >>> Odorant.substructure_matches('C1=CC=CS1').count()
             42
         """
         mol_fragment = Chem.MolFromSmiles(pattern)
@@ -145,7 +119,7 @@ class Compound(ChemDescriptorMixin, models.Model):
         Returns:
             A QuerySet containing any instance whose iupac_name attribute match the pattern
         Example:
-        >>> Compound.iupac_name_match(['3,7-dimethyl', 'oct', 'ol']).count()
+        >>> Odorant.iupac_name_match(['3,7-dimethyl', 'oct', 'ol']).count()
         16
         """
         if not substrings:

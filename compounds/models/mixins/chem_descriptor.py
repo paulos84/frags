@@ -5,7 +5,7 @@ import pubchempy as pcp
 
 
 class ChemDescriptorMixin(models.Model):
-    """ A mixin to provide fields whose values allow chemical properties to be obtained """
+    """ A mixin to provide fields whose values allow chemical identifiers to be obtained """
 
     smiles = models.CharField(
         db_index=True,
@@ -16,7 +16,7 @@ class ChemDescriptorMixin(models.Model):
     )
     iupac_name = models.CharField(
         db_index=True,
-        max_length=200,
+        max_length=500,
         default='',
         verbose_name='IUPAC name',
         editable=False,

@@ -4,7 +4,7 @@
 
 
 
-{% block title %}<title>Add Compound</title>{% endblock %}
+{% block title %}<title>Add Odorant</title>{% endblock %}
 {% block head %}
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
 {% endblock %}
 {% block content %}
   <div class="col-sm-5 ">
-    <h4 style="line-height: 35px;">Add new fragrance compound</h4>
+    <h4 style="line-height: 35px;">Add new compound</h4>
     <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
       {% csrf_token %}
       {% bootstrap_form form %}
@@ -41,7 +41,7 @@
           Refresh
       </button>
     <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
-      <h4>Compound exists in database: </h4>
+      <h4>Odorant exists in database: </h4>
         <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Compounds index</a></li>
       </ul>

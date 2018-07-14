@@ -1,6 +1,6 @@
-from compounds.models import Compound, OdorType
+from compounds.models import Odorant, OdorType
 
 __all__ = [
-    Compound,
+    Odorant,
     OdorType,
     ]

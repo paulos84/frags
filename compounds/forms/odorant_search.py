@@ -1,7 +1,7 @@
 from django import forms
 
 
-class CompoundSearchForm(forms.Form):
+class OdorantSearchForm(forms.Form):
 
     cas_number = forms.CharField(
         label='CAS number',

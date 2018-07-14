@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Compound, OdorType
+from .models import Odorant, OdorType
 
 
 class OdorTypeSerializer(serializers.ModelSerializer):
@@ -12,5 +12,5 @@ class CompoundSerializer(serializers.ModelSerializer):
     odor_categories = OdorTypeSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Compound
+        model = Odorant
         fields = ('cas_number', 'smiles', 'iupac_name', 'trade_name', 'odor_categories', )

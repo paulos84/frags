@@ -2,10 +2,10 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block title %}
-    {% if compound.trade_name %}
-    <title>{{ compound.trade_name }}</title>
+    {% if odorant.trade_name %}
+    <title>{{ odorant.trade_name }}</title>
     {% else %}
-    <title>{{ compound.iupac_name }}</title>
+    <title>{{ odorant.iupac_name }}</title>
     {% endif %}
 {% endblock %}
 {% block head %}
@@ -13,7 +13,7 @@
 {% endblock %}
 {% block content %}
     <div class="col-sm-5 ">
-         <h4 class="intro">{{ compound.iupac_name }}</h4>
+         <h4 class="intro">{{ odorant.iupac_name }}</h4>
         <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
@@ -23,10 +23,10 @@
     </div>
     <div class="col-sm-5 ">
         <div style=" position:relative; top:8px">
-            <img class="structure-img" src={{ compound.structure_url }} title={{compound.iupac_name}} >
+            <img class="structure-img" src={{ odorant.structure_url }} title={{odorant.iupac_name}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
-            <p><strong>Synonyms:</strong> {{ compound.synonyms|truncatechars:124 }}</p>
+            <p><strong>Synonyms:</strong> {{ odorant.synonyms|truncatechars:124 }}</p>
         </div>
     </div>
 {% endblock %}

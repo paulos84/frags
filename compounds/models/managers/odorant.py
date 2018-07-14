@@ -6,13 +6,13 @@ from django.db.models.functions import Cast
 from rdkit import Chem
 
 
-class CompoundQuerySet(models.QuerySet):
+class OdorantQuerySet(models.QuerySet):
 
     def chemical_property_avg(self, property_key):
         """
         Returns a queryset's average value for a chemical property stored in the JSONField
         Args:
-            property_key (str): a key in ['xlogp', 'hac', 'rbc', 'hetac', 'mw']
+            property_key (str): the property idenitifier, one of xlogp, hac, rbc, hetac or mw
         Returns:
             A float representing the average value
         Example:
@@ -37,10 +37,10 @@ class CompoundQuerySet(models.QuerySet):
         return self.exclude(smiles__contains='c')
 
 
-class CompoundManager(models.Manager):
+class OdorantManager(models.Manager):
 
     def get_queryset(self):
-        return CompoundQuerySet(self.model, using=self._db).prefetch_related('odor_categories').order_by('iupac_name')
+        return OdorantQuerySet(self.model, using=self._db).prefetch_related('odor_categories').order_by('iupac_name')
 
     def heteroaromatics(self):
         return self.get_queryset().heteroaromatics()

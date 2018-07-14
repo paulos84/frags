@@ -6,8 +6,6 @@ from django.dispatch import receiver
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
-from compounds.models import Compound
-
 
 class Profile(models.Model):
     """

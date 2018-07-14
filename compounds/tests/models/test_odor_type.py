@@ -24,4 +24,4 @@ class OdorTypeModelTestCase(TestCase):
 
     def test_get_absolute_url(self):
         compound= OdorType.objects.get(id=1)
-        self.assertEqual(compound.get_absolute_url(), '/compounds/categories/{}'.format(self.odor_type.term))
+        self.assertEqual(compound.get_absolute_url(), '/odorants/categories/{}'.format(self.odor_type.term))

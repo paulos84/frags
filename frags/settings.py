@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
-    'compounds.apps.MoleculesConfig',
+    'compounds.apps.CompoundsConfig',
     'api.apps.ApiConfig',
     'widget_tweaks',
     'bootstrap3',
@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'frags.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'frags',
+        'NAME': 'cheminfodb',
         'USER': 'postgres',
         'PASSWORD': os.environ.get('PASSWORD'),
         'HOST': 'localhost',
@@ -86,7 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    # 'guardian.backends.ObjectPermissionBackend',
 )
 
 LOGIN_REDIRECT_URL = '/'

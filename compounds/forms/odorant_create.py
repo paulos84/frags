@@ -1,10 +1,10 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 
-from compounds.models import Compound
+from compounds.models import Odorant
 
 
-class CompoundCreateForm(forms.ModelForm):
+class OdorantCreateForm(forms.ModelForm):
 
     """ Form for creating Compound model instances """
 
@@ -13,7 +13,7 @@ class CompoundCreateForm(forms.ModelForm):
     cid_number = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'hidden_cid'}))
 
     class Meta:
-        model = Compound
+        model = Odorant
         fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', ]
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 2, 'cols': 42, }),
@@ -25,20 +25,20 @@ class CompoundCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         # self.request = kwargs.pop('request', None)
-        super(CompoundCreateForm, self).__init__(*args, **kwargs)
+        super(OdorantCreateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = True
 
     def clean_cas_number(self):
         cas_no = self.cleaned_data.get('cas_number')
         try:
-            Compound.objects.get(cas_number__exact=cas_no)
+            Odorant.objects.get(cas_number__exact=cas_no)
             raise ValidationError('Compound already exists in database')
         except ObjectDoesNotExist:
             return cas_no
 
     def save(self, commit=True):
-        obj = super(CompoundCreateForm, self).save(commit=False)
+        obj = super(OdorantCreateForm, self).save(commit=False)
         obj.iupac_name = self.cleaned_data['iupac_name']
         obj.smiles = self.cleaned_data['smiles']
         obj.cid_number = self.cleaned_data['cid_number']

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from compounds.models import UserNotes, Compound, Profile
+from compounds.models import UserNotes, Odorant, Profile
 
 
 class CompoundNotesForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class CompoundNotesForm(forms.ModelForm):
     """ Form for users to create a CompoundNote instance for a given Compound instance """
 
     user = forms.ModelChoiceField(queryset=Profile.objects.all(), widget=forms.HiddenInput())
-    compound = forms.ModelChoiceField(queryset=Compound.objects.all(), widget=forms.HiddenInput())
+    compound = forms.ModelChoiceField(queryset=Odorant.objects.all(), widget=forms.HiddenInput())
     notes = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 42, 'placeholder': 'Enter notes',
                                                          'style': 'border-color: green;', }))
 

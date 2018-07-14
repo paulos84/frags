@@ -1,10 +1,10 @@
 from django import forms
 
-from compounds.models import Compound
-from compounds.forms import CompoundCreateForm
+from compounds.models import Odorant
+from compounds.forms import OdorantCreateForm
 
 
-class BaseCompoundUpdateForm(forms.ModelForm):
+class BaseOdorantUpdateForm(forms.ModelForm):
 
     """ Base form for updating Compound model instances """
 
@@ -12,7 +12,7 @@ class BaseCompoundUpdateForm(forms.ModelForm):
     cid_number = forms.CharField(widget=forms.HiddenInput())
 
 
-class CompoundUpdateForm(BaseCompoundUpdateForm):
+class OdorantUpdateForm(BaseOdorantUpdateForm):
 
     """ Form for updating incomplete fields on Compound model instances """
 
@@ -20,7 +20,7 @@ class CompoundUpdateForm(BaseCompoundUpdateForm):
     smiles = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
-        model = Compound
+        model = Odorant
         fields = ('odor_description', 'odor_categories', 'trade_name')
         widgets = {
             'odor_description': forms.Textarea(attrs={'rows': 1, 'cols': 42, }),
@@ -29,7 +29,7 @@ class CompoundUpdateForm(BaseCompoundUpdateForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(CompoundUpdateForm, self).__init__(*args, **kwargs)
+        super(OdorantUpdateForm, self).__init__(*args, **kwargs)
         for field in ['odor_description', 'trade_name']:
             if kwargs['initial'].get(field):
                 self.fields[field].widget = forms.HiddenInput()
@@ -38,12 +38,12 @@ class CompoundUpdateForm(BaseCompoundUpdateForm):
         self.fields['trade_name'].required = False
 
 
-class EditCompoundForm(BaseCompoundUpdateForm):
+class OdorantCompoundForm(BaseOdorantUpdateForm):
 
     """ Form for updating all non-read-only fields on Compound model instances """
 
     class Meta:
-        model = Compound
+        model = Odorant
         fields = '__all__'
         widgets = {
             'iupac_name': forms.TextInput(attrs={'readonly': 'readonly'}),

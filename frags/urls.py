@@ -18,7 +18,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
     path('compounds/', include('compounds.urls')),
-    re_path(r'', RedirectView.as_view(url='/compounds/', permanent=True)),
 ]
 
 

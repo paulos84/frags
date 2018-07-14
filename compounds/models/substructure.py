@@ -6,8 +6,8 @@ from django.contrib.postgres.fields import ArrayField
 from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
-from compounds.models import Compound
-
+from compounds.models import Odorant
+from compounds.models.odor_type import OdorType
 
 class Substructure(ChemDescriptorMixin, models.Model):
     """ A model representing a molecule fragment common to a number of model instances,
@@ -33,7 +33,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         blank=True
     )
     odor_categories = models.ManyToManyField(
-        'compounds.OdorType',
+        OdorType,
         related_name='Substructures',
         verbose_name='Odor categories',
         blank=True,
@@ -53,8 +53,8 @@ class Substructure(ChemDescriptorMixin, models.Model):
             args=[self.slug],
         )
 
-    def compound_set(self):
-        qs = Compound.substructure_matches(self.smiles) | Compound.iupac_name_matches(
+    def odorant_set(self):
+        qs = Odorant.substructure_matches(self.smiles) | Odorant.iupac_name_matches(
             self.iupac_name_pattern)
         return qs
 
@@ -62,7 +62,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
     def compound_sets_averages(cls, chem_property):
         data = {}
         for qs in cls.objects.all():
-            data[qs.name] = qs.compound_set().chemical_property_avg(chem_property).get('as_float__avg')
+            data[qs.name] = qs.odorant_set().chemical_property_avg(chem_property).get('as_float__avg')
         return data
 
     @classmethod
@@ -74,7 +74,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         Returns:
             A QuerySet containing instances whose SMILES string corresponds to a substructure of a Compound instance
         Example:
-        >>> c = Compound.objects.get(pk=2)
+        >>> c = Odorant.objects.get(pk=2)
         >>> Substructure.compound_matches(c)
         <QuerySet [<Substructure: Acyclic terpene>]>
         """

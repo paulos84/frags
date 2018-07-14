@@ -1,6 +1,6 @@
 from django.db import models
 
-from compounds.models import Compound, Profile
+from compounds.models import Odorant, Profile
 from .managers.activity import ActivityManager
 
 
@@ -9,7 +9,7 @@ class UserNotes(models.Model):
         max_length=500,
     )
     compound = models.ForeignKey(
-        Compound,
+        Odorant,
         on_delete=models.CASCADE,
         related_name='notes_set',
         blank=True,

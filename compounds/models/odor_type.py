@@ -14,6 +14,6 @@ class OdorType(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            'compound-odor-type-filter',
+            'odorant-odor-type-filter',
             args=[str(self.term)],
         )

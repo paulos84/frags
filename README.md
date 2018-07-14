@@ -21,6 +21,12 @@ cirpy api to build smile
 load fixture data:
 
     $ python manage.py loaddata odor.yaml
+    $ python manage.py loaddata odorant.yaml
+
+After loading data run management command for models which contain chemical_properties field,
+to call save method on the created instances in order for this fields data to be set
+
+    $ python manage.py updatecompounds
 
 
 An application

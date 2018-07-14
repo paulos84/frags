@@ -1,15 +1,15 @@
-from .compound_create import CompoundCreateForm
-from .compound_update import CompoundUpdateForm, EditCompoundForm
-from .compound_search import CompoundSearchForm
+from .odorant_create import OdorantCreateForm
+from .compound_update import OdorantUpdateForm, OdorantCompoundForm
+from .odorant_search import OdorantSearchForm
 from .chem_data_choice import ChemDataChoiceForm
 from .profile_activity import CompoundNotesForm, SignupForm
 
 __all__ = [
     ChemDataChoiceForm,
-    CompoundCreateForm,
-    CompoundUpdateForm,
-    CompoundSearchForm,
+    OdorantCreateForm,
+    OdorantUpdateForm,
+    OdorantSearchForm,
     CompoundNotesForm,
-    EditCompoundForm,
+    OdorantCompoundForm,
     SignupForm,
     ]

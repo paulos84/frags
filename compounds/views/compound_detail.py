@@ -4,15 +4,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 
-from compounds.models import Compound, Substructure, UserNotes
-from compounds.forms import CompoundNotesForm, CompoundUpdateForm
+from compounds.models import Odorant, Substructure, UserNotes
+from compounds.forms import CompoundNotesForm, OdorantUpdateForm
 
 
 class CompoundDetailView(FormMixin, DetailView):
-    model = Compound
-    template_name = 'compounds/compound_detail.html'
+    model = Odorant
+    template_name = 'odorants/odorant_detail.html'
     form_class = CompoundNotesForm
-    second_form_class = CompoundUpdateForm
+    second_form_class = OdorantUpdateForm
     notes_object = None
     user_auth = False
 
@@ -93,6 +93,6 @@ class CompoundDetailView(FormMixin, DetailView):
         return super(CompoundDetailView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('compound-detail', kwargs={'pk': self.object.pk})
+        return reverse('odorant-detail', kwargs={'pk': self.object.pk})
 
 

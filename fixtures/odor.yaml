@@ -1,68 +1,68 @@
-- model: compounds.odor
+- model: compounds.odortype
   pk: 1
   fields:
     term: aldehydic
-- model: compounds.odor
+- model: compounds.odortype
   pk: 2
   fields:
     term: animalic
-- model: compounds.odor
+- model: compounds.odortype
   pk: 3
   fields:
     term: balsamic
-- model: compounds.odor
+- model: compounds.odortype
   pk: 4
   fields:
     term: citrus
-- model: compounds.odor
+- model: compounds.odortype
   pk: 5
   fields:
     term: earthy
-- model: compounds.odor
+- model: compounds.odortype
   pk: 6
   fields:
     term: floral
-- model: compounds.odor
+- model: compounds.odortype
   pk: 7
   fields:
     term: fruity
-- model: compounds.odor
+- model: compounds.odortype
   pk: 8
   fields:
     term: green
-- model: compounds.odor
+- model: compounds.odortype
   pk: 9
   fields:
     term: herbaceous
-- model: compounds.odor
+- model: compounds.odortype
   pk: 10
   fields:
     term: medicinal
-- model: compounds.odor
+- model: compounds.odortype
   pk: 11
   fields:
     term: metallic
-- model: compounds.odor
+- model: compounds.odortype
   pk: 12
   fields:
     term: minty
-- model: compounds.odor
+- model: compounds.odortype
   pk: 13
   fields:
     term: oriental
-- model: compounds.odor
+- model: compounds.odortype
   pk: 14
   fields:
     term: resinous
-- model: compounds.odor
+- model: compounds.odortype
   pk: 15
   fields:
     term: spicy
-- model: compounds.odor
+- model: compounds.odortype
   pk: 16
   fields:
     term: waxy
-- model: compounds.odor
+- model: compounds.odortype
   pk: 17
   fields:
     term: woody

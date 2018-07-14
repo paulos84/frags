@@ -2,7 +2,7 @@ from django.views.generic import DeleteView, UpdateView
 from django.shortcuts import reverse, HttpResponseRedirect
 
 from .compound_list import BaseCompoundListView
-from compounds.models import Compound, UserNotes
+from compounds.models import Odorant, UserNotes
 
 # TODO if notes go beyond area use ... truncation
 
@@ -23,5 +23,5 @@ class UserCompoundNotesDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse(
-            'compound-detail', kwargs={'pk': self.object.compound.pk})
+            'odorant-detail', kwargs={'pk': self.object.compound.pk})
 

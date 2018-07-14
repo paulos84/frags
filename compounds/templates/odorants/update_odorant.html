@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 {% load static %}
-{% block title %}<title>Add Compound</title>{% endblock %}
+{% block title %}<title>Add Odorant</title>{% endblock %}
 {% block head %}
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
@@ -42,10 +42,10 @@
   </div>
     <div style="text-align:left">
         <div>
-          {{ compound.iupac_name }}
+          {{ odorant.iupac_name }}
           </div>
         <div>
-          {{ compound.structure_url }}
+          {{ odorant.structure_url }}
           <img id="compound_structure" src="" border="1">
       </div>
   </div>

@@ -4,14 +4,14 @@ from django.core.exceptions import ObjectDoesNotExist
 import cirpy
 import pubchempy as pcp
 
-from compounds.models import Compound
-from compounds.forms import CompoundCreateForm
+from compounds.models import Odorant
+from compounds.forms import OdorantCreateForm
 
 
 class CompoundCreateView(CreateView):
-    model = Compound
-    form_class = CompoundCreateForm
-    template_name = 'compounds/create_compound.html'
+    model = Odorant
+    form_class = OdorantCreateForm
+    template_name = 'odorants/create_odorant.html'
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user.profile
@@ -22,7 +22,7 @@ def process_cas(request):
     data = {}
     cas_no = request.GET.get('cas_number')
     try:
-        obj = Compound.objects.get(cas_number__exact=cas_no)
+        obj = Odorant.objects.get(cas_number__exact=cas_no)
         data['object_exists'] = obj.get_absolute_url()
         data['object_exists_name'] = obj.iupac_name
         return JsonResponse(data)

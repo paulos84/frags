@@ -2,99 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/management/commands/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/management/commands/update_compounds.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/mixins/compound_mixin.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0002_auto_20180520_0014.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0003_auto_20180520_1216.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0004_auto_20180524_2315.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0005_auto_20180525_0024.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0006_auto_20180526_1141.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0007_auto_20180602_1018.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0008_user.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0009_auto_20180606_2128.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0010_auto_20180607_2154.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0011_auto_20180612_2341.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0012_substructure.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0013_auto_20180617_0100.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0014_auto_20180617_1209.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0015_compoundnotes_profile.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0016_auto_20180617_2042.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0017_auto_20180618_2119.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0018_auto_20180621_0004.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0019_auto_20180622_0006.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0020_auto_20180624_1833.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0021_auto_20180626_2043.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0022_auto_20180630_0036.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0023_auto_20180630_0046.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0024_substructure_iupac_name.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0025_auto_20180630_1509.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0026_compound_updated_by.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0027_remove_compound_updated_by.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0028_auto_20180707_0024.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0029_compound_chemical_properties.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0030_auto_20180709_2214.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/forms/compound_create.py" afterPath="$PROJECT_DIR$/compounds/forms/odorant_create.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/forms/compound_search.py" afterPath="$PROJECT_DIR$/compounds/forms/odorant_search.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/migrations/__init__.py" afterPath="$PROJECT_DIR$/compounds/management/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/compound.py" afterPath="$PROJECT_DIR$/compounds/models/odorant.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/managers/compound.py" afterPath="$PROJECT_DIR$/compounds/models/managers/odorant.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/compound_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/compound_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/compound_substructures.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_substructures.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/compound_update.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_update.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/create_compound.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/create_odorant.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/js/jquery.js" afterPath="$PROJECT_DIR$/compounds/templates/odorants/js/jquery.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/js/script.js" afterPath="$PROJECT_DIR$/compounds/templates/odorants/js/script.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/odor_compound_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odor_compound_list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/substructure_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/substructure_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/substructure_list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/update_compound.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/update_odorant.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/user_compound_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/user_odorant_list.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/compounds/user_substructure_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/user_substructure_detail.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/fixtures/compound.yaml" afterPath="$PROJECT_DIR$/fixtures/odorant.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/models.py" afterPath="$PROJECT_DIR$/api/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/serializers.py" afterPath="$PROJECT_DIR$/api/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/urls.py" afterPath="$PROJECT_DIR$/api/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/views.py" afterPath="$PROJECT_DIR$/api/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/admin.py" afterPath="$PROJECT_DIR$/compounds/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/apps.py" afterPath="$PROJECT_DIR$/compounds/apps.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/__init__.py" afterPath="$PROJECT_DIR$/compounds/forms/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/admin.py" afterPath="$PROJECT_DIR$/compounds/forms/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/compound_update.py" afterPath="$PROJECT_DIR$/compounds/forms/compound_update.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/profile_activity.py" afterPath="$PROJECT_DIR$/compounds/forms/profile_activity.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/managers/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/managers/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/mixins/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/odor_type.py" afterPath="$PROJECT_DIR$/compounds/models/odor_type.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/profile.py" afterPath="$PROJECT_DIR$/compounds/models/profile.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/substructure.py" afterPath="$PROJECT_DIR$/compounds/models/substructure.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/usage.py" afterPath="$PROJECT_DIR$/compounds/models/usage.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/usernotes.py" afterPath="$PROJECT_DIR$/compounds/models/usernotes.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_generic.html" afterPath="$PROJECT_DIR$/compounds/templates/base_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_listview.html" afterPath="$PROJECT_DIR$/compounds/templates/base_listview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/tests/forms/test_compound_create.py" afterPath="$PROJECT_DIR$/compounds/tests/forms/test_compound_create.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/tests/models/test_compound.py" afterPath="$PROJECT_DIR$/compounds/tests/models/test_compound.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/tests/models/test_odor_type.py" afterPath="$PROJECT_DIR$/compounds/tests/models/test_odor_type.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/urls.py" afterPath="$PROJECT_DIR$/compounds/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/compound_data.yaml" afterPath="$PROJECT_DIR$/compounds/utils/compound_data.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/compounds.yaml" afterPath="$PROJECT_DIR$/compounds/utils/compounds.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/generate_fixtures.py" afterPath="$PROJECT_DIR$/compounds/utils/generate_fixtures.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_create.py" afterPath="$PROJECT_DIR$/compounds/views/compound_create.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_detail.py" afterPath="$PROJECT_DIR$/compounds/views/compound_detail.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_list.py" afterPath="$PROJECT_DIR$/compounds/views/compound_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/compound_update.py" afterPath="$PROJECT_DIR$/compounds/views/compound_update.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/filtered_lists.py" afterPath="$PROJECT_DIR$/compounds/views/filtered_lists.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/substructure_detail.py" afterPath="$PROJECT_DIR$/compounds/views/substructure_detail.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/substructure_list.py" afterPath="$PROJECT_DIR$/compounds/views/substructure_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/user_activity.py" afterPath="$PROJECT_DIR$/compounds/views/user_activity.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fixtures/odor.yaml" afterPath="$PROJECT_DIR$/fixtures/odor.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frags/settings.py" afterPath="$PROJECT_DIR$/frags/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frags/urls.py" afterPath="$PROJECT_DIR$/frags/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
     </list>
     <ignored path="frags.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -126,17 +36,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="264">
-                <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <first_editor relative-caret-position="528">
+                <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor>
                 <js_state />
               </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="usernotes.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/models/usernotes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="odorant_detail.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="142" column="145" selection-start-line="142" selection-start-column="145" selection-end-line="142" selection-end-column="145" />
+              <folding>
+                <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,7 +91,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/compounds/utils/generate_fixtures.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0031_auto_20180714_1349.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0030_auto_20180709_2214.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0029_compound_chemical_properties.py" />
@@ -205,9 +138,10 @@
         <option value="$PROJECT_DIR$/compounds/utils/update_compounds.py" />
         <option value="$PROJECT_DIR$/compounds/management/commands/update_compounds.py" />
         <option value="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" />
-        <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/create_odorant.html" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/compounds/models/usernotes.py" />
+        <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
       </list>
     </option>
   </component>
@@ -290,6 +224,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -331,90 +283,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mixins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="managers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -628,9 +496,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14793651" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14793651" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294714" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -665,14 +533,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0027_remove_compound_updated_by.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/migrations/0026_compound_updated_by.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -920,14 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/user_activity.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/usage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="622">
@@ -943,14 +795,6 @@
           <folding>
             <element signature="e#0#28#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/compound_detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="734">
-          <caret line="86" column="40" selection-start-line="86" selection-start-column="40" selection-end-line="86" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1033,17 +877,7 @@
         <state relative-caret-position="456">
           <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
           <folding>
-            <element signature="n#style#0;n#h4#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-          <folding>
-            <element signature="n#style#0;n#a#2;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h4#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1053,7 +887,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1063,7 +897,7 @@
         <state relative-caret-position="820">
           <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="81" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1083,21 +917,57 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#65#0" expanded="true" />
+            <element signature="e#0#65#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/user_activity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="264">
-            <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <first_editor relative-caret-position="528">
+            <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor>
             <js_state />
           </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/compound_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1526">
+          <caret line="86" column="40" selection-start-line="86" selection-start-column="40" selection-end-line="86" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/usernotes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="142" column="145" selection-start-line="142" selection-start-column="145" selection-end-line="142" selection-end-column="145" />
+          <folding>
+            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

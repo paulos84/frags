@@ -8,7 +8,7 @@ from compounds.models import Odorant, Substructure, UserNotes
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
 
 
-class CompoundDetailView(FormMixin, DetailView):
+class OdorantDetailView(FormMixin, DetailView):
     model = Odorant
     template_name = 'odorants/odorant_detail.html'
     form_class = CompoundNotesForm
@@ -17,13 +17,14 @@ class CompoundDetailView(FormMixin, DetailView):
     user_auth = False
 
     def get_context_data(self, **kwargs):
-        context = super(CompoundDetailView, self).get_context_data(**kwargs)
+        context = super(OdorantDetailView, self).get_context_data(**kwargs)
         compound = self.get_object()
         odor_types = compound.odor_categories.values_list('term')
         context['odor_types'] = ', '.join([a[0] for a in odor_types])
         context['synonyms'] = compound.synonyms
         context['structure_url'] = compound.structure_url
         context['substructures'] = Substructure.compound_matches(compound)
+        print (context['substructures'])
         if self.request.user.is_authenticated:
             self.user_auth = True
             self.add_profile_activity(context)
@@ -49,14 +50,14 @@ class CompoundDetailView(FormMixin, DetailView):
             context['user_notes'] = ''
 
     def get_initial(self):
-        initial = super(CompoundDetailView, self).get_initial()
+        initial = super(OdorantDetailView, self).get_initial()
         initial['compound'] = self.object
         if self.request.user.is_authenticated:
             initial['user'] = self.request.user.profile
         return initial
 
     def get_form_kwargs(self):
-        kwargs = super(CompoundDetailView, self).get_form_kwargs()
+        kwargs = super(OdorantDetailView, self).get_form_kwargs()
         if self.request.method == 'GET':
             kwargs.update({
                 'user_auth': self.request.user.is_authenticated,
@@ -90,7 +91,7 @@ class CompoundDetailView(FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save()
-        return super(CompoundDetailView, self).form_valid(form)
+        return super(OdorantDetailView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('odorant-detail', kwargs={'pk': self.object.pk})

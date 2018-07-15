@@ -1,8 +1,8 @@
-from .compound_list import BaseCompoundListView
+from .odorant_list import BaseOdorantListView
 from compounds.models import Odorant, UserNotes
 
 
-class ChemFilterListView(BaseCompoundListView):
+class ChemFilterListView(BaseOdorantListView):
     paginate_by = 100
 
     def get_context_data(self, **kwargs):

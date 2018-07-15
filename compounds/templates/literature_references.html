@@ -1,0 +1,54 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block title %}
+    {% if odorant.trade_name %}
+    <title>{{ compound.trade_name }}</title>
+    {% else %}
+    <title>{{ compound.iupac_name }}</title>
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+       <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
+        </div>
+      </ul>
+
+      <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Fragrance compounds</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
+            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compound</a>
+        </div>
+      </ul>
+        <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+                        <a href="{% url 'odorant-substructures' pk=compound.pk %}">
+                <button style="width: 170px" type="button" class="btn btn-secondary">Substructure matches</button></a>
+        </div>
+          </ul>
+        <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+                        <a href="{% url 'literature-references' pk=compound.pk compound_type='odor-literature' %}">
+                <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
+        </div>
+      </ul>
+            </div>
+          </div>
+         </div>
+ {% endblock %}
+
+{% block content %}
+        <iframe class="pubchem-widget" src="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid_number }}#section=Springer-Nature-References&embed=true" style="border: 0;  width: 100%; height: 800px;"></iframe>
+
+          {% endblock %}

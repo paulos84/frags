@@ -2,22 +2,23 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from compounds.views import (ChemFilterSubstructureDetail, CompoundCreateView, CompoundDetailView, CompoundUpdateView,
-                             CompoundMatchSubstructureListView, SubstructureListView, SubstructureDetail,
-                             UserSubstructureDetail, UserCompoundNotesDeleteView)
+from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, CompoundUpdateView,
+                             CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
+                             SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView)
 
-from compounds.views.compound_create import process_cas
-from compounds.views.compound_list import *
+from compounds.views.odorant_create import process_cas
+from compounds.views.odorant_list import *
 from compounds.views.filtered_lists import *
 
 urlpatterns = [
-    re_path(r'^$', CompoundListView.as_view(), name='index'),
-    path('odorant/<int:pk>', CompoundDetailView.as_view(), name='odorant-detail'),
+    re_path(r'^$', OdorantListView.as_view(), name='index'),
+    path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
+    path('odorant/<int:pk>/<compound_type>', LiteratureRefsView.as_view(), name='literature-references'),
     path('odorant/edit/<int:pk>', CompoundUpdateView.as_view(), name='odorant-update'),
     path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
-    path('odorant/add', CompoundCreateView.as_view(), name='odorant-add'),
+    path('odorant/add', OdorantCreateView.as_view(), name='odorant-add'),
     path('ajax/process_cas', process_cas, name='process_cas'),
-    path('categories/<odor>', OdorTypeCompoundListView.as_view(), name='odorant-odor-type-filter'),
+    path('categories/<odor>', OdorTypeOdorantListView.as_view(), name='odorant-odor-type-filter'),
     path('odorant/substructure', SubstructureListView.as_view(), name='substructures'),
     path('odorant/substructure/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
     path('odorant/substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),

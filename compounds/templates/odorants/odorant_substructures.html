@@ -6,15 +6,15 @@
 <ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
   <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
   <li><a class="breadcrumb-item" href="{% url 'substructures' %}">All substructures</a></li>
-  <li><a class="breadcrumb-item active" href="{% url 'odorant-substructures' pk=odorant.pk %}">Substructure matches</a></li>
+  <li><a class="breadcrumb-item active" href="{% url 'odorant-substructures' pk=compound.pk %}">Substructure matches</a></li>
 </ul>
   {% if substructure_list %}
     {% for substruct in substructure_list %}
-            <div style="float:right; position:relative; right:400px; "><img src={{ odorant.structure_url }}  title={{ odorant.iupac_name }}  height="200" width="200">
+            <div style="float:right; position:relative; right:400px; "><img src={{ compound.structure_url }}  title={{ compound.iupac_name }}  height="200" width="200">
                 </div>
             <div style="position: relative; margin-top: 90px; left:34px; ">
                 <div>
-                    <h5>Core substructures for {{ odorant.iupac_name|truncatechars:42 }} </h5>
+                    <h5>Core substructures for {{ compound.iupac_name|truncatechars:42 }} </h5>
                 </div>
                 <div style="position:relative; top:44px">
                     <a href="{{ substruct.get_absolute_url }}"><img class="structure-img" src={{ substruct.structure_url }}

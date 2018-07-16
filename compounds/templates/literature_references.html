@@ -43,17 +43,38 @@
                 <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
         </div>
       </ul>
-
- {% endblock %}
+{% endblock %}
 
 {% block content %}
-        <ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
+        <ul class="breadcrumb" style="background-color: transparent;">
           <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
           <li><a class="breadcrumb-item" href="{% url 'substructures' %}">All fragrance compounds</a></li>
-          <li><a class="breadcrumb-item active" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:42  }}</a></li>
+          <li><a class="breadcrumb-item" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:36  }}</a></li>
+          <li><a class="breadcrumb-item active" href="{% url 'literature-references' pk=compound.pk compound_type='odor-literature' %}">Literature references</a></li>
         </ul>
 
-        <iframe class="pubchem-widget" src="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid_number }}#section=Springer-Nature-References&embed=true&hide_title=true"
-                style="border: 0;  width: 100%; height: 800px;"></iframe>
-
-          {% endblock %}
+     {% if literature %}
+      <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Journal</th>
+                <th>Article title</th>
+            </tr>
+        </thead>
+        <tbody>
+             {% for lit in literature %}
+            <tr>
+                <td>{{ lit.date }}</td>
+                <td>{{ lit.source }}</td>
+                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+          <h5>No journal articles found for this compound</h5>
+    {% endif %}
+    <iframe class="pubchem-widget" src="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid_number }}#section=Springer-Nature-References&embed=true&hide_title=true&hide_icon_bar=true"
+            style="border: 0;  width: 100%; height: 800px;"></iframe>
+{% endblock %}

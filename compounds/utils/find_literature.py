@@ -6,7 +6,7 @@ import requests
 class FindLiterature:
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
     Args:
-        synonyms (str): string containing chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
+        synonyms (str): list of chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
         trade_name (:obj:'str', optional): compound trade name to search for
     """
     def __init__(self, synonyms, trade_name=None):
@@ -17,9 +17,6 @@ class FindLiterature:
         self.results_ids = self.get_results_ids()
 
     def clean_query_terms(self):
-        """
-        Remove unsafe characters and prepare query terms from chemical names
-        """
         def clean_item(item):
             r = re.compile(r"[^A-Za-z]")
             s = r.sub('', item)
@@ -60,4 +57,4 @@ class FindLiterature:
                 'url': url,
                 'source': source,
                 'date': result.get(ref).get('pubdate')})
-        return result
+        return refs

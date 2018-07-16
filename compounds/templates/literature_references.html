@@ -43,12 +43,17 @@
                 <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
         </div>
       </ul>
-            </div>
-          </div>
-         </div>
+
  {% endblock %}
 
 {% block content %}
-        <iframe class="pubchem-widget" src="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid_number }}#section=Springer-Nature-References&embed=true" style="border: 0;  width: 100%; height: 800px;"></iframe>
+        <ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
+          <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+          <li><a class="breadcrumb-item" href="{% url 'substructures' %}">All fragrance compounds</a></li>
+          <li><a class="breadcrumb-item active" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:42  }}</a></li>
+        </ul>
+
+        <iframe class="pubchem-widget" src="https://pubchem.ncbi.nlm.nih.gov/compound/{{ compound.cid_number }}#section=Springer-Nature-References&embed=true&hide_title=true"
+                style="border: 0;  width: 100%; height: 800px;"></iframe>
 
           {% endblock %}

@@ -24,19 +24,15 @@ from ruamel.yaml.parser import ParserError
 
 
 class MakeOdorantFixtureData:
-
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
-
     Args:
         input_file (str): path to text file containing CAS numbers
         output_file (:obj:'str', optional): path to write fixture data to
-
     Attributes:
         input_file (str): path to text file containing CAS numbers
         output_file (str): path to write fixture data to
         cirpy_data (list): dictionary containing compound data obtained through cirpy API query
     """
-
     def __init__(self, input_file, output_file=None):
         self.file = input_file
         self.compound_data = []
@@ -67,7 +63,7 @@ class MakeOdorantFixtureData:
                             (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
                     chem_properties.update({
                         'mw': int(pcp_data[0].molecular_weight),
-                        'synonyms': ', '.join(pcp_data[0].synonyms[:5]),
+                        'synonyms': ' '.join(pcp_data[0].synonyms[:5]),
                         'hetac': len(''.join([i for i in smiles if i in ['O', 'N', 'S', ]]))
                     })
                     self.compound_data.append({

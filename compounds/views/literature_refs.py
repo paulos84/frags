@@ -5,18 +5,20 @@ from compounds.models import Odorant
 
 
 class LiteratureRefsView(TemplateView):
-    model = Odorant
-    instance = None
+    cid_number = None
+    model = None
     template_name = 'literature_references.html'
 
     def dispatch(self, request, *args, **kwargs):
         if kwargs.get('compound_type') == 'odor-literature':
             self.model = Odorant
         # dispatch takes care of "reading" the parameters from the url
-        self.instance = get_object_or_404(self.model, pk=kwargs.get('pk'))
+        object = get_object_or_404(self.model, pk=kwargs.get('pk'))
+        self.cid_number = object.cid_number
         return TemplateView.dispatch(self, request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
-        context["compound"] = self.instance
+
+        context["references"] = self.instance
         return context

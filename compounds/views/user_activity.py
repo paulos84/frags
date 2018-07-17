@@ -2,7 +2,7 @@ from django.views.generic import DeleteView, UpdateView
 from django.shortcuts import reverse, HttpResponseRedirect
 
 from .odorant_list import BaseOdorantListView
-from compounds.models import Odorant, UserNotes
+from compounds.models import Odorant, UserCompound
 
 # TODO if notes go beyond area use ... truncation
 
@@ -12,7 +12,7 @@ class ActivityListView(BaseOdorantListView):
 
 
 class UserCompoundNotesDeleteView(DeleteView):
-    model = UserNotes
+    model = UserCompound
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

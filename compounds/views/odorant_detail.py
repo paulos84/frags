@@ -1,10 +1,12 @@
-from django.views.generic import DetailView
-from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import HttpResponseRedirect
+from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 
-from compounds.models import Odorant, Substructure, UserNotes
+from compounds.models import Odorant, Substructure, UserCompound
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
 
 
@@ -14,7 +16,6 @@ class OdorantDetailView(FormMixin, DetailView):
     form_class = CompoundNotesForm
     second_form_class = OdorantUpdateForm
     notes_object = None
-    user_auth = False
 
     def get_context_data(self, **kwargs):
         context = super(OdorantDetailView, self).get_context_data(**kwargs)
@@ -24,9 +25,7 @@ class OdorantDetailView(FormMixin, DetailView):
         context['synonyms'] = compound.synonyms
         context['structure_url'] = compound.structure_url
         context['substructures'] = Substructure.compound_matches(compound)
-        print (context['substructures'])
         if self.request.user.is_authenticated:
-            self.user_auth = True
             self.add_profile_activity(context)
         if self.notes_object:
             context['form'] = self.form_class(notes=self.notes_object.notes, instance=self.notes_object)
@@ -43,7 +42,7 @@ class OdorantDetailView(FormMixin, DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            self.notes_object = UserNotes.objects.get(user=self.request.user.profile, compound=self.get_object())
+            self.notes_object = UserCompound.objects.get(user=self.request.user.profile, compound=self.get_object())
             context['user_notes'] = self.notes_object.notes
             context['user_notes_pk'] = self.notes_object.pk
         except ObjectDoesNotExist:
@@ -67,6 +66,7 @@ class OdorantDetailView(FormMixin, DetailView):
     def form_invalid(self, **kwargs):
         return self.render_to_response(self.get_context_data(**kwargs))
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.POST.get('odor_description'):

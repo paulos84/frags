@@ -2,7 +2,7 @@ from .odorant_create import OdorantCreateForm
 from .compound_update import OdorantUpdateForm, OdorantCompoundForm
 from .odorant_search import OdorantSearchForm
 from .chem_data_choice import ChemDataChoiceForm
-from .profile_activity import CompoundNotesForm, SignupForm
+from .profile_activity import CompoundNotesForm, SignupForm, UserLiteratureRefsForm
 
 __all__ = [
     ChemDataChoiceForm,
@@ -12,4 +12,5 @@ __all__ = [
     CompoundNotesForm,
     OdorantCompoundForm,
     SignupForm,
+    UserLiteratureRefsForm,
     ]

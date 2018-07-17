@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from compounds.models import Odorant, UserNotes, OdorType
+from compounds.models import Odorant, UserCompound, OdorType
 from compounds.forms import OdorantSearchForm
 
 
@@ -58,7 +58,7 @@ class UserCompoundListView(LoginRequiredMixin, BaseOdorantListView):
     context_object_name = 'compound_list'
 
     def get_queryset(self):
-        notes_qs = UserNotes.objects.filter(user=self.request.user.profile).values('compound')
+        notes_qs = UserCompound.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
             return Odorant.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]

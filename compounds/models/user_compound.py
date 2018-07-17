@@ -1,12 +1,15 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 from compounds.models import Odorant, Profile
 from .managers.activity import ActivityManager
 
 
-class UserNotes(models.Model):
+class UserCompound(models.Model):
     notes = models.TextField(
         max_length=500,
+        null=True,
+        blank=True,
     )
     compound = models.ForeignKey(
         Odorant,
@@ -18,6 +21,11 @@ class UserNotes(models.Model):
         Profile,
         on_delete=models.CASCADE,
         related_name='notes_set',
+        blank=True,
+    )
+    literature_refs = ArrayField(
+        models.CharField(max_length=100),
+        null=True,
         blank=True,
     )
 

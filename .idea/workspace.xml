@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/usernotes.py" afterPath="$PROJECT_DIR$/compounds/models/user_compound.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/admin.py" afterPath="$PROJECT_DIR$/compounds/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/__init__.py" afterPath="$PROJECT_DIR$/compounds/forms/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/profile_activity.py" afterPath="$PROJECT_DIR$/compounds/forms/profile_activity.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/literature_references.html" afterPath="$PROJECT_DIR$/compounds/templates/literature_references.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/find_literature.py" afterPath="$PROJECT_DIR$/compounds/utils/find_literature.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/filtered_lists.py" afterPath="$PROJECT_DIR$/compounds/views/filtered_lists.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/literature_refs.py" afterPath="$PROJECT_DIR$/compounds/views/literature_refs.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/odorant_detail.py" afterPath="$PROJECT_DIR$/compounds/views/odorant_detail.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/odorant_list.py" afterPath="$PROJECT_DIR$/compounds/views/odorant_list.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/substructure_detail.py" afterPath="$PROJECT_DIR$/compounds/views/substructure_detail.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/user_activity.py" afterPath="$PROJECT_DIR$/compounds/views/user_activity.py" />
     </list>
     <ignored path="frags.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,72 +35,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="usernotes.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/models/usernotes.py">
+      <file leaf-file-name="odorant_list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="substructure_detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="89" column="36" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="36" />
-              <folding>
-                <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="odorant_detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="42" column="113" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="113" />
+            <state relative-caret-position="198">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="find_literature.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/utils/find_literature.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1414">
-              <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="literature_references.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/templates/literature_references.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#1;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#1;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#2;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#4;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -97,11 +48,31 @@
       <file leaf-file-name="literature_refs.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/compounds/views/literature_refs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="655">
+              <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
               <folding>
-                <element signature="e#0#45#0" expanded="true" />
+                <element signature="e#0#57#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile_activity.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/forms/profile_activity.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="33">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_compound.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/models/user_compound.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,9 +93,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/compounds/migrations/0012_substructure.py" />
-        <option value="$PROJECT_DIR$/compounds/migrations/0009_auto_20180606_2128.py" />
-        <option value="$PROJECT_DIR$/compounds/migrations/0008_user.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0005_auto_20180525_0024.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0004_auto_20180524_2315.py" />
         <option value="$PROJECT_DIR$/compounds/migrations/0003_auto_20180520_1216.py" />
@@ -158,7 +126,6 @@
         <option value="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/create_odorant.html" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/compounds/models/usernotes.py" />
         <option value="$PROJECT_DIR$/compounds/views/__init__.py" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/odor_compound_list.html" />
         <option value="$PROJECT_DIR$/compounds/views/substructure_list.py" />
@@ -166,11 +133,15 @@
         <option value="$PROJECT_DIR$/compounds/templates/base_listview.html" />
         <option value="$PROJECT_DIR$/compounds/views/odorant_create.py" />
         <option value="$PROJECT_DIR$/compounds/views/odorant_list.py" />
-        <option value="$PROJECT_DIR$/compounds/views/odorant_detail.py" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_substructures.html" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
         <option value="$PROJECT_DIR$/compounds/utils/generate_fixtures.py" />
+        <option value="$PROJECT_DIR$/compounds/models/usernotes.py" />
+        <option value="$PROJECT_DIR$/compounds/models/user_compound.py" />
         <option value="$PROJECT_DIR$/compounds/utils/find_literature.py" />
+        <option value="$PROJECT_DIR$/compounds/forms/__init__.py" />
+        <option value="$PROJECT_DIR$/compounds/views/odorant_detail.py" />
+        <option value="$PROJECT_DIR$/compounds/forms/profile_activity.py" />
         <option value="$PROJECT_DIR$/compounds/templates/literature_references.html" />
         <option value="$PROJECT_DIR$/compounds/views/literature_refs.py" />
       </list>
@@ -221,6 +192,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="frags" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="frags" />
@@ -335,6 +320,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -342,7 +345,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../old snippets/snippets-exercises/unix_shell/bash-script-tutorial/variables.md" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../old snippets/snippets-exercises/django-notes/Utilities.md" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
@@ -582,54 +585,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0011_auto_20180612_2341.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="18" column="128" selection-start-line="18" selection-start-column="128" selection-end-line="18" selection-end-column="128" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0010_auto_20180607_2154.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="25" column="132" selection-start-line="25" selection-start-column="132" selection-end-line="25" selection-end-column="132" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0009_auto_20180606_2128.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0008_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0007_auto_20180602_1018.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="20" column="79" selection-start-line="20" selection-start-column="79" selection-end-line="20" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/migrations/0006_auto_20180526_1141.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/migrations/0005_auto_20180525_0024.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -696,14 +651,6 @@
           <second_editor>
             <js_state />
           </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frags/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="118" column="20" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -872,22 +819,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/substructure_detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="52" column="55" selection-start-line="52" selection-start-column="55" selection-end-line="52" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/substructure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -970,90 +901,168 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html">
+    <entry file="file://$PROJECT_DIR$/compounds/views/substructure_list.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="89" column="36" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="36" />
+        <state relative-caret-position="787">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="43" />
           <folding>
-            <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/models/usernotes.py">
+    <entry file="file://$PROJECT_DIR$/../old snippets/snippets-exercises/django-notes/Utilities.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="316">
+            <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="33" selection-end-column="48" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+        <state relative-caret-position="752">
+          <caret line="89" column="36" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="36" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_update.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-264">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/forms/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frags/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3696">
+          <caret line="118" column="20" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/substructure_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-165">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/forms/odorant_create.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#24#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/managers/activity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="56" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/odorant_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="54" column="27" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#57#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/utils/find_literature.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1414">
-          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/odorant_detail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="66" column="19" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/substructure_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="787">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="42" column="113" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="113" />
+        <state relative-caret-position="886">
+          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/templates/literature_references.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="-132">
+          <caret line="55" column="25" selection-start-line="55" selection-start-column="25" selection-end-line="56" selection-end-column="33" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#2;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#4;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#1;n#div#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#1;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#2;n#div#0;n#ul#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#ul#3;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#ul#4;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/forms/profile_activity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/user_compound.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/views/literature_refs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="655">
+          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
+            <element signature="e#0#57#0" expanded="true" />
           </folding>
         </state>
       </provider>

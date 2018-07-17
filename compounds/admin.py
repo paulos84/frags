@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from compounds.models import Odorant, UserNotes, OdorType, Profile, Substructure
+from compounds.models import Odorant, UserCompound, OdorType, Profile, Substructure
 from compounds.forms.admin import SubstructureAdminForm
 
 
@@ -13,7 +13,7 @@ class OdorantAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
 
-@admin.register(UserNotes)
+@admin.register(UserCompound)
 class CompoundNotesAdmin(admin.ModelAdmin):
     pass
 

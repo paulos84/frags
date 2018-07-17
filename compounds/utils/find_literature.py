@@ -44,17 +44,20 @@ class FindLiterature:
         result = requests.get(url, headers={'User-Agent': 'Not blank'}).json().get('result')
         refs = []
         for ref in self.results_ids:
+            date = result.get(ref).get('pubdate')
             if result.get(ref).get('booktitle'):
                 url = result.get(ref).get('availablefromurl')
                 source = result.get(ref).get('booktitle')
             elif result.get(ref).get('source'):
                 url = 'https://www.ncbi.nlm.nih.gov/pubmed/{}'.format(ref)
                 source = result.get(ref).get('source')
+                date = date.rsplit(' ', 1)[0]
             else:
                 continue
             refs.append({
+                'id': ref,
                 'title': result.get(ref).get('title'),
                 'url': url,
                 'source': source,
-                'date': result.get(ref).get('pubdate')})
+                'date': date})
         return refs

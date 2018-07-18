@@ -3,11 +3,13 @@ from .odor_type import OdorType
 from .substructure import Substructure
 from .profile import Profile
 from .user_compound import UserCompound
+from .user_source import UserSource
 
 __all__ = [
     Odorant,
-    UserCompound,
-    Profile,
     OdorType,
+    Profile,
     Substructure,
+    UserCompound,
+    UserSource,
     ]

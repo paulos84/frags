@@ -29,8 +29,6 @@ class UserCompound(models.Model):
         blank=True,
     )
 
-    # TODO: ADD MY SOURCES AND MY LIT REFERENCES CHANGE MODEL....LINK TO SHOP AND/OR PRODUCTS
-
     objects = ActivityManager()
 
     def __str__(self):

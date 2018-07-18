@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
@@ -28,7 +27,10 @@ class OdorantDetailView(FormMixin, DetailView):
         if self.request.user.is_authenticated:
             self.add_profile_activity(context)
         if self.notes_object:
-            context['form'] = self.form_class(notes=self.notes_object.notes, instance=self.notes_object)
+            context['form'] = self.form_class(
+                notes=self.notes_object.notes,
+                user_auth=True if self.request.user.is_authenticated else False
+                )
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):
@@ -45,7 +47,7 @@ class OdorantDetailView(FormMixin, DetailView):
             self.notes_object = UserCompound.objects.get(user=self.request.user.profile, compound=self.get_object())
             context['user_notes'] = self.notes_object.notes
             context['user_notes_pk'] = self.notes_object.pk
-        except ObjectDoesNotExist:
+        except UserCompound.DoesNotExist:
             context['user_notes'] = ''
 
     def get_initial(self):
@@ -85,13 +87,16 @@ class OdorantDetailView(FormMixin, DetailView):
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         elif form.is_valid():
+            if not self.notes_object:
+                self.notes_object, _ = UserCompound.objects.get_or_create(
+                    compound=self.get_object(),
+                    user=self.request.user.profile,
+                )
+            self.notes_object.notes = form.cleaned_data['notes']
+            self.notes_object.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(**{form_name: form})
-
-    def form_valid(self, form):
-        form.save()
-        return super(OdorantDetailView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('odorant-detail', kwargs={'pk': self.object.pk})

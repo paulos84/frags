@@ -1,32 +1,20 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.postgres.forms import SimpleArrayField
+
+from compounds.models import UserCompound, Odorant, Profile, UserSource
 
 
-from compounds.models import UserCompound, Odorant, Profile
+class CompoundNotesForm(forms.Form):
 
+    """ Form for users to create or update a CompoundNote instance """
 
-class CompoundNotesForm(forms.ModelForm):
-
-    """ Form for users to create a CompoundNote instance for a given Compound instance """
-
-    user = forms.ModelChoiceField(
-        queryset=Profile.objects.all(),
-        widget=forms.HiddenInput(),
-    )
-    compound = forms.ModelChoiceField(
-        queryset=Odorant.objects.all(),
-        widget=forms.HiddenInput(),
-    )
     notes = forms.CharField(
         widget=forms.Textarea(
             attrs={'rows': 5, 'cols': 42, 'placeholder': 'Enter notes',
                    'style': 'border-color: green;', }),
     )
-
-    class Meta:
-        model = UserCompound
-        fields = ['notes', 'user', 'compound']
 
     def __init__(self, *args, **kwargs):
         user_auth = kwargs.pop('user_auth', None)
@@ -37,19 +25,28 @@ class CompoundNotesForm(forms.ModelForm):
         if not user_auth:
             self.fields['notes'].widget.attrs['placeholder'] = 'Login to access notes'
 
-    def save(self, **kwargs):
-        try:
-            UserCompound.objects.get(compound=self.cleaned_data['compound']).delete()
-        except UserCompound.DoesNotExist:
-            pass
-        super(CompoundNotesForm, self).save(**kwargs)
-
 
 class UserLiteratureRefsForm(forms.Form):
     lit_ref_numbers = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
+
+    def __init__(self, *args, **kwargs):
+        available_choices = kwargs.pop('lit_records')
+        super(UserLiteratureRefsForm, self).__init__(*args, **kwargs)
+        self.fields['lit_ref_numbers'].choices = [(a, '') for a in available_choices]
+
+
+class UserSourcesForm(forms.ModelForm):
+    compound = forms.ModelChoiceField(
+        queryset=Odorant.objects.all(),
+        widget=forms.HiddenInput(),
+    )
+
+    class Meta:
+        model = UserSource
+        fields = ['webpage', 'price_info', 'compound']
 
     def __init__(self, *args, **kwargs):
         available_choices = kwargs.pop('lit_records')

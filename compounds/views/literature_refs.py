@@ -51,14 +51,11 @@ class LiteratureRefsView(TemplateView):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         form = UserLiteratureRefsForm(
             request.POST,
             lit_records=[a['id'] for a in self.lit_records + self.user_records]
         )
         if form.is_valid():
-            for i in range(5):
-                print (23)
             refs = form.cleaned_data['lit_ref_numbers']
             UserCompound.lit_refs_actions(request, refs, self.compound)
         return redirect(reverse('literature-references', args=[self.compound.pk, 'odor-literature']))

@@ -35,3 +35,29 @@ class UserCompound(models.Model):
 
     def __str__(self):
         return 'notes: ' + str(self.compound) + '_' + str(self.user)
+
+    @classmethod
+    def lit_refs_actions(cls, request, refs, compound):
+        message = None
+        if 'save_refs' in request.POST:
+            instance, _ = cls.objects.get_or_create(
+                user=request.user.profile,
+                compound=compound
+            )
+            if instance.literature_refs:
+                instance.literature_refs.extend(refs)
+            else:
+                instance.literature_refs = refs
+            message = 'Article{} saved'.format('s' if len(refs) > 1 else '')
+            instance.save()
+        if 'remove_refs' in request.POST:
+            instance = UserCompound.objects.get(
+                user=request.user.profile,
+                compound=compound
+            )
+            for ref in refs:
+                instance.literature_refs.remove(ref)
+            message = 'Article{} removed'.format('s' if len(refs) > 1 else '')
+            instance.save()
+        return message
+

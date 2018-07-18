@@ -60,22 +60,5 @@ class LiteratureRefsView(TemplateView):
             for i in range(5):
                 print (23)
             refs = form.cleaned_data['lit_ref_numbers']
-            if 'save_refs' in request.POST:
-                instance, _ = UserCompound.objects.get_or_create(
-                    user=request.user.profile,
-                    compound=self.compound
-                )
-                if instance.literature_refs:
-                    instance.literature_refs.extend(refs)
-                else:
-                    instance.literature_refs = refs
-                instance.save()
-            if 'remove_refs' in request.POST:
-                instance = UserCompound.objects.get(
-                    user=request.user.profile,
-                    compound=self.compound
-                )
-                for ref in refs:
-                    instance.literature_refs.remove(ref)
-                instance.save()
+            UserCompound.lit_refs_actions(request, refs, self.compound)
         return redirect(reverse('literature-references', args=[self.compound.pk, 'odor-literature']))

@@ -6,7 +6,7 @@ import pubchempy as pcp
 
 
 class CompoundMixin(models.Model):
-    """ A mixin to provide fields whose values allow chemical properties to be obtained """
+    """ A mixin to provide fields which are common across various compound models """
 
     chemical_properties = JSONField(
         default=dict,
@@ -20,12 +20,21 @@ class CompoundMixin(models.Model):
         blank=True,
     )
 
+    class Meta:
+        abstract = True
+
     @property
     def structure_url(self):
         if hasattr(self, 'cid_number'):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
     def set_chemical_data(self, identifier, pcp_query=None):
+        """
+        Obtain and assign values to the chemical_properties field using data retrieved from API queries
+        Args:
+            identifier ('obj'): model instance field whose value should be used in making API calls
+            pcp_query ('obj', optional): object returned from API query which contains data
+        """
         if not identifier or not self.chemical_properties:
             if hasattr(self, 'inchikey') and identifier == self.inchikey:
                 pcp_query = pcp.get_compounds(identifier, 'inchikey')
@@ -45,6 +54,3 @@ class CompoundMixin(models.Model):
                 'hetac': len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
                          })
             self.chemical_properties = data
-
-    class Meta:
-        abstract = True

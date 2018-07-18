@@ -3,11 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% if odorant.trade_name %}
-    <title>{{ odorant.trade_name }}</title>
-    {% else %}
-    <title>{{ odorant.iupac_name }}</title>
-    {% endif %}
+    <title>{{ odorant }}</title>
 {% endblock %}
 
 {% block head %}

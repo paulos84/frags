@@ -7,7 +7,7 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from compounds.forms import UserLiteratureRefsForm
 from compounds.models import Odorant, UserCompound
@@ -18,19 +18,34 @@ class LiteratureRefsView(TemplateView):
     template_name = 'literature_references.html'
     compound = None
     lit_records = None
+    user_records = None
     # paginate_by = 14  ListView and paginated_by??
+
+    def set_records(self, request):
+        synonyms = self.compound.chemical_properties['synonyms']
+        user_compound = None
+        if request.user.is_authenticated:
+            try:
+                user_compound = UserCompound.objects.get(
+                    user=request.user.profile,
+                    compound=self.compound
+                )
+            except UserCompound.DoesNotExist:
+                user_compound = None
+        records = FindLiterature(synonyms, user_compound=user_compound).records()
+        self.lit_records = records['new_refs']
+        self.user_records = records['user_refs']
 
     def dispatch(self, request, *args, **kwargs):
         if kwargs.get('compound_type') == 'odor-literature':
             model = Odorant
         self.compound = get_object_or_404(model, pk=kwargs.get('pk'))
-        synonyms = self.compound.chemical_properties['synonyms']
-        self.lit_records = FindLiterature(synonyms).records()
+        self.set_records(request)
         return TemplateView.dispatch(self, request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
-        synonyms = self.compound.chemical_properties['synonyms']
+
         context['literature'] = self.lit_records
         context['compound'] = self.compound
         return context
@@ -54,8 +69,9 @@ class LiteratureRefsView(TemplateView):
                 instance.literature_refs = refs
             instance.save()
             messages.info(request, 'Your password has been changed successfully!')
-        if 'mark_read' in request.POST:
+        # MAKE A ONCLICK BUTTON TO SHOW SAVED...OR SEPARATE TABLE OF THOSE SAVED
+        if 'remove_refs' in request.POST:
             for item in form.cleaned_data['choices']:
                 item.read = True;
                 item.save()
-        return self.render_to_response(self.get_context_data(**kwargs))
+        return redirect(reverse('literature-references', args=[self.compound.pk, 'odor-literature']))

@@ -2,6 +2,8 @@ import re
 from bs4 import BeautifulSoup
 import requests
 
+from compounds.models import UserCompound
+
 
 class FindLiterature:
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
@@ -9,12 +11,14 @@ class FindLiterature:
         synonyms (str): list of chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
         trade_name (:obj:'str', optional): compound trade name to search for
     """
-    def __init__(self, synonyms, trade_name=None):
+    def __init__(self, synonyms, trade_name=None, user_compound=None):
         synonyms = synonyms.split(' ')
         self.synonyms = ['', ''] if not synonyms or len(synonyms) < 2 else synonyms
         self.clean_query_terms()
         self.trade_name = trade_name
         self.results_ids = self.get_results_ids()
+        self.user_compound = user_compound
+        self.result = None
 
     def clean_query_terms(self):
         def clean_item(item):
@@ -33,31 +37,46 @@ class FindLiterature:
         url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term={}?retmax=50'.format(query)
         page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
         soup = BeautifulSoup(page, 'lxml')
-        lst = []
+        id_list = []
         for node in soup.findAll('id'):
-            lst.append(''.join(node.findAll(text=True)))
-        return lst
+            id_list.append(''.join(node.findAll(text=True)))
+        return id_list
 
-    def records(self):
-        url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract' \
-              '&id={}'.format(','.join(self.results_ids))
-        result = requests.get(url, headers={'User-Agent': 'Not blank'}).json().get('result')
-        refs = []
-        for ref in self.results_ids:
-            date = result.get(ref).get('pubdate')
-            if result.get(ref).get('booktitle'):
-                url = result.get(ref).get('availablefromurl')
-                source = result.get(ref).get('booktitle')
-            elif result.get(ref).get('source'):
-                url = 'https://www.ncbi.nlm.nih.gov/pubmed/{}'.format(ref)
-                source = result.get(ref).get('source')
-                date = date.rsplit(' ', 1)[0]
-            else:
-                continue
-            refs.append({
-                'id': ref,
-                'title': result.get(ref).get('title'),
+    def get_user_refs(self):
+        if self.user_compound and self.user_compound.literature_refs:
+            return self.user_compound.literature_refs
+        return []
+
+    def parse_data(self, ref):
+        date = self.result.get(ref).get('pubdate')
+        if self.result.get(ref).get('booktitle'):
+            url = self.result.get(ref).get('availablefromurl')
+            source = self.result.get(ref).get('booktitle')
+        elif self.result.get(ref).get('source'):
+            url = 'https://www.ncbi.nlm.nih.gov/pubmed/{}'.format(ref)
+            source = self.result.get(ref).get('source')
+            date = date.rsplit(' ', 1)[0]
+        else:
+            return None
+        return {'id': ref,
+                'title': self.result.get(ref).get('title'),
                 'url': url,
                 'source': source,
-                'date': date})
-        return refs
+                'date': date}
+
+    def records(self):
+        existing_user_refs = self.get_user_refs()
+        url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract' \
+              '&id={}'.format(','.join(self.results_ids))
+        self.result = requests.get(url, headers={'User-Agent': 'Not blank'}).json().get('result')
+        new_refs = []
+        user_refs = []
+        for ref in self.results_ids:
+            ref_data = self.parse_data(ref)
+            if not ref_data:
+                continue
+            if ref in existing_user_refs:
+                user_refs.append(ref_data)
+            else:
+                new_refs.append(ref_data)
+        return {'new_refs': new_refs, 'user_refs': user_refs}

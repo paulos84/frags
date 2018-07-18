@@ -35,7 +35,7 @@ class FindLiterature:
             query += '%5b%5d+OR+{}'.format(s)
         query += '{}%5b'.format(self.synonyms[-1])
         url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term={}?retmax=50'.format(query)
-        page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
+        page = requests.get(url, headers={'User-Agent': 'Not blank'}).content.decode('utf-8')
         soup = BeautifulSoup(page, 'lxml')
         id_list = []
         for node in soup.findAll('id'):

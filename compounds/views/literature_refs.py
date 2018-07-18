@@ -1,13 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import HttpResponseRedirect
-from django.views.generic import DetailView
-from django.views.generic.edit import FormMixin
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404, redirect
 
 from compounds.forms import UserLiteratureRefsForm
 from compounds.models import Odorant, UserCompound
@@ -32,7 +27,11 @@ class LiteratureRefsView(TemplateView):
                 )
             except UserCompound.DoesNotExist:
                 user_compound = None
-        records = FindLiterature(synonyms, user_compound=user_compound).records()
+        records = FindLiterature(
+            synonyms,
+            trade_name=self.compound.trade_name,
+            user_compound=user_compound
+        ).records()
         self.lit_records = records['new_refs']
         self.user_records = records['user_refs']
 
@@ -45,8 +44,8 @@ class LiteratureRefsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
-
         context['literature'] = self.lit_records
+        context['user_literature'] = self.user_records
         context['compound'] = self.compound
         return context
 
@@ -55,23 +54,28 @@ class LiteratureRefsView(TemplateView):
         print(self.request.POST)
         form = UserLiteratureRefsForm(
             request.POST,
-            lit_records=[a['id'] for a in self.lit_records]
+            lit_records=[a['id'] for a in self.lit_records + self.user_records]
         )
-        if 'save_refs' in request.POST and form.is_valid():
+        if form.is_valid():
+            for i in range(5):
+                print (23)
             refs = form.cleaned_data['lit_ref_numbers']
-            instance, _ = UserCompound.objects.get_or_create(
-                user=request.user.profile,
-                compound=self.compound
-            )
-            if instance.literature_refs:
-                instance.literature_refs.extend(refs)
-            else:
-                instance.literature_refs = refs
-            instance.save()
-            messages.info(request, 'Your password has been changed successfully!')
-        # MAKE A ONCLICK BUTTON TO SHOW SAVED...OR SEPARATE TABLE OF THOSE SAVED
-        if 'remove_refs' in request.POST:
-            for item in form.cleaned_data['choices']:
-                item.read = True;
-                item.save()
+            if 'save_refs' in request.POST:
+                instance, _ = UserCompound.objects.get_or_create(
+                    user=request.user.profile,
+                    compound=self.compound
+                )
+                if instance.literature_refs:
+                    instance.literature_refs.extend(refs)
+                else:
+                    instance.literature_refs = refs
+                instance.save()
+            if 'remove_refs' in request.POST:
+                instance = UserCompound.objects.get(
+                    user=request.user.profile,
+                    compound=self.compound
+                )
+                for ref in refs:
+                    instance.literature_refs.remove(ref)
+                instance.save()
         return redirect(reverse('literature-references', args=[self.compound.pk, 'odor-literature']))

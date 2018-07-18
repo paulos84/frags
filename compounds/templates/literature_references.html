@@ -63,6 +63,34 @@
             </ul>
         {% endif %}
     <h5>{{ compound }}</h5>
+   {% if request.user.is_authenticated and user_literature %}
+
+      <form method="post" novalidate>
+     {% csrf_token %}
+                <div style="margin-top:28px">
+      <table class="table">
+        <thead>
+            <tr>
+                <tr><strong>Saved articles</strong></tr>
+            </tr>
+        </thead>
+          <tbody>
+             {% for lit in user_literature %}
+            <tr>
+                <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
+                <td>{{ lit.date }}</td>
+                <td>{{ lit.source }}</td>
+                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          </div>
+               <button style="margin-bottom:38px" name="remove_refs" type="submit" class="btn btn-primary">
+               <span class="glyphicon glyphicon"></span>Remove articles</button>
+         {% endif %}
+      </form>
+
     {% if literature %}
      <form method="post" novalidate>
      {% csrf_token %}
@@ -88,10 +116,10 @@
         </table>
           {% if user.is_authenticated %}
                <button name="save_refs" type="submit" class="btn btn-primary">
-               <span class="glyphicon glyphicon"></span>Save article</button>
+               <span class="glyphicon glyphicon"></span>Save articles</button>
          {% else %}
             <button name="remove_ref" class="btn btn-primary" disabled>
-            <span class="glyphicon glyphicon"></span>Save article</button>
+            <span class="glyphicon glyphicon"></span>Save articles</button>
          {% endif %}
       </form>
     {% else %}

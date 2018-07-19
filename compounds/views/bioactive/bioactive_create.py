@@ -8,7 +8,7 @@ from compounds.models import Odorant
 from compounds.forms import OdorantCreateForm
 
 
-class OdorantCreateView(CreateView):
+class BioactiveCreateView(CreateView):
     model = Odorant
     form_class = OdorantCreateForm
     template_name = 'odorants/create_odorant.html'

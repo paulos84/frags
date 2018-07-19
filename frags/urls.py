@@ -1,12 +1,12 @@
-from django.contrib import admin
-from django.urls import path, re_path
-from django.conf.urls import include
-from django.views.generic import RedirectView
 from django.conf import settings
+from django.conf.urls import include
 from django.conf.urls.static import static
+from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import path, re_path
 
-from compounds.views import signup, user_auth
+from compounds.views import signup
+from compounds.views.user import user_auth
 
 urlpatterns = [
     path('api/', include('api.urls')),

@@ -8,7 +8,7 @@ from compounds.models import Odorant
 from compounds.forms import OdorantUpdateForm, OdorantCompoundForm
 
 
-class CompoundUpdateView(UpdateView):
+class OdorantUpdateView(UpdateView):
     model = Odorant
     form_class = OdorantCompoundForm
     template_name = 'odorants/odorant_update.html'
@@ -37,4 +37,4 @@ class CompoundUpdateView(UpdateView):
         self.object = self.get_object()
         if not request.user.is_superuser or not request.user.profile == self.object.created_by:
             return HttpResponseForbidden()
-        return super(CompoundUpdateView, self).post(request, *args, **kwargs)
+        return super(OdorantUpdateView, self).post(request, *args, **kwargs)

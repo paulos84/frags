@@ -35,3 +35,18 @@ class Bioactive(ChemDescriptorMixin, CompoundMixin, models.Model):
     )
 
     objects = BioactiveManager()
+
+    def save(self, *args, **kwargs):
+        """ Runs validation logic and sets chemical properties data """
+        extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
+                                 'bond_stereo_count']
+        self.set_chemical_data(identifier=self.inchikey, additional=extra_chem_properties)
+        self.set_pcp_data()
+        if not all([self.smiles, self.iupac_name]):
+            raise ValidationError('Something went wrong')
+        super(Bioactive, self).save(*args, **kwargs)
+
+    def __str__(self):
+        if self.trade_name:
+            return '{} | {}'.format(self.trade_name, self.iupac_name)
+        return self.iupac_name

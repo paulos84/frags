@@ -1,8 +1,9 @@
-from django.views.generic import DeleteView, UpdateView
 from django.shortcuts import reverse, HttpResponseRedirect
+from django.views.generic import DeleteView
 
-from .odorant_list import BaseOdorantListView
-from compounds.models import Odorant, UserCompound
+from compounds.models import UserCompound
+from compounds.views.odorant.odorant_list import BaseOdorantListView
+
 
 # TODO if notes go beyond area use ... truncation
 

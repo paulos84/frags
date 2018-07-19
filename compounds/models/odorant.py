@@ -68,7 +68,7 @@ class Odorant(ChemDescriptorMixin, CompoundMixin, models.Model):
             self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
 
     def save(self, *args, **kwargs):
-        """ Runs validation logic and sets cid_number """
+        """ Runs validation logic and sets chemical properties data """
         self.set_chemical_data(identifier=self.cas_number)
         self.set_pcp_data()
         if not all([self.smiles, self.iupac_name]):

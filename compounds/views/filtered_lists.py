@@ -1,5 +1,5 @@
-from .odorant_list import BaseOdorantListView
 from compounds.models import Odorant, UserCompound
+from compounds.views.odorant.odorant_list import BaseOdorantListView
 
 
 class ChemFilterListView(BaseOdorantListView):

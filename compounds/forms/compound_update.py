@@ -5,17 +5,17 @@ from compounds.forms import OdorantCreateForm
 
 
 class BaseOdorantUpdateForm(forms.ModelForm):
-
-    """ Base form for updating Compound model instances """
-
+    """
+    Base form for updating Compound model instances
+    """
     iupac_name = forms.CharField(widget=forms.HiddenInput())
     cid_number = forms.CharField(widget=forms.HiddenInput())
 
 
 class OdorantUpdateForm(BaseOdorantUpdateForm):
-
-    """ Form for updating incomplete fields on Compound model instances """
-
+    """
+    Form for updating incomplete fields on Compound model instances
+    """
     cas_number = forms.CharField(widget=forms.HiddenInput())
     smiles = forms.CharField(widget=forms.HiddenInput())
 
@@ -39,9 +39,9 @@ class OdorantUpdateForm(BaseOdorantUpdateForm):
 
 
 class OdorantCompoundForm(BaseOdorantUpdateForm):
-
-    """ Form for updating all non-read-only fields on Compound model instances """
-
+    """
+    Form for updating all non-read-only fields on Compound model instances
+    """
     class Meta:
         model = Odorant
         fields = '__all__'

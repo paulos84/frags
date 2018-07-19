@@ -1,30 +1,16 @@
-from django.views.generic import UpdateView
-from django.utils import timezone
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
+from django.views.generic import UpdateView
 
 from compounds.models import Odorant
-from compounds.forms import OdorantUpdateForm, OdorantCompoundForm
+from compounds.forms import OdorantCompoundForm
 
 
-class OdorantUpdateView(UpdateView):
+class OdorantUpdateView(LoginRequiredMixin, UpdateView):
     model = Odorant
     form_class = OdorantCompoundForm
     template_name = 'odorants/odorant_update.html'
-    # success_url = "/accounts/profile/"
     context_object_name = 'compound'
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
-    # def form_valid(self, form):
-    #     if form.is_valid:
-    #         user = form.save()
-    #         user = authenticate(username=user.username, password=form.cleaned_data['password1'])
-    #         login(self.request, user)
-    #         return super(RegistrationView, self).form_valid(form)  # I still have no idea what this is
 
     def get_initial(self):
         cpd = self.get_object()

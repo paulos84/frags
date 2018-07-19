@@ -1,17 +1,36 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from compounds.models import Odorant, UserCompound, OdorType
-from compounds.views.base_compound_list import BaseCompoundListView
+from compounds.forms import OdorantSearchForm
 
 
-class BaseOdorantListView(BaseCompoundListView):
+class BaseOdorantListView(ListView):
     queryset = Odorant.objects.all()
     template_name = 'odorants/odorant_list.html'
+    paginate_by = 32
+
+    def get_queryset(self):
+        """
+        Provides logic for filtering based upon compound search GET requests
+        """
+        qs = super(BaseOdorantListView, self).get_queryset()
+        cas_number = self.request.GET.get('cas_number')
+        iupac_name = self.request.GET.get('iupac_name')
+        if cas_number:
+            qs = qs.filter(iupac_name__exact=cas_number)
+        elif iupac_name:
+            qs = qs.filter(Q(iupac_name__icontains=iupac_name) |
+                           Q(trade_name__icontains=iupac_name) |
+                           Q(chemical_properties__synonyms__icontains=iupac_name))
+        return qs
 
     def get_context_data(self, **kwargs):
-        context = super(BaseCompoundListView, self).get_context_data(**kwargs)
+        context = super(BaseOdorantListView, self).get_context_data(**kwargs)
         context['odor_types'] = OdorType.objects.values('term')
+        context['compound_search'] = OdorantSearchForm()
         return context
 
 

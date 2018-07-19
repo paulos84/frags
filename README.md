@@ -1,3 +1,13 @@
+Description of different models - compounds... distinguished
+by fields for different uses and different chemical identifies, e.g.
+CAS number of InChIKey identifiers, which are used to call REST
+services providing data. In general, smiles string as unique identifier
+ may be used for relatively simple molecules, whereas InChIkey must be used to
+ in cases of more complex molecules, where no compound matches found
+  for smiles.  smiles string is simpler, human-readable whereas InChIKey
+  requires use of more complicated algorithm.  But all share a number of properties,
+covered by mixins.
+
 
 The create compound form is the recommended way of adding new compounds
 to the database. Entering a registered CAS number for a

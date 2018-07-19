@@ -31,13 +31,9 @@ class UserSourcesListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = UserSource.objects.filter(compound=self.user_compound)
-        print(qs)
         return qs
 
     def get_context_data(self, **kwargs):
         context = super(UserSourcesListView, self).get_context_data(**kwargs)
         context['compound_search'] = OdorantSearchForm()
-        print(context)
         return context
-
-

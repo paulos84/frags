@@ -40,18 +40,16 @@ class UserLiteratureRefsForm(forms.Form):
 
 class UserSourcesForm(forms.ModelForm):
     compound = forms.ModelChoiceField(
-        queryset=Odorant.objects.all(),
+        queryset=UserCompound.objects.all(),
         widget=forms.HiddenInput(),
     )
 
     class Meta:
         model = UserSource
-        fields = ['webpage', 'price_info', 'compound']
+        fields = ['webpage', 'price_info', 'description', 'compound']
 
     def __init__(self, *args, **kwargs):
-        available_choices = kwargs.pop('lit_records')
-        super(UserLiteratureRefsForm, self).__init__(*args, **kwargs)
-        self.fields['lit_ref_numbers'].choices = [(a, '') for a in available_choices]
+        super(UserSourcesForm, self).__init__(*args, **kwargs)
 
 
 class SignupForm(UserCreationForm):

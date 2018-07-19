@@ -40,7 +40,7 @@ class LiteratureRefsView(TemplateView):
             model = Odorant
         self.compound = get_object_or_404(model, pk=kwargs.get('pk'))
         self.set_records(request)
-        return TemplateView.dispatch(self, request, *args, **kwargs)
+        return super(LiteratureRefsView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)

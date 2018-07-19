@@ -104,6 +104,15 @@
             <li><a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}">Aromatic carbonyls</a></li>
             </ul>
         </div>
+        <div class="btn-group" style="top:20px; ">
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" style="width: 170px;">
+            Odor categories<span class="caret"></span></button>
+             <ul class="dropdown-menu">
+            {% for obj in odor_types %}
+                <li><a href="{% url 'odorant-odor-type-filter' obj.term %}">{{ obj.term }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
       </div>
     </ul>
       {% if compound_search %}

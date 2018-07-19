@@ -65,9 +65,6 @@ class OdorantDetailView(FormMixin, DetailView):
             })
         return kwargs
 
-    def form_invalid(self, **kwargs):
-        return self.render_to_response(self.get_context_data(**kwargs))
-
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -96,9 +93,7 @@ class OdorantDetailView(FormMixin, DetailView):
             self.notes_object.save()
             return self.form_valid(form)
         else:
-            return self.form_invalid(**{form_name: form})
+            return self.form_invalid(**kwargs)
 
     def get_success_url(self):
         return reverse('odorant-detail', kwargs={'pk': self.object.pk})
-
-

@@ -53,7 +53,7 @@ class OdorTypeOdorantListView(BaseOdorantListView):
         return context
 
 
-class UserCompoundListView(LoginRequiredMixin, BaseOdorantListView):
+class UserOdorantListView(LoginRequiredMixin, BaseOdorantListView):
     template_name = 'odorants/user_odorant_list.html'
     context_object_name = 'compound_list'
 

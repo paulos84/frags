@@ -27,20 +27,26 @@
             <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
             <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compound</a>
         </div>
-      </ul>
-        <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
+        <div style=" position:relative;  margin-top: 12px; left:6px;">
                         <a href="{% url 'odorant-substructures' pk=odorant.pk %}">
                 <button style="width: 170px" type="button" class="btn btn-secondary">Substructure matches</button></a>
         </div>
-          </ul>
-        <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
+        <div style=" position:relative; margin-top: 12px; left:6px;">
                         <a href="{% url 'literature-references' pk=odorant.pk compound_type='odor-literature' %}">
                 <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
         </div>
-      </ul>
-
+      <div style=" position:relative;  margin-top: 12px; left:6px;">
+      {% if user.is_authenticated %}
+           <a href="{% url 'user-sources' pk=odorant.pk %}">
+               <button type="button" style="width: 170px" class="btn btn-secondary" style="color: #6aaf6a">
+               <span class="glyphicon glyphicon"></span>Commercial sources</button>
+           </a>
+        {% else %}
+            <button style="width: 170px" type="button" class="btn btn-secondary" disabled>
+                <span class="glyphicon glyphicon"></span>Commercial sources</button>
+        {% endif %}
+         </div>
+        </ul>
  {% endblock %}
 
 {% block content %}

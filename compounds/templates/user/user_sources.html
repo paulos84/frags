@@ -1,0 +1,27 @@
+{% extends "base_listview.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+{% if sources_list %}
+     <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
+        <ul style="list-style-type: none;">
+        {% for source in sources_list %}
+        <li>
+            <h5><strong>Link: </strong><a href="{{ source.webpage }}">{{ source.webpage|truncatechars:62 }}</a></h5>
+            {% if source.price %}
+              <h5><strong>Price info: </strong>  {{ source.price }}</h5>
+             {% endif %}
+            {% if source.description %}
+              <h5><strong>Description: </strong>  {{ source.description }}</h5>
+             {% endif %}
+        </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+         <p>Add sources using the form</p>
+    {% endif %}
+
+
+{% endblock %}

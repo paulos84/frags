@@ -13,10 +13,21 @@ from compounds.models.managers import BioactiveManager
 from compounds.models.profile import Profile
 
 
-class Bioactive(ChemDescriptorMixin, CompoundMixin, models.Model):
+class Bioactive(CompoundMixin, models.Model):
 
     """ A bioactive compound which can be uniquely identified through its InChIKey identifier and from
      which API queries can be made to obtain additional data """
+
+    cat_choices = (
+        (1, 'Medicinal compound'),
+        (2, 'Functional food ingredient'),
+        (3, 'Phytochemical'),
+        (4, 'Miscellaneous'),
+    )
+
+    category = models.IntegerField(
+        choices=cat_choices,
+    )
 
     inchikey = models.CharField(
         db_index=True,
@@ -25,7 +36,12 @@ class Bioactive(ChemDescriptorMixin, CompoundMixin, models.Model):
         verbose_name='InChIKey identifier',
         validators=[RegexValidator(r"^[A-Z]+(-[A-Z]+)*$", "String must be a valid InChIKey")],
     )
-    # User has a page where can view their own odorants entry list view
+    chemical_name = models.CharField(
+        max_length=200,
+        default='',
+        verbose_name='Chemical name',
+        blank=True,
+    )
     created_by = models.ForeignKey(
         Profile,
         related_name='bioactives',
@@ -38,15 +54,17 @@ class Bioactive(ChemDescriptorMixin, CompoundMixin, models.Model):
 
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets chemical properties data """
-        extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
-                                 'bond_stereo_count']
-        self.set_chemical_data(identifier=self.inchikey, additional=extra_chem_properties)
-        self.set_pcp_data()
-        if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong')
+        if not all([self.iupac_name, self.cid_number, self.chemical_properties]):
+            try:
+                pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
+            except (IndexError, pcp.BadRequestError):
+                raise ValidationError('Something went wrong A')
+            extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
+                                     'bond_stereo_count']
+            self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
+            self.set_chemical_data(pcp_query=pcp_data, additional=extra_chem_properties, set_name=True)
         super(Bioactive, self).save(*args, **kwargs)
 
     def __str__(self):
-        if self.trade_name:
-            return '{} | {}'.format(self.trade_name, self.iupac_name)
-        return self.iupac_name
+        return self.chemical_name if self.chemical_name else self.iupac_name
+

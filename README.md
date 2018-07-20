@@ -1,7 +1,8 @@
 Description of different models - compounds... distinguished
 by fields for different uses and different chemical identifies, e.g.
-CAS number of InChIKey identifiers, which are used to call REST
-services providing data. In general, smiles string as unique identifier
+CAS number of InChIKey identifiers, the pubchempy library provides
+certain chemical data by accessing resources via REST.
+. In general, smiles string as unique identifier
  may be used for relatively simple molecules, whereas InChIkey must be used to
  in cases of more complex molecules, where no compound matches found
   for smiles.  smiles string is simpler, human-readable whereas InChIKey
@@ -16,17 +17,10 @@ to auto-complete fields such as the IUPAC name field, as well as displaying
 the chemical structure. If the compound already exists in the database,
 the user is provided with a link to the detail view.
 
-From CAS numbers the SMILES notation string which representing the chemical
-structure is obtained from a request to CIRpy, a Python wrapper for an
-API which resolves chemical identities.
-The open-source cheminformatics toolkit RDKit is able to decode
-the SMILES string into a class representing a molecule.
 
-The models within the compounds app implement various levels of abstraction
-in representing molecules in order to support different use cases.
+User can serialize information they have recorded for individual compounds,
+to json or download a csv file.
 
-
-cirpy api to build smile
 
 load fixture data:
 

@@ -13,7 +13,7 @@ from compounds.models.managers import OdorantManager
 from compounds.models.profile import Profile
 
 
-class Odorant(ChemDescriptorMixin, CompoundMixin, models.Model):
+class Odorant(CompoundMixin, models.Model):
 
     """ Fragrance compound which can be uniquely identified through its registered CAS number and from
      which API queries can be made to obtain additional data """
@@ -24,6 +24,12 @@ class Odorant(ChemDescriptorMixin, CompoundMixin, models.Model):
         unique=True,
         verbose_name='CAS number',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
+    )
+    trade_name = models.CharField(
+        max_length=20,
+        default='',
+        verbose_name='Trade name',
+        blank=True,
     )
     odor_categories = models.ManyToManyField(
         'compounds.OdorType',
@@ -58,21 +64,17 @@ class Odorant(ChemDescriptorMixin, CompoundMixin, models.Model):
             synonyms = 'n/a'
         return synonyms
 
-    def set_pcp_data(self):
-        if not self.cid_number:
-            try:
-                self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
-            except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong B')
-        if not self.iupac_name:
-            self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
-
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets chemical properties data """
-        self.set_chemical_data(identifier=self.cas_number)
-        self.set_pcp_data()
-        if not all([self.smiles, self.iupac_name]):
-            raise ValidationError('Something went wrong')
+        required_fields = [self.iupac_name, self.cid_number, self.chemical_properties]
+        if not all(required_fields):
+            try:
+                pcp_data = pcp.get_compounds(self.smiles, 'smiles')[0]
+            except (IndexError, pcp.BadRequestError):
+                raise ValidationError('Something went wrong A')
+            self.set_chemical_data(pcp_query=pcp_data)
+        if not all(required_fields):
+            raise ValidationError('Something went wrong B')
         super(Odorant, self).save(*args, **kwargs)
 
     def __str__(self):

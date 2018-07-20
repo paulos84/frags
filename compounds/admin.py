@@ -3,10 +3,14 @@ from django.contrib import admin
 from compounds.models import Bioactive, Odorant, UserCompound, OdorType, Profile, Substructure, UserSource
 from compounds.forms.admin import SubstructureAdminForm
 
-#
-# @admin.register(Bioactive)
-# class BioactiveAdmin(admin.ModelAdmin):
-#     pass
+
+@admin.register(Bioactive)
+class BioactiveAdmin(admin.ModelAdmin):
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # editing an existing object
+            return self.readonly_fields + ('chemical_properties', 'cid_number', 'iupac_name', 'smiles', 'chemical_name')
+        return self.readonly_fields
 
 
 @admin.register(Odorant)

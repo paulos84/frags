@@ -9,6 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for a in Odorant.objects.all():
-            a.save()
-            sleep(3)
+            if not all([a.iupac_name, a.cid_number, a.chemical_properties]):
+                a.save()
+                sleep(3)
         self.stdout.write(self.style.SUCCESS('Completed updating compound instances'))

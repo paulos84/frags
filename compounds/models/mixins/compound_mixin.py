@@ -1,22 +1,36 @@
+from bs4 import BeautifulSoup
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.postgres.fields import JSONField
-import cirpy
-import pubchempy as pcp
+import requests
 
 
 class CompoundMixin(models.Model):
-    """ A mixin to provide fields which are common across various compound models """
-
-    chemical_properties = JSONField(
-        default=dict,
+    """
+    A mixin to provide fields which are common across various compound models and methods which set field data
+    """
+    smiles = models.CharField(
+        db_index=True,
+        max_length=100,
+        default='',
+        verbose_name='SMILES string',
+        blank=True,
+    )
+    iupac_name = models.CharField(
+        db_index=True,
+        max_length=500,
+        default='',
+        verbose_name='IUPAC name',
         editable=False,
         blank=True,
     )
-    trade_name = models.CharField(
-        max_length=20,
-        default='',
-        verbose_name='Trade name',
+    cid_number = models.IntegerField(
+        verbose_name='PubChem API CID number',
+        blank=True,
+    )
+    chemical_properties = JSONField(
+        default=dict,
+        editable=False,
         blank=True,
     )
 
@@ -28,26 +42,20 @@ class CompoundMixin(models.Model):
         if hasattr(self, 'cid_number'):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    def set_chemical_data(self, identifier=None, additional=None, pcp_query=None):
+    def set_chemical_data(self, pcp_query, additional=None, set_name=False):
         """
         Obtain and assign values to the chemical_properties field using data retrieved from API queries
         Args:
-            identifier ('obj'): model instance field whose value should be used in making API calls
-            pcp_query ('obj', optional): object returned from API query which contains data
+            pcp_query ('obj'): object returned from API query which contains data
             additional ('list', optional): additional chemical properties which are not set by default
+            set_name ('bool', optional): whether to call method which sets chemical_name field
         """
-        if not identifier or not self.chemical_properties:
-            if hasattr(self, 'inchikey') and identifier == self.inchikey:
-                pcp_query = pcp.get_compounds(identifier, 'inchikey')
-            elif hasattr(self, 'cas_number') and identifier == self.cas_number:
-                cirpy_query = cirpy.query(identifier, 'smiles')
-                if not cirpy_query:
-                    raise ValidationError('No compound matches CAS number')
-                self.smiles = cirpy_query[0].value
-                pcp_query = pcp.get_compounds(self.smiles, 'smiles')
-            if not pcp_query:
-                raise ValidationError('No compound match found')
-            self.chemical_properties = self.dict_from_query_object(pcp_query[0], additional)
+        self.cid_number = pcp_query.cid
+        self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
+        if set_name:
+            self.scrape_compound_name()
+        additional = additional if additional else []
+        self.chemical_properties = self.dict_from_query_object(pcp_query, additional=additional)
 
     def dict_from_query_object(self, pcp_data, additional):
         chem_dict = {a: getattr(pcp_data, b) for a, b in
@@ -62,3 +70,9 @@ class CompoundMixin(models.Model):
         chem_dict.update({k if k != 'rotable_bond_count' else 'rbc': int(getattr(pcp_data, k))
                           for k in additional if k in extra_available})
         return chem_dict
+
+    def scrape_compound_name(self):
+        url = 'https://pubchem.ncbi.nlm.nih.gov/compound/{}'.format(self.cid_number)
+        page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
+        soup = BeautifulSoup(page, 'lxml')
+        self.chemical_name = ''.join(soup.html.head.title).split(' | ')[0]

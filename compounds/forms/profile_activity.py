@@ -1,9 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.postgres.forms import SimpleArrayField
-
-from compounds.models import UserCompound, Odorant, Profile, UserSource
 
 
 class CompoundNotesForm(forms.Form):
@@ -36,20 +33,6 @@ class UserLiteratureRefsForm(forms.Form):
         available_choices = kwargs.pop('lit_records')
         super(UserLiteratureRefsForm, self).__init__(*args, **kwargs)
         self.fields['lit_ref_numbers'].choices = [(a, '') for a in available_choices]
-
-
-class UserSourcesForm(forms.ModelForm):
-    compound = forms.ModelChoiceField(
-        queryset=UserCompound.objects.all(),
-        widget=forms.HiddenInput(),
-    )
-
-    class Meta:
-        model = UserSource
-        fields = ['price', 'quantity', 'specification', 'supplier', 'product_number', 'url']
-
-    def __init__(self, *args, **kwargs):
-        super(UserSourcesForm, self).__init__(*args, **kwargs)
 
 
 class SignupForm(UserCreationForm):

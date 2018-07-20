@@ -5,7 +5,7 @@ from django.urls import path, re_path
 from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
                              CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
                              SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
-                             UserSourcesListView)
+                             UserSourceListView)
 from compounds.views.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
@@ -26,7 +26,7 @@ urlpatterns = [
     path('user/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserOdorantListView.as_view(), name='user-compound-list'),
     path('user/filter/<chem_type>', UserChemFilterListView.as_view(), name='user-chem-filter'),
-    path('user/sources/<int:pk>', UserSourcesListView.as_view(), name='user-sources'),
+    path('user/sources/<int:pk>', UserSourceListView.as_view(), name='user-sources'),
     path('filter/<chem_type>', ChemFilterListView.as_view(), name='chem-filter'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:

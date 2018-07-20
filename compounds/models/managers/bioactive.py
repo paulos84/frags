@@ -18,14 +18,14 @@ class BioactiveManager(models.Manager):
     def get_queryset(self):
         return super(BioactiveManager, self).get_queryset()
 
-    def heteroaromatics(self):
-        return self.get_queryset().heteroaromatics()
+    def medicinal(self):
+        return self.get_queryset().medicinal()
 
-    def aromatics(self):
-        return self.get_queryset().aromatics()
+    def func_food(self):
+        return self.get_queryset().func_food()
 
-    def aliphatics(self):
-        return self.get_queryset().aliphatics()
+    def phytochemical(self):
+        return self.get_queryset().phytochemical()
 
 
 #

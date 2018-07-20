@@ -9,13 +9,12 @@
         <ul style="list-style-type: none;">
         {% for source in sources_list %}
         <li>
-            <h5><strong>Link: </strong><a href="{{ source.webpage }}">{{ source.webpage|truncatechars:62 }}</a></h5>
-            {% if source.price %}
-              <h5><strong>Price info: </strong>  {{ source.price }}</h5>
-             {% endif %}
-            {% if source.description %}
-              <h5><strong>Description: </strong>  {{ source.description }}</h5>
-             {% endif %}
+            <h5><strong>Link: </strong><a href="{{ source.url }}">{{ source.url|truncatechars:62 }}</a></h5>
+            <h5><strong>Price: </strong>  {{ source.price }}</h5>
+            <h5><strong>Price: </strong>  {{ source.price }}</h5>
+            {% if source.specification %}
+              <h5><strong>Specification: </strong>  {{ source.specification }}</h5>
+            {% endif %}
         </li>
         {% endfor %}
         </ul>

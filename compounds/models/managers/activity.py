@@ -1,5 +1,6 @@
 from django.db import models
 
+# https://simpleisbetterthancomplex.com/tips/2016/08/16/django-tip-11-custom-manager-with-chainable-querysets.html
 
 class ActivityManager(models.Manager):
 

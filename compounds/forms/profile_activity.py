@@ -46,7 +46,7 @@ class UserSourcesForm(forms.ModelForm):
 
     class Meta:
         model = UserSource
-        fields = ['webpage', 'price_info', 'description', 'compound']
+        fields = ['price', 'quantity', 'specification', 'supplier', 'product_number', 'url']
 
     def __init__(self, *args, **kwargs):
         super(UserSourcesForm, self).__init__(*args, **kwargs)

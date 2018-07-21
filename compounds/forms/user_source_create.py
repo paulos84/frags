@@ -1,6 +1,22 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
-from compounds.models import UserOdorant, UserOdorantSource
+from compounds.models import UserOdorantSource
+
+
+def validate_file_extension(value):
+    if not value.name.endswith('.csv'):
+        raise ValidationError('Must be a csv file')
+
+
+class UserSourceCsvUploadForm(forms.Form):
+    csv_file = forms.FileField(
+        validators=[validate_file_extension],
+        required=False,
+    )
+    currency = forms.ChoiceField(
+        choices=UserOdorantSource.currency_choices,
+    )
 
 
 class UserOdorantSourceCreateForm(forms.ModelForm):
@@ -11,6 +27,7 @@ class UserOdorantSourceCreateForm(forms.ModelForm):
         labels = {
             'url': 'Webpage URL',
         }
+
 
 
 #

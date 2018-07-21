@@ -2,7 +2,7 @@ import re
 from bs4 import BeautifulSoup
 import requests
 
-from compounds.models import UserCompound
+from compounds.models import UserOdorant
 
 
 class FindLiterature:

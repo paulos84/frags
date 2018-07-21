@@ -4,11 +4,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.utils.functional import cached_property
-import cirpy
 import pubchempy as pcp
-from rdkit import Chem
 
-from compounds.models.mixins import ChemDescriptorMixin, CompoundMixin
+from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
 from compounds.models.profile import Profile
 

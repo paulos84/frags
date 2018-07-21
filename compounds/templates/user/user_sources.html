@@ -1,8 +1,31 @@
 {% extends "base_listview.html" %}
-
+{% load bootstrap3 %}
 {% load staticfiles %}
 
 {% block content %}
+
+
+ <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Journal</th>
+                <th>Article title</th>
+            </tr>
+        </thead>
+          <tbody>
+             {% for lit in literature %}
+            <tr>
+                <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
+                <td>{{ lit.date }}</td>
+                <td>{{ lit.source }}</td>
+                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
 
 {% if sources_list %}
      <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
@@ -22,6 +45,11 @@
      <p>Add sources using the form</p>
 {% endif %}
 
-{{ form }}
+    <form method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+    <button type="submit"  class="btn btn-primary" >
+        <span class="glyphicon glyphicon"></span>Submit</button>
+    </form>
 
 {% endblock %}

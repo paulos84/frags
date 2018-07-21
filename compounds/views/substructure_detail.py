@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 
-from compounds.models import Odorant, UserCompound, OdorType, Substructure
+from compounds.models import Odorant, UserOdorant, OdorType, Substructure
 from compounds.forms import OdorantSearchForm
 
 
@@ -47,7 +47,7 @@ class ChemFilterSubstructureDetail(SubstructureDetail):
 
 class UserSubstructureDetail(SubstructureDetail):
     def get_queryset(self):
-        notes_qs = UserCompound.objects.filter(user=self.request.user.profile).values('compound')
+        notes_qs = UserOdorant.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
             return Odorant.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]

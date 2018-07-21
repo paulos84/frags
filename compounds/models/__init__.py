@@ -3,8 +3,8 @@ from .odorant import Odorant
 from .odor_type import OdorType
 from .substructure import Substructure
 from .profile import Profile
-from .user_compound import UserCompound
-from .user_source import UserSource
+from .user_odorant import UserOdorant
+from .user_odorant_source import UserOdorantSource
 
 __all__ = [
     Bioactive,
@@ -12,6 +12,6 @@ __all__ = [
     OdorType,
     Profile,
     Substructure,
-    UserCompound,
-    UserSource,
+    UserOdorant,
+    UserOdorantSource,
     ]

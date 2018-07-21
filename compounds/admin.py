@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from compounds.models import Bioactive, Odorant, UserCompound, OdorType, Profile, Substructure, UserSource
+from compounds.models import Bioactive, Odorant, UserOdorant, OdorType, Profile, Substructure, UserOdorantSource
 from compounds.forms.admin import SubstructureAdminForm
 
 
@@ -22,8 +22,8 @@ class OdorantAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
 
-@admin.register(UserCompound)
-class CompoundNotesAdmin(admin.ModelAdmin):
+@admin.register(UserOdorant)
+class UserOdorantAdmin(admin.ModelAdmin):
     pass
 
 
@@ -43,6 +43,6 @@ class SubstructureAdmin(admin.ModelAdmin):
     readonly_fields = ['iupac_name']
 
 
-@admin.register(UserSource)
-class UserSourcesAdmin(admin.ModelAdmin):
+@admin.register(UserOdorantSource)
+class UserOdorantSourceAdmin(admin.ModelAdmin):
     pass

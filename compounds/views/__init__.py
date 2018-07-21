@@ -2,7 +2,7 @@ from compounds.views.odorant.odorant_create import OdorantCreateView
 from compounds.views.odorant.odorant_list import (
     OdorantListView, OdorTypeOdorantListView, UserOdorantListView)
 from compounds.views.user.user_activity import UserCompoundNotesDeleteView
-from compounds.views.user.user_sources import UserSourceListView
+from compounds.views.user.user_sources import UserOdorantSourceListView
 from compounds.views.user.user_auth import signup
 from .filtered_lists import ChemFilterListView, UserChemFilterListView
 from .literature_refs import LiteratureRefsView

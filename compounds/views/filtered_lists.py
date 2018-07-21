@@ -1,4 +1,4 @@
-from compounds.models import Odorant, UserCompound
+from compounds.models import Odorant, UserOdorant
 from compounds.views.odorant.odorant_list import BaseOdorantListView
 
 
@@ -22,7 +22,7 @@ class UserChemFilterListView(ChemFilterListView):
     context_object_name = 'compound_list'
 
     def get_queryset(self):
-        notes_qs = UserCompound.objects.filter(user=self.request.user.profile).values('compound')
+        notes_qs = UserOdorant.objects.filter(user=self.request.user.profile).values('compound')
         if not notes_qs:
             return Odorant.objects.none()
         cpd_id_list = [a['compound'] for a in notes_qs]

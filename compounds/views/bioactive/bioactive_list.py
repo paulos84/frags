@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-from compounds.models import Bioactive, UserCompound
+from compounds.models import Bioactive, UserOdorant
 from compounds.views.base_compound_list import BaseCompoundListView
 
 

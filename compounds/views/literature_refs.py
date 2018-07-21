@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from compounds.forms import UserLiteratureRefsForm
-from compounds.models import Odorant, UserCompound
+from compounds.models import Odorant, UserOdorant
 from compounds.utils.find_literature import FindLiterature
 
 
@@ -21,11 +21,11 @@ class LiteratureRefsView(TemplateView):
         user_compound = None
         if request.user.is_authenticated:
             try:
-                user_compound = UserCompound.objects.get(
+                user_compound = UserOdorant.objects.get(
                     user=request.user.profile,
                     compound=self.compound
                 )
-            except UserCompound.DoesNotExist:
+            except UserOdorant.DoesNotExist:
                 user_compound = None
         records = FindLiterature(
             synonyms,
@@ -57,5 +57,5 @@ class LiteratureRefsView(TemplateView):
         )
         if form.is_valid():
             refs = form.cleaned_data['lit_ref_numbers']
-            UserCompound.lit_refs_actions(request, refs, self.compound)
+            UserOdorant.lit_refs_actions(request, refs, self.compound)
         return redirect(reverse('literature-references', args=[self.compound.pk, 'odor-literature']))

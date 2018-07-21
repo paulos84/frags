@@ -1,9 +1,14 @@
+from bs4 import BeautifulSoup
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.contrib.postgres.fields import JSONField
 from django.core.validators import RegexValidator
 
-# CSV import of .. price..amount..specification..weblink?
 
-class UserSource(models.Model):
+class UserCompoundSourceMixin(models.Model):
+    """
+    A mixin to provide fields which are common across various compound models and methods which set field data
+    """
 
     currency_choices = (
         ('USD', 'US Dollars'),
@@ -23,7 +28,7 @@ class UserSource(models.Model):
         max_length=3,
         choices=currency_choices,
         help_text='Currency code',
-        validators=[RegexValidator(r'\d+(?:-\d+)+', "Format must be e.g. USD")],
+        validators=[RegexValidator(r'(?<![A-Z])[A-Z]{3}(?![A-Z])', "Format must be e.g. USD")],
     )
     amount = models.FloatField(
         max_length=20,
@@ -49,9 +54,6 @@ class UserSource(models.Model):
         default='',
         blank=True,
     )
-    compound = models.ManyToManyField(
-        'compounds.UserCompound',
-        related_name='sources',
-        verbose_name='User compounds sources',
-    )
 
+    class Meta:
+        abstract = True

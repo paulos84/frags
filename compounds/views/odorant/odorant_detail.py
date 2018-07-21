@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 
-from compounds.models import Odorant, Substructure, UserCompound
+from compounds.models import Odorant, Substructure, UserOdorant
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
 
 
@@ -44,10 +44,10 @@ class OdorantDetailView(FormMixin, DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            self.notes_object = UserCompound.objects.get(user=self.request.user.profile, compound=self.get_object())
+            self.notes_object = UserOdorant.objects.get(user=self.request.user.profile, compound=self.get_object())
             context['user_notes'] = self.notes_object.notes
             context['user_notes_pk'] = self.notes_object.pk
-        except UserCompound.DoesNotExist:
+        except UserOdorant.DoesNotExist:
             context['user_notes'] = ''
 
     def get_initial(self):
@@ -85,7 +85,7 @@ class OdorantDetailView(FormMixin, DetailView):
             return HttpResponseRedirect(self.get_success_url())
         elif form.is_valid():
             if not self.notes_object:
-                self.notes_object, _ = UserCompound.objects.get_or_create(
+                self.notes_object, _ = UserOdorant.objects.get_or_create(
                     compound=self.get_object(),
                     user=self.request.user.profile,
                 )

@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 
-from compounds.models import Bioactive, UserCompound
+from compounds.models import Bioactive, UserOdorant
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
 from compounds.views.base_compound_list import BaseCompoundListView
 

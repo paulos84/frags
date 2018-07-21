@@ -4,43 +4,35 @@
 
 {% block content %}
 
-
- <table class="table">
+{% if sources_list %}
+         <table class="table">
         <thead>
             <tr>
-                <th></th>
-                <th>Date</th>
-                <th>Journal</th>
-                <th>Article title</th>
+                <th>Price</th>
+                <th>Amount (kg)</th>
+                <th>Specification</th>
+                <th>Supplier</th>
+                <th>Product number</th>
+                <th>Webpage</th>
             </tr>
         </thead>
           <tbody>
-             {% for lit in literature %}
-            <tr>
-                <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
-                <td>{{ lit.date }}</td>
-                <td>{{ lit.source }}</td>
-                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-
-{% if sources_list %}
-     <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
-        <ul style="list-style-type: none;">
         {% for source in sources_list %}
-        <li>
-            <h5><strong>Link: </strong><a href="{{ source.url }}">{{ source.url|truncatechars:62 }}</a></h5>
-            <h5><strong>Price: </strong>  {{ source.price }}</h5>
-            <h5><strong>Price: </strong>  {{ source.price }}</h5>
-            {% if source.specification %}
-              <h5><strong>Specification: </strong>  {{ source.specification }}</h5>
-            {% endif %}
-        </li>
+            <tr>
+                <td>{{ source.price }} {{ source.currency }} </td>
+                <td>{{ source.amount }}</td>
+                <td>{{ source.specification }}</td>
+                <td>{{ source.supplier }}</td>
+                <td>{{ source.product_number }}</td>
+                {% if source.url %}
+                     <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
         {% endfor %}
-        </ul>
+        </tbody>
+    </table>
 {% else %}
      <p>Add sources using the form</p>
 {% endif %}

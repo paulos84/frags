@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/mixins/user_compound.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/mixins/user_compound_source.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/migrations/0011_auto_20180721_0108.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/migrations/0012_auto_20180721_1149.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/migrations/0013_auto_20180721_1229.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/user_odorant.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/models/user_odorant_source.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/models/user_compound.py" afterPath="" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/forms/compound_update.py" afterPath="$PROJECT_DIR$/compounds/forms/odorant_update.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/user_source.py" afterPath="$PROJECT_DIR$/compounds/models/user_odorant.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/user_compound.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/user_compound.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/models/user_source.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/user_compound_source.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/admin.py" afterPath="$PROJECT_DIR$/compounds/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/__init__.py" afterPath="$PROJECT_DIR$/compounds/forms/__init__.py" />
@@ -15,7 +17,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/bioactive.py" afterPath="$PROJECT_DIR$/compounds/models/bioactive.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/mixins/__init__.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/chem_descriptor.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/user/user_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/user/user_sources.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/urls.py" afterPath="$PROJECT_DIR$/compounds/urls.py" />
@@ -76,7 +77,7 @@
       <file leaf-file-name="odorant_detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
+            <state relative-caret-position="460">
               <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
               <folding />
             </state>
@@ -86,19 +87,21 @@
       <file leaf-file-name="user_sources.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/compounds/templates/user/user_sources.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+            <state relative-caret-position="297">
+              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="literature_references.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/templates/literature_references.html">
+      <file leaf-file-name="user_source_create.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/forms/user_source_create.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="93" column="29" selection-start-line="89" selection-start-column="5" selection-end-line="108" selection-end-column="16" />
-              <folding />
+            <state relative-caret-position="297">
+              <caret line="9" column="102" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="102" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -313,6 +316,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="frags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compounds" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -912,16 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/forms/user_source_create.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/mixins/user_compound.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
@@ -958,6 +987,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_activity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_sources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-896">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/user_odorant.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -976,44 +1031,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_activity.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_sources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-896">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/templates/literature_references.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="93" column="29" selection-start-line="89" selection-start-column="5" selection-end-line="108" selection-end-column="16" />
+        <state relative-caret-position="2343">
+          <caret line="92" column="25" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/forms/user_source_create.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="9" column="102" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="102" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/templates/user/user_sources.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+        <state relative-caret-position="297">
+          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
           <folding />
         </state>
       </provider>

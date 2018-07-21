@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<div class="col-sm-10">
 {% if sources_list %}
          <table class="table">
         <thead>
@@ -36,12 +37,15 @@
 {% else %}
      <p>Add sources using the form</p>
 {% endif %}
-
-    <form method="post">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-    <button type="submit"  class="btn btn-primary" >
+    </div>
+    <div class="col-sm-5">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+      <button type="submit"  class="btn btn-primary" >
         <span class="glyphicon glyphicon"></span>Submit</button>
-    </form>
-
+      </form>
+    </div>
+    <div class="col-sm-5">
+        </div>
 {% endblock %}

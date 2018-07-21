@@ -27,7 +27,6 @@ class UserCompoundSourceMixin(models.Model):
     currency = models.CharField(
         max_length=3,
         choices=currency_choices,
-        help_text='Currency code',
         validators=[RegexValidator(r'(?<![A-Z])[A-Z]{3}(?![A-Z])', "Format must be e.g. USD")],
     )
     amount = models.FloatField(
@@ -36,13 +35,9 @@ class UserCompoundSourceMixin(models.Model):
     )
     specification = models.CharField(
         max_length=100,
-        default='',
-        blank=True,
     )
     supplier = models.CharField(
         max_length=50,
-        default='',
-        blank=True,
     )
     product_number = models.CharField(
         max_length=20,

@@ -8,6 +8,9 @@ class UserOdorantSourceCreateForm(forms.ModelForm):
     class Meta:
         model = UserOdorantSource
         fields = ['price', 'currency', 'amount', 'specification', 'supplier', 'product_number', 'url']
+        labels = {
+            'url': 'Webpage URL',
+        }
 
 
 #

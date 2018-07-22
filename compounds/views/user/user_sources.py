@@ -12,8 +12,6 @@ from compounds.forms import OdorantSearchForm, UserOdorantSourceCreateForm
 from compounds.forms import UserSourceCsvUploadForm
 from compounds.models import Odorant, UserOdorant, UserOdorantSource
 
-
-# tickbox to remove as for ...
 # TODO: make following into baseview for bioactive or userodorant...just override UserOdorant/UserOdorantSource - add variable e.g. self.model_name   so self.model_name.objects.get
 class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
     template_name = 'user/user_odorant_sources.html'

@@ -2,9 +2,8 @@
 {% load static %}
 {% load bootstrap3 %}
 
-
-
 {% block title %}<title>Add Odorant</title>{% endblock %}
+
 {% block head %}
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
@@ -12,6 +11,24 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
+
+{% block sidebar %}
+  {{ block.super }}
+      {% if compound_search %}
+        <div style=" position:relative; top: 34px ">
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Submit</button>
+              </div>
+            </div>
+        </form>
+        </div>
+      {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="col-sm-5 ">
     <h4 style="line-height: 35px;">Add new compound</h4>

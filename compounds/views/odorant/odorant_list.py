@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 
+from compounds.forms import OdorantSearchForm
 from compounds.models import Odorant, UserOdorant, OdorType
 from compounds.views.base_compound_list import BaseCompoundListView
 
@@ -11,6 +12,7 @@ class BaseOdorantListView(BaseCompoundListView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseCompoundListView, self).get_context_data(**kwargs)
+        context['compound_search'] = OdorantSearchForm()
         context['odor_types'] = OdorType.objects.values('term')
         return context
 

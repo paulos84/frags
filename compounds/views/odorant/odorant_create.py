@@ -1,11 +1,14 @@
+import re
+
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import redirect, reverse
 import cirpy
 import pubchempy as pcp
 
 from compounds.models import Odorant
-from compounds.forms import OdorantCreateForm
+from compounds.forms import OdorantCreateForm, OdorantSearchForm
 
 
 class OdorantCreateView(CreateView):
@@ -16,6 +19,21 @@ class OdorantCreateView(CreateView):
     def form_valid(self, form):
         form.instance.created_by = self.request.user.profile
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(OdorantCreateView, self).get_context_data(**kwargs)
+        context['compound_search'] = OdorantSearchForm()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        regex = re.compile('[^-a-z0-9]')
+        if request.GET.get('cas_number') or request.GET.get('iupac_name'):
+            return redirect(reverse(
+                'odorant-name-filter',
+                kwargs={'search_query': regex.sub('', request.GET.get('cas_number')) if request.GET.get('cas_number')
+                        else regex.sub('', request.GET.get('iupac_name').lower())})
+            )
+        return super(OdorantCreateView, self).get(request, *args, **kwargs)
 
 
 def process_cas(request):

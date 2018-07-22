@@ -52,7 +52,7 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 return self.form_valid(form)
             else:
                 return render_to_response(self.template_name, {'form': form})
-        if 'csv_upload' in request.POST:
+        if request.FILES.get('csv_file'):
             form = UserSourceCsvUploadForm(request.POST, request.FILES)
             if form.is_valid():
                 csv_file = request.FILES['csv_file']
@@ -60,9 +60,8 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 io_string = io.StringIO(decoded_file)
                 self.process_csv(io_string)
         if 'remove_source_ids' in request.POST:
-            remove_qs = UserOdorantSource.objects.filter(id__in=request.POST['remove_source_ids'])
-            for a in remove_qs:
-                a.delete()
+            UserOdorantSource.objects.filter(
+                id__in=request.POST.getlist('remove_source_ids')).delete()
         return redirect(self.get_success_url())
 
     def form_valid(self, form):

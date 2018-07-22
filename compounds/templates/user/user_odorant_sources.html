@@ -7,9 +7,12 @@
 {% if sources_list %}
 <div class="col-sm-10">
       <h4 style="position:relative; left: 10px">Current sources</h4>
+        <form method="post">
+        {% csrf_token %}
         <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>CCY</th>
                 <th>Price</th>
                 <th>Amount (kg)</th>
@@ -22,12 +25,13 @@
         <tbody>
         {% for source in sources_list %}
             <tr>
-                <td style="width:30px">{{ source.currency }}</td>
+                <td><input type="checkbox" name="remove_source_ids" value="{{ source.id }}"></td>
+                <td style="width:40px">{{ source.currency }}</td>
                 <td>{{ source.price }}</td>
                 <td>{{ source.amount }}</td>
                 <td>{{ source.specification|truncatechars:50 }}</td>
-                <td>{{ source.supplier }}</td>
-                <td>{{ source.product_number }}</td>
+                <td>{{ source.supplier|truncatechars:25 }}</td>
+                <td>{{ source.product_number|truncatechars:20 }}</td>
                 {% if source.url %}
                      <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
                 {% else %}
@@ -37,16 +41,17 @@
         {% endfor %}
         </tbody>
     </table>
+        <button name="remove_sources" type="submit" class="btn btn-primary">
+           <span class="glyphicon glyphicon"></span>Remove</button>
+        </form>
 </div>
 {% endif %}
-<div class="col-sm-2">
-</div>
 <div class="col-sm-5">
     <h4 style="position:relative; left: 10px">Add source</h4>
     <form method="post">
       {% csrf_token %}
       {% bootstrap_form form %}
-      <button type="submit"  name="add_source" class="btn btn-primary" >
+      <button type="submit"  class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Submit</button>
     </form>
 </div>

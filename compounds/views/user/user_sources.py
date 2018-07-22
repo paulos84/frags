@@ -3,7 +3,7 @@ import io
 
 from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.urls import reverse
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
@@ -59,10 +59,11 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 decoded_file = csv_file.read().decode('utf-8')
                 io_string = io.StringIO(decoded_file)
                 self.process_csv(io_string)
-            return render_to_response(
-                    self.template_name,
-                    self.get_context_data(object_list=self.get_queryset()),
-                )
+        if 'remove_source_ids' in request.POST:
+            remove_qs = UserOdorantSource.objects.filter(id__in=request.POST['remove_source_ids'])
+            for a in remove_qs:
+                a.delete()
+        return redirect(self.get_success_url())
 
     def form_valid(self, form):
         if not self.user_compound:

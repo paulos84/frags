@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from compounds.models import UserOdorantSource
 
@@ -12,6 +13,7 @@ def validate_file_extension(value):
 class UserSourceCsvUploadForm(forms.Form):
     csv_file = forms.FileField(
         validators=[validate_file_extension],
+        help_text='Headers ordered as above, no currency',
         required=False,
     )
     currency = forms.ChoiceField(

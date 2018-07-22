@@ -2,8 +2,6 @@ from django.db import models
 
 from compounds.models.mixins import UserCompoundSourceMixin
 
-# CSV import of .. price..amount..specification..weblink?
-
 
 class UserOdorantSource(UserCompoundSourceMixin, models.Model):
 

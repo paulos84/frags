@@ -4,8 +4,8 @@
 
 {% block content %}
 
-{% if sources_list %}
-<div class="col-sm-10">
+
+<div class="col-sm-10" style="margin-bottom:18px; ">
       <h4 style="position:relative; left: 10px">Current sources</h4>
         <form method="post">
         {% csrf_token %}
@@ -23,6 +23,7 @@
             </tr>
         </thead>
         <tbody>
+        {% if sources_list %}
         {% for source in sources_list %}
             <tr>
                 <td><input type="checkbox" name="remove_source_ids" value="{{ source.id }}"></td>
@@ -45,13 +46,19 @@
            <span class="glyphicon glyphicon"></span>Remove</button>
         </form>
 </div>
+{% else %}
+        <tr>
+          <td>No sources</td>
+        </tr>
+        </tbody>
+        </table>
 {% endif %}
 <div class="col-sm-5">
     <h4 style="position:relative; left: 10px">Add source</h4>
     <form method="post">
       {% csrf_token %}
       {% bootstrap_form form %}
-      <button type="submit"  class="btn btn-primary" >
+      <button type="submit" name="add_source" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Submit</button>
     </form>
 </div>

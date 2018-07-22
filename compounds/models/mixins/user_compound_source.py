@@ -1,7 +1,4 @@
-from bs4 import BeautifulSoup
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.contrib.postgres.fields import JSONField
 from django.core.validators import RegexValidator
 
 
@@ -11,6 +8,7 @@ class UserCompoundSourceMixin(models.Model):
     """
 
     currency_choices = (
+        ('', ''),
         ('USD', 'US Dollars'),
         ('HKD', 'Hong Kong Dollar'),
         ('CNY', 'Chinese Yuan'),
@@ -28,6 +26,8 @@ class UserCompoundSourceMixin(models.Model):
         max_length=3,
         choices=currency_choices,
         validators=[RegexValidator(r'(?<![A-Z])[A-Z]{3}(?![A-Z])', "Format must be e.g. USD")],
+        blank=True,
+        default='',
     )
     amount = models.FloatField(
         max_length=20,

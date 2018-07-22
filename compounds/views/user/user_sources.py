@@ -92,7 +92,10 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                     compound=self.odorant,
                     user=self.request.user.profile
                 )
-            row_dict['user_compound'] = self.user_compound
+            row_dict.update({
+                'user_compound': self.user_compound,
+                'currency': self.request.POST.get('currency', '')
+            })
             try:
                 UserOdorantSource.objects.create(**row_dict)
             except IntegrityError:

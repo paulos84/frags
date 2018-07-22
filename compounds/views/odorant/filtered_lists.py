@@ -7,13 +7,13 @@ from compounds.views.odorant.odorant_list import BaseOdorantListView
 class OdorantSearchFilterListView(BaseOdorantListView):
 
     def dispatch(self, request, *args, **kwargs):
-        print(kwargs.get('search_query'))
-        print(kwargs.get('search_query')[0].isnumeric)
         try:
-            cas = True if kwargs.get('search_query')[0].isnumeric() and \
-                          kwargs.get('search_query')[1].isnumeric() else False
+            cas = True if kwargs.get('search_query')[0][0].isnumeric() and \
+                          kwargs.get('search_query')[0][1].isnumeric() else False
             if cas:
+                print(333343)
                 obj_id = Odorant.objects.get(cas_number=kwargs.get('search_query')).id
+                print(obj_id)
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
             self.queryset = Odorant.objects.filter(
                 iupac_name__contains=kwargs.get('search_query'))

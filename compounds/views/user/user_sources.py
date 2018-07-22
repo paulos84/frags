@@ -1,6 +1,7 @@
 import csv
 import io
 
+from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render_to_response
 from django.urls import reverse
@@ -26,16 +27,14 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
         try:
             self.user_compound = UserOdorant.objects.get(
                 user=request.user.profile,
-                compound_id=kwargs['pk']
+                compound=self.odorant
             )
         except UserOdorant.DoesNotExist:
             pass
         return super(UserOdorantSourceListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        qs = UserOdorantSource.objects.filter(
-            compound=self.user_compound,
-            user=self.request.user.profile)
+        qs = UserOdorantSource.objects.filter(user_compound=self.user_compound)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -59,17 +58,19 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 csv_file = request.FILES['csv_file']
                 decoded_file = csv_file.read().decode('utf-8')
                 io_string = io.StringIO(decoded_file)
-                df = self.process_csv(io_string)
-                print(df)
-            else:
-                return render_to_response(
+                self.process_csv(io_string)
+            return render_to_response(
                     self.template_name,
                     self.get_context_data(object_list=self.get_queryset()),
                 )
 
     def form_valid(self, form):
-        form.instance.odorant = self.odorant
-        form.instance.user = self.request.user.profile
+        if not self.user_compound:
+            self.user_compound = UserOdorant.objects.create(
+                compound=self.odorant,
+                user=self.request.user.profile
+            )
+        form.instance.user_compound = self.user_compound
         form.instance.save()
         return super(UserOdorantSourceListView, self).form_valid(form)
 
@@ -77,15 +78,23 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
         return reverse('user-odorant-sources', kwargs={'pk': self.kwargs['pk']})
 
     def process_csv(self, file):
-        # df = pd.read_csv(file)
-        # data_dict = df[0:10].to_dict(orient='records')
-        # for a in data_dict:
-        #     try:
-        #         UserOdorantSource.objects.create(**a)
-        #
-        #
-        #         if
-
         reader = csv.reader(file)
-        df = [a for a in reader]
-        return df
+        for row in list(reader)[1:10]:
+            try:
+                row_values = [round(float(row[0]), 2),  float(row[1])] + [a for a in row[2:6]]
+            except (ValueError, IndexError):
+                continue
+            # noinspection PyTypeChecker
+            row_values = row_values + [''] * (6 - len(row_values))
+            row_dict = dict(zip(['price', 'amount', 'specification', 'supplier', 'product_number', 'url'], row_values))
+            if not self.user_compound:
+                self.user_compound = UserOdorant.objects.create(
+                    compound=self.odorant,
+                    user=self.request.user.profile
+                )
+            row_dict['user_compound'] = self.user_compound
+            try:
+                UserOdorantSource.objects.create(**row_dict)
+            except IntegrityError:
+                pass
+

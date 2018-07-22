@@ -10,6 +10,7 @@
         <table class="table">
         <thead>
             <tr>
+                <th>CCY</th>
                 <th>Price</th>
                 <th>Amount (kg)</th>
                 <th>Specification</th>
@@ -21,9 +22,10 @@
         <tbody>
         {% for source in sources_list %}
             <tr>
-                <td>{{ source.price }} {{ source.currency }} </td>
+                <td style="width:30px">{{ source.currency }}</td>
+                <td>{{ source.price }}</td>
                 <td>{{ source.amount }}</td>
-                <td>{{ source.specification }}</td>
+                <td>{{ source.specification|truncatechars:50 }}</td>
                 <td>{{ source.supplier }}</td>
                 <td>{{ source.product_number }}</td>
                 {% if source.url %}
@@ -37,7 +39,8 @@
     </table>
 </div>
 {% endif %}
-
+<div class="col-sm-2">
+</div>
 <div class="col-sm-5">
     <h4 style="position:relative; left: 10px">Add source</h4>
     <form method="post">

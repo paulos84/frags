@@ -34,6 +34,9 @@
           <option value="compounds.models.usernotes.UserNotes.*" />
           <option value="compounds.models.profile.Profile.*" />
           <option value="compounds.views.compound_list.BaseCompoundListView.*" />
+          <option value="compounds.models.user_odorant.UserOdorant.*" />
+          <option value="compounds.views.user.user_sources.UserOdorantSourceListView.*" />
+          <option value="compounds.models.user_odorant_source.UserOdorantSource.*" />
         </list>
       </option>
     </inspection_tool>

@@ -7,13 +7,11 @@ from compounds.models.mixins import UserCompoundSourceMixin
 
 class UserOdorantSource(UserCompoundSourceMixin, models.Model):
 
-    compound = models.ManyToManyField(
+    user_compound = models.ForeignKey(
         'compounds.UserOdorant',
-        related_name='odorant_sources',
-        verbose_name='User odorant compound sources',
-    )
-    user = models.ForeignKey(
-        'compounds.Profile',
         on_delete=models.CASCADE,
         blank=True,
     )
+
+    def __str__(self):
+        return 'Commercial source for {}'.format(self.user_compound)

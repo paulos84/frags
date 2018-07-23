@@ -2,9 +2,10 @@ from django.views.generic import ListView
 from django.db.models import Q
 
 from compounds.forms import OdorantSearchForm
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class BaseCompoundListView(ListView):
+class BaseCompoundListView(SearchFilterMixin, ListView):
     paginate_by = 32
 
     def get_queryset(self):

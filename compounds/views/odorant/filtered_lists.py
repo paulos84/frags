@@ -7,17 +7,16 @@ from compounds.views.odorant.odorant_list import BaseOdorantListView
 class OdorantSearchFilterListView(BaseOdorantListView):
 
     def dispatch(self, request, *args, **kwargs):
+        search_query = kwargs.pop('search_query', '')
         try:
-            cas = True if kwargs.get('search_query')[0][0].isnumeric() and \
-                          kwargs.get('search_query')[0][1].isnumeric() else False
+            cas = True if search_query[0].isnumeric() and \
+                          search_query[1].isnumeric() else False
             if cas:
-                print(333343)
-                obj_id = Odorant.objects.get(cas_number=kwargs.get('search_query')).id
-                print(obj_id)
+                self.queryset = Odorant.objects.none()
+                obj_id = Odorant.objects.get(cas_number=search_query).id
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
             self.queryset = Odorant.objects.filter(
-                iupac_name__contains=kwargs.get('search_query'))
-            print(self.queryset)
+                iupac_name__contains=search_query)
         except (IndexError, Odorant.DoesNotExist):
             pass
         return super(OdorantSearchFilterListView, self).dispatch(request, *args, **kwargs)

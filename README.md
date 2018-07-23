@@ -22,6 +22,11 @@ User can serialize information they have recorded for individual compounds,
 to json or download a csv file.
 
 
+Dependencies...cirpy is used in cases where SMILES string needs to be
+resolved where a CAS number is used as the chemical identifier
+for pubchempy API queries.
+
+
 load fixture data:
 
     $ python manage.py loaddata odor.yaml

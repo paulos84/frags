@@ -7,9 +7,10 @@ from django.utils.decorators import method_decorator
 
 from compounds.models import Odorant, Substructure, UserOdorant
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class OdorantDetailView(FormMixin, DetailView):
+class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
     model = Odorant
     template_name = 'odorants/odorant_detail.html'
     form_class = CompoundNotesForm
@@ -19,18 +20,17 @@ class OdorantDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(OdorantDetailView, self).get_context_data(**kwargs)
         compound = self.get_object()
-        odor_types = compound.odor_categories.values_list('term')
-        context['odor_types'] = ', '.join([a[0] for a in odor_types])
-        context['synonyms'] = compound.synonyms
-        context['structure_url'] = compound.structure_url
-        context['substructures'] = Substructure.compound_matches(compound)
+        context.update(
+            {**{a: getattr(compound, a) for a in ['odor_types', 'synonyms', 'structure_url']},
+             **{'substructures': Substructure.compound_matches(compound)},
+             })
         if self.request.user.is_authenticated:
             self.add_profile_activity(context)
         if self.notes_object:
             context['form'] = self.form_class(
                 notes=self.notes_object.notes,
                 user_auth=True if self.request.user.is_authenticated else False
-                )
+            )
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):

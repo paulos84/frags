@@ -7,14 +7,14 @@ from django.views.generic import TemplateView
 from compounds.forms import UserLiteratureRefsForm
 from compounds.models import Odorant, UserOdorant
 from compounds.utils.find_literature import FindLiterature
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class LiteratureRefsView(TemplateView):
+class LiteratureRefsView(SearchFilterMixin, TemplateView):
     template_name = 'literature_references.html'
     compound = None
     lit_records = None
     user_records = None
-    # paginate_by = 14  ListView and paginated_by??
 
     def set_records(self, request):
         synonyms = self.compound.chemical_properties['synonyms']
@@ -43,7 +43,7 @@ class LiteratureRefsView(TemplateView):
         return super(LiteratureRefsView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = TemplateView.get_context_data(self, **kwargs)
+        context = super(LiteratureRefsView, self).get_context_data(**kwargs)
         context['literature'] = self.lit_records
         context['user_literature'] = self.user_records
         context['compound'] = self.compound

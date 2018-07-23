@@ -19,8 +19,3 @@ class BaseCompoundListView(SearchFilterMixin, ListView):
                            Q(trade_name__icontains=iupac_name) |
                            Q(chemical_properties__synonyms__icontains=iupac_name))
         return qs
-
-    def get_context_data(self, **kwargs):
-        context = super(BaseCompoundListView, self).get_context_data(**kwargs)
-        context['compound_search'] = OdorantSearchForm()
-        return context

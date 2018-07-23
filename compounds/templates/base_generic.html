@@ -11,8 +11,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
      {% block head %}{% endblock %}
+
 </head>
+
+{% load bootstrap3 %}
+
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -26,7 +31,6 @@
       </button>
       <a class="navbar-brand" href="#">Brand</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -79,6 +83,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
 {% block sidebar %}
    <div class="container-fluid">
     <div class="row">
@@ -90,7 +95,21 @@
             <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
         </div>
       </ul>
+    {% if compound_search %}
+    <div style=" position:relative; top: 34px ">
+    <form method="get" >
+        <div class="well">
+          <div class="row">
+            {% bootstrap_form compound_search %}
+            <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+              </span>Submit</button>
+          </div>
+        </div>
+    </form>
+    </div>
+    {% endif %}
  {% endblock %}
+
       </div>
       <div class="col-sm-10 ">
       {% block content %}{% endblock %}
@@ -111,8 +130,11 @@
               </div>
           {% endif %}
         {% endblock %}
+
       </div>
     </div>
+      </div>
     {% block js %}{% endblock %}
+
   </body>
 </html>

@@ -8,9 +8,10 @@ from django.views import generic
 from compounds.models import Odorant, Substructure, OdorType
 from compounds.forms import ChemDataChoiceForm
 from compounds.utils.general import chemical_properties_label_map
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class SubstructureListView(generic.ListView):
+class SubstructureListView(SearchFilterMixin, generic.ListView):
     queryset = Substructure.objects.all()
     template_name = 'odorants/substructure_list.html'
 

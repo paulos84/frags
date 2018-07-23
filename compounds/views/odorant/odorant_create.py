@@ -9,9 +9,10 @@ import pubchempy as pcp
 
 from compounds.models import Odorant
 from compounds.forms import OdorantCreateForm, OdorantSearchForm
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class OdorantCreateView(CreateView):
+class OdorantCreateView(SearchFilterMixin, CreateView):
     model = Odorant
     form_class = OdorantCreateForm
     template_name = 'odorants/create_odorant.html'
@@ -24,16 +25,6 @@ class OdorantCreateView(CreateView):
         context = super(OdorantCreateView, self).get_context_data(**kwargs)
         context['compound_search'] = OdorantSearchForm()
         return context
-
-    def get(self, request, *args, **kwargs):
-        regex = re.compile('[^-a-z0-9]')
-        if request.GET.get('cas_number') or request.GET.get('iupac_name'):
-            return redirect(reverse(
-                'odorant-name-filter',
-                kwargs={'search_query': regex.sub('', request.GET.get('cas_number')) if request.GET.get('cas_number')
-                        else regex.sub('', request.GET.get('iupac_name').lower())})
-            )
-        return super(OdorantCreateView, self).get(request, *args, **kwargs)
 
 
 def process_cas(request):

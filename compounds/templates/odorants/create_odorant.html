@@ -12,23 +12,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
-{% block sidebar %}
-  {{ block.super }}
-      {% if compound_search %}
-        <div style=" position:relative; top: 34px ">
-        <form method="get" >
-            <div class="well">
-              <div class="row">
-                {% bootstrap_form compound_search %}
-                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
-                  </span>Submit</button>
-              </div>
-            </div>
-        </form>
-        </div>
-      {% endif %}
-{% endblock %}
-
 {% block content %}
   <div class="col-sm-5 ">
     <h4 style="line-height: 35px;">Add new compound</h4>

@@ -4,9 +4,10 @@ from django.views.generic.detail import SingleObjectMixin
 
 from compounds.models import Odorant, UserOdorant, OdorType, Substructure
 from compounds.forms import OdorantSearchForm
+from compounds.views.mixins.search_filter import SearchFilterMixin
 
 
-class SubstructureDetail(SingleObjectMixin, ListView):
+class SubstructureDetail(SearchFilterMixin, SingleObjectMixin, ListView):
     paginate_by = 14
     template_name = "odorants/substructure_detail.html"
 

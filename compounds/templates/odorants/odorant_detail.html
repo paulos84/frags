@@ -47,6 +47,19 @@
         {% endif %}
          </div>
         </ul>
+        {% if compound_search %}
+        <div style=" position:relative; top: 34px ">
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Submit</button>
+              </div>
+            </div>
+        </form>
+        </div>
+        {% endif %}
  {% endblock %}
 
 {% block content %}

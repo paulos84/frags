@@ -3,7 +3,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
-from django.utils.functional import cached_property
 import pubchempy as pcp
 from rdkit import Chem
 
@@ -53,7 +52,12 @@ class Odorant(CompoundMixin, models.Model):
 
     objects = OdorantManager()
 
-    @cached_property
+    @property
+    def odor_types(self):
+        odor_types = self.odor_categories.values_list('term')
+        return ', '.join([a[0] for a in odor_types])
+
+    @property
     def synonyms(self):
         if self.chemical_properties.get('synonyms'):
             return self.chemical_properties.get('synonyms')

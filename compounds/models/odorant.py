@@ -57,16 +57,6 @@ class Odorant(CompoundMixin, models.Model):
         odor_types = self.odor_categories.values_list('term')
         return ', '.join([a[0] for a in odor_types])
 
-    @property
-    def synonyms(self):
-        if self.chemical_properties.get('synonyms'):
-            return self.chemical_properties.get('synonyms')
-        try:
-            synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:5])
-        except IndexError:
-            synonyms = 'n/a'
-        return synonyms
-
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets chemical properties data """
         required_fields = [self.iupac_name, self.cid_number, self.chemical_properties]

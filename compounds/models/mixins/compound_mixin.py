@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.contrib.postgres.fields import JSONField
+import pubchempy as pcp
 import requests
 
 
@@ -36,6 +36,16 @@ class CompoundMixin(models.Model):
 
     class Meta:
         abstract = True
+
+    @property
+    def synonyms(self):
+        if self.chemical_properties.get('synonyms'):
+            return self.chemical_properties.get('synonyms')
+        try:
+            synonyms = ', '.join(pcp.get_compounds(self.cid_number)[0].synonyms[:5])
+        except IndexError:
+            synonyms = 'n/a'
+        return synonyms
 
     @property
     def structure_url(self):

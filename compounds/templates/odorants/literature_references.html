@@ -1,0 +1,134 @@
+{% extends "base_bioactive_generic.html" %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block title %}
+    <title>Literature references</title>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+       <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
+        </div>
+      </ul>
+      <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Fragrance compounds</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
+            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compound</a>
+        </div>
+      </ul>
+        <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+                        <a href="{% url 'odorant-substructures' pk=compound.pk %}">
+                <button style="width: 170px" type="button" class="btn btn-secondary">Substructure matches</button></a>
+        </div>
+          </ul>
+        <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+                        <a href="{% url 'literature-references' pk=compound.pk compound_type='odorant' %}">
+                <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
+        </div>
+        {% if compound_search %}
+        <div style=" position:relative; top: 34px ">
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Submit</button>
+              </div>
+            </div>
+        </form>
+        </div>
+        {% endif %}
+      </ul>
+{% endblock %}
+
+{% block content %}
+        <ul class="breadcrumb" style="background-color: transparent;">
+          <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+          <li><a class="breadcrumb-item" href="{% url 'substructures' %}">All fragrance compounds</a></li>
+          <li><a class="breadcrumb-item" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:36  }}</a></li>
+          <li><a class="breadcrumb-item active" href="{% url 'literature-references' pk=compound.pk compound_type='odorant' %}">Literature references</a></li>
+        </ul>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <div class="alert alert-success">
+                Selected references saved
+                </div>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    <h5>{{ compound }}</h5>
+   {% if request.user.is_authenticated and user_literature %}
+      <form method="post" novalidate>
+     {% csrf_token %}
+                <div style="margin-top:28px">
+      <table class="table">
+        <thead>
+            <tr>
+                <tr><strong>Saved articles</strong></tr>
+            </tr>
+        </thead>
+          <tbody>
+             {% for lit in user_literature %}
+            <tr>
+                <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
+                <td>{{ lit.date }}</td>
+                <td>{{ lit.source }}</td>
+                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          </div>
+               <button style="margin-bottom:38px" name="remove_refs" type="submit" class="btn btn-primary">
+               <span class="glyphicon glyphicon"></span>Remove articles</button>
+         {% endif %}
+      </form>
+    {% if literature %}
+     <form method="post">
+     {% csrf_token %}
+      <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Journal</th>
+                <th>Article title</th>
+            </tr>
+        </thead>
+          <tbody>
+             {% for lit in literature %}
+            <tr>
+                <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
+                <td>{{ lit.date }}</td>
+                <td>{{ lit.source }}</td>
+                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          {% if user.is_authenticated %}
+               <button name="save_refs" type="submit" class="btn btn-primary">
+               <span class="glyphicon glyphicon"></span>Save articles</button>
+         {% else %}
+            <button name="remove_ref" class="btn btn-primary" disabled>
+            <span class="glyphicon glyphicon"></span>Save articles</button>
+         {% endif %}
+      </form>
+    {% else %}
+      <h5>No literature references found for this compound</h5>
+    {% endif %}
+{% endblock %}

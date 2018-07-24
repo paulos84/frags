@@ -3,10 +3,10 @@ from django.db import models
 from compounds.models.mixins import UserCompoundMixin
 
 
-class UserOdorant(UserCompoundMixin, models.Model):
+class UserBioactive(UserCompoundMixin, models.Model):
 
     compound = models.ForeignKey(
-        'compounds.Odorant',
+        'compounds.Bioactive',
         on_delete=models.CASCADE,
         blank=True,
     )

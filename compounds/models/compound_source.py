@@ -7,6 +7,13 @@ class CompoundSource(models.Model):
     user_odorant = models.ForeignKey(
         'compounds.UserOdorant',
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    user_bioactive = models.ForeignKey(
+        'compounds.UserBioactive',
+        on_delete=models.CASCADE,
+        null=True,
         blank=True,
     )
     currency_choices = (

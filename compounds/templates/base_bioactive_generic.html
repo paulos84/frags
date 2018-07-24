@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Add additional CSS in static file  -->
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block title %}<title>Bioactive Compounds</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+     {% block head %}{% endblock %}
+
+</head>
+
+{% load bootstrap3 %}
+
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'api_docs' %}">API</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      {% if not user.is_authenticated %}
+        <form method="post" action="{% url 'login' %}" class="navbar-form navbar-left">
+        <div class="form-group">
+            <form >
+                {% csrf_token %}
+                <input class="form-control" id="id_username" type="text" placeholder="Username" name="username" maxlength="30" />
+                <input class="form-control" type="password" name="password" placeholder="Password" id="id_password" />
+                <input type="submit" class="btn btn-default" value="Log in" />
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+            </form>
+        </div>
+      {% else %}
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+          <a href="{% url 'logout' %}?next={% url 'index' %}" class="btn btn-default">Logout</a>
+                </div>
+            </div>
+      {% endif %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+{% block sidebar %}
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+      <ul class="sidebar-nav">
+        <div style=" position:relative; left:6px;">
+            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
+            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructures</a>
+            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
+        </div>
+      </ul>
+    {% if compound_search %}
+    <div style=" position:relative; top: 34px ">
+    <form method="get" >
+        <div class="well">
+          <div class="row">
+            {% bootstrap_form compound_search %}
+            <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+              </span>Submit</button>
+          </div>
+        </div>
+    </form>
+    </div>
+    {% endif %}
+ {% endblock %}
+
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+        {% block pagination %}
+          {% if is_paginated %}
+              <div class="pagination">
+                  <span class="page-links">
+                      {% if page_obj.has_previous %}
+                          <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                      {% endif %}
+                      <span class="page-current">
+                          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                      </span>
+                      {% if page_obj.has_next %}
+                          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                      {% endif %}
+                  </span>
+              </div>
+          {% endif %}
+        {% endblock %}
+
+      </div>
+    </div>
+      </div>
+    {% block js %}{% endblock %}
+
+  </body>
+</html>

@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_odorant_listview.html" %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block content %}
+<div class="col-sm-10">
+    {% if bioactive_list %}
+        <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
+        <ul style="list-style-type: none;">
+        {% for bioactive in bioactive_list %}
+        <li>
+            <table>
+            <tr>
+                <th>
+                    <img class="structure-img" src={{ bioactive.structure_url }}
+                         title="{{ bioactive.iupac_name }}"  height="100" width="100">
+                </th>
+                <td>
+                    <div style=" position:relative; left:7px; width: 440px">
+                    <a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a>
+                    </div>
+                </td>
+                <td style=" text-align:right; margin-left: 16px; color: grey ">
+                        {{ bioactive.chemical_properties.synonyms|truncatechars:50 }}
+                   </td>
+            </tr>
+            </table>
+        </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+         <p style="margin-top:28px">No compounds matched this query</p>
+    {% endif %}
+</div>
+{% endblock %}

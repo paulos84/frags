@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
 <!-- Add additional CSS in static file  -->
+{% load bootstrap3 %}
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{% block title %}<title>Fragrance Compounds</title>{% endblock %}
+
+{% block title %}<title>Bioactive Compounds</title>{% endblock %}
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 {% block head %}{% endblock %}
+
 </head>
-{% load bootstrap3 %}
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -104,13 +108,13 @@
             <li><a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}">Aromatic carbonyls</a></li>
             </ul>
         </div>
-        <div class="btn-group" style="top:20px; ">
-            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" style="width: 170px;">
-            Odor categories<span class="caret"></span></button>
-             <ul class="dropdown-menu">
-            {% for obj in odor_types %}
-                <li><a href="{% url 'odorant-odor-type-filter' obj.term %}">{{ obj.term }}</a></li>
-            {% endfor %}
+            <div class="btn-group" style="top:20px; ">
+            <button type="button" data-toggle="dropdown" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
+                Bioactive compounds<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            <li><a href="{% url 'bioactive-list' category='1' %}">Medicinal</a></li>
+            <li><a href="{% url 'bioactive-list' category='2' %}">Functional food</a></li>
+            <li><a href="{% url 'bioactive-list' category='3' %}">Miscellaneous</a></li>
             </ul>
         </div>
       </div>
@@ -131,11 +135,9 @@
       </div>
 {% endblock %}
 
-{% block breadcrumb %}
-{% endblock %}
-
 {% block content %}
 {% endblock %}
+
 {% block pagination %}
  {% if is_paginated %}
   <ul class="pagination" style="float:right; margin-right:80px">
@@ -159,8 +161,11 @@
   </ul>
 {% endif %}
 {% endblock %}
+
   </div>
     </div>
+
 {% block js %}{% endblock %}
+
   </body>
 </html>

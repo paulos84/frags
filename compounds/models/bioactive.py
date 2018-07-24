@@ -19,8 +19,7 @@ class Bioactive(CompoundMixin, models.Model):
     cat_choices = (
         (1, 'Medicinal compound'),
         (2, 'Functional food ingredient'),
-        (3, 'Phytochemical'),
-        (4, 'Miscellaneous'),
+        (3, 'Miscellaneous'),
     )
 
     category = models.IntegerField(
@@ -66,3 +65,8 @@ class Bioactive(CompoundMixin, models.Model):
     def __str__(self):
         return self.chemical_name if self.chemical_name else self.iupac_name
 
+    def get_absolute_url(self):
+        return reverse(
+            'bioactive-detail',
+            args=[str(self.pk)],
+        )

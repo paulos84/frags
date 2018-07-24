@@ -1,13 +1,13 @@
+from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-from compounds.models import Bioactive, UserOdorant
-from compounds.views.base_compound_list import BaseCompoundListView
+
+from compounds.models import Bioactive
 
 
-class BaseBioactiveListView(BaseCompoundListView):
+class BaseBioactiveListView(ListView):
     queryset = Bioactive.objects.all()
-    template_name = 'odorants/odorant_list.html'
     paginate_by = 32
 
     def get_context_data(self, **kwargs):
@@ -17,35 +17,33 @@ class BaseBioactiveListView(BaseCompoundListView):
         return context
 
 
+# BioactiveSearchForm make mixin as for odorants
+
 class BioactiveListView(BaseBioactiveListView):
-    usage_type = None
-
-    def dispatch(self, request, *args, **kwargs):
-        self.usage_type = kwargs['usage']
-        return super(BioactiveListView, self).dispatch(request, *args, **kwargs)
-
-    # SET A USAGE_TYPE CHOICES INTFIELD ON MODEL AND USE THIS PROPERTY TO FILTER (STILL USE DISPATCH/KWARG?)
+    template_name = 'bioactives/bioactive_list.html'
+    context_object_name = 'bioactive_list'
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveListView, self).get_context_data(**kwargs)
         # context['odor_types'] = OdorType.objects.values('term')
         # some other category...e.g. func food, medicinal,
+        context['page_header'] = Bioactive.cat_choices[self.kwargs['category']-1][1] + 's'
         return context
 
     def get_queryset(self):
         queryset = super(BioactiveListView, self).get_queryset()
-        # filter based upon usage_type set with kwargs in dispatch
+        queryset.filter(category=self.kwargs.get('category'))
         return queryset
 
 
 class UserBioactiveListView(LoginRequiredMixin, BaseBioactiveListView):
     template_name = 'odorants/user_odorant_list.html'
     context_object_name = 'compound_list'
-    usage_type = None
+    category = None
 
     def get_queryset(self):
         queryset = super(UserBioactiveListView, self).get_queryset()
-        # filter based upon usage_type set with kwargs in dispatch
+        # filter based upon category set with kwargs in dispatch
         return queryset
 
     def get_context_data(self, **kwargs):

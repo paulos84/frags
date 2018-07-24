@@ -1,9 +1,6 @@
-import re
-
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect, reverse
 import cirpy
 import pubchempy as pcp
 

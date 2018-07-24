@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from compounds.models import UserOdorantSource
+from compounds.models import CompoundSource
 
 
 def validate_file_extension(value):
@@ -17,14 +17,14 @@ class UserSourceCsvUploadForm(forms.Form):
         required=False,
     )
     currency = forms.ChoiceField(
-        choices=UserOdorantSource.currency_choices,
+        choices=CompoundSource.currency_choices,
     )
 
 
 class UserOdorantSourceCreateForm(forms.ModelForm):
 
     class Meta:
-        model = UserOdorantSource
+        model = CompoundSource
         fields = ['price', 'currency', 'amount', 'specification', 'supplier', 'product_number', 'url']
         labels = {
             'url': 'Webpage URL',

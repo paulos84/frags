@@ -10,7 +10,7 @@ from django.views.generic.edit import FormMixin
 
 from compounds.forms import OdorantSearchForm, UserOdorantSourceCreateForm
 from compounds.forms import UserSourceCsvUploadForm
-from compounds.models import Odorant, UserOdorant, UserOdorantSource
+from compounds.models import Odorant, UserOdorant, CompoundSource
 
 # TODO: make following into baseview for bioactive or userodorant...just override UserOdorant/UserOdorantSource - add variable e.g. self.model_name   so self.model_name.objects.get
 class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
@@ -32,7 +32,7 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
         return super(UserOdorantSourceListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        qs = UserOdorantSource.objects.filter(user_compound=self.user_compound)
+        qs = CompoundSource.objects.filter(user_odorant=self.user_compound)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -43,7 +43,6 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-            # max number of lines: 10?
         if 'add_source' in request.POST:
             form = self.get_form()
             if form.is_valid():
@@ -58,7 +57,7 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 io_string = io.StringIO(decoded_file)
                 self.process_csv(io_string)
         if 'remove_source_ids' in request.POST:
-            UserOdorantSource.objects.filter(
+            CompoundSource.objects.filter(
                 id__in=request.POST.getlist('remove_source_ids')).delete()
         return redirect(self.get_success_url())
 
@@ -95,7 +94,7 @@ class UserOdorantSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 'currency': self.request.POST.get('currency', '')
             })
             try:
-                UserOdorantSource.objects.create(**row_dict)
+                CompoundSource.objects.create(**row_dict)
             except IntegrityError:
                 pass
 

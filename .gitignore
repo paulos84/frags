@@ -100,4 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
+# Notebook Checkpoints
+.ipynb_checkpoints/
+
 *.sqlite3

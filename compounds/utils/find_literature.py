@@ -1,12 +1,11 @@
 import re
+
 from bs4 import BeautifulSoup
 import requests
 
-from compounds.models import UserOdorant
-
 
 class FindLiterature:
-    """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
+    """ Create an instance and call its records method to return a dictionary of data for the query
     Args:
         synonyms (str): list of chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
         trade_name (:obj:'str', optional): compound trade name to search for
@@ -58,8 +57,11 @@ class FindLiterature:
             date = date.rsplit(' ', 1)[0]
         else:
             return None
+        title = self.result.get(ref).get('title').replace('&amp;', '').replace('i&amp;', '').replace(
+            '&lt;', '').replace('&gt;', '').replace('sp&amp;', '').replace('sub', '').replace('sup', '').replace(
+            '/', '')
         return {'id': ref,
-                'title': self.result.get(ref).get('title'),
+                'title': title,
                 'url': url,
                 'source': source,
                 'date': date}

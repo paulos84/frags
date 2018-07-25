@@ -87,7 +87,7 @@
                 <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
                 <td>{{ lit.date }}</td>
                 <td>{{ lit.source }}</td>
-                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+                <td><a href="{{ lit.url }}">{{ lit.title|striptags }}</a></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -115,7 +115,7 @@
                 <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
                 <td>{{ lit.date }}</td>
                 <td>{{ lit.source }}</td>
-                <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
+                <td><a href="{{ lit.url }}">{{ lit.title|striptags }}</a></td>
             </tr>
             {% endfor %}
           </tbody>

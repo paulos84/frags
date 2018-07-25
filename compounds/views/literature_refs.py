@@ -12,7 +12,7 @@ from compounds.views.mixins.search_filter import SearchFilterMixin
 
 class LiteratureRefsView(SearchFilterMixin, TemplateView):
     """
-    View returning literature references retrieved for a model instance of either Odorant or Bioactive
+    View returning literature references retrieved for a model instance and through which users can save references
     """
     compound = None
     records = None

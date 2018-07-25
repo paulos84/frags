@@ -22,7 +22,6 @@ class UserCompoundMixin(models.Model):
 
     @classmethod
     def lit_refs_actions(cls, request, refs, compound):
-        message = None
         if 'save_refs' in request.POST:
             instance, _ = cls.objects.get_or_create(
                 user=request.user.profile,
@@ -32,15 +31,12 @@ class UserCompoundMixin(models.Model):
                 instance.literature_refs.extend(refs)
             else:
                 instance.literature_refs = refs
-            message = 'Article{} saved'.format('s' if len(refs) > 1 else '')
             instance.save()
-        if 'remove_refs' in request.POST:
+        elif 'remove_refs' in request.POST:
             instance = cls.objects.get(
                 user=request.user.profile,
                 compound=compound
             )
             for ref in refs:
                 instance.literature_refs.remove(ref)
-            message = 'Article{} removed'.format('s' if len(refs) > 1 else '')
             instance.save()
-        return message

@@ -62,7 +62,7 @@
  {% endblock %}
 
 {% block content %}
-    <div class="col-sm-10 " style="margin-top:10px">
+<div class="col-sm-10 " style="margin-top:10px">
         {% if bioactive.chemical_name %}
             <h4 class="intro">{{ bioactive }}</h4>
             <h4 class="intro">{{ bioactive.iupac_name }}</h4>
@@ -70,19 +70,24 @@
             <h4 class="intro">{{ bioactive.iupac_name }}</h4>
         {% endif %}
     </div>
-    <div class="col-sm-6 ">
+<div class="col-sm-6 ">
         <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
         <p><strong>InChIKey:</strong> {{ bioactive.inchikey }}</p>
         {% for a in bioactive.chemical_properties %}
             {{ a }}
         {% endfor %}
     </div>
-    <div class="col-sm-4 ">
+<div class="col-sm-4 ">
         <div style=" position:relative; top:16px" >
             <img width="260" height="260" class="structure-img" src={{ bioactive.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:280px; left:12px">
             <p><strong>Synonyms:</strong> {{ bioactive.synonyms|truncatechars:124 }}</p>
         </div>
+</div>
+
+
+<div class="col-sm-10 " style="margin-top:10px">
+
     </div>
 {% endblock %}

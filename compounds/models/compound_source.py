@@ -16,6 +16,10 @@ class CompoundSource(models.Model):
         null=True,
         blank=True,
     )
+    price = models.DecimalField(
+        decimal_places=2,
+        max_digits=10,
+    )
     currency_choices = (
         ('', ''),
         ('USD', 'US Dollars'),
@@ -25,11 +29,6 @@ class CompoundSource(models.Model):
         ('GBP', 'British Pound'),
         ('EUR', 'Euro'),
         ('IND', 'Indian Rupee'),
-    )
-
-    price = models.DecimalField(
-        decimal_places=2,
-        max_digits=10,
     )
     currency = models.CharField(
         max_length=3,

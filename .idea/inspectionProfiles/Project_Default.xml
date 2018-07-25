@@ -37,6 +37,8 @@
           <option value="compounds.models.user_odorant.UserOdorant.*" />
           <option value="compounds.views.user.user_sources.UserOdorantSourceListView.*" />
           <option value="compounds.models.user_odorant_source.UserOdorantSource.*" />
+          <option value="compounds.views.literature_refs.LiteratureRefsView.*" />
+          <option value="compounds.models.user_bioactive.UserBioactive.*" />
         </list>
       </option>
     </inspection_tool>

@@ -69,4 +69,5 @@ class LiteratureRefsView(SearchFilterMixin, TemplateView):
         if form.is_valid():
             refs = form.cleaned_data['lit_ref_numbers']
             self.user_compound_model.lit_refs_actions(request, refs, self.compound)
-        return redirect(reverse('literature-references', args=['odorant', self.compound.pk]))
+
+        return redirect(reverse('literature-references', args=[self.kwargs['compound_type'], self.compound.pk]))

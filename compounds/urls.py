@@ -5,7 +5,7 @@ from django.urls import path, re_path
 from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
                              CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
                              SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
-                             UserOdorantSourceListView)
+                             UserCompoundSourceListView, UserOdorantSourceListView)
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
@@ -23,6 +23,14 @@ urlpatterns = [
     path('odorant/filter/<chem_type>', OdorantChemFilterListView.as_view(), name='chem-filter'),
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
     path('<compound_type>/lit-refs/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
+
+
+    path('user/odorant/sources/<int:pk>', UserCompoundSourceListView.as_view(),name='user-odorant-sources'),
+
+
+    path('<compound_type>/sources/<int:pk>', UserOdorantSourceListView.as_view(), name='user-compound-sources'),
+
+
     path('odorant/edit/<int:pk>', OdorantUpdateView.as_view(), name='odorant-update'),
     path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('odorant/add', OdorantCreateView.as_view(), name='odorant-add'),
@@ -35,7 +43,6 @@ urlpatterns = [
     path('user/odorant/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserOdorantListView.as_view(), name='user-compound-list'),
     path('user/filter/<chem_type>', UserOdorantChemFilterListView.as_view(), name='user-chem-filter'),
-    path('user/odorant/sources/<int:pk>', UserOdorantSourceListView.as_view(), name='user-odorant-sources'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

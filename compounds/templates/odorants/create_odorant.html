@@ -5,11 +5,10 @@
 {% block title %}<title>Add Odorant</title>{% endblock %}
 
 {% block head %}
-  <script src='https://www.google.com/recaptcha/api.js'></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -27,7 +26,7 @@
       <button type="submit" class="btn btn-success" style="float: right;"><span class="glyphicon glyphicon-ok">
         </span>Submit</button>
       {% else %}
-      <button type="submit" class="btn btn-success" style="float: right;"><span class="glyphicon glyphicon-ok" disabled>
+      <button type="button" class="btn btn-success" style="float: right;" disabled><span class="glyphicon glyphicon-ok">
         </span>Submit</button>
       {% endif %}
     </form>
@@ -57,9 +56,9 @@
   </div>
 {% endblock %}
 {% block js %}
-  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-  <script>
-      $("#id_cas_number").change(function () {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+      $("#cas_number").change(function () {
       var cas_number = $(this).val();
       $.ajax({
         url: '{% url "process_cas" %}',
@@ -86,7 +85,7 @@
             {
                 $("#iupac_name").val(data.iupac_name);
                 $("#compound_structure").attr('src',data.structure_url);
-                $("#id_iupac_name").val(data.iupac_name);
+                $("#iupac_name_field_id").val(data.iupac_name);
                 $("#id_smiles").val(data.smiles);
                 $("#hidden_cid").val(data.hidden_cid);
             }

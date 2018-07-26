@@ -4,7 +4,7 @@ from compounds.views.odorant.odorant_list import (
     OdorantListView, OdorTypeOdorantListView, UserOdorantListView)
 from compounds.views.user.user_activity import UserCompoundNotesDeleteView
 from compounds.views.user.user_auth import signup
-from compounds.views.user.user_sources import UserOdorantSourceListView
+from compounds.views.user.user_sources import UserOdorantSourceListView, UserCompoundSourceListView
 from .literature_refs import LiteratureRefsView
 from .odorant.filtered_lists import OdorantChemFilterListView, UserOdorantChemFilterListView
 from .odorant.odorant_create import OdorantCreateView
@@ -24,6 +24,7 @@ __all__ = [
     OdorantChemFilterListView,
     SubstructureListView,
     signup,
+    UserCompoundSourceListView,
     UserOdorantChemFilterListView,
     UserOdorantListView,
     UserSubstructureDetail,

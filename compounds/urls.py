@@ -5,7 +5,7 @@ from django.urls import path, re_path
 from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
                              CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
                              SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
-                             UserCompoundSourceListView, UserOdorantSourceListView)
+                             UserCompoundSourceListView)
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
@@ -22,15 +22,8 @@ urlpatterns = [
     path('odorant/search/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
     path('odorant/filter/<chem_type>', OdorantChemFilterListView.as_view(), name='chem-filter'),
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
-    path('<compound_type>/lit-refs/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
-
-
-    path('user/odorant/sources/<int:pk>', UserCompoundSourceListView.as_view(),name='user-odorant-sources'),
-
-
-    path('<compound_type>/sources/<int:pk>', UserOdorantSourceListView.as_view(), name='user-compound-sources'),
-
-
+    path('lit-refs/<compound_type>/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
+    path('sources/<compound_type>/<int:pk>', UserCompoundSourceListView.as_view(), name='user-compound-sources'),
     path('odorant/edit/<int:pk>', OdorantUpdateView.as_view(), name='odorant-update'),
     path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('odorant/add', OdorantCreateView.as_view(), name='odorant-add'),

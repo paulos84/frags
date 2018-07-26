@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 
 
 class CompoundSource(models.Model):
@@ -59,4 +60,10 @@ class CompoundSource(models.Model):
     )
 
     def __str__(self):
-        return 'Commercial source for {}'.format(self.user_compound)
+        return 'Commercial source for {}'.format(
+            self.user_odorant if self.user_odorant else self.user_bioactive)
+
+    def save(self, *args, **kwargs):
+        if not any([self.user_odorant, self.user_bioactive]):
+            raise ValidationError('Something went wrong B')
+        super(CompoundSource, self).save(*args, **kwargs)

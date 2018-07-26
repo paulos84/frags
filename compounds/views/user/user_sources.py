@@ -48,10 +48,12 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(UserCompoundSourceListView, self).get_context_data(**kwargs)
-        context['compound_search'] = OdorantSearchForm() if self.user_compound_model == UserOdorant \
-            else OdorantSearchForm()
-        context['form'] = self.form_class()
-        context['upload_form'] = UserSourceCsvUploadForm()
+        context.update({
+            'form': self.form_class(),
+            'upload_form': UserSourceCsvUploadForm(),
+            'compound': self.compound,
+            'compound_search': OdorantSearchForm() if self.user_compound_model == UserOdorant else OdorantSearchForm()
+        })
         return context
 
     def post(self, request, *args, **kwargs):
@@ -98,7 +100,7 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
         reader = csv.reader(file)
         for row in list(reader)[1:10]:
             try:
-                row_values = [round(float(row[0]), 2),  float(row[1])] + [a for a in row[2:6]]
+                row_values = [round(float(row[0]), 2), float(row[1])] + [a for a in row[2:6]]
             except (ValueError, IndexError):
                 continue
             row_values = row_values + [''] * (6 - len(row_values))

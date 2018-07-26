@@ -42,21 +42,12 @@
 {% endblock %}
 
 {% block content %}
-        <ul class="breadcrumb" style="background-color: transparent;">
-          <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
-          <li><a class="breadcrumb-item" href="{% url 'substructures' %}">All fragrance compounds</a></li>
-          <li><a class="breadcrumb-item" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:36  }}</a></li>
-          <li><a class="breadcrumb-item active" href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">Literature references</a></li>
-        </ul>
-        {% if messages %}
-            <ul class="messages">
-            {% for message in messages %}
-                <div class="alert alert-success">
-                Selected references saved
-                </div>
-            {% endfor %}
-            </ul>
-        {% endif %}
+    <ul class="breadcrumb" style="background-color: transparent;">
+      <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+      <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category %}">All {{ compound.get_category_display|lower }}s</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">Literature references</a></li>
+    </ul>
     <h5>{{ compound }}</h5>
    {% if request.user.is_authenticated and user_literature %}
       <form method="post" novalidate>

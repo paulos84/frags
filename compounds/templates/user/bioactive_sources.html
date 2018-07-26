@@ -6,6 +6,12 @@
 
 {% block content %}
 <div class="col-sm-10" style="margin-bottom:18px; ">
+    <ul class="breadcrumb" style="background-color: transparent;">
+      <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+      <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category %}">All {{ compound.get_category_display|lower }}s</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='bioactive' %}">Commercial sources</a></li>
+    </ul>
       <h4 style="position:relative; left: 10px">Current sources</h4>
         <form method="post">
         {% csrf_token %}

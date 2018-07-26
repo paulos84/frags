@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/forms/bioactive_create.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/compounds/templates/user/user_odorant_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/user/odorant_sources.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/compound_source.py" afterPath="$PROJECT_DIR$/compounds/models/compound_source.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/urls.py" afterPath="$PROJECT_DIR$/compounds/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/__init__.py" afterPath="$PROJECT_DIR$/compounds/views/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/literature_references.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/literature_references.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/user/odorant_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/user/odorant_sources.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/user/user_sources.py" afterPath="$PROJECT_DIR$/compounds/views/user/user_sources.py" />
     </list>
     <ignored path="frags.iws" />
@@ -44,65 +39,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_odorant.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/models/user_odorant.py">
+      <file leaf-file-name="bioactive_list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+            <state relative-caret-position="330">
+              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="odorant_search.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/forms/odorant_search.py">
+      <file leaf-file-name="bioactive_list.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/views/bioactive/bioactive_list.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+            <state relative-caret-position="792">
+              <caret line="29" column="48" selection-start-line="29" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="substructure_detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html">
+      <file leaf-file-name="literature_references.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/literature_references.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="310">
+              <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_sources.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compounds/views/user/user_sources.py">
+      <file leaf-file-name="bioactive_sources.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-462">
-              <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
+            <state relative-caret-position="165">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="13" selection-end-column="9" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="n#style#0;n#ul#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/views/user/__init__.py">
+      <file leaf-file-name="odorant_sources.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/user/odorant_sources.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="297">
+              <caret line="9" column="79" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="compound_source.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compounds/models/compound_source.py">
+      <file leaf-file-name="literature_references.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2277">
-              <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state relative-caret-position="264">
+              <caret line="44" column="66" selection-start-line="44" selection-start-column="66" selection-end-line="44" selection-end-column="66" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <element signature="n#style#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,7 +119,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/compounds/views/odorant/odorant_list.py" />
         <option value="$PROJECT_DIR$/compounds/views/odorant/filtered_lists.py" />
         <option value="$PROJECT_DIR$/compounds/templatetags/nav_tags.py" />
         <option value="$PROJECT_DIR$/compounds/templatetags/url_tags.py" />
@@ -160,7 +154,6 @@
         <option value="$PROJECT_DIR$/compounds/models/__init__.py" />
         <option value="$PROJECT_DIR$/compounds/models/mixins/user_compound.py" />
         <option value="$PROJECT_DIR$/compounds/views/literature_refs.py" />
-        <option value="$PROJECT_DIR$/compounds/templates/odorants/literature_references.html" />
         <option value="$PROJECT_DIR$/compounds/utils/find_literature.py" />
         <option value="$PROJECT_DIR$/compounds/templates/base_bioactive_generic.html" />
         <option value="$PROJECT_DIR$/compounds/views/odorant/odorant_create.py" />
@@ -169,12 +162,14 @@
         <option value="$PROJECT_DIR$/compounds/forms/bioactive_create.py" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
         <option value="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
-        <option value="$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html" />
-        <option value="$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html" />
         <option value="$PROJECT_DIR$/compounds/urls.py" />
         <option value="$PROJECT_DIR$/compounds/views/__init__.py" />
         <option value="$PROJECT_DIR$/compounds/models/compound_source.py" />
         <option value="$PROJECT_DIR$/compounds/views/user/user_sources.py" />
+        <option value="$PROJECT_DIR$/compounds/templates/odorants/literature_references.html" />
+        <option value="$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html" />
+        <option value="$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html" />
+        <option value="$PROJECT_DIR$/compounds/templates/user/odorant_sources.html" />
       </list>
     </option>
   </component>
@@ -278,7 +273,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="user" />
+              <option name="myItemId" value="bioactive" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -663,20 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/bioactive/bioactive_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/mixins/user_compound_source.py" />
     <entry file="file://$PROJECT_DIR$/compounds/models/mixins/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -689,6 +670,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="6" column="24" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -704,6 +686,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="8" column="62" selection-start-line="0" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -718,6 +701,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -725,6 +709,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
           <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -732,6 +717,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -739,6 +725,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -904,38 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/literature_references.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="77" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/user/odorant_sources.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="17" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1023">
-          <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="726">
@@ -964,18 +919,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/forms/odorant_search.py">
+    <entry file="file://$PROJECT_DIR$/compounds/views/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        <state relative-caret-position="198">
+          <caret line="6" column="72" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/odorant.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/substructure_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="495">
+          <caret line="15" column="21" selection-start-line="13" selection-start-column="0" selection-end-line="17" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/models/compound_source.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2277">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#28#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_sources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1089">
+          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/user/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/forms/odorant_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -998,47 +997,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/__init__.py">
+    <entry file="file://$PROJECT_DIR$/compounds/templates/user/bioactive_sources.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="6" column="72" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/user/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/models/odorant.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/models/compound_source.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2277">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="13" selection-end-column="9" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/views/user/user_sources.py">
+    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/literature_references.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-462">
-          <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
+        <state relative-caret-position="264">
+          <caret line="44" column="66" selection-start-line="44" selection-start-column="66" selection-end-line="44" selection-end-column="66" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="n#style#0;n#ul#2;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/views/bioactive/bioactive_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="29" column="48" selection-start-line="29" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/literature_references.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="63" column="27" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/user/odorant_sources.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="9" column="79" selection-start-line="9" selection-start-column="79" selection-end-line="9" selection-end-column="79" />
+          <folding />
         </state>
       </provider>
     </entry>

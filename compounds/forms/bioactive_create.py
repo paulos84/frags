@@ -20,6 +20,7 @@ class BioactiveCreateForm(forms.ModelForm):
         widget=forms.HiddenInput(attrs={'id': 'iupac_name_field_id'})
     )
     chemical_name = forms.CharField(
+        required=False,
         widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 44, })
     )
     cid_number = forms.CharField(

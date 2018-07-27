@@ -14,12 +14,23 @@ class BioactiveCreateView(CreateView):
     template_name = 'bioactives/bioactive_create.html'
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user.profile
         return super().form_valid(form)
 
     def form_invalid(self, form):
         print(form.errors)
         return super().form_invalid(form)
+
+
+    def save(self, commit=True):
+        obj = super(BioactiveCreateForm, self).save(commit=False)
+        obj.iupac_name = self.cleaned_data['iupac_name']
+        obj.smiles = self.cleaned_data['smiles']
+        obj.cid_number = self.cleaned_data['cid_number']
+        obj.chemical_name = self.cleaned_data['chemical_name']
+        if commit:
+            obj.save()
+        return obj
+
 
 
 def process_cas_lookup(request):
@@ -32,15 +43,23 @@ def process_cas_lookup(request):
         }
         return JsonResponse(data)
     try:
-        inchikey = cirpy.query(cas_no, 'inchikey')[0].value
+        smiles = cirpy.query(cas_no, 'smiles')[0].value
+        pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
+        if not pcp_query.cid:
+            raise IndexError
     except IndexError:
         return JsonResponse({
             'error': 'No compound found for this CAS number'
         })
-    inchikey.replace('InChIKey=', '')
-    
-
-
+    data = {
+        'chemical_name': Bioactive.scrape_compound_name(pcp_query.cid),
+        'iupac_name': pcp_query.iupac_name,
+        'inchikey': pcp_query.inchikey,
+        'structure_url': 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(pcp_query.cid),
+        'hidden_cid': pcp_query.cid,
+        'smiles': smiles,
+    }
+    return JsonResponse(data)
 
 
 

@@ -8,9 +8,21 @@ class OdorantCreateForm(forms.ModelForm):
 
     """ Form for creating Compound model instances """
 
-    smiles = forms.CharField(widget=forms.HiddenInput())
-    iupac_name = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'iupac_name_field_id'}))
-    cid_number = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'hidden_cid'}))
+    smiles = forms.CharField(
+        widget=forms.HiddenInput()
+    )
+    iupac_name = forms.CharField(
+        widget=forms.HiddenInput(
+            attrs={'id': 'iupac_name_field_id'})
+    )
+    chemical_name = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 44, })
+    )
+    cid_number = forms.CharField(
+        widget=forms.HiddenInput(
+            attrs={'id': 'hidden_cid'})
+    )
 
     class Meta:
         model = Odorant

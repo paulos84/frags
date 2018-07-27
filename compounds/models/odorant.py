@@ -41,14 +41,6 @@ class Odorant(CompoundMixin, models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-    # User has a page where can view their own odorants entry list view
-    created_by = models.ForeignKey(
-        Profile,
-        related_name='odorant',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-    )
 
     objects = OdorantManager()
 

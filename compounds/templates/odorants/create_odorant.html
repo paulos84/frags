@@ -32,12 +32,15 @@
     </form>
   </div>
     <div class="col-sm-5"  style=" position:relative; top:27px;">
-        <div style=" position:relative; top:9px;" class="form-group">
+      <div style=" position:relative; top:9px;" class="form-group">
+        <label>Chemical name</label>
+      <input type='text' name='text' id='chemical_name' class="form-control" disabled>
+      <div style=" position:relative; top:9px;" class="form-group">
         <label>IUPAC name</label>
       <textarea type='text' name='text' id='iupac_name' class="form-control" disabled></textarea>
          </div>
-    <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
-      <h4>Odorant exists in database: </h4>
+      <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
+        <h4>Odorant exists in database: </h4>
         <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Compounds index</a></li>
       </ul>
@@ -81,6 +84,7 @@
             else
             {
                 $("#iupac_name").val(data.iupac_name);
+                                $("#chemical_name").val(data.chemical_name);
                 $("#compound_structure").attr('src',data.structure_url);
                 $("#iupac_name_field_id").val(data.iupac_name);
                 $("#id_smiles").val(data.smiles);

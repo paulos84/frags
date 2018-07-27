@@ -24,6 +24,12 @@ class CompoundMixin(models.Model):
         editable=False,
         blank=True,
     )
+    chemical_name = models.CharField(
+        max_length=200,
+        default='',
+        verbose_name='Chemical name',
+        blank=True,
+    )
     cid_number = models.IntegerField(
         verbose_name='PubChem API CID number',
         blank=True,
@@ -63,7 +69,7 @@ class CompoundMixin(models.Model):
         self.cid_number = pcp_query.cid
         self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
         if set_name:
-            self.scrape_compound_name()
+            self.chemical_name = self.scrape_compound_name(self.cid_number)
         additional = additional if additional else []
         self.chemical_properties = self.dict_from_query_object(pcp_query, additional=additional)
 
@@ -81,8 +87,9 @@ class CompoundMixin(models.Model):
                           for k in additional if k in extra_available})
         return chem_dict
 
-    def scrape_compound_name(self):
-        url = 'https://pubchem.ncbi.nlm.nih.gov/compound/{}'.format(self.cid_number)
+    @staticmethod
+    def scrape_compound_name(cid_number):
+        url = 'https://pubchem.ncbi.nlm.nih.gov/compound/{}'.format(cid_number)
         page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
         soup = BeautifulSoup(page, 'lxml')
-        self.chemical_name = ''.join(soup.html.head.title).split(' | ')[0]
+        return ''.join(soup.html.head.title).split(' | ')[0]

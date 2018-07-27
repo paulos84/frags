@@ -33,19 +33,6 @@ class Bioactive(CompoundMixin, models.Model):
         verbose_name='InChIKey identifier',
         validators=[RegexValidator(r"^[A-Z]+(-[A-Z]+)*$", "String must be a valid InChIKey")],
     )
-    chemical_name = models.CharField(
-        max_length=200,
-        default='',
-        verbose_name='Chemical name',
-        blank=True,
-    )
-    created_by = models.ForeignKey(
-        'compounds.Profile',
-        related_name='bioactives',
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-    )
 
     objects = BioactiveManager()
 

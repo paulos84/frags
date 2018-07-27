@@ -8,13 +8,13 @@ class FindLiterature:
     """ Create an instance and call its records method to return a dictionary of data for the query
     Args:
         synonyms (str): list of chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
-        trade_name (:obj:'str', optional): compound trade name to search for
+        chemical_name (:obj:'str', optional): empirical compound name to search for
     """
-    def __init__(self, synonyms, trade_name=None, user_compound=None):
+    def __init__(self, synonyms, chemical_name=None, user_compound=None):
         synonyms = synonyms.split(' ')
         self.synonyms = ['', ''] if not synonyms or len(synonyms) < 2 else synonyms
         self.clean_query_terms()
-        self.trade_name = trade_name
+        self.chemical = chemical_name
         self.results_ids = self.get_results_ids()
         self.user_compound = user_compound
         self.result = None
@@ -27,8 +27,8 @@ class FindLiterature:
         self.synonyms = [clean_item(a) for a in self.synonyms]
 
     def get_results_ids(self):
-        if self.trade_name:
-             self.synonyms[-1] = self.trade_name
+        if self.chemical_name:
+             self.synonyms[-1] = self.chemical_name
         query = self.synonyms[0]
         for s in self.synonyms[1:-1]:
             query += '%5b%5d+OR+{}'.format(s)

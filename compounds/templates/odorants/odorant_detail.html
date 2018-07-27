@@ -64,11 +64,9 @@
 
 {% block content %}
     <div class="col-sm-5 ">
-         <h4 class="intro">{{ odorant.iupac_name }}</h4>
-        {% if odorant.trade_name %}
-            <p><strong>Trade name:</strong> {{ odorant.trade_name }}</p>
-        {% endif %}
-        <p><strong>CAS number:</strong> {{ odorant.cas_number }}</a></p>
+         <h4 class="intro">{{ odorant.chemical_name }}</h4>
+        <p><strong>IUPAC name:</strong>{{ odorant.iupac_name }}</p>
+        <p><strong>CAS number:</strong> {{ odorant.cas_number }}</p>
         <p><strong>SMILES:</strong> {{ odorant.smiles }}</p>
         {% if odorant.odor_types %}
           <p><strong>Odor types: </strong>{{ odorant.odor_types }}</p>

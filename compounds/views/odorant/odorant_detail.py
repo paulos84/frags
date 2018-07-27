@@ -34,8 +34,8 @@ class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):
-            initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'created_by', 'iupac_name',
-                                                                 'odor_description', 'smiles', 'trade_name']}
+            initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'iupac_name',
+                                                                 'odor_description', 'smiles', 'chemical_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
         return context
 

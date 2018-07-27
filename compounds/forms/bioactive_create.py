@@ -34,3 +34,13 @@ class BioactiveCreateForm(forms.ModelForm):
             'inchikey': forms.TextInput(attrs={'size': 44, 'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
                                                'style': 'border-color: green;', 'id': 'inchikey_field_id'}),
         }
+
+    def save(self, commit=True):
+        obj = super(BioactiveCreateForm, self).save(commit=False)
+        obj.iupac_name = self.cleaned_data['iupac_name']
+        obj.smiles = self.cleaned_data['smiles']
+        obj.cid_number = self.cleaned_data['cid_number']
+        obj.chemical_name = self.cleaned_data['chemical_name']
+        if commit:
+            obj.save()
+        return obj

@@ -43,7 +43,7 @@ class LiteratureRefsView(SearchFilterMixin, TemplateView):
                 user_compound = None
         records = FindLiterature(
             synonyms,
-            trade_name=self.compound.trade_name if hasattr(self.compound, 'trade_name') else None,
+            chemical_name=self.compound.chemical_name if hasattr(self.compound, 'chemical_name') else None,
             user_compound=user_compound
         ).records()
         self.records = records['user_refs'], records['new_refs']

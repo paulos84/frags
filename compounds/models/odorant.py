@@ -23,12 +23,6 @@ class Odorant(CompoundMixin, models.Model):
         verbose_name='CAS number',
         validators=[RegexValidator(r'\d+(?:-\d+)+', "String should be a valid CAS number")],
     )
-    trade_name = models.CharField(
-        max_length=20,
-        default='',
-        verbose_name='Trade name',
-        blank=True,
-    )
     odor_categories = models.ManyToManyField(
         'compounds.OdorType',
         related_name='odorants',
@@ -56,15 +50,13 @@ class Odorant(CompoundMixin, models.Model):
             try:
                 pcp_data = pcp.get_compounds(self.smiles, 'smiles')[0]
             except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong A')
+                raise ValidationError('Something went wrong')
             self.set_chemical_data(pcp_query=pcp_data)
-        if not all(required_fields):
-            raise ValidationError('Something went wrong B')
         super(Odorant, self).save(*args, **kwargs)
 
     def __str__(self):
-        if self.trade_name:
-            return '{} | {}'.format(self.trade_name, self.iupac_name)
+        if self.chemical_name:
+            return '{} | {}'.format(self.chemical_name, self.iupac_name)
         return self.iupac_name
 
     def get_absolute_url(self):

@@ -5,7 +5,7 @@ import cirpy
 import pubchempy as pcp
 
 from compounds.models import Bioactive
-from compounds.forms import BioactiveCreateForm
+from compounds.forms import BioactiveCreateForm, OdorantSearchForm
 
 
 class BioactiveCreateView(CreateView):
@@ -13,24 +13,13 @@ class BioactiveCreateView(CreateView):
     form_class = BioactiveCreateForm
     template_name = 'bioactives/bioactive_create.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(BioactiveCreateView, self).get_context_data(**kwargs)
+        context['compound_search'] = OdorantSearchForm()
+        return context
+
     def form_valid(self, form):
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
-
-
-    def save(self, commit=True):
-        obj = super(BioactiveCreateForm, self).save(commit=False)
-        obj.iupac_name = self.cleaned_data['iupac_name']
-        obj.smiles = self.cleaned_data['smiles']
-        obj.cid_number = self.cleaned_data['cid_number']
-        obj.chemical_name = self.cleaned_data['chemical_name']
-        if commit:
-            obj.save()
-        return obj
-
 
 
 def process_cas_lookup(request):

@@ -13,4 +13,4 @@ class CompoundSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Odorant
-        fields = ('cas_number', 'smiles', 'iupac_name', 'trade_name', 'odor_categories', )
+        fields = ('cas_number', 'smiles', 'iupac_name', 'chemical_name', 'odor_categories', )

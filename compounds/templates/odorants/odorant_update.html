@@ -2,8 +2,8 @@
 {% load bootstrap3 %}
 {% load static %}
 {% block title %}
-    {% if odorant.trade_name %}
-    <title>{{ odorant.trade_name }}</title>
+    {% if odorant.chemical_name %}
+    <title>{{ odorant.chemical_name }}</title>
     {% else %}
     <title>{{ odorant.iupac_name }}</title>
     {% endif %}

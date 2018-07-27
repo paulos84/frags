@@ -23,13 +23,24 @@ class BioactiveCreateView(CreateView):
 
 
 def process_cas_lookup(request):
-    data = {}
     cas_no = request.GET.get('cas_number')
     obj = Bioactive.objects.filter(chemical_properties__synonyms__icontains=cas_no).first()
     if obj:
-        data['object_exists'] = obj.get_absolute_url()
-        data['object_exists_name'] = obj.chemical_name
+        data = {
+            'object_exists': obj.get_absolute_url(),
+            'object_exists_name': obj.chemical_name,
+        }
         return JsonResponse(data)
+    try:
+        inchikey = cirpy.query(cas_no, 'inchikey')[0].value
+    except IndexError:
+        return JsonResponse({
+            'error': 'No compound found for this CAS number'
+        })
+    inchikey.replace('InChIKey=', '')
+    
+
+
 
 
 

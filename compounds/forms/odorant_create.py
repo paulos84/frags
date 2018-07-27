@@ -25,7 +25,6 @@ class OdorantCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        # self.request = kwargs.pop('request', None)
         super(OdorantCreateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = True

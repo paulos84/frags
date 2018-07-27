@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
+import re
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
-from django.utils.functional import cached_property
 import pubchempy as pcp
 
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
-from compounds.models.profile import Profile
 
 
 class Bioactive(CompoundMixin, models.Model):
@@ -40,7 +40,7 @@ class Bioactive(CompoundMixin, models.Model):
         blank=True,
     )
     created_by = models.ForeignKey(
-        Profile,
+        'compounds.Profile',
         related_name='bioactives',
         blank=True,
         null=True,
@@ -48,6 +48,10 @@ class Bioactive(CompoundMixin, models.Model):
     )
 
     objects = BioactiveManager()
+
+    @property
+    def cas_numbers(self):
+        return re.findall('\d+(?:-\d+)+', self.synonyms)
 
     def save(self, *args, **kwargs):
         """ Runs validation logic and sets chemical properties data """
@@ -60,6 +64,7 @@ class Bioactive(CompoundMixin, models.Model):
                                      'bond_stereo_count']
             self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
             self.set_chemical_data(pcp_query=pcp_data, additional=extra_chem_properties, set_name=True)
+
         super(Bioactive, self).save(*args, **kwargs)
 
     def __str__(self):

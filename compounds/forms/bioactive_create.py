@@ -4,22 +4,32 @@ from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from compounds.models import Bioactive
 
 
-class OdorantCreateForm(forms.ModelForm):
-
+class BioactiveCreateForm(forms.ModelForm):
     """ Form for creating Compound model instances """
 
-    smiles = forms.CharField(widget=forms.HiddenInput())
-    iupac_name = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'iupac_name_field_id'}))
-    cid_number = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'hidden_cid'}))
+    cas_number = forms.CharField(
+        required=False, label='CAS number',
+        widget=forms.TextInput(attrs={'size': 44,
+                                      'id': 'cas_number_field_id',
+                                      'placeholder': 'Retrieve InChIKey (optional)', }
+                               ))
+    smiles = forms.CharField(
+        widget=forms.HiddenInput()
+    )
+    iupac_name = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'iupac_name_field_id'})
+    )
+    chemical_name = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 44, })
+    )
+    cid_number = forms.CharField(
+        widget=forms.HiddenInput(attrs={'id': 'hidden_cid'})
+    )
 
     class Meta:
         model = Bioactive
-        fields = ['cas_number', 'odor_description', 'odor_categories', 'trade_name', ]
+        fields = ['cas_number', 'inchikey', 'category', ]
         widgets = {
-            'odor_description': forms.Textarea(attrs={'rows': 2, 'cols': 42, }),
-            'cas_number': forms.TextInput(attrs={'style': 'border-color: green;', 'size': 44,
-                                                 'placeholder': 'e.g. 80-54-6',
-                                                 'id': 'cas_number'}),
-            'odor_categories': forms.SelectMultiple(attrs={'size': '6', }),
-            'trade_name': forms.TextInput(attrs={'size': 40, }),
+            'inchikey': forms.TextInput(attrs={'size': 44, 'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
+                                               'style': 'border-color: green;', 'id': 'inchikey_field_id'}),
         }

@@ -54,8 +54,8 @@ class Bioactive(CompoundMixin, models.Model):
         return re.findall('\d+(?:-\d+)+', self.synonyms)
 
     def save(self, *args, **kwargs):
-        """ Runs validation logic and sets chemical properties data """
-        if not all([self.iupac_name, self.cid_number, self.chemical_properties]):
+        """ Sets data for various fields """
+        if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
             try:
                 pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
             except (IndexError, pcp.BadRequestError):

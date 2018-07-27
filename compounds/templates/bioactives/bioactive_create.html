@@ -1,10 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_bioactive_generic.html" %}
+{% load static %}
+{% load bootstrap3 %}
 
-</body>
-</html>
+{% block title %}<title>Add compound</title>{% endblock %}
+
+{% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="col-sm-5 ">
+    <h4 style="line-height: 35px;">Add new compound</h4>
+    <form id="add-compound-form" action="" method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <table>
+      </table>
+      <!--<div class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>-->
+      <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+
+      {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-success" style="float: right;"><span class="glyphicon glyphicon-ok">
+        </span>Submit</button>
+      {% else %}
+      <button type="button" class="btn btn-success" style="float: right;" disabled><span class="glyphicon glyphicon-ok">
+        </span>Submit</button>
+      {% endif %}
+    </form>
+  </div>
+    <div class="col-sm-5"  style=" position:relative; top:27px;">
+        <div style=" position:relative; top:9px;" class="form-group">
+        <label>Chemical name</label>
+      <input type='text' name='text' id='chemical_name' class="form-control" disabled>
+         </div>
+        <div style=" position:relative; top:9px;" class="form-group">
+        <label>IUPAC name</label>
+      <textarea type='text' name='text' id='iupac_name' class="form-control" disabled></textarea>
+         </div>
+    <div id="object_exists" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
+      <h4>Compound exists in database: </h4>
+        <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}">Compounds index</a></li>
+      </ul>
+    </div>
+    <div id="not_found" style=" display: none; position:relative; left:13px; top:28px; width:300px; height:200px;">
+        <ul class="sidebar-nav">
+          <li><h5>No compound found for this CAS number</h5></li>
+      </ul>
+    </div>
+    <div style="text-align:left; position:relative; top:7px;">
+        <img id="compound_structure" src="" border="1">
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+      $("#cas_number_field_id").change(function () {
+      var cas_number = $(this).val();
+      $.ajax({
+        url: '{% url "bioactive-cas-lookup" %}',
+        data: {
+            'cas_number': cas_number
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#object_exists").hide();
+            $("#not_found").hide();
+            if (data.error == 'No compound found for this CAS number')
+            {
+               $("#not_found").show();
+            }
+            if (data.object_exists)
+            {
+               $("#object_exists").show();
+               $("#object_exists a").attr("href",data.object_exists);
+               $("#object_exists a").text(data.object_exists_name);
+            }
+            else
+            {
+                $("#iupac_name").val(data.iupac_name);
+                $("#compound_structure").attr('src',data.structure_url);
+                $("#iupac_name_field_id").val(data.iupac_name);
+                $("#id_smiles").val(data.smiles);
+                $("#hidden_cid").val(data.hidden_cid);
+            }
+        }
+      });
+    });
+  </script>
+{% endblock %}

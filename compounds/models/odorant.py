@@ -42,17 +42,18 @@ class Odorant(CompoundMixin, models.Model):
     def odor_types(self):
         odor_types = self.odor_categories.values_list('term')
         return ', '.join([a[0] for a in odor_types])
-
-    def save(self, *args, **kwargs):
-        """ Runs validation logic and sets chemical properties data """
-        required_fields = [self.iupac_name, self.cid_number, self.chemical_properties]
-        if not all(required_fields):
-            try:
-                pcp_data = pcp.get_compounds(self.smiles, 'smiles')[0]
-            except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong')
-            self.set_chemical_data(pcp_query=pcp_data)
-        super(Odorant, self).save(*args, **kwargs)
+    #
+    # def save(self, *args, **kwargs):
+    #     """ Runs validation logic and sets chemical properties data """
+    #     if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
+    #         try:
+    #             pcp_data = pcp.get_compounds(self.smiles, 'smiles')[0]
+    #         except (IndexError, pcp.BadRequestError):
+    #             raise ValidationError('Something went wrong')
+    #         self.set_chemical_data(pcp_query=pcp_data)
+    #     if not self.chemical_name:
+    #         self.scrape_compound_name(self.cid_number)
+    #     super(Odorant, self).save(*args, **kwargs)
 
     def __str__(self):
         if self.chemical_name:

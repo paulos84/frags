@@ -2,8 +2,8 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-
 from compounds.models import Bioactive
+from compounds.forms import BioactiveSearchForm
 
 
 class BaseBioactiveListView(ListView):
@@ -12,6 +12,7 @@ class BaseBioactiveListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseBioactiveListView, self).get_context_data(**kwargs)
+        context['compound_search'] = BioactiveSearchForm()
         # context['odor_types'] = OdorType.objects.values('term')
         # some other category...e.g. func food, medicinal,
         return context

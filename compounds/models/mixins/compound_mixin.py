@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.core.exceptions import ValidationError
 import pubchempy as pcp
 import requests
 
@@ -25,7 +26,7 @@ class CompoundMixin(models.Model):
         blank=True,
     )
     chemical_name = models.CharField(
-        max_length=200,
+        max_length=50,
         default='',
         verbose_name='Chemical name',
         blank=True,
@@ -58,18 +59,35 @@ class CompoundMixin(models.Model):
         if hasattr(self, 'cid_number'):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    def set_chemical_data(self, pcp_query, additional=None, set_name=False):
+    def save(self, *args, additional_data=None, **kwargs):
+        """ Sets data for various fields """
+        if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
+            try:
+                pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
+            except (IndexError, pcp.BadRequestError):
+                raise ValidationError('Something went wrong')
+            extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
+                                     'bond_stereo_count']
+            self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
+            self.set_chemical_data(
+                pcp_query=pcp_data,
+                additional=extra_chem_properties if additional_data else None
+            )
+        if not self.chemical_name:
+            self.chemical_name = self.scrape_compound_name(self.cid_number)
+        super(CompoundMixin, self).save(*args, **kwargs)
+
+    def set_chemical_data(self, pcp_query, additional=None):
         """
         Obtain and assign values to the chemical_properties field using data retrieved from API queries
         Args:
             pcp_query ('obj'): object returned from API query which contains data
             additional ('list', optional): additional chemical properties which are not set by default
-            set_name ('bool', optional): whether to call method which sets chemical_name field
         """
         self.cid_number = pcp_query.cid
         self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
-        if set_name:
-            self.chemical_name = self.scrape_compound_name(self.cid_number)
+        if not self.chemical_name:
+            self.scrape_compound_name(self.cid_number)
         additional = additional if additional else []
         self.chemical_properties = self.dict_from_query_object(pcp_query, additional=additional)
 

@@ -39,20 +39,24 @@ class Bioactive(CompoundMixin, models.Model):
     @property
     def cas_numbers(self):
         return re.findall('\d+(?:-\d+)+', self.synonyms)
+    #
+    # def save(self, *args, **kwargs):
+    #     """ Sets data for various fields """
+    #     if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
+    #         try:
+    #             pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
+    #         except (IndexError, pcp.BadRequestError):
+    #             raise ValidationError('Something went wrong A')
+    #         extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
+    #                                  'bond_stereo_count']
+    #         self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
+    #         self.set_chemical_data(pcp_query=pcp_data, additional=extra_chem_properties)
+    #     if not self.chemical_name:
+    #         self.scrape_compound_name(self.cid_number)
+    #     super(Bioactive, self).save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        """ Sets data for various fields """
-        if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
-            try:
-                pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
-            except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong A')
-            extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
-                                     'bond_stereo_count']
-            self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
-            self.set_chemical_data(pcp_query=pcp_data, additional=extra_chem_properties, set_name=True)
-
-        super(Bioactive, self).save(*args, **kwargs)
+        super(Bioactive, self).save(*args, additional_data=True, **kwargs)
 
     def __str__(self):
         return self.chemical_name if self.chemical_name else self.iupac_name

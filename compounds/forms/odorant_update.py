@@ -10,6 +10,7 @@ class BaseOdorantUpdateForm(forms.ModelForm):
     """
     iupac_name = forms.CharField(widget=forms.HiddenInput())
     cid_number = forms.CharField(widget=forms.HiddenInput())
+    chemical_name = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 
 class OdorantUpdateForm(BaseOdorantUpdateForm):
@@ -18,7 +19,6 @@ class OdorantUpdateForm(BaseOdorantUpdateForm):
     """
     cas_number = forms.CharField(widget=forms.HiddenInput())
     smiles = forms.CharField(widget=forms.HiddenInput())
-    chemical_name = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = Odorant
@@ -30,8 +30,10 @@ class OdorantUpdateForm(BaseOdorantUpdateForm):
 
     def __init__(self, *args, **kwargs):
         super(OdorantUpdateForm, self).__init__(*args, **kwargs)
+        # many-to-many relationship
         for field in ['odor_description']:
             if kwargs['initial'].get(field):
+                print(self.fields[field])
                 self.fields[field].widget = forms.HiddenInput()
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = False

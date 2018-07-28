@@ -7,10 +7,10 @@ from django.utils.decorators import method_decorator
 
 from compounds.models import Odorant, Substructure, UserOdorant
 from compounds.forms import CompoundNotesForm, OdorantUpdateForm
-from compounds.views.mixins.search_filter import SearchFilterMixin
+from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
 
-class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
+class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
     model = Odorant
     template_name = 'odorants/odorant_detail.html'
     form_class = CompoundNotesForm
@@ -34,7 +34,7 @@ class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
         if not all([compound.odor_categories.all(), compound.odor_description]):
-            initial_data = {k: getattr(self.object, k) for k in ['cas_number', 'cid_number', 'iupac_name',
+            initial_data = {k: getattr(self.object, k, '') for k in ['cas_number', 'cid_number', 'iupac_name',
                                                                  'odor_description', 'smiles', 'chemical_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
         return context
@@ -76,6 +76,7 @@ class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
             form = self.get_form()
             form_name = 'form'
         if form.is_valid() and form_name == 'form2':
+            print(form.cleaned_data)
             for attr in form.cleaned_data:
                 if attr != 'odor_categories':
                     setattr(self.object, attr, form.cleaned_data[attr])
@@ -93,7 +94,7 @@ class OdorantDetailView(SearchFilterMixin, FormMixin, DetailView):
             self.notes_object.save()
             return self.form_valid(form)
         else:
-            return self.form_invalid(**kwargs)
+            return self.form_invalid(form)
 
     def get_success_url(self):
         return reverse('odorant-detail', kwargs={'pk': self.object.pk})

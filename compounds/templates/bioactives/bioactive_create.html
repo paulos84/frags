@@ -82,6 +82,7 @@
             }
             else
             {
+                $('#inchikey_field_id').attr('readonly','true');
                 $("#iupac_name").val(data.iupac_name);
                 $("#chemical_name").val(data.chemical_name);
                 $("#inchikey_field_id").val(data.inchikey);
@@ -116,6 +117,7 @@
             }
             else
             {
+                $('#inchikey_field_id').attr('readonly','true');
                 $("#iupac_name").val(data.iupac_name);
                 $("#chemical_name").val(data.chemical_name);
                 $("#compound_structure").attr('src',data.structure_url);

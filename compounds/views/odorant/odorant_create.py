@@ -6,10 +6,10 @@ import pubchempy as pcp
 
 from compounds.models import Odorant
 from compounds.forms import OdorantCreateForm, OdorantSearchForm
-from compounds.views.mixins.search_filter import SearchFilterMixin
+from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
 
-class OdorantCreateView(SearchFilterMixin, CreateView):
+class OdorantCreateView(OdorantSearchFilterMixin, CreateView):
     model = Odorant
     form_class = OdorantCreateForm
     template_name = 'odorants/create_odorant.html'

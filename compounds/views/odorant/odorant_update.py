@@ -17,10 +17,12 @@ class OdorantUpdateView(LoginRequiredMixin, UpdateView):
         return {
             'iupac_name': cpd.iupac_name,
             'cid_number': cpd.cid_number,
+            'chemical_name': cpd.chemical_name,
         }
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not request.user.is_superuser or not request.user.profile == self.object.created_by:
+        # TODO edited_by field so only edit if you were first person to update it - so not overwritten/deleted
+        if not request.user.is_superuser or not request.user.profile:   #
             return HttpResponseForbidden()
         return super(OdorantUpdateView, self).post(request, *args, **kwargs)

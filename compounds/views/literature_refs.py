@@ -7,10 +7,10 @@ from django.views.generic import TemplateView
 from compounds.forms import UserLiteratureRefsForm
 from compounds.models import Bioactive, Odorant, UserBioactive, UserOdorant
 from compounds.utils.find_literature import FindLiterature
-from compounds.views.mixins.search_filter import SearchFilterMixin
+from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
 
-class LiteratureRefsView(SearchFilterMixin, TemplateView):
+class LiteratureRefsView(OdorantSearchFilterMixin, TemplateView):
     """
     View returning literature references retrieved for a model instance and through which users can save references
     """

@@ -22,6 +22,8 @@ import pubchempy as pcp
 import ruamel.yaml
 from ruamel.yaml.parser import ParserError
 
+from compounds.models.mixins.compound_mixin import CompoundMixin
+
 
 class MakeOdorantFixtureData:
     """ Create an instance call its get_json or get_yaml methods to generate Django model fixture data
@@ -69,6 +71,7 @@ class MakeOdorantFixtureData:
                     self.compound_data.append({
                         'cas_number': cas_no,
                         'smiles': smiles,
+                        'chemical_name': CompoundMixin.scrape_compound_name(cid_no),
                         'iupac_name': name.lower(),
                         'cid_number': cid_no,
                         'chemical_properties': chem_properties,
@@ -87,6 +90,7 @@ class MakeOdorantFixtureData:
                 "fields": {
                     "cas_number": mol['cas_number'],
                     "smiles": mol['smiles'],
+                    "chemical_name": mol['chemical_name'],
                     "iupac_name": mol['iupac_name'].lower(),
                     "cid_number": mol['cid_number'],
                     "chemical_properties": mol['chemical_properties'],
@@ -112,11 +116,12 @@ class MakeOdorantFixtureData:
               fields:
                 cas_number: {}
                 smiles: {}
+                chemical_name: {},
                 iupac_name: {}
                 cid_number: {}
                 chemical_properties: {}
-            """.format(index + 1, mol['cas_number'], mol['smiles'], mol['iupac_name'].lower(), mol['cid_number'],
-                       mol['chemical_properties'])
+            """.format(index + 1, mol['cas_number'], mol['smiles'], mol['chemical_name'], mol['iupac_name'].lower(),
+                       mol['cid_number'], mol['chemical_properties'])
             try:
                 code = ruamel.yaml.load(inp, ruamel.yaml.RoundTripLoader)
             except ParserError:

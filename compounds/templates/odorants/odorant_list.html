@@ -6,7 +6,9 @@
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="top:10px; bottom:6px; left:185px">
 
          <label style="float:left; margin-top:6px; margin-right:4px; " class="text-muted" >Show: </label>
-            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a" onclick="$('.odor-terms').toggle();">
+            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
+                    onclick="$('.odor-terms').toggle();
+                             $('.compound-synonyms').toggle();">
                 Odor types</button>
            {% if user.is_authenticated and chem_type %}
            <a href="{% url 'user-chem-filter' chem_type=chem_type %}">
@@ -45,16 +47,19 @@
                     <div style=" position:relative; left:7px; width: 440px">
                     <a href="{{ odorant.get_absolute_url }}">{{ odorant|truncatechars:62  }}</a>
                     </div>
+                </td>
+                <td>
+                    <div class="compound-synonyms" style=" text-align:right; margin-left: 16px; color: grey ">
+                        {{ odorant.chemical_properties.synonyms|truncatechars:50 }}
+                    </div>
                     <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
                         <h5>{% for odor_type in odorant.odor_categories.all %}
-                                {{ odor_type.term }}
+                                {{ odor_type.term|capfirst }}
                             {% endfor %}
                         </h5>
                     </div>
+
                 </td>
-                <td style=" text-align:right; margin-left: 16px; color: grey ">
-                        {{ odorant.chemical_properties.synonyms|truncatechars:50 }}
-                   </td>
             </tr>
             </table>
         </li>
@@ -68,6 +73,13 @@
 
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+    $("#show-odor").click(function () {
+      $(this).text(function(i, text){
+          return text === "Synonyms" ? "Odor types" : "Synonyms";
+      })
+   })
+    </script>
 {% endblock %}
 
 

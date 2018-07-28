@@ -11,7 +11,7 @@ from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
 from compounds.views.bioactive.bioactive_list import BioactiveListView
 from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
-from compounds.views.bioactive.bioactive_create import BioactiveCreateView, process_cas_lookup
+from compounds.views.bioactive.bioactive_create import BioactiveCreateView, process_bioactive_identifier
 
 
 urlpatterns = [
@@ -20,7 +20,7 @@ urlpatterns = [
     path('bioactives/<int:category>', BioactiveListView.as_view(), name='bioactive-list'),
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
-    path('ajax/process_cas_lookup', process_cas_lookup, name='bioactive-cas-lookup'),
+    path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
 
     path('odorant/all', OdorantListView.as_view(), name='all-odorants'),
     path('odorant/search/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),

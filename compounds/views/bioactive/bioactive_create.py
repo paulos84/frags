@@ -22,9 +22,13 @@ class BioactiveCreateView(CreateView):
         return super().form_valid(form)
 
 
-def process_cas_lookup(request):
+def process_bioactive_identifier(request):
     cas_no = request.GET.get('cas_number')
-    obj = Bioactive.objects.filter(chemical_properties__synonyms__icontains=cas_no).first()
+    inchikey = request.GET.get('inchikey')
+    if cas_no:
+        obj = Bioactive.objects.filter(chemical_properties__synonyms__icontains=cas_no).first()
+    elif inchikey:
+        obj = Bioactive.objects.filter(inchikey__exact=inchikey).first()
     if obj:
         data = {
             'object_exists': obj.get_absolute_url(),
@@ -32,11 +36,16 @@ def process_cas_lookup(request):
         }
         return JsonResponse(data)
     try:
-        smiles = cirpy.query(cas_no, 'smiles')[0].value
-        pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
-        if not pcp_query.cid:
-            raise IndexError
-    except IndexError:
+        if cas_no:
+            smiles = cirpy.query(cas_no, 'smiles')[0].value
+            pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
+            if not pcp_query.cid:
+                raise IndexError
+        else:
+            pcp_query = pcp.get_compounds(inchikey, 'inchikey')[0]
+            if not pcp_query.cid:
+                raise IndexError
+    except (IndexError, pcp.BadRequestError):
         return JsonResponse({
             'error': 'No compound found for this CAS number'
         })
@@ -46,7 +55,7 @@ def process_cas_lookup(request):
         'inchikey': pcp_query.inchikey,
         'structure_url': 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(pcp_query.cid),
         'hidden_cid': pcp_query.cid,
-        'smiles': smiles,
+        'smiles': pcp_query.isomeric_smiles or pcp_query.canonical_smiles or '',
     }
     return JsonResponse(data)
 

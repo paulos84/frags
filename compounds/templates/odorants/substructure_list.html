@@ -11,11 +11,8 @@
 {% endblock %}
 
 {% block content %}
-
-    <div class="col-sm-10" style="margin-left: 20px">
+<div class="col-sm-10" >
     <h5><strong>Fragrance compounds substructures</strong></h5>
-
-
     <table>
     {% for row in substructure_list|columns:5 %}
      <tr>
@@ -27,14 +24,11 @@
                 <div><a href="{{ item.get_absolute_url }}">{{ item|capfirst }}</a></div>
             </td>
         {% endfor %}
-     </tr>
-    {% endfor %}
-
+       </tr>
+       {% endfor %}
        </table>
-
-
-      <div>
-        <form method="get" style="width: 250px; margin-left:48px" >
+       <div>
+        <form method="get" style="width: 250px; margin-top:16px; margin-left:16px" >
           <div class="row">
             {% bootstrap_form choice_form %}
           </div>
@@ -45,10 +39,8 @@
         {{ plot_script|safe }}
     {% endif %}
     </div>
-
 {% endblock %}
+
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>
 {% endblock %}
-
-

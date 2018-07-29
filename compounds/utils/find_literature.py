@@ -14,7 +14,7 @@ class FindLiterature:
         synonyms = synonyms.split(' ')
         self.synonyms = ['', ''] if not synonyms or len(synonyms) < 2 else synonyms
         self.clean_query_terms()
-        self.chemical = chemical_name
+        self.chemical_name = chemical_name
         self.results_ids = self.get_results_ids()
         self.user_compound = user_compound
         self.result = None

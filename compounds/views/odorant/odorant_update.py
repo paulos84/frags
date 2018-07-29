@@ -22,7 +22,6 @@ class OdorantUpdateView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        # TODO edited_by field so only edit if you were first person to update it - so not overwritten/deleted
-        if not request.user.is_superuser or not request.user.profile:   #
+        if not request.user.is_superuser and request.user.profile != self.object.edited_by:
             return HttpResponseForbidden()
         return super(OdorantUpdateView, self).post(request, *args, **kwargs)

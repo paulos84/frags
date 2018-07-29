@@ -81,6 +81,7 @@ class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
                     setattr(self.object, attr, form.cleaned_data[attr])
             for a in form.cleaned_data['odor_categories']:
                 self.object.odor_categories.add(a)
+            self.object.edited_by = self.request.user.profile
             self.object.save()
             return HttpResponseRedirect(self.get_success_url())
         elif form.is_valid():

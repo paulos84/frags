@@ -35,7 +35,12 @@ class Odorant(CompoundMixin, models.Model):
         verbose_name='Odor description',
         blank=True,
     )
-
+    edited_by = models.ForeignKey(
+        'compounds.Profile',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
     objects = OdorantManager()
 
     @property

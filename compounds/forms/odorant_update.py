@@ -45,14 +45,13 @@ class OdorantCompoundForm(BaseOdorantUpdateForm):
     """
     class Meta:
         model = Odorant
-        fields = '__all__'
+        fields = ['cas_number', 'smiles', 'odor_categories', 'odor_description', ]
         widgets = {
             'iupac_name': forms.TextInput(attrs={'readonly': 'readonly'}),
             'odor_description': forms.Textarea(attrs={'rows': 2, 'cols': 42, }),
             'odor_categories': forms.SelectMultiple(attrs={'size': '5', }),
             'cas_number': forms.TextInput(attrs={'readonly': 'readonly'}),
             'chemical_name': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'cid_number': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'cid_number': forms.HiddenInput(),
             'smiles': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'created_by': forms.Select(attrs={'readonly': 'readonly'}),
         }

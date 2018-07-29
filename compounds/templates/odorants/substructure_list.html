@@ -1,6 +1,9 @@
-{% extends "base_odorant_listview.html" %}
+{% extends "base_odorant_generic.html" %}
 {% load staticfiles %}
 {% load bootstrap3 %}
+{% load partition %}
+
+{% block title %}<title>Substructures</title>{% endblock %}
 
 {% block head %}
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
@@ -8,26 +11,29 @@
 {% endblock %}
 
 {% block content %}
-  {% if substructure_list %}
-    {% for substruct in substructure_list %}
-        {% if forloop.first %}<div class="row">{% endif %}
-            <div class="col-xs-3" style="float: right; right: 54px">
-                 <a href="{{ substruct.get_absolute_url }}"><img class="structure-img" src={{ substruct.structure_url }}
-                title={{ substruct.name }}  height="190" width="190"></a>
-            <div>
-                <a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a>
-            </div>
-            </div>
-        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
-        {% if forloop.last %}</div>{% endif %}
+
+    <div class="col-sm-10" style="margin-left: 20px">
+    <h5><strong>Fragrance compounds substructures</strong></h5>
+
+
+    <table>
+    {% for row in substructure_list|columns:5 %}
+     <tr>
+        {% for item in row %}
+            <td>
+                <a href="{{ substruct.get_absolute_url }}">
+                    <img class="structure-img" src={{ item.structure_url }}
+                         title={{ item.name }}  height="190" width="190"></a>
+                <div><a href="{{ item.get_absolute_url }}">{{ item|capfirst }}</a></div>
+            </td>
+        {% endfor %}
+     </tr>
     {% endfor %}
-  {% else %}
-    <div class="col-sm-10" style="margin-left: 180px">
-      <p>No compounds matched this query</p>
-    </div>
-  {% endif %}
-  <div class="col-sm-10" style=" position:relative; margin-left: 220px; top: 28px" >
-    <div>
+
+       </table>
+
+
+      <div>
         <form method="get" style="width: 250px; margin-left:48px" >
           <div class="row">
             {% bootstrap_form choice_form %}
@@ -39,7 +45,7 @@
         {{ plot_script|safe }}
     {% endif %}
     </div>
-</div>
+
 {% endblock %}
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>

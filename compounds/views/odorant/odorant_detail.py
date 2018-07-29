@@ -76,7 +76,6 @@ class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
             form = self.get_form()
             form_name = 'form'
         if form.is_valid() and form_name == 'form2':
-            print(form.cleaned_data)
             for attr in form.cleaned_data:
                 if attr != 'odor_categories':
                     setattr(self.object, attr, form.cleaned_data[attr])

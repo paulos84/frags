@@ -110,4 +110,7 @@ class CompoundMixin(models.Model):
         url = 'https://pubchem.ncbi.nlm.nih.gov/compound/{}'.format(cid_number)
         page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
         soup = BeautifulSoup(page, 'lxml')
-        return ''.join(soup.html.head.title).split(' | ')[0]
+        name = ''.join(soup.html.head.title).split(' | ')[0]
+        if len(name) > 0 and name[0].isalpha():
+            return name
+        return ''

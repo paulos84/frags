@@ -3,6 +3,7 @@
 {% load bootstrap3 %}
 {% load partition %}
 
+
 {% block title %}<title>Substructures</title>{% endblock %}
 
 {% block head %}
@@ -12,28 +13,34 @@
 
 {% block content %}
 <div class="col-sm-10" >
-    <h5><strong>Fragrance compounds substructures</strong></h5>
-    <table>
-    {% for row in acyclic_terpenoids|columns:5 %}
-     <tr>
-        {% for item in row %}
-            <td>
-                <a href="{{ substruct.get_absolute_url }}">
-                    <img class="structure-img" src={{ item.structure_url }}
-                         title={{ item.name }}  height="190" width="190"></a>
-                <div><a href="{{ item.get_absolute_url }}">{{ item|capfirst }}</a></div>
-            </td>
-        {% endfor %}
-       </tr>
-       {% endfor %}
-       </table>
-       <div>
-        <form method="get" style="width: 250px; margin-top:16px; margin-left:16px" >
-          <div class="row">
-            {% bootstrap_form choice_form %}
-          </div>
-        </form>
-      </div>
+
+    {% for acyclic_terpenoids in substructure_sets %}
+
+    <table style="margin-bottom:14px">
+    <h5><strong>{{ acyclic_terpenoids.label }}</strong></h5>
+    {% for row in acyclic_terpenoids.subset|columns:5 %}
+         <tr>
+            {% for item in row %}
+                <td>
+                    <a href="{{ substruct.get_absolute_url }}">
+                        <img class="structure-img" src={{ item.structure_url }}
+                             title={{ item.name }}  height="190" width="190"></a>
+                    <div><a href="{{ item.get_absolute_url }}">{{ item|capfirst }}</a></div>
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    {% endfor %}
+
+
+    <div style="width: 250px; margin-top:16px; margin-left:16px" >
+      <form method="get" >
+        <div class="row">
+          {% bootstrap_form choice_form %}
+        </div>
+      </form>
+    </div>
     {% if plot_div %}
         {{ plot_div|safe }}
         {{ plot_script|safe }}

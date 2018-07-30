@@ -133,7 +133,7 @@ def columns(thelist, n):
     split = list_len // n
     if list_len % n != 0:
         split += 1
-    return [thelist[i::split] for i in range(split)]
+    return [thelist[n*i:n*(i+1)] for i in range(split)]
 
 
 register.filter(rows)

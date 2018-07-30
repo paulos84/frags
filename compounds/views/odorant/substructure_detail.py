@@ -25,6 +25,7 @@ class SubstructureDetail(OdorantSearchFilterMixin, SingleObjectMixin, ListView):
 
 
 class ChemFilterSubstructureDetail(SubstructureDetail):
+    """ example usage: {% url 'filtered-substructure' slug=substructure.slug chem_type='heteroaromatics' %} """
     def get_queryset(self):
         unfiltered = super(ChemFilterSubstructureDetail, self).get_queryset
         filter_method = getattr(Odorant.objects, self.kwargs['chem_type'], unfiltered)

@@ -34,11 +34,11 @@ class ChemDescriptorMixin(models.Model):
     def set_pcp_data(self):
         if not self.cid_number:
             try:
-                self.cid_number = pcp.get_compounds(self.smiles, 'smiles')[0].cid
+                pcp_query = pcp.get_compounds(self.smiles, 'smiles')[0]
+                self.cid_number = pcp_query.cid
+                self.iupac_name = pcp_query.iupac_name
             except (IndexError, pcp.BadRequestError):
-                raise ValidationError('Something went wrong B')
-        if not self.iupac_name:
-            self.iupac_name = cirpy.Molecule(self.smiles).iupac_name
+                raise ValidationError('Something went wrong')
 
     class Meta:
         abstract = True

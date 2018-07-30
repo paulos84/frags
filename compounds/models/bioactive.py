@@ -18,7 +18,7 @@ class Bioactive(CompoundMixin, models.Model):
 
     cat_choices = (
         (1, 'Medicinal compound'),
-        (2, 'Functional food ingredient'),
+        (2, 'Functional food compound'),
         (3, 'Miscellaneous'),
     )
 

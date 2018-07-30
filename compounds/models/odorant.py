@@ -92,26 +92,32 @@ class Odorant(CompoundMixin, models.Model):
             return cls.objects.filter(id__in=matches)
 
     @classmethod
-    def iupac_name_matches(cls, substrings, queryset=None):
+    def name_matches(cls, substrings, substructure_name, queryset=None):
         """
-        Filters instances by those matching a structural fragment according to IUPAC name patterns
+        Filters instances by those matching a structural fragment according to IUPAC name and chemical name patterns
         Args:
-            substrings ('list'): list of substrings in order in which they should appear
+            substrings ('list'): substrings in order in which they should all appear in the odorant IUPAC name
+            substructure_name ('list'): name of the Substucture instance e.g. ionones
             queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering. Defaults to None.
         Returns:
             A QuerySet containing any instance whose iupac_name attribute match the pattern
         Example:
-        >>> Odorant.iupac_name_match(['3,7-dimethyl', 'oct', 'ol']).count()
+        >>> Odorant.name_matches(['3,7-dimethyl', 'oct', 'ol'], 'geraniols').count()
         16
         """
         if not substrings:
             return cls.objects.none()
 
-        def check_name_match(iupac_name):
+        def check_iupac_name_match(iupac_name):
             if [s for s in substrings if s in iupac_name] == substrings:
                 return True
-        all_names = queryset.values('id', 'iupac_name') if queryset else cls.objects.values('id', 'iupac_name')
-        matches = [a['id'] for a in all_names if check_name_match(a['iupac_name'])]
+
+        name_values = queryset.values('id', 'iupac_name', 'chemical_name') if queryset \
+            else cls.objects.values('id', 'iupac_name', 'chemical_name')
+        substruct_name = substructure_name[:-1] if substructure_name.endswith('s') else substructure_name
+
+        matches = [a['id'] for a in name_values if check_iupac_name_match(a['iupac_name'])
+                   or substruct_name in a['chemical_name'].lower()]
         return cls.objects.filter(id__in=matches)
 
     @classmethod
@@ -120,5 +126,3 @@ class Odorant(CompoundMixin, models.Model):
         data = [{a: c.chemical_properties.get(a) for a in
                  ['mw', 'xlogp', 'hac', 'rbc', 'hetac']} for c in queryset]
         return data
-
-

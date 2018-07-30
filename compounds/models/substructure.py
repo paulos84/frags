@@ -9,14 +9,27 @@ from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models import Odorant
 from compounds.models.odor_type import OdorType
 
+
 class Substructure(ChemDescriptorMixin, models.Model):
     """ A model representing a molecule fragment common to a number of model instances,
      allowing them to be grouped according their structure """
 
+    cat_choices = (
+        (1, 'Acyclic terpenoids'),
+        (2, 'Cyclic terpenoids'),
+        (3, 'Bicyclic terpenoids'),
+        (4, 'Sesquiterpenoids'),
+        (5, 'Ionones, Irones, Damascones'),
+        (6, 'Cycloaliphatic ketones'),
+        (7, 'Lactones'),
+    )
+    category = models.IntegerField(
+        choices=cat_choices,
+    )
     name = models.CharField(
         max_length=50,
         verbose_name='Substructure class name',
-        help_text='Uncapitalized Empirical name e.g. tetrahydrolinalools'
+        help_text='Empirical name e.g. tetrahydrolinalools'
     )
     description = models.CharField(
         max_length=340,
@@ -54,15 +67,15 @@ class Substructure(ChemDescriptorMixin, models.Model):
         )
 
     def odorant_set(self):
-        qs = Odorant.substructure_matches(self.smiles) | Odorant.iupac_name_matches(
-            self.iupac_name_pattern)
+        qs = Odorant.substructure_matches(self.smiles) | Odorant.name_matches(
+            self.iupac_name_pattern, self.name)
         return qs
 
     @classmethod
     def compound_sets_averages(cls, chem_property):
         data = {}
-        for qs in cls.objects.all():
-            data[qs.name] = qs.odorant_set().chemical_property_avg(chem_property).get('as_float__avg')
+        for a in cls.objects.all():
+            data[a.name] = a.odorant_set().chemical_property_avg(chem_property).get('as_float__avg')
         return data
 
     @classmethod
@@ -78,8 +91,8 @@ class Substructure(ChemDescriptorMixin, models.Model):
         >>> Substructure.compound_matches(c)
         <QuerySet [<Substructure: Acyclic terpene>]>
         """
-        all_smiles = cls.objects.values('id', 'smiles')
-        matches = [a['id'] for a in all_smiles if
+        id_features = cls.objects.values('id', 'smiles', 'iupac_name_pattern')
+        matches = [a['id'] for a in id_features if
                    Chem.MolFromSmiles(compound.smiles).HasSubstructMatch(
                        Chem.MolFromSmiles(a['smiles']))]
         return cls.objects.filter(id__in=matches)

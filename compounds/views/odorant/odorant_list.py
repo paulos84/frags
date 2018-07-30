@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from compounds.forms import OdorantSearchForm
 from compounds.models import Odorant, UserOdorant, OdorType
-from compounds.views.odorant.base_compound_list import BaseCompoundListView
+from compounds.views.base_compound_list import BaseCompoundListView
 
 
 class BaseOdorantListView(BaseCompoundListView):

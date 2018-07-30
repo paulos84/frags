@@ -25,3 +25,6 @@ class SubstructureManager(models.Manager):
 
     def cyclic_ketones(self):
         return self.get_queryset().filter(category=6)
+
+    def miscellaneous(self):
+        return self.get_queryset().filter(category=7)

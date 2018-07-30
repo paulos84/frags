@@ -8,6 +8,7 @@ from rdkit import Chem
 from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models import Odorant
 from compounds.models.odor_type import OdorType
+from compounds.models.managers import SubstructureManager
 
 
 class Substructure(ChemDescriptorMixin, models.Model):
@@ -21,7 +22,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         (4, 'Sesquiterpenoids'),
         (5, 'Ionones, Irones, Damascones'),
         (6, 'Cycloaliphatic ketones'),
-        (7, 'Lactones'),
+        (7, 'Miscellaneous'),
     )
     category = models.IntegerField(
         choices=cat_choices,
@@ -51,6 +52,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         verbose_name='Odor categories',
         blank=True,
     )
+    objects = SubstructureManager()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

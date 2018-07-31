@@ -117,7 +117,7 @@ class Odorant(CompoundMixin, models.Model):
         substruct_name = substructure_name[:-1] if substructure_name.endswith('s') else substructure_name
 
         matches = [a['id'] for a in name_values if check_iupac_name_match(a['iupac_name'])
-                   or substruct_name in a['chemical_name'].lower()]
+                   or substruct_name.lower() in a['chemical_name'].lower()]
         return cls.objects.filter(id__in=matches)
 
     @classmethod

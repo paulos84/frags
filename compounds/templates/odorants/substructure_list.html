@@ -22,7 +22,7 @@
          <tr>
             {% for item in row %}
                 <td>
-                    <a href="{{ substruct.get_absolute_url }}">
+                    <a href="{{ item.get_absolute_url }}">
                         <img class="structure-img" src={{ item.structure_url }}
                              title={{ item.name }}  height="190" width="190"></a>
                     <div><a href="{{ item.get_absolute_url }}">{{ item }}</a></div>

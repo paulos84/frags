@@ -114,6 +114,7 @@ class CompoundMixin(models.Model):
         page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
         soup = BeautifulSoup(page, 'lxml')
         name = ''.join(soup.html.head.title).split(' | ')[0]
+        name = name.replace('gamma', 'γ').replace('beta', 'β').replace('alpha', 'α')
         if len(name) > 0 and name[0].isalpha():
             return name
         return ''

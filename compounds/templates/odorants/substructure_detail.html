@@ -14,7 +14,7 @@
 <ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
   <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
   <li><a class="breadcrumb-item" href="{% url 'substructures' %}">Substructures</a></li>
-  <li><a class="breadcrumb-item active" href="{% url 'substructure-detail' slug=substructure.slug %}">{{ substructure.name|capfirst }}</a></li>
+  <li><a class="breadcrumb-item active" href="{% url 'substructure-detail' slug=substructure.slug %}">{{ substructure.name }}</a></li>
 </ul>
     <div class="col-sm-2 ">
         <div >

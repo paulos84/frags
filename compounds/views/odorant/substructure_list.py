@@ -22,7 +22,7 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
                 {'subset': Substructure.objects.cyclic_terpenoids(), 'label': 'Cyclic Terpenoids'},
                 {'subset': Substructure.objects.bicyclic_terpenoids(), 'label': 'Bicyclic Terpenoids'},
                 {'subset': Substructure.objects.sesquiterpenoids(), 'label': 'Sespuiterpenoids'},
-                {'subset': Substructure.objects.cycloaliphatic_ketones(), 'label': 'Damascones, Ionones and Jasmones'},
+                {'subset': Substructure.objects.cycloaliphatic_ketones(), 'label': 'Damascones and Ionones'},
                 {'subset': Substructure.objects.miscellaneous(), 'label': 'Miscellaneous'},
             ],
             'choice_form': ChemDataChoiceForm,

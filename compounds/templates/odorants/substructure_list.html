@@ -16,8 +16,8 @@
 
     {% for acyclic_terpenoids in substructure_sets %}
 
-    <table style="margin-bottom:14px">
-    <h5><strong>{{ acyclic_terpenoids.label }}</strong></h5>
+    <table style="margin-bottom:18px">
+    <h5 style="color:#4c4c4c; "><strong>{{ acyclic_terpenoids.label }}</strong></h5>
     {% for row in acyclic_terpenoids.subset|columns:5 %}
          <tr>
             {% for item in row %}
@@ -25,7 +25,7 @@
                     <a href="{{ substruct.get_absolute_url }}">
                         <img class="structure-img" src={{ item.structure_url }}
                              title={{ item.name }}  height="190" width="190"></a>
-                    <div><a href="{{ item.get_absolute_url }}">{{ item|capfirst }}</a></div>
+                    <div><a href="{{ item.get_absolute_url }}">{{ item }}</a></div>
                 </td>
             {% endfor %}
         </tr>

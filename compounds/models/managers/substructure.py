@@ -20,11 +20,8 @@ class SubstructureManager(models.Manager):
     def sesquiterpenoids(self):
         return self.get_queryset().filter(category=4)
 
-    def ionones_etc(self):
+    def cycloaliphatic_ketones(self):
         return self.get_queryset().filter(category=5)
 
-    def cyclic_ketones(self):
-        return self.get_queryset().filter(category=6)
-
     def miscellaneous(self):
-        return self.get_queryset().filter(category=7)
+        return self.get_queryset().filter(category=6)

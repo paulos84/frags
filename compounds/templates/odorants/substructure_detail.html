@@ -22,17 +22,14 @@
              style="width:170px;height:170px;" title={{substructure.iupac_name}} ></div>
     </div>
 <div class="col-sm-8 ">
-        <h4 class="intro"><strong> {{ substructure.name|capfirst }}</strong></h4>
-        <p><strong>Base IUPAC name:</strong>{{ substructure.iupac_name }}</p>
-        <div>
-            <h5><p><strong>Typical odor types: </strong>{% for odor_type in substructure.odor_categories.all %}
-                    <a href="{% url 'odorant-odor-type-filter' odor_type.term %}">{{ odor_type.term }}</a>
-                {% endfor %}
-            </h5>
-
-    </div>
-        <p style="margin-right:74px">{{ substructure.description }}</p>
-        </div>
+    <h4 class="intro"><strong> {{ substructure.name }}</strong></h4>
+    <p><strong>Base IUPAC name:</strong>{{ substructure.iupac_name }}</p>
+    {% if substructure.odor_category %}
+        <p><strong>Characteristic odor type: </strong>
+                <a href="{% url 'odorant-odor-type-filter' substructure.odor_category.term %}">{{ substructure.odor_category }}</a></p>
+    {% endif %}
+    <p style="margin-right:74px">{{ substructure.description }}</p>
+</div>
 <div class="col-sm-10 ">
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="top:12px">
         <div class="btn-group" style="margin-left: 44px; ">

@@ -60,10 +60,13 @@ class CompoundMixin(models.Model):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
     def save(self, *args, additional_data=None, **kwargs):
-        """ Sets data for various fields """
+        """
+        Sets data for various fields. Assumes that if the object does not have inchikey data that it has a SMILES string
+        """
         if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
             try:
-                pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
+                pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0] if hasattr(self, 'inchikey') else \
+                    pcp.get_compounds(self.smiles, 'smiles')[0]
             except (IndexError, pcp.BadRequestError):
                 raise ValidationError('Something went wrong')
             extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',

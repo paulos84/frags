@@ -16,18 +16,14 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SubstructureListView, self).get_context_data(**kwargs)
-
         context.update({
-            # 'acyclic_terpenoids': Substructure.objects.acyclic_terpenoids(),
-            # 'cyclic_terpenoids': Substructure.objects.cyclic_terpenoids(),
-            # 'bicyclic_terpenoids': Substructure.objects.bicyclic_terpenoids(),
-            # 'sesquiterpenoids': Substructure.objects.sesquiterpenoids(),
-            # 'ionones_etc': Substructure.objects.ionones_etc(),
-            # 'cyclic_ketones': Substructure.objects.cyclic_ketones(),
-            # 'miscellaneous': Substructure.objects.miscellaneous(),
             'substructure_sets': [
                 {'subset': Substructure.objects.acyclic_terpenoids(), 'label': 'Acyclic Terpenoids'},
-                {'subset': Substructure.objects.ionones_etc(), 'label': 'Ionones, Irones and Damascones'},
+                {'subset': Substructure.objects.cyclic_terpenoids(), 'label': 'Cyclic Terpenoids'},
+                {'subset': Substructure.objects.bicyclic_terpenoids(), 'label': 'Bicyclic Terpenoids'},
+                {'subset': Substructure.objects.sesquiterpenoids(), 'label': 'Sespuiterpenoids'},
+                {'subset': Substructure.objects.cycloaliphatic_ketones(), 'label': 'Damascones, Ionones and Jasmones'},
+                {'subset': Substructure.objects.miscellaneous(), 'label': 'Miscellaneous'},
             ],
             'choice_form': ChemDataChoiceForm,
             'odor_types': OdorType.objects.values('term'),
@@ -40,7 +36,8 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
             context['plot_div'] = div
         return context
 
-    def make_plot(self, chem_property):
+    @staticmethod
+    def make_plot(chem_property):
         averages = Substructure.compound_sets_averages(chem_property)
         plot_data = list(averages.keys()), list(averages.values())
         title = chemical_properties_label_map.get(chem_property, chem_property)

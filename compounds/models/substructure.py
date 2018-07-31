@@ -7,7 +7,6 @@ from rdkit import Chem
 
 from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models import Odorant
-from compounds.models.odor_type import OdorType
 from compounds.models.managers import SubstructureManager
 
 
@@ -20,9 +19,8 @@ class Substructure(ChemDescriptorMixin, models.Model):
         (2, 'Cyclic terpenoids'),
         (3, 'Bicyclic terpenoids'),
         (4, 'Sesquiterpenoids'),
-        (5, 'Ionones, Irones, Damascones'),
-        (6, 'Cycloaliphatic ketones'),
-        (7, 'Miscellaneous'),
+        (5, 'Damascones and Ionones'),
+        (6, 'Miscellaneous'),
     )
     category = models.IntegerField(
         choices=cat_choices,
@@ -46,16 +44,19 @@ class Substructure(ChemDescriptorMixin, models.Model):
         default=list,
         blank=True
     )
-    odor_categories = models.ManyToManyField(
-        OdorType,
-        related_name='Substructures',
+    odor_category = models.ForeignKey(
+        'compounds.OdorType',
+        on_delete=models.SET_NULL,
+        related_name='substructures',
         verbose_name='Odor categories',
+        null=True,
         blank=True,
     )
     objects = SubstructureManager()
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if not self.slug:
+            self.slug = slugify(self.name)
         self.set_pcp_data()
         super(Substructure, self).save(*args, **kwargs)
 

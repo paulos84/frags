@@ -33,13 +33,13 @@ class OdorantSearchFilterMixin(object):
     """
     def get(self, request, *args, **kwargs):
         regex = re.compile('[^-a-z0-9]')
-        cas_no = request.GET.get('cas_number')
         chem_name = request.GET.get('chemical_name')
         iupac = request.GET.get('iupac_name', '').lower()
-        if any([cas_no, chem_name, iupac]):
+        inchikey = request.GET.get('inchikey', '')
+        if any([inchikey, chem_name, iupac]):
             params = (iupac, 'iupac')
-            if cas_no:
-                params = cas_no, 'cas'
+            if inchikey:
+                params = inchikey, 'inchikey'
             elif chem_name:
                 params = chem_name, 'name'
             return redirect(reverse(

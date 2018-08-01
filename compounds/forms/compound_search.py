@@ -1,10 +1,4 @@
 from django import forms
-from django.core.validators import ValidationError
-
-
-def validate_whitespaces(value):
-    if ' ' in value:
-        raise ValidationError("Oops, a whitespace error occured.")
 
 
 class OdorantSearchForm(forms.Form):
@@ -32,7 +26,7 @@ class OdorantSearchForm(forms.Form):
     )
 
 
-class BioactiveSearchForm(OdorantSearchForm):
+class BioactiveSearchForm(forms.Form):
 
     chemical_name = forms.CharField(
         label='Chemical name',
@@ -40,6 +34,13 @@ class BioactiveSearchForm(OdorantSearchForm):
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'e.g. Aspirin', }),
+    )
+    iupac_name = forms.CharField(
+        label='IUPAC name contains',
+        max_length=30,
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'e.g. 2-phenylethyl', }),
     )
     inchikey = forms.CharField(
         label='InChIKey',

@@ -7,8 +7,12 @@ from compounds.forms import BioactiveSearchForm
 
 
 class BaseBioactiveListView(ListView):
-    queryset = Bioactive.objects.all()
+    model = Bioactive
     paginate_by = 32
+
+    def get_queryset(self):
+        queryset = super(BaseBioactiveListView, self).get_queryset()
+        return queryset.filter(category=self.kwargs.get('category'))
 
     def get_context_data(self, **kwargs):
         context = super(BaseBioactiveListView, self).get_context_data(**kwargs)
@@ -28,13 +32,10 @@ class BioactiveListView(BaseBioactiveListView):
         context = super(BioactiveListView, self).get_context_data(**kwargs)
         # context['odor_types'] = OdorType.objects.values('term')
         # some other category...e.g. func food, medicinal,
-        context['page_header'] = Bioactive.cat_choices[self.kwargs['category']-1][1] + 's'
+        label = Bioactive.cat_choices[self.kwargs['category']-1][1]
+        context['page_header'] = label + 's' if not label.endswith('s') else label
         return context
 
-    def get_queryset(self):
-        queryset = super(BioactiveListView, self).get_queryset()
-        queryset.filter(category=self.kwargs.get('category'))
-        return queryset
 
 
 class UserBioactiveListView(LoginRequiredMixin, BaseBioactiveListView):

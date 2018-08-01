@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
 from compounds.forms import OdorantSearchForm
-from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
+from compounds.views.mixins import OdorantSearchFilterMixin
 from compounds.models import Odorant, UserOdorant, OdorType
 
 

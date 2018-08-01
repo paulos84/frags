@@ -1,12 +1,12 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
 
 from compounds.models import Bioactive
 from compounds.forms import BioactiveSearchForm
+from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
-class BaseBioactiveListView(ListView):
+class BaseBioactiveListView(BioactiveSearchFilterMixin, ListView):
     model = Bioactive
     paginate_by = 32
 

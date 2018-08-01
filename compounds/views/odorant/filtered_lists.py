@@ -13,7 +13,7 @@ class OdorantSearchFilterListView(BaseOdorantListView):
             try:
                 obj_id = Odorant.objects.get(cas_number=search_query).id
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
-            except (IndexError, Odorant.DoesNotExist):
+            except Odorant.DoesNotExist:
                 pass
         if field == 'name':
             specific_matches = Odorant.objects.filter(chemical_name__iexact=search_query)

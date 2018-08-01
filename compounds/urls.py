@@ -6,6 +6,7 @@ from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, Od
                              CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
                              SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
                              UserCompoundSourceListView)
+from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
@@ -21,9 +22,13 @@ urlpatterns = [
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
+    path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),
+         name='bioactive-name-filter'),
 
     path('odorant/all', OdorantListView.as_view(), name='all-odorants'),
     path('odorant/search/<field>/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
+
+
     path('odorant/filter/<chem_type>', OdorantChemFilterListView.as_view(), name='chem-filter'),
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
     path('lit-refs/<compound_type>/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),

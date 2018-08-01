@@ -73,12 +73,17 @@
 <div class="col-sm-6 ">
         <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
         <p><strong>InChIKey:</strong> {{ bioactive.inchikey }}</p>
-        {% for a in bioactive.chemical_properties %}
-            {{ a }}
+        <table class="table">
+        {% for key, value in bioactive.chemical_properties.items %}
+            <tr>
+                <td><strong>{{ key }}</strong>: </td><td> {{ value }}</td>
+            </tr>
         {% endfor %}
+        </table>
+
     </div>
 <div class="col-sm-4 ">
-        <div style=" position:relative; top:16px" >
+        <div style=" position:relative; top:2px" >
             <img width="260" height="260" class="structure-img" src={{ bioactive.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:280px; left:12px">

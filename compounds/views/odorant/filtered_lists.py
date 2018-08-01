@@ -8,17 +8,24 @@ class OdorantSearchFilterListView(BaseOdorantListView):
 
     def dispatch(self, request, *args, **kwargs):
         search_query = kwargs.pop('search_query', '')
-        try:
-            cas = True if search_query[0].isnumeric() and \
-                          search_query[1].isnumeric() else False
-            if cas:
-                self.queryset = Odorant.objects.none()
+        field = kwargs.pop('field', '')
+        if field == 'cas':
+            try:
                 obj_id = Odorant.objects.get(cas_number=search_query).id
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
-            self.queryset = Odorant.objects.filter(
-                iupac_name__contains=search_query)
-        except (IndexError, Odorant.DoesNotExist):
-            pass
+            except (IndexError, Odorant.DoesNotExist):
+                pass
+        if field == 'name':
+            specific_matches = Odorant.objects.filter(chemical_name__iexact=search_query)
+            if specific_matches.exists():
+                return redirect(reverse('odorant-detail', kwargs={'pk': specific_matches.first().id}))
+            chem_name_matches = Odorant.objects.filter(chemical_name__icontains=search_query)
+            if chem_name_matches.count() == 1:
+                return redirect(reverse('odorant-detail', kwargs={'pk': chem_name_matches.first().id}))
+            elif chem_name_matches.exists():
+                self.queryset = chem_name_matches
+        else:
+            self.queryset = Odorant.objects.filter(iupac_name__icontains=search_query)
         return super(OdorantSearchFilterListView, self).dispatch(request, *args, **kwargs)
 
 

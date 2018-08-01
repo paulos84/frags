@@ -1,3 +1,5 @@
+from math import pi
+
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource
@@ -43,9 +45,10 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
         title = chemical_properties_label_map.get(chem_property, chem_property)
         source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1], color=Spectral6))
         max_val = max(plot_data[1])
-        p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=250, title=title,
+        p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=350, title=title,
                    toolbar_location=None, tools="")
         p.vbar(x='substructures', top='avg_vals', width=0.9, color='color', source=source)
+        p.xaxis.major_label_orientation = pi / 4
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
         return p

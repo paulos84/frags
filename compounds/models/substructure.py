@@ -40,7 +40,7 @@ class Substructure(ChemDescriptorMixin, models.Model):
         blank=True,
     )
     iupac_name_pattern = ArrayField(
-        (models.CharField(max_length=30, blank=True)),
+        (models.CharField(max_length=200, blank=True)),
         default=list,
         blank=True
     )

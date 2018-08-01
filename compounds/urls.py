@@ -23,7 +23,7 @@ urlpatterns = [
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
 
     path('odorant/all', OdorantListView.as_view(), name='all-odorants'),
-    path('odorant/search/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
+    path('odorant/search/<field>/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
     path('odorant/filter/<chem_type>', OdorantChemFilterListView.as_view(), name='chem-filter'),
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
     path('lit-refs/<compound_type>/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
@@ -36,7 +36,8 @@ urlpatterns = [
     path('odorant/substructure', SubstructureListView.as_view(), name='substructures'),
     path('odorant/substructure/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
     path('odorant/substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
-    path('odorant/substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(), name='filtered-substructure'),
+    path('odorant/substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(),
+         name='filtered-substructure'),
     path('user/odorant/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserOdorantListView.as_view(), name='user-compound-list'),
     path('user/filter/<chem_type>', UserOdorantChemFilterListView.as_view(), name='user-chem-filter'),

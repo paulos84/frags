@@ -100,7 +100,7 @@ class CompoundMixin(models.Model):
         chem_dict.update({
             'mw': int(pcp_data.molecular_weight),
             'synonyms': ', '.join(pcp_data.synonyms[:5]),
-            'hetac': len(''.join([i for i in self.smiles if i in ['O', 'N', 'S', ]]))
+            'hetac': len(''.join([i for i in self.smiles if i not in ['C', 'O', ]]))
         })
         extra_available = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
                            'bond_stereo_count']

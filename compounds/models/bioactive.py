@@ -2,10 +2,8 @@
 import re
 
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.urls import reverse
-import pubchempy as pcp
 
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
@@ -66,3 +64,7 @@ class Bioactive(CompoundMixin, models.Model):
             'bioactive-detail',
             args=[str(self.pk)],
         )
+
+    def category_slug(self):
+        category_map = {1: 'medicinal', 2: 'phytochemical', 3: 'misc'}
+        return category_map[self.category]

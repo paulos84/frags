@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from compounds.models import Bioactive, Odorant, UserOdorant, OdorType, Profile, Substructure, CompoundSource
+from compounds.models import (Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
+                              CompoundSource)
 from compounds.forms.admin import SubstructureAdminForm
 
 
@@ -10,6 +11,15 @@ class BioactiveAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
             return self.readonly_fields + ('chemical_properties', 'cid_number', 'iupac_name', 'smiles', 'chemical_name')
+        return self.readonly_fields
+
+
+@admin.register(BioactiveCore)
+class BioactiveCoreAdmin(admin.ModelAdmin):
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # editing an existing object
+            return self.readonly_fields + ('cid_number', 'iupac_name', 'smiles')
         return self.readonly_fields
 
 

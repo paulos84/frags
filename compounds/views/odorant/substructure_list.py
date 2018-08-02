@@ -5,7 +5,7 @@ from bokeh.embed import components
 from bokeh.models import ColumnDataSource
 from bokeh.palettes import Spectral6
 from bokeh.plotting import figure
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from compounds.models import Odorant, Substructure, OdorType
 from compounds.forms import ChemDataChoiceForm
@@ -54,12 +54,16 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
         return p
 
 
-class CompoundMatchSubstructureListView(SubstructureListView):
+class CompoundMatchSubstructureListView(OdorantSearchFilterMixin, ListView):
     template_name = 'odorants/odorant_substructures.html'
     compound = None
+    context_object_name = 'substructure_list'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.compound = Odorant.objects.get(id=self.kwargs['pk'])
+        return super(CompoundMatchSubstructureListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        self.compound = Odorant.objects.get(id=self.kwargs['pk'])
         return Substructure.compound_matches(self.compound)
 
     def get_context_data(self, **kwargs):

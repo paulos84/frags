@@ -2,7 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
 
-from compounds.views import (ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
+from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
+                             ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
                              CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
                              SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
                              UserCompoundSourceListView)
@@ -10,20 +11,20 @@ from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
-from compounds.views.bioactive.bioactive_list import BioactiveListView
-from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
-from compounds.views.bioactive.bioactive_create import BioactiveCreateView, process_bioactive_identifier
+from compounds.views.bioactive.bioactive_create import process_bioactive_identifier
 
 
 urlpatterns = [
     re_path(r'^$', OdorantListView.as_view(), name='index'),
 
-    path('bioactives/<int:category>', BioactiveListView.as_view(), name='bioactive-list'),
+    path('bioactives/<category>', BioactiveListView.as_view(), name='bioactive-list'),
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),
          name='bioactive-name-filter'),
+    path('bioactive/substructure/<slug>', BioactiveCoreMatchList.as_view(), name='bioactive-core-matches'),
+
 
     path('odorant/all', OdorantListView.as_view(), name='all-odorants'),
     path('odorant/search/<field>/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
@@ -39,7 +40,7 @@ urlpatterns = [
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeOdorantListView.as_view(), name='odorant-odor-type-filter'),
     path('odorant/substructure', SubstructureListView.as_view(), name='substructures'),
-    path('odorant/substructure/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
+    path('odorant/substruct/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
     path('odorant/substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
     path('odorant/substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(),
          name='filtered-substructure'),

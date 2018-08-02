@@ -1,3 +1,7 @@
+from compounds.views.bioactive.bioactive_list import BioactiveListView, UserBioactiveListView
+from compounds.views.bioactive.bioactive_core import BioactiveCoreMatchList
+from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
+from compounds.views.bioactive.bioactive_create import BioactiveCreateView
 from compounds.views.odorant.filtered_lists import OdorantChemFilterListView, UserOdorantChemFilterListView
 from compounds.views.odorant.odorant_create import OdorantCreateView
 from compounds.views.odorant.odorant_list import (
@@ -15,6 +19,10 @@ from .odorant.odorant_list import OdorantListView
 from .odorant.odorant_update import OdorantUpdateView
 
 __all__ = [
+    BioactiveCreateView,
+    BioactiveDetailView,
+    BioactiveCoreMatchList,
+    BioactiveListView,
     OdorantChemFilterListView,
     OdorantCreateView,
     OdorantDetailView,

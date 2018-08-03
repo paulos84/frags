@@ -88,21 +88,20 @@
       <ul class="sidebar-nav">
         <div style=" position:relative; left:6px">
             <a href="{% url 'index' %}" type="button" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">All compounds</a>
-            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructures</a>
-            <a href="{% url 'bioactive-add' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Add new compounds</a>
+            <a href="{% url 'bioactive-add' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Add compound</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'user-compound-list' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">My compounds</a>
             {% endif %}
         <div class="btn-group" style="top:20px; ">
             <button type="button" data-toggle="dropdown" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
-                Chemical categories<span class="caret"></span></button>
+                Bioactive compounds<span class="caret"></span></button>
             <ul class="dropdown-menu">
-            <li><a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">Heteroaromatics</a></li>
-            <li><a href="{% url 'chem-filter' chem_type='aliphatic_alcohols' %}">Aliphatic alcohols</a></li>
-            <li><a href="{% url 'chem-filter' chem_type='aliphatic_carbonyls' %}">Aliphatic carbonyls</a></li>
-            <li><a href="{% url 'chem-filter' chem_type='aromatic_alcohols' %}">Aromatic alcohols</a></li>
-            <li><a href="{% url 'chem-filter' chem_type='aromatic_carbonyls' %}">Aromatic carbonyls</a></li>
+                <li><a href="{% url 'bioactive-list' category='medicinal' %}">Medicinal</a></li>
+                <li><a href="{% url 'bioactive-list' category='phytochemical' %}">Phytochemical</a></li>
+                <li><a href="{% url 'bioactive-list' category='misc' %}">Miscellaneous</a></li>
             </ul>
+            <a href="{% url 'bioactive-cores' %}"> <button type="button" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default" >
+                Bioactive substructures<span class="glyphicon glyphicon"></span></button></a>
         </div>
       </div>
       </ul>

@@ -1,10 +1,11 @@
 from django.urls import reverse
 from django.views.generic import DetailView
 
-from compounds.models import Bioactive
+from compounds.models import Bioactive, BioactiveCore
+from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
-class BioactiveDetailView(DetailView):
+class BioactiveDetailView(BioactiveSearchFilterMixin, DetailView):
     model = Bioactive
     template_name = 'bioactives/bioactive_detail.html'
 
@@ -19,7 +20,10 @@ class BioactiveDetailView(DetailView):
             if key in chem_properties:
                 chem_properties[key_map[key]] = chem_properties.pop(key)
         chem_properties.pop('synonyms', None)
-        context['chemical_properties'] = chem_properties
+        context.update({
+            'chemical_properties': chem_properties,
+            'substructures': BioactiveCore.compound_matches(self.get_object()),
+        })
         return context
 
     def get_success_url(self):

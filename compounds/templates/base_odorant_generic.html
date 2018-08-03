@@ -58,6 +58,7 @@
                 <input class="form-control" type="password" name="password" placeholder="Password" id="id_password" />
                 <input type="submit" class="btn btn-default" value="Log in" />
                 <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                <a href="{% url 'signup' %}" class="btn btn-secondary">Register</a>
             </form>
         </div>
       {% else %}
@@ -92,7 +93,7 @@
         <div style=" position:relative; left:6px;">
             <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
             <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Substructures</a>
-            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compounds</a>
+            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add compound</a>
         </div>
       </ul>
     {% if compound_search %}

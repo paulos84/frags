@@ -4,6 +4,7 @@ import re
 from django.db import models
 from django.core.validators import RegexValidator
 from django.urls import reverse
+from rdkit import Chem
 
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
@@ -37,21 +38,6 @@ class Bioactive(CompoundMixin, models.Model):
     @property
     def cas_numbers(self):
         return re.findall('\d+(?:-\d+)+', self.synonyms)
-    #
-    # def save(self, *args, **kwargs):
-    #     """ Sets data for various fields """
-    #     if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
-    #         try:
-    #             pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0]
-    #         except (IndexError, pcp.BadRequestError):
-    #             raise ValidationError('Something went wrong A')
-    #         extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
-    #                                  'bond_stereo_count']
-    #         self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
-    #         self.set_chemical_data(pcp_query=pcp_data, additional=extra_chem_properties)
-    #     if not self.chemical_name:
-    #         self.scrape_compound_name(self.cid_number)
-    #     super(Bioactive, self).save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         super(Bioactive, self).save(*args, additional_data=True, **kwargs)
@@ -68,3 +54,43 @@ class Bioactive(CompoundMixin, models.Model):
     def category_slug(self):
         category_map = {1: 'medicinal', 2: 'phytochemical', 3: 'misc'}
         return category_map[self.category]
+
+    @classmethod
+    def substructure_matches(cls, pattern, queryset=None):
+        """
+        Filters instances by those matching a structural fragment represented by a smiles string
+        Args:
+            pattern (str): A string in smiles format which represents a chemical substructure
+            queryset (:obj:'QuerySet', optional): A QuerySet for additional filtering.
+        Returns:
+            A QuerySet if a valid smiles fragment is supplied, otherwise None.
+        Example:
+            >>> Bioactive.substructure_matches('CCN=C=S').count()
+            8
+        """
+        mol_fragment = Chem.MolFromSmiles(pattern)
+        if hasattr(mol_fragment, 'HasSubstructMatch'):
+            all_smiles = queryset.values('id', 'smiles') if queryset else cls.objects.values('id', 'smiles')
+            matches = [a['id'] for a in all_smiles if
+                       Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]
+            return cls.objects.filter(id__in=matches)
+
+    @classmethod
+    def name_matches(cls, substrings):
+        """
+        Filters instances by those matching a structural fragment according to IUPAC name and chemical name patterns
+        Args:
+            substrings ('list'): substrings in order in which they should all appear in the odorant IUPAC name
+        Returns:
+            A QuerySet containing any instance whose iupac_name attribute match the pattern
+        Example:
+        >>> Bioactive.name_matches(['isothiocyanate']).count()
+        7
+        """
+        def check_iupac_name_match(iupac_name):
+            if [s for s in substrings if s in iupac_name] == substrings:
+                return True
+
+        name_values = cls.objects.values('id', 'iupac_name', 'chemical_name')
+        matches = [a['id'] for a in name_values if check_iupac_name_match(a['iupac_name'])]
+        return cls.objects.filter(id__in=matches)

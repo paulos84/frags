@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import Http404
 
 from compounds.models import Bioactive
-from compounds.forms import BioactiveSearchForm
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
@@ -23,15 +22,6 @@ class BaseBioactiveListView(BioactiveSearchFilterMixin, ListView):
         queryset = super(BaseBioactiveListView, self).get_queryset()
         return queryset.filter(category=self.category)
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseBioactiveListView, self).get_context_data(**kwargs)
-        context['compound_search'] = BioactiveSearchForm()
-        # context['odor_types'] = OdorType.objects.values('term')
-        # some other category...e.g. func food, medicinal,
-        return context
-
-
-# BioactiveSearchForm make mixin as for odorants
 
 class BioactiveListView(BaseBioactiveListView):
     template_name = 'bioactives/bioactive_list.html'
@@ -39,8 +29,6 @@ class BioactiveListView(BaseBioactiveListView):
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveListView, self).get_context_data(**kwargs)
-        # context['odor_types'] = OdorType.objects.values('term')
-        # some other category...e.g. func food, medicinal,
         category = self.category_map[self.kwargs['category']]
         label = Bioactive.cat_choices[category - 1][1]
         context['page_header'] = label + 's' if not label.endswith('s') else label

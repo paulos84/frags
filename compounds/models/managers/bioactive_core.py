@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class BioactiveQuerySet(models.QuerySet):
+class BioactiveCoreQuerySet(models.QuerySet):
 
     def medicinal(self):
         return self.filter(category=1)
@@ -13,10 +13,10 @@ class BioactiveQuerySet(models.QuerySet):
         return self.filter(category=3)
 
 
-class BioactiveManager(models.Manager):
+class BioactiveCoreManager(models.Manager):
 
     def get_queryset(self):
-        return BioactiveQuerySet(self.model, using=self._db)
+        return BioactiveCoreQuerySet(self.model, using=self._db)
 
     def medicinal(self):
         return self.get_queryset().medicinal()

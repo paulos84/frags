@@ -3,10 +3,10 @@ from django.conf.urls.static import static
 from django.urls import path, re_path
 
 from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
-                             ChemFilterSubstructureDetail, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
-                             CompoundMatchSubstructureListView, LiteratureRefsView, SubstructureListView,
-                             SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
-                             UserCompoundSourceListView)
+                             BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
+                             LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
+                             SubstructureListView, SubstructureDetail, UserSubstructureDetail,
+                             UserCompoundNotesDeleteView, UserCompoundSourceListView)
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
@@ -23,6 +23,9 @@ urlpatterns = [
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),
          name='bioactive-name-filter'),
+
+
+    path('bioactive/substructures', BioactiveCoreListView.as_view(), name='bioactive-cores'),
     path('bioactive/substructure/<slug>', BioactiveCoreMatchList.as_view(), name='bioactive-core-matches'),
 
 
@@ -40,7 +43,7 @@ urlpatterns = [
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeOdorantListView.as_view(), name='odorant-odor-type-filter'),
     path('odorant/substructure', SubstructureListView.as_view(), name='substructures'),
-    path('odorant/substruct/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
+    path('odorant/substructures/<int:pk>', CompoundMatchSubstructureListView.as_view(), name='odorant-substructures'),
     path('odorant/substructure/<slug>', SubstructureDetail.as_view(), name='substructure-detail'),
     path('odorant/substructure/<slug>/<chem_type>', ChemFilterSubstructureDetail.as_view(),
          name='filtered-substructure'),

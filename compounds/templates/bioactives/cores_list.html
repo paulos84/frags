@@ -1,0 +1,38 @@
+{% extends "base_bioactive_generic.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load partition %}
+
+{% block title %}<title>Substructures</title>{% endblock %}
+
+{% block head %}
+    <!--<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>-->
+    <!--<link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css">-->
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-10" >
+    {% for category in substructure_sets %}
+        <table style="margin-bottom:18px">
+            <h5 style="color:#4c4c4c; "><strong>{{ category.label }}</strong></h5>
+            {% for row in category.subset|columns:5 %}
+                 <tr>
+                    {% for item in row %}
+                        <td>
+                            <a href="{{ item.get_absolute_url }}">
+                                <img class="structure-img" src={{ item.structure_url }}
+                                     title={{ item.name }}  height="190" width="190"></a>
+                            <div style="position: relative; left:6px; ">
+                                <a href="{{ item.get_absolute_url }}">{{ item }}</a></div>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+{% endblock %}

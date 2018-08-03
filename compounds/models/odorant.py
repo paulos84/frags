@@ -85,7 +85,7 @@ class Odorant(CompoundMixin, models.Model):
             42
         """
         mol_fragment = Chem.MolFromSmiles(pattern)
-        if hasattr(mol_fragment, 'GetAtoms'):
+        if hasattr(mol_fragment, 'HasSubstructMatch'):
             all_smiles = queryset.values('id', 'smiles') if queryset else cls.objects.values('id', 'smiles')
             matches = [a['id'] for a in all_smiles if
                        Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]

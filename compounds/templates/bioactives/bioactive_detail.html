@@ -38,12 +38,15 @@
 
     <div class="btn-group" role="group" style="margin-top:24px; ">
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#chem_properties_table').toggle();">Chemical properties</button>
+                onclick="$('#chem_properties_table').toggle(); $('#substructure_matches').hide(); $('#commercial_sources').hide(); ">
+            Chemical properties</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#chem_properties_table').toggle();">Substructures</button>
+                onclick="$('#substructure_matches').toggle(); $('#chem_properties_table').hide(); $('#commercial_sources').hide();">
+            Substructures</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#chem_properties_table').toggle();">Commercial sources</button>
-
+                onclick="$('#commercial_sources').toggle(); $('#chem_properties_table').hide(); $('#substructure_matches').hide(); ">
+            Commercial sources</button>
+    </div>
         <div id="chem_properties_table" style="display: none">
             <table class="table" style="width: 290px">
             {% for key, value in chemical_properties.items|dictsort:"0.lower" %}
@@ -53,6 +56,15 @@
             {% endfor %}
             </table>
         </div>
+        <div id="substructure_matches" style="display: none; margin-top: 32px;  ">
+        {% if substructures %}
+            {% for substruct in substructures %}
+                <a href="{{ substruct.get_absolute_url }}">
+                    <img src={{ substruct.structure_url }} height="120" width="120" title={{ substruct }} >
+            </a></p>
+            {% endfor %}
+        {% endif %}
+
     </div>
 </div>
 <div class="col-sm-4 ">

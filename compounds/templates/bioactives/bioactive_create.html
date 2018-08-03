@@ -74,7 +74,7 @@
             {
                $("#not_found").show();
             }
-            if (data.object_exists)
+            else if (data.object_exists)
             {
                $("#object_exists").show();
                $("#object_exists a").attr("href",data.object_exists);
@@ -109,7 +109,7 @@
             {
                $("#not_found").show();
             }
-            if (data.object_exists)
+            else if (data.object_exists)
             {
                $("#object_exists").show();
                $("#object_exists a").attr("href",data.object_exists);

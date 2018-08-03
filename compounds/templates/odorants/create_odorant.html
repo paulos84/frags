@@ -72,14 +72,13 @@
             if (data.error == 'No compound found for this CAS number')
             {
                $("#not_found").show();
-               console.log(data.error);
             }
-            if (data.object_exists)
+            else if (data.object_exists)
             {
                $("#object_exists").show();
                $("#object_exists a").attr("href",data.object_exists);
                $("#object_exists a").text(data.object_exists_name);
-               console.log(data.object_exists);
+               $("#add-compound-form").trigger("reset");
             }
             else
             {

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
+     <script src="http://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
 {% endblock %}
 
 
@@ -22,7 +22,7 @@
     <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
     <p><strong>InChIKey:</strong> {{ bioactive.inchikey }}</p>
 
-    <div class="btn-group" role="group" style="margin-top:14px; ">
+    <div class="btn-group" role="group" style="margin-top:4px; ">
         <a href="{% url 'literature-references' pk=bioactive.pk compound_type='bioactive' %}">
             <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">Literature references</button></a>
         {% if user.is_authenticated %}
@@ -36,17 +36,35 @@
         {% endif %}
     </div>
 
-    <div class="btn-group" role="group" style="margin-top:24px; ">
+    <div class="btn-group" role="group" style="margin-top:14px; ">
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#chem_properties_table').toggle(); $('#substructure_matches').hide(); $('#commercial_sources').hide(); ">
+                onclick="$('#chem_properties_table').toggle();
+                $('#substructure_matches').hide();
+                $('#commercial_sources').hide();
+                $('#3dmol-viewer').hide() ">
             Chemical properties</button>
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#substructure_matches').toggle(); $('#chem_properties_table').hide(); $('#commercial_sources').hide();">
+        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:130px; "
+                onclick="$('#substructure_matches').toggle();
+                $('#chem_properties_table').hide();
+                $('#commercial_sources').hide();
+                $('#3dmol-viewer').hide() ">
             Substructures</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#commercial_sources').toggle(); $('#chem_properties_table').hide(); $('#substructure_matches').hide(); ">
+                onclick="$('#commercial_sources').toggle();
+                 $('#chem_properties_table').hide();
+                 $('#substructure_matches').hide();
+                 $('#3dmol-viewer').hide() ">
             Commercial sources</button>
+        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:110px; "
+                onclick="$('#3dmol-viewer').toggle();
+                 $('#chem_properties_table').hide();
+                 $('#substructure_matches').hide();
+                 $('#commercial_sources').hide() ">
+            3D Molecule</button>
     </div>
+        <div id="commercial_sources" style="display: none">
+            <p>I am com sources</p>
+        </div>
         <div id="chem_properties_table" style="display: none">
             <table class="table" style="width: 290px">
             {% for key, value in chemical_properties.items|dictsort:"0.lower" %}
@@ -56,19 +74,24 @@
             {% endfor %}
             </table>
         </div>
-        <div id="substructure_matches" style="display: none; margin-top: 32px;  ">
+        <div id="substructure_matches" style="display: none; margin-top: 44px;  ">
         {% if substructures %}
             {% for substruct in substructures %}
                 <a href="{{ substruct.get_absolute_url }}">
-                    <img src={{ substruct.structure_url }} height="120" width="120" title={{ substruct }} >
-            </a></p>
+                    <img src={{ substruct.structure_url }} height="150" width="150" title={{ substruct }} >
+                    <div style="position: relative; left:6px; " class="structure-img">
+                                <a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a></div>
+            </a>
             {% endfor %}
         {% endif %}
-
-    </div>
+        </div>
+        <div style="height: 300px; width: 300px; position: relative; left: 30px; margin-top: 18px; " id="3dmol-viewer"
+             class='viewer_3Dmoljs' data-cid={{ cid_string }} data-backgroundcolor='0xffffff' data-style='stick'>
+        </div>
 </div>
+
 <div class="col-sm-4 ">
-    <div style="float:left; position:relative; top:2px" >
+    <div style="float:left; position:relative; top:2px" class="structure-img">
         <img width="220" height="220" class="structure-img" src={{ bioactive.structure_url }} title={{substructure}} >
     </div>
     <div style=" position:relative; top:24px; width:280px; left:12px">
@@ -76,8 +99,8 @@
     </div>
 </div>
 
-
 <div class="col-sm-10 " style="margin-top:10px">
 
-    </div>
+</div>
 {% endblock %}
+

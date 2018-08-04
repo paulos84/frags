@@ -10,8 +10,9 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, DetailView):
     template_name = 'bioactives/bioactive_detail.html'
 
     def get_context_data(self, **kwargs):
+        compound = self.get_object()
         context = super(BioactiveDetailView, self).get_context_data(**kwargs)
-        chem_properties = self.get_object().chemical_properties
+        chem_properties = compound.chemical_properties
         key_map = {'mw': 'molecular weight', 'hac': 'heavy atom count', 'hetac': 'heteroatom count',
                    'rbc': 'rotable bond count', 'bond_stereo_count': 'stereogenic bond count',
                    'h_bond_donor_count': 'H-bond donor count', 'h_bond_acceptor_count': 'H-bond acceptor count',
@@ -22,7 +23,8 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, DetailView):
         chem_properties.pop('synonyms', None)
         context.update({
             'chemical_properties': chem_properties,
-            'substructures': BioactiveCore.compound_matches(self.get_object()),
+            'substructures': BioactiveCore.compound_matches(compound),
+            'cid_string': str(compound.cid_number)
         })
         return context
 

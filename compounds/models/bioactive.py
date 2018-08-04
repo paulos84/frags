@@ -20,17 +20,23 @@ class Bioactive(CompoundMixin, models.Model):
         (2, 'Phytochemical'),
         (3, 'Miscellaneous'),
     )
-
     category = models.IntegerField(
         choices=cat_choices,
     )
-
     inchikey = models.CharField(
         db_index=True,
         max_length=150,
         unique=True,
         verbose_name='InChIKey identifier',
         validators=[RegexValidator(r"^[A-Z]+(-[A-Z]+)*$", "String must be a valid InChIKey")],
+    )
+    activity = models.ForeignKey(
+        'compounds.Activity',
+        related_name='bioactives',
+        verbose_name='Primary pharmacological classification',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
 
     objects = BioactiveManager()

@@ -1,8 +1,9 @@
 import csv
 import io
 
-from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.urls import reverse
 from django.views.generic import ListView
@@ -33,7 +34,7 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 user=request.user.profile,
                 compound=self.compound
             )
-        except UserOdorant.DoesNotExist:
+        except ObjectDoesNotExist:
             pass
         return super(UserCompoundSourceListView, self).dispatch(request, *args, **kwargs)
 

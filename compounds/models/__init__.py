@@ -1,3 +1,4 @@
+from .activity import Activity
 from .bioactive import Bioactive
 from .bioactive_core import BioactiveCore
 from .compound_source import CompoundSource
@@ -10,6 +11,7 @@ from .user_bioactive import UserBioactive
 
 
 __all__ = [
+    Activity,
     Bioactive,
     BioactiveCore,
     CompoundSource,

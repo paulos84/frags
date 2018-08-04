@@ -36,7 +36,7 @@ class ChemDescriptorMixin(models.Model):
             try:
                 pcp_query = pcp.get_compounds(self.smiles, 'smiles')[0]
                 self.cid_number = pcp_query.cid
-                self.iupac_name = pcp_query.iupac_name
+                self.iupac_name = pcp_query.iupac_name or ''
             except (IndexError, pcp.BadRequestError):
                 raise ValidationError('Something went wrong')
 

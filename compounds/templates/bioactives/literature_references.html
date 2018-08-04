@@ -10,38 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
 
-{% block sidebar %}
-   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2">
-       <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
-        </div>
-      </ul>
-        <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
-            <a href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">
-            <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
-        </div>
-        {% if compound_search %}
-        <div style=" position:relative; top: 34px ">
-        <form method="get" >
-            <div class="well">
-              <div class="row">
-                {% bootstrap_form compound_search %}
-                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
-                  </span>Submit</button>
-              </div>
-            </div>
-        </form>
-        </div>
-        {% endif %}
-      </ul>
-{% endblock %}
-
 {% block content %}
+ <div class="col-sm-10 ">
     <ul class="breadcrumb" style="background-color: transparent;">
       <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
       <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category_slug %}">All {{ compound.get_category_display|lower }}s</a></li>
@@ -107,6 +77,7 @@
          {% endif %}
       </form>
     {% else %}
-      <h5>No literature references found for this compound</h5>
+      <h5 style="margin-top:20px; ">No literature references found for this compound</h5>
     {% endif %}
+ </div>
 {% endblock %}

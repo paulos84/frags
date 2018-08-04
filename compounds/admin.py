@@ -19,7 +19,7 @@ class BioactiveCoreAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('cid_number', 'iupac_name', 'smiles')
+            return self.readonly_fields + ('cid_number', 'iupac_name', )
         return self.readonly_fields
 
 

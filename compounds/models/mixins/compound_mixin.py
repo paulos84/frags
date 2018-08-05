@@ -89,8 +89,6 @@ class CompoundMixin(models.Model):
         """
         self.cid_number = pcp_query.cid
         self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
-        if not self.chemical_name:
-            self.scrape_compound_name(self.cid_number)
         additional = additional if additional else []
         self.chemical_properties = self.dict_from_query_object(pcp_query, additional=additional)
 
@@ -115,6 +113,6 @@ class CompoundMixin(models.Model):
         soup = BeautifulSoup(page, 'lxml')
         name = ''.join(soup.html.head.title).split(' | ')[0]
         name = name.replace('gamma', 'γ').replace('beta', 'β').replace('alpha', 'α')
-        if len(name) > 0 and name[0].isalpha():
+        if len(name) > 0 and name[0].isalpha() and not name[1].isupper():
             return name
         return ''

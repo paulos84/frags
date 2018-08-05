@@ -4,7 +4,7 @@ from django.shortcuts import reverse
 
 class Activity(models.Model):
 
-    categories = (
+    classifications = (
          ('AT', 'Alimentary tract and metabolism'),
          ('AN', 'Antineoplastic and immunomodulating agents'),
          ('AP', 'Antiparasitics'),
@@ -17,18 +17,34 @@ class Activity(models.Model):
          ('RS', 'Respiratory system'),
          ('SA', 'Systemic antiinfectives'),
          ('SH', 'Systemic hormones'),
-         ('VR', 'Various')
+         ('VR', 'Various'),
     )
-
-    category = models.CharField(
-        choices=categories,
+    classification = models.CharField(
+        choices=classifications,
+        db_index=True,
         max_length=2,
+        blank=True,
     )
-
+    categories = (
+        (1, 'action'),
+        (2, 'mechanism'),
+    )
+    category = models.IntegerField(
+        choices=categories,
+        blank=True,
+    )
     name = models.CharField(
         max_length=20,
         unique=True,
         help_text=''
+    )
+    # TODO: in constructor set so if category is action will always set to parents classification?
+    action = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        related_name='mechanisms',
+        blank=True,
+        null=True,
     )
 
     def __str__(self):

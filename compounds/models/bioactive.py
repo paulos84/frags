@@ -33,7 +33,7 @@ class Bioactive(CompoundMixin, models.Model):
     activity = models.ForeignKey(
         'compounds.Activity',
         related_name='bioactives',
-        verbose_name='Primary pharmacological classification',
+        verbose_name='Pharmacological activity',
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

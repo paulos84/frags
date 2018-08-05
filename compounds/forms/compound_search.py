@@ -33,7 +33,7 @@ class BioactiveSearchForm(forms.Form):
         max_length=30,
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'e.g. Aspirin', }),
+            attrs={'placeholder': 'e.g. aspirin', }),
     )
     iupac_name = forms.CharField(
         label='IUPAC name contains',

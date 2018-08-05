@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block head %}
+     <link rel="stylesheet" href="{% static 'css/bioactive.css' %}">
      <script src="http://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
 {% endblock %}
 
@@ -77,11 +78,11 @@
         <div id="substructure_matches" style="display: none; margin-top: 44px;  ">
         {% if substructures %}
             {% for substruct in substructures %}
-                <a href="{{ substruct.get_absolute_url }}">
+                <div class="structure-img"><a href="{{ substruct.get_absolute_url }}">
                     <img src={{ substruct.structure_url }} height="150" width="150" title={{ substruct }} >
-                    <div style="position: relative; left:6px; " class="structure-img">
+                    <div style="position: relative; left:30px; margin-top:7px; ">
                                 <a href="{{ substruct.get_absolute_url }}">{{ substruct }}</a></div>
-            </a>
+            </a></div>
             {% endfor %}
         {% endif %}
         </div>

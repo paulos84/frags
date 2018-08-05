@@ -31,10 +31,11 @@ class Activity(models.Model):
     )
     category = models.IntegerField(
         choices=categories,
+        db_index=True,
         blank=True,
     )
     name = models.CharField(
-        max_length=20,
+        max_length=28,
         unique=True,
         help_text=''
     )

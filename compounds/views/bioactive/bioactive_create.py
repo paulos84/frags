@@ -59,6 +59,11 @@ def process_bioactive_identifier(request):
     }
     return JsonResponse(data)
 
+def process_activity(request):
+    cas_no = request.GET.get('cas_number')
+    inchikey = request.GET.get('inchikey')
+    if cas_no:
+        obj = Bioact
 
 
 

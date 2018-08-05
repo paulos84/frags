@@ -41,6 +41,7 @@
           <option value="compounds.models.user_bioactive.UserBioactive.*" />
           <option value="compounds.models.odor_type.OdorType.*" />
           <option value="compounds.views.odorant.substructure_list.SubstructureListView.*" />
+          <option value="compounds.models.activity.Activity.*" />
         </list>
       </option>
     </inspection_tool>

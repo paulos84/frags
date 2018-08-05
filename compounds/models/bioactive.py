@@ -16,7 +16,7 @@ class Bioactive(CompoundMixin, models.Model):
      which API queries can be made to obtain additional data """
 
     cat_choices = (
-        (1, 'Medicinal compound'),
+        (1, 'Pharmaceutical'),
         (2, 'Phytochemical'),
         (3, 'Miscellaneous'),
     )

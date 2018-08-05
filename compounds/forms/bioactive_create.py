@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 
-from compounds.models import Bioactive
+from compounds.models import Activity, Bioactive
 
 
 class BioactiveCreateForm(forms.ModelForm):
@@ -9,8 +9,7 @@ class BioactiveCreateForm(forms.ModelForm):
 
     cas_number = forms.CharField(
         required=False, label='CAS number',
-        widget=forms.TextInput(attrs={'size': 44,
-                                      'id': 'cas_number_field_id',
+        widget=forms.TextInput(attrs={'size': 36, 'id': 'cas_number_field_id',
                                       'placeholder': 'Retrieve InChIKey (optional)', }
                                ))
     smiles = forms.CharField(
@@ -21,17 +20,30 @@ class BioactiveCreateForm(forms.ModelForm):
     )
     chemical_name = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 44, })
+        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 36, })
     )
     cid_number = forms.CharField(
         widget=forms.HiddenInput(attrs={'id': 'hidden_cid'})
     )
+    classification = forms.ChoiceField(
+        choices=Activity.classifications,
+        widget=forms.Select(attrs={'id': 'classification-1', })
+    )
+    classification_2 = forms.ChoiceField(
+        choices=Activity.objects.none(),
+        widget=forms.HiddenInput(attrs={'size': 36, 'id': 'classification-2', })
+    )
+    activity = forms.ModelChoiceField(
+        queryset=Activity.objects.none(),
+        label='Mechanism'
+    )
 
     class Meta:
         model = Bioactive
-        fields = ['cas_number', 'inchikey', 'category', ]
+        fields = ['cas_number', 'inchikey', 'category', 'activity', 'classification', 'classification_2']
+        labels = {'activity': 'Primary use', }
         widgets = {
-            'inchikey': forms.TextInput(attrs={'size': 44, 'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
+            'inchikey': forms.TextInput(attrs={'size': 36, 'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
                                                'style': 'border-color: green;', 'id': 'inchikey_field_id'}),
         }
 

@@ -1,8 +1,13 @@
 from django.contrib import admin
 
-from compounds.models import (Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
+from compounds.models import (Activity, Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
                               CompoundSource)
 from compounds.forms.admin import SubstructureAdminForm
+
+
+@admin.register(Activity)
+class ActivityAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Bioactive)

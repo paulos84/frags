@@ -128,5 +128,40 @@
         }
       });
     });
+      $("#cas_number_field_id").change(function () {
+      var cas_number = $(this).val();
+      $.ajax({
+        url: '{% url "process-bioactive-identifier" %}',
+        data: {
+            'cas_number': cas_number
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#object_exists").hide();
+            $("#not_found").hide();
+            if (data.error == 'No compound found for this CAS number')
+            {
+               $("#not_found").show();
+            }
+            else if (data.object_exists)
+            {
+               $("#object_exists").show();
+               $("#object_exists a").attr("href",data.object_exists);
+               $("#object_exists a").text(data.object_exists_name);
+            }
+            else
+            {
+                $('#inchikey_field_id').attr('readonly','true');
+                $("#iupac_name").val(data.iupac_name);
+                $("#chemical_name").val(data.chemical_name);
+                $("#inchikey_field_id").val(data.inchikey);
+                $("#compound_structure").attr('src',data.structure_url);
+                $("#iupac_name_field_id").val(data.iupac_name);
+                $("#id_smiles").val(data.smiles);
+                $("#hidden_cid").val(data.hidden_cid);
+            }
+        }
+      });
+    });
   </script>
 {% endblock %}

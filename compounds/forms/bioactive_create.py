@@ -4,11 +4,13 @@ from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from compounds.models import Activity, Bioactive
 
 
+class AjaxChoiceField(forms.ChoiceField):
+    def valid_value(self, value):
+        return True
+
+
 class BioactiveCreateForm(forms.ModelForm):
     """ Form for creating Bioactive model instances involving use of AJAX """
-    #
-    # activity_type_choices = Activity.classifications
-    # activity_type_choices.insert(0, ('', '-------'))
 
     cas_number = forms.CharField(
         required=False, label='CAS number',
@@ -28,29 +30,23 @@ class BioactiveCreateForm(forms.ModelForm):
     cid_number = forms.CharField(
         widget=forms.HiddenInput(attrs={'id': 'hidden_cid'})
     )
-    classification = forms.ChoiceField(
+    classification = AjaxChoiceField(
         required=True,
         choices=[('', '-------')],
         widget=forms.Select(attrs={'id': 'classification_1', })
     )
-    action = forms.ChoiceField(
+    action = AjaxChoiceField(
         choices=[('', '-------')],
         label='Activity',
-        required=True,
+        required=False,
         widget=forms.Select(attrs={'id': 'action'})
     )
-    mechanism = forms.ChoiceField(
+    mechanism = AjaxChoiceField(
         choices=[('', '-------')],
         label='Mechanism',
         required=False,
         widget=forms.Select(attrs={'id': 'mechanism_id'})
     )
-    # activity = forms.ModelChoiceField(
-    #     required=False,
-    #     queryset=Activity.objects.none(),
-    #     label='Mechanism',
-    #     widget=forms.HiddenInput(attrs={'id': 'classification-2', })
-    # )
 
     class Meta:
         model = Bioactive
@@ -67,6 +63,23 @@ class BioactiveCreateForm(forms.ModelForm):
         obj.smiles = self.cleaned_data['smiles']
         obj.cid_number = self.cleaned_data['cid_number']
         obj.chemical_name = self.cleaned_data['chemical_name']
+        obj.activity = self.resolve_activity()
         if commit:
             obj.save()
         return obj
+
+    def resolve_activity(self):
+        classification_choice = self.cleaned_data['classification']
+        action_choice = self.cleaned_data['action']
+        mechanism_choice = self.cleaned_data['mechanism']
+        if all([classification_choice, action_choice, mechanism_choice]):
+            relevant_actions = Activity.objects.filter(
+                category=1,
+                classification=Activity.classifications[int(classification_choice) - 1][0]
+            )
+            selected_action = relevant_actions[int(action_choice) - 1]
+            mechanism = selected_action.mechanisms.all()[int(mechanism_choice) - 1]
+            return mechanism
+        elif all([classification_choice, action_choice]):
+            ...
+

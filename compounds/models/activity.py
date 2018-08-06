@@ -61,13 +61,6 @@ class Activity(models.Model):
         return self.name
 
     @classmethod
-    def applicable_classifications(cls, bioactive_category):
-        """ Utility method for processing AJAX requests in form views """
-        class_choices = Activity.classifications
-        if bioactive_category in ['1', '2']:
-            return class_choices
-
-    @classmethod
     def map_to_classification(cls, value):
         """ Utility method for processing AJAX requests in form views """
         classifications_map = {str(a + 1): b for a, b in enumerate(Activity.classifications)}

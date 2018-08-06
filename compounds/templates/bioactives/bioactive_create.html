@@ -180,7 +180,7 @@
         dataType: 'json',
         success: function (data) {
             $('#mechanism_id').empty();
-            $.each(data.mechanisms, function(key, value) {
+            $.each(data, function(key, value) {
                 $("#mechanism_id")
                     .append($('<option>', { value : key })
                     .text(value.name));

@@ -5,12 +5,15 @@ from compounds.models import Activity, Bioactive
 
 
 class BioactiveCreateForm(forms.ModelForm):
-    """ Form for creating Compound model instances """
+    """ Form for creating Bioactive model instances involving use of AJAX """
+    #
+    # activity_type_choices = Activity.classifications
+    # activity_type_choices.insert(0, ('', '-------'))
 
     cas_number = forms.CharField(
         required=False, label='CAS number',
-        widget=forms.TextInput(attrs={'size': 36, 'id': 'cas_number_field_id',
-                                      'placeholder': 'Retrieve InChIKey (optional)', }
+        widget=forms.TextInput(attrs={'id': 'cas_number_field_id',
+                                      'placeholder': 'Retrieve InChIKey by CAS no (optional)', }
                                ))
     smiles = forms.CharField(
         widget=forms.HiddenInput()
@@ -20,31 +23,42 @@ class BioactiveCreateForm(forms.ModelForm):
     )
     chemical_name = forms.CharField(
         required=False,
-        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', 'size': 36, })
+        widget=forms.HiddenInput(attrs={'id': 'chemical_name_field_id', })
     )
     cid_number = forms.CharField(
         widget=forms.HiddenInput(attrs={'id': 'hidden_cid'})
     )
     classification = forms.ChoiceField(
-        choices=Activity.classifications,
-        widget=forms.Select(attrs={'id': 'classification-1', })
+        required=True,
+        choices=[('', '-------')],
+        widget=forms.Select(attrs={'id': 'classification_1', })
     )
-    classification_2 = forms.ChoiceField(
-        choices=Activity.objects.none(),
-        widget=forms.HiddenInput(attrs={'size': 36, 'id': 'classification-2', })
+    action = forms.ChoiceField(
+        choices=[('', '-------')],
+        label='Activity',
+        required=True,
+        widget=forms.Select(attrs={'id': 'action'})
     )
-    activity = forms.ModelChoiceField(
-        queryset=Activity.objects.none(),
-        label='Mechanism'
+    mechanism = forms.ChoiceField(
+        choices=[('', '-------')],
+        label='Mechanism',
+        required=False,
+        widget=forms.Select(attrs={'id': 'mechanism_id'})
     )
+    # activity = forms.ModelChoiceField(
+    #     required=False,
+    #     queryset=Activity.objects.none(),
+    #     label='Mechanism',
+    #     widget=forms.HiddenInput(attrs={'id': 'classification-2', })
+    # )
 
     class Meta:
         model = Bioactive
-        fields = ['cas_number', 'inchikey', 'category', 'activity', 'classification', 'classification_2']
-        labels = {'activity': 'Primary use', }
+        fields = ['cas_number', 'inchikey', 'category', ]
         widgets = {
-            'inchikey': forms.TextInput(attrs={'size': 36, 'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
-                                               'style': 'border-color: green;', 'id': 'inchikey_field_id'}),
+            'inchikey': forms.TextInput(attrs={'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
+                                               'id': 'inchikey_field_id'}),
+            'category': forms.Select(attrs={'id': 'category_id'})
         }
 
     def save(self, commit=True):

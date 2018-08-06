@@ -1,10 +1,12 @@
 from django.db import models
 from django.shortcuts import reverse
 
+from compounds.models.managers import ActivityManager
+
 
 class Activity(models.Model):
 
-    classifications = (
+    classifications = [
          ('AT', 'Alimentary tract and metabolism'),
          ('AN', 'Antineoplastic and immunomodulating agents'),
          ('AP', 'Antiparasitics'),
@@ -18,7 +20,7 @@ class Activity(models.Model):
          ('SA', 'Systemic antiinfectives'),
          ('SH', 'Systemic hormones'),
          ('VR', 'Various'),
-    )
+    ]
     classification = models.CharField(
         choices=classifications,
         db_index=True,
@@ -26,8 +28,8 @@ class Activity(models.Model):
         blank=True,
     )
     categories = (
-        (1, 'action'),
-        (2, 'mechanism'),
+        (1, 'parent/action'),
+        (2, 'child/mechanism'),
     )
     category = models.IntegerField(
         choices=categories,
@@ -47,9 +49,30 @@ class Activity(models.Model):
         blank=True,
         null=True,
     )
+    objects = ActivityManager()
+
+    @property
+    def is_end_action(self):
+        if not self.mechanisms.all():
+            return True
+        return False
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def applicable_classifications(cls, bioactive_category):
+        """ Utility method for processing AJAX requests in form views """
+        class_choices = Activity.classifications
+        if bioactive_category in ['1', '2']:
+            return class_choices
+
+    @classmethod
+    def map_to_classification(cls, value):
+        """ Utility method for processing AJAX requests in form views """
+        classifications_map = {str(a + 1): b for a, b in enumerate(Activity.classifications)}
+        return classifications_map[value][0]
+
 
     # def get_absolute_url(self):
     #     return reverse(

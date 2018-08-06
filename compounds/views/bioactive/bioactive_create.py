@@ -1,10 +1,11 @@
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import redirect
 import cirpy
 import pubchempy as pcp
 
-from compounds.models import Bioactive
+from compounds.models import Activity, Bioactive
 from compounds.forms import BioactiveCreateForm, OdorantSearchForm
 
 
@@ -59,11 +60,39 @@ def process_bioactive_identifier(request):
     }
     return JsonResponse(data)
 
+
 def process_activity(request):
-    cas_no = request.GET.get('cas_number')
-    inchikey = request.GET.get('inchikey')
-    if cas_no:
-        obj = Bioact
+    print(request.GET)
+    category_choice = request.GET.get('category_choice')
+    classification_choice = request.GET.get('classification_1')
+    action_choice = request.GET.get('action')
+    if category_choice:
+        applicable_classifications = Activity.applicable_classifications(category_choice)
+        categories = [{'name': a[1]} for a in applicable_classifications]
+        categories.insert(0, {'name': '-------'})
+        return JsonResponse({'categories': categories,'has_children': True}, safe=False)
+    if classification_choice:
+        choice = Activity.map_to_classification(classification_choice)
+        activities = list(Activity.objects.actions().filter(
+            classification=choice).values('name'))
+        activities.insert(0, {'name': '-------'})
+        return JsonResponse({'actions': activities, 'has_children': True}, safe=False)
+    if action_choice:
+        selected_action = Activity.objects.get(
+            category=1,
+            classification=Activity.classifications[int(request.GET.get('parent_classification')) - 1][0]
+        )
+        mechanisms = list(selected_action.mechanisms.values('name'))
+        print(mechanisms)
+        return JsonResponse(mechanisms, safe=False)
+
+
+
+
+    # TODO: check if has mechanisms...is has..unhide mechanisms field
+
+
+
 
 
 

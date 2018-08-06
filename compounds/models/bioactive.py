@@ -13,7 +13,7 @@ from compounds.models.managers import BioactiveManager
 class Bioactive(CompoundMixin, models.Model):
 
     """ A bioactive compound which can be uniquely identified through its InChIKey identifier and from
-     which API queries can be made to obtain additional data """
+     which API queries can be made to obtain addsitional data """
 
     cat_choices = (
         (1, 'Pharmaceutical'),

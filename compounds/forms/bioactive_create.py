@@ -38,7 +38,7 @@ class BioactiveCreateForm(forms.ModelForm):
     action = AjaxChoiceField(
         choices=[('', '-------')],
         label='Activity',
-        required=False,
+        required=True,
         widget=forms.Select(attrs={'id': 'action'})
     )
     mechanism = AjaxChoiceField(

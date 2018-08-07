@@ -38,6 +38,11 @@ class Bioactive(CompoundMixin, models.Model):
         blank=True,
         null=True,
     )
+    cid_number_2 = models.IntegerField(
+        verbose_name='Anionic form CID number',
+        blank=True,
+        null=True,
+    )
 
     objects = BioactiveManager()
 
@@ -46,7 +51,7 @@ class Bioactive(CompoundMixin, models.Model):
         return re.findall('\d+(?:-\d+)+', self.synonyms)
 
     def save(self, *args, **kwargs):
-        super(Bioactive, self).save(*args, additional_data=True, **kwargs)
+        super(Bioactive, self).save(*args, additional_data=True, cid2=True, **kwargs)
 
     def __str__(self):
         return self.chemical_name if self.chemical_name else self.iupac_name

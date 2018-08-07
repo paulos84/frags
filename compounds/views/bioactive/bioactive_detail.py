@@ -24,7 +24,7 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, DetailView):
         context.update({
             'chemical_properties': chem_properties,
             'substructures': BioactiveCore.compound_matches(compound),
-            'cid_string': str(compound.cid_number)
+            'cid_string': str(compound.cid_number_2) if compound.cid_number_2 else str(compound.cid_number)
         })
         return context
 

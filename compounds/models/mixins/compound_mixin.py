@@ -59,7 +59,7 @@ class CompoundMixin(models.Model):
         if hasattr(self, 'cid_number'):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
-    def save(self, *args, additional_data=None, **kwargs):
+    def save(self, *args, additional_data=None, cid2=False, **kwargs):
         """
         Sets data for various fields. Assumes that if the object does not have inchikey data that it has a SMILES string
         """
@@ -78,6 +78,12 @@ class CompoundMixin(models.Model):
             )
         if not self.chemical_name:
             self.chemical_name = self.scrape_compound_name(self.cid_number)
+        if cid2:
+            try:
+                pcp_data_2 = pcp.get_compounds(self.smiles.split('.')[0], 'smiles')[0]
+                self.cid_number_2 = pcp_data_2.cid
+            except (IndexError, pcp.BadRequestError):
+                pass
         super(CompoundMixin, self).save(*args, **kwargs)
 
     def set_chemical_data(self, pcp_query, additional=None):

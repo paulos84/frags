@@ -31,7 +31,7 @@
       {% endif %}
     </form>
   </div>
-    <div class="col-sm-5"  style=" position:relative; top:27px;">
+    <div class="col-sm-5"  style=" position:relative; top:13px;">
         <div style=" position:relative; top:9px;" class="form-group">
         <label>Chemical name</label>
       <input type='text' name='text' id='chemical_name' class="form-control" disabled>
@@ -60,6 +60,10 @@
 {% block js %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
+      $(document).ready(function() {
+          $("#mechanism_id").hide();
+          $('label[for=mechanism_id], input#mechanism_id').hide();
+      });
       $("#cas_number_field_id").change(function () {
       var cas_number = $(this).val();
       $.ajax({

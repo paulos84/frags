@@ -54,7 +54,7 @@ class BioactiveCreateForm(forms.ModelForm):
         widgets = {
             'inchikey': forms.TextInput(attrs={'placeholder': 'e.g. YPBKTZBXSBLTDK-PKNBQFBNSA-N',
                                                'id': 'inchikey_field_id'}),
-            'category': forms.Select(attrs={'id': 'category_id'})
+            'category': forms.Select(attrs={'id': 'category_id'}),
         }
 
     def save(self, commit=True):

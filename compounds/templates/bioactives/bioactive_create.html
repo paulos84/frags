@@ -164,6 +164,8 @@
         success: function (data) {
             $('#action').empty();
             $('#mechanism_id').empty();
+            $('#mechanism_id').hide();
+            $('label[for=mechanism_id], input#mechanism_id').hide();
             $.each(data.actions, function(key, value) {
                 $("#action")
                     .append($('<option>', { value : key })
@@ -183,12 +185,16 @@
         },
         dataType: 'json',
         success: function (data) {
-            $('#mechanism_id').empty();
-            $.each(data, function(key, value) {
+            if (data.has_children == true)
+            {
+            $("#mechanism_id").show();
+            $('label[for=mechanism_id], input#mechanism_id').show();
+            $.each(data.mechanisms, function(key, value) {
                 $("#mechanism_id")
                     .append($('<option>', { value : key })
                     .text(value.name));
             });
+            }
         }
       });
     });

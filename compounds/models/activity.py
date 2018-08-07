@@ -1,5 +1,4 @@
 from django.db import models
-from django.shortcuts import reverse
 
 from compounds.models.managers import ActivityManager
 
@@ -8,6 +7,7 @@ class Activity(models.Model):
 
     classifications = [
          ('AT', 'Alimentary tract and metabolism'),
+         ('AI', 'Antiinfectives'),
          ('AN', 'Antineoplastic and immunomodulating agents'),
          ('AP', 'Antiparasitics'),
          ('BM', 'Blood modifiers'),
@@ -17,7 +17,6 @@ class Activity(models.Model):
          ('MS', 'Musculo-skeletal system'),
          ('NS', 'Nervous system'),
          ('RS', 'Respiratory system'),
-         ('SA', 'Systemic antiinfectives'),
          ('SH', 'Systemic hormones'),
          ('VR', 'Various'),
     ]
@@ -25,19 +24,17 @@ class Activity(models.Model):
         choices=classifications,
         db_index=True,
         max_length=2,
-        blank=True,
     )
     categories = (
-        (1, 'parent/action'),
-        (2, 'child/mechanism'),
+        (1, 'Action'),
+        (2, 'Mechanism'),
     )
     category = models.IntegerField(
         choices=categories,
         db_index=True,
-        blank=True,
     )
     name = models.CharField(
-        max_length=28,
+        max_length=40,
         unique=True,
         help_text=''
     )

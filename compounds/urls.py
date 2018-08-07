@@ -11,7 +11,7 @@ from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
 from compounds.views.odorant.odorant_list import *
-from compounds.views.bioactive.bioactive_create import bind_activity_id, process_bioactive_identifier, process_activity
+from compounds.views.bioactive.bioactive_create import process_bioactive_identifier, process_activity
 
 
 urlpatterns = [

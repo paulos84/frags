@@ -78,10 +78,11 @@ class CompoundMixin(models.Model):
             )
         if not self.chemical_name:
             self.chemical_name = self.scrape_compound_name(self.cid_number)
-        if cid2:
+        if cid2 and len(self.smiles.split('.')) > 1:
             try:
-                pcp_data_2 = pcp.get_compounds(self.smiles.split('.')[0], 'smiles')[0]
-                self.cid_number_2 = pcp_data_2.cid
+                self.cid_number_2 = pcp.get_compounds(
+                    self.smiles.split('.')[0], 'smiles'
+                )[0].cid
             except (IndexError, pcp.BadRequestError):
                 pass
         super(CompoundMixin, self).save(*args, **kwargs)

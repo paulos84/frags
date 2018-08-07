@@ -154,6 +154,8 @@
       });
     });
       $("#classification_1").change(function () {
+      $('#action').empty();
+      $('#mechanism_id').empty();
       var classification_1 = $(this).val();
       $.ajax({
         url: '{% url "process-activity" %}',
@@ -177,6 +179,7 @@
       $("#action").change(function () {
       var action = $(this).val();
       var classification = $("#classification_1").val();
+      $('#mechanism_id').empty();
       $.ajax({
         url: '{% url "process-activity" %}',
         data: {

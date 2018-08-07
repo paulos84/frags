@@ -40,7 +40,8 @@ class OdorantQuerySet(models.QuerySet):
 class OdorantManager(models.Manager):
 
     def get_queryset(self):
-        return OdorantQuerySet(self.model, using=self._db).prefetch_related('odor_categories').order_by('iupac_name')
+        return OdorantQuerySet(self.model, using=self._db).prefetch_related(
+            'odor_categories').order_by('chemical_name')
 
     def heteroaromatics(self):
         return self.get_queryset().heteroaromatics()

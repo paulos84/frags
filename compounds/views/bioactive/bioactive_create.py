@@ -18,7 +18,6 @@ class BioactiveCreateView(CreateView):
         return context
 
     def form_valid(self, form):
-        print(form.cleaned_data)
         return super().form_valid(form)
 
 
@@ -64,12 +63,13 @@ def process_activity(request):
     category_choice = request.GET.get('category_choice')
     classification_choice = request.GET.get('classification_1')
     action_choice = request.GET.get('action')
-    if category_choice:
+    parent_classification = request.GET.get('parent_classification')
+    if category_choice and category_choice != '0':
         classifications = Activity.classifications
         categories = [{'name': a[1]} for a in classifications]
         categories.insert(0, {'name': '-------'})
         return JsonResponse({'categories': categories}, safe=False)
-    if classification_choice:
+    if classification_choice and classification_choice != '0':
         choice = Activity.map_to_classification(classification_choice)
         activities = list(Activity.objects.actions().filter(
             classification=choice).values('name'))
@@ -79,7 +79,7 @@ def process_activity(request):
         has_children = False
         relevant_actions = Activity.objects.filter(
             category=1,
-            classification=Activity.classifications[int(request.GET.get('parent_classification')) - 1][0]
+            classification=Activity.classifications[int(parent_classification) - 1][0]
         )
         selected_action = relevant_actions[int(action_choice) - 1]
         mechanisms = list(selected_action.mechanisms.values('name'))

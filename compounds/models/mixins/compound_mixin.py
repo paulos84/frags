@@ -18,7 +18,6 @@ class CompoundMixin(models.Model):
         blank=True,
     )
     iupac_name = models.CharField(
-        db_index=True,
         max_length=500,
         default='',
         verbose_name='IUPAC name',
@@ -27,6 +26,7 @@ class CompoundMixin(models.Model):
     )
     chemical_name = models.CharField(
         max_length=50,
+        db_index=True,
         default='',
         verbose_name='Chemical name',
         blank=True,

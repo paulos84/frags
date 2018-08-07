@@ -31,14 +31,14 @@ class BioactiveCreateForm(forms.ModelForm):
         widget=forms.HiddenInput(attrs={'id': 'hidden_cid'})
     )
     classification = AjaxChoiceField(
-        required=True,
+        required=False,
         choices=[('', '-------')],
         widget=forms.Select(attrs={'id': 'classification_1', })
     )
     action = AjaxChoiceField(
         choices=[('', '-------')],
         label='Activity',
-        required=True,
+        required=False,
         widget=forms.Select(attrs={'id': 'action'})
     )
     mechanism = AjaxChoiceField(
@@ -63,7 +63,8 @@ class BioactiveCreateForm(forms.ModelForm):
         obj.smiles = self.cleaned_data['smiles']
         obj.cid_number = self.cleaned_data['cid_number']
         obj.chemical_name = self.cleaned_data['chemical_name']
-        obj.activity = self.resolve_activity()
+        if self.cleaned_data['action'] != '0':
+            obj.activity = self.resolve_activity()
         if commit:
             obj.save()
         return obj

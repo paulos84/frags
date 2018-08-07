@@ -16,7 +16,8 @@ class BioactiveQuerySet(models.QuerySet):
 class BioactiveManager(models.Manager):
 
     def get_queryset(self):
-        return BioactiveQuerySet(self.model, using=self._db)
+        return BioactiveQuerySet(self.model, using=self._db).select_related(
+            'activity').order_by('chemical_name')
 
     def medicinal(self):
         return self.get_queryset().medicinal()

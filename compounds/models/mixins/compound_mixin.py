@@ -12,7 +12,7 @@ class CompoundMixin(models.Model):
     """
     smiles = models.CharField(
         db_index=True,
-        max_length=100,
+        max_length=200,
         default='',
         verbose_name='SMILES string',
         blank=True,
@@ -77,7 +77,8 @@ class CompoundMixin(models.Model):
                 additional=extra_chem_properties if additional_data else None
             )
         if not self.chemical_name:
-            self.chemical_name = self.scrape_compound_name(self.cid_number)
+            self.chemical_name = self.scrape_compound_name(self.cid_number) or \
+                                 self.synonyms.split(',')[0] if self.synonyms != 'n/a' else ''
         if cid2 and len(self.smiles.split('.')) > 1:
             try:
                 self.cid_number_2 = pcp.get_compounds(

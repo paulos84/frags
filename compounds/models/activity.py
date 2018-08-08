@@ -10,7 +10,6 @@ class Activity(models.Model):
          ('AI', 'Antiinfectives'),
          ('AN', 'Antineoplastic and immunomodulating agents'),
          ('AP', 'Antiparasitics'),
-         ('BM', 'Blood modifiers'),
          ('CV', 'Cardiovascular system'),
          ('DM', 'Dermatologicals'),
          ('GU', 'Genito-urinary system and sex hormones'),

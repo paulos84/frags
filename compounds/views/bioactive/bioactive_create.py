@@ -69,18 +69,24 @@ def process_activity(request):
         categories = [{'name': a[1]} for a in classifications]
         categories.insert(0, {'name': '-------'})
         return JsonResponse({'categories': categories}, safe=False)
-    if classification_choice and classification_choice != '0':
+    if classification_choice and classification_choice:
         choice = Activity.map_to_classification(classification_choice)
         activities = list(Activity.objects.actions().filter(
             classification=choice).values('name'))
         activities.insert(0, {'name': '-------'})
         return JsonResponse({'actions': activities}, safe=False)
     if action_choice:
+        print(int(parent_classification))
         has_children = False
         relevant_actions = Activity.objects.filter(
             category=1,
             classification=Activity.classifications[int(parent_classification) - 1][0]
         )
+        print(relevant_actions)
+        print(relevant_actions)
+        print(int(action_choice))
+        print(int(action_choice))
+        print(int(action_choice))
         selected_action = relevant_actions[int(action_choice) - 1]
         mechanisms = list(selected_action.mechanisms.values('name'))
         if mechanisms:

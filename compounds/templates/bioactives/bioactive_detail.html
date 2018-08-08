@@ -98,6 +98,21 @@
     <div style=" position:relative; top:24px; width:280px; left:12px">
         <p><strong>Synonyms:</strong> {{ bioactive.synonyms|truncatechars:124 }}</p>
     </div>
+    {% if bioactive.activity %}
+    <div style=" position:relative; top:24px; width:280px; left:12px">
+        <p><strong>Classification:</strong> {{ bioactive.activity.get_classification_display }}</p>
+    </div>
+    {% endif %}
+    {% if bioactive.action %}
+    <div style=" position:relative; top:24px; width:280px; left:12px">
+        <p><strong>Action:</strong> {{ bioactive.action }}</p>
+    </div>
+    {% endif %}
+    {% if bioactive.mechanism %}
+    <div style=" position:relative; top:24px; width:280px; left:12px">
+        <p><strong>Mechanism:</strong> {{ bioactive.mechanism }}</p>
+    </div>
+    {% endif %}
 </div>
 
 <div class="col-sm-10 " style="margin-top:10px">

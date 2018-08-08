@@ -50,6 +50,18 @@ class Bioactive(CompoundMixin, models.Model):
     def cas_numbers(self):
         return re.findall('\d+(?:-\d+)+', self.synonyms)
 
+    @property
+    def action(self):
+        if self.activity and self.activity.category == 1:
+            return self.activity
+        elif self.mechanism:
+            return self.mechanism.action
+
+    @property
+    def mechanism(self):
+        if self.activity and self.activity.category == 2:
+            return self.activity
+
     def save(self, *args, **kwargs):
         super(Bioactive, self).save(*args, additional_data=True, cid2=True, **kwargs)
 
@@ -105,3 +117,5 @@ class Bioactive(CompoundMixin, models.Model):
         name_values = cls.objects.values('id', 'iupac_name', 'chemical_name')
         matches = [a['id'] for a in name_values if check_iupac_name_match(a['iupac_name'])]
         return cls.objects.filter(id__in=matches)
+
+

@@ -20,6 +20,8 @@ urlpatterns = [
     path('bioactives/<category>', BioactiveListView.as_view(), name='bioactive-list'),
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
+    path('bioactive/classfications/<classification>', BioactiveClassificationListView.as_view(),
+         name='bioactive-classifications'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('ajax/process_activity', process_activity, name='process-activity'),
 

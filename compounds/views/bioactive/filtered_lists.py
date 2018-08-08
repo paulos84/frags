@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, reverse
 
-from compounds.models import Bioactive
-from compounds.views.bioactive.bioactive_list import BaseBioactiveListView
+from compounds.models import Activity, Bioactive
+from compounds.views.bioactive.bioactive_list import BaseBioactiveListView, BioactiveListView
 
 
 class BioactiveSearchFilterListView(BaseBioactiveListView):
@@ -27,6 +27,15 @@ class BioactiveSearchFilterListView(BaseBioactiveListView):
         else:
             self.queryset = Bioactive.objects.filter(iupac_name__icontains=search_query)
         return super(BioactiveSearchFilterListView, self).dispatch(request, *args, **kwargs)
+
+
+class BioactiveClassificationListView(BioactiveListView):
+    classification = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.classification = Activity.objects.filterkwargs['classification']
+        return super(BaseBioactiveListView, self).dispatch(request, *args, **kwargs)
+
 
 #
 # class BioactiveChemFilterListView(BaseBioactiveListView):

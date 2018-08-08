@@ -1,8 +1,9 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import Http404
+from django.utils.text import slugify
 
-from compounds.models import Bioactive
+from compounds.models import Activity, Bioactive
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
@@ -32,8 +33,10 @@ class BioactiveListView(BaseBioactiveListView):
         category = self.category_map[self.kwargs['category']]
         label = Bioactive.cat_choices[category - 1][1]
         context['page_header'] = label + 's' if not label.endswith('s') else label
+        context['body_systems'] = [a[1] for a in Activity.classifications]
+        context['drug_actions'] = Activity.objects.actions()
+        context['mechanisms'] = Activity.objects.mechanisms()
         return context
-
 
 
 class UserBioactiveListView(LoginRequiredMixin, BaseBioactiveListView):

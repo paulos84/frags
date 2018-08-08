@@ -13,13 +13,11 @@
          </div>
     <div class="col-sm-5">
     <span class="btn-group">
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Filter by<span class="caret"></span></button>
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                <li><a href="{% url 'index' %}">Heteroaromatics</a></li>
-                <li><a href="{% url 'index' %}">Aliphatic alcohols</a></li>
-                <li><a href="{% url 'index' %}">Aliphatic carbonyls</a></li>
-                <li><a href="{% url 'index' %}">Aromatic alcohols</a></li>
-                <li><a href="{% url 'index' %}">Aromatic carbonyls</a></li>
+                {% for body_sys in body_systems %}
+                <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
+                {% endfor %}
                 </ul>
             </span>
         </div>

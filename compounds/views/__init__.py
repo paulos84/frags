@@ -37,5 +37,5 @@ __all__ = [
     UserOdorantChemFilterListView,
     UserOdorantListView,
     UserSubstructureDetail,
-    UserOdorantChemFilterListView,
+    UserOdorantChemFilterListView
     ]

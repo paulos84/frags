@@ -1,10 +1,8 @@
-from .user_activity import UserCompoundNotesDeleteView
 from .user_sources import UserCompoundSourceListView
-from .user_auth import signup
+from .user_activity import UserCompoundNotesDeleteView
 
 
 __all__ = [
     UserCompoundSourceListView,
-    UserCompoundNotesDeleteView,
-    signup,
+    UserCompoundNotesDeleteView
     ]

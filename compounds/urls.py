@@ -2,10 +2,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
 
-from compounds.views.literature_refs import LiteratureRefsView
-from compounds.views.bioactive import *
-from compounds.views.odorant import *
-from compounds.views.user import *
+from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
+                             BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
+                             LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
+                             SubstructureListView, SubstructureDetail, UserSubstructureDetail,
+                             UserCompoundNotesDeleteView, UserCompoundSourceListView)
+from compounds.views.bioactive.filtered_lists import *
+from compounds.views.odorant.filtered_lists import *
+from compounds.views.odorant.odorant_create import process_cas
+from compounds.views.odorant.odorant_list import *
+from compounds.views.bioactive.bioactive_create import process_bioactive_identifier, process_activity
 
 
 urlpatterns = [
@@ -16,9 +22,9 @@ urlpatterns = [
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
     path('bioactive/classifications/<classification>', BioactiveClassificationListView.as_view(),
          name='bioactive-classifications'),
-    path('bioactive/drug-actions/<action>', BioactiveDrugActionListView.as_view(),name='bioactive-actions'),
-    path('bioactive/mechanisms/<mechanism>', BioactiveMechanismListView.as_view(),
-       name='bioactive-classifications'),
+    path('bioactive/drug-action/<action>', BioactiveDrugActionListView.as_view(), name='bioactive-actions'),
+    path('bioactive/mechanisms/<action>/<mechanism>', BioactiveMechanismListView.as_view(),
+         name='bioactive-mechanisms'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('ajax/process_activity', process_activity, name='process-activity'),
 

@@ -12,15 +12,27 @@
         </h5>
          </div>
     <div class="col-sm-5">
-    <span class="btn-group">
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
+        <span class="btn-group">
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
                 <ul class="dropdown-menu">
                 {% for body_sys in body_systems %}
-                <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
+                    <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
                 {% endfor %}
                 </ul>
-            </span>
-        </div>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Drug actions<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                {% for action in drug_actions %}
+                    <li><a href="{% url 'bioactive-classifications' action=action|slugify %}">{{ action }}</a></li>
+                {% endfor %}
+                </ul>
+                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                {% for mech in mechanims %}
+                    <li><a href="{% url 'bioactive-classifications' mechanism=mech|slugify %}">{{ mech }}</a></li>
+                {% endfor %}
+                </ul>
+         </span>
+    </div>
 
         <ul style="list-style-type: none;">
         {% for bioactive in bioactive_list %}

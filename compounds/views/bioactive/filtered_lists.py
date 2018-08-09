@@ -1,7 +1,10 @@
+from django.views.generic import ListView
 from django.shortcuts import redirect, reverse
+from django.utils.text import slugify
 
 from compounds.models import Activity, Bioactive
 from compounds.views.bioactive.bioactive_list import BaseBioactiveListView, BioactiveListView
+from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
 class BioactiveSearchFilterListView(BaseBioactiveListView):
@@ -29,13 +32,47 @@ class BioactiveSearchFilterListView(BaseBioactiveListView):
         return super(BioactiveSearchFilterListView, self).dispatch(request, *args, **kwargs)
 
 
-class BioactiveClassificationListView(BioactiveListView):
+class BaseBioactiveActivityFilterListView(BioactiveSearchFilterMixin, ListView):
+    model = Bioactive
+    paginate_by = 32
+    template_name = 'bioactives/bioactive_list.html'
+    context_object_name = 'bioactive_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseBioactiveActivityFilterListView, self).get_context_data(**kwargs)
+        context['page_header'] = dict(Activity.classifications)[self.classification]
+        context['body_systems'] = [a[1] for a in Activity.classifications]
+        context['drug_actions'] = Activity.objects.actions()
+        context['mechanisms'] = Activity.objects.mechanisms()
+        return context
+
+
+class BioactiveClassificationListView(BaseBioactiveActivityFilterListView):
     classification = None
 
     def dispatch(self, request, *args, **kwargs):
-        self.classification = Activity.objects.filterkwargs['classification']
-        return super(BaseBioactiveListView, self).dispatch(request, *args, **kwargs)
+        classification_map = {slugify(k): v for v, k in Activity.classifications}
+        self.classification = classification_map[kwargs['classification']]
+        self.queryset = Bioactive.objects.filter(activity__classification=self.classification)
+        return super(BioactiveClassificationListView, self).dispatch(request, *args, **kwargs)
 
+class BioactiveDrugActionListView(BaseBioactiveActivityFilterListView):
+    classification = None
+
+    def dispatch(self, request, *args, **kwargs):
+        classification_map = {slugify(k): v for v, k in Activity.classifications}
+        self.classification = classification_map[kwargs['classification']]
+        self.queryset = Bioactive.objects.filter(activity__classification=self.classification)
+        return super(BioactiveClassificationListView, self).dispatch(request, *args, **kwargs)
+
+class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
+    classification = None
+
+    def dispatch(self, request, *args, **kwargs):
+        classification_map = {slugify(k): v for v, k in Activity.classifications}
+        self.classification = classification_map[kwargs['classification']]
+        self.queryset = Bioactive.objects.filter(activity__classification=self.classification)
+        return super(BioactiveClassificationListView, self).dispatch(request, *args, **kwargs)
 
 #
 # class BioactiveChemFilterListView(BaseBioactiveListView):

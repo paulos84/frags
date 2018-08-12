@@ -37,7 +37,6 @@ class Activity(models.Model):
         unique=True,
         help_text=''
     )
-    # TODO: in constructor set so if category is action will always set to parents classification?
     action = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
@@ -47,12 +46,6 @@ class Activity(models.Model):
     )
     objects = ActivityManager()
 
-    @property
-    def is_end_action(self):
-        if not self.mechanisms.all():
-            return True
-        return False
-
     def __str__(self):
         return self.name
 
@@ -61,10 +54,3 @@ class Activity(models.Model):
         """ Utility method for processing AJAX requests in form views """
         classifications_map = {str(a + 1): b for a, b in enumerate(Activity.classifications)}
         return classifications_map[value][0]
-
-
-    # def get_absolute_url(self):
-    #     return reverse(
-    #         'odorant-odor-type-filter',
-    #         args=[str(self.name)],
-    #     )

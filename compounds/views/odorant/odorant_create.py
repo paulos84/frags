@@ -29,7 +29,7 @@ def process_cas(request):
         obj = Odorant.objects.get(cas_number__exact=cas_no)
         data = {
             'object_exists': obj.get_absolute_url(),
-            'object_exists_name': obj.chemical_name,
+            'object_exists_name': str(obj),
         }
         return JsonResponse(data)
     except ObjectDoesNotExist:

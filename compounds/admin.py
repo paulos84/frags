@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from compounds.models import (Activity, Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
-                              CompoundSource)
+                              CompoundSource, UserBioactive)
 from compounds.forms.admin import ActivityAdminForm, SubstructureAdminForm
 
 
@@ -36,6 +36,11 @@ class OdorantAdmin(admin.ModelAdmin):
         if obj:  # editing an existing object
             return self.readonly_fields + ('cas_number', 'chemical_properties', 'cid_number', 'iupac_name', 'smiles')
         return self.readonly_fields
+
+
+@admin.register(UserBioactive)
+class UserBioactiveAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(UserOdorant)

@@ -65,9 +65,6 @@ class Bioactive(CompoundMixin, models.Model):
     def save(self, *args, **kwargs):
         super(Bioactive, self).save(*args, additional_data=True, cid2=True, **kwargs)
 
-    def __str__(self):
-        return self.chemical_name if self.chemical_name else self.iupac_name
-
     def get_absolute_url(self):
         return reverse(
             'bioactive-detail',

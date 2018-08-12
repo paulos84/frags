@@ -3,17 +3,34 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
-
 
 class Profile(models.Model):
     """
     A model representing a User and their activity
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    email_confirmed = models.BooleanField(default=False)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+    )
+    bio = models.TextField(
+        max_length=500,
+        blank=True,
+    )
+    email_confirmed = models.BooleanField(
+        default=False,
+    )
+    bioactive_set = models.ManyToManyField(
+        'compounds.Bioactive',
+        through='compounds.UserBioactive',
+        verbose_name='Bioactive compound set',
+        blank=True,
+    )
+    odorant_set = models.ManyToManyField(
+        'compounds.Odorant',
+        through='compounds.UserOdorant',
+        verbose_name='Bioactive compound set',
+        blank=True,
+    )
 
     def __str__(self):
         return self.user.username + '_profile'

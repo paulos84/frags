@@ -37,6 +37,7 @@ class Odorant(CompoundMixin, models.Model):
     )
     edited_by = models.ForeignKey(
         'compounds.Profile',
+        related_name='edited_compounds',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -47,23 +48,6 @@ class Odorant(CompoundMixin, models.Model):
     def odor_types(self):
         odor_types = self.odor_categories.values_list('term')
         return ', '.join([a[0] for a in odor_types])
-    #
-    # def save(self, *args, **kwargs):
-    #     """ Runs validation logic and sets chemical properties data """
-    #     if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
-    #         try:
-    #             pcp_data = pcp.get_compounds(self.smiles, 'smiles')[0]
-    #         except (IndexError, pcp.BadRequestError):
-    #             raise ValidationError('Something went wrong')
-    #         self.set_chemical_data(pcp_query=pcp_data)
-    #     if not self.chemical_name:
-    #         self.scrape_compound_name(self.cid_number)
-    #     super(Odorant, self).save(*args, **kwargs)
-
-    def __str__(self):
-        if self.chemical_name:
-            return '{} | {}'.format(self.chemical_name, self.iupac_name)
-        return self.iupac_name
 
     def get_absolute_url(self):
         return reverse(
@@ -126,3 +110,4 @@ class Odorant(CompoundMixin, models.Model):
         data = [{a: c.chemical_properties.get(a) for a in
                  ['mw', 'xlogp', 'hac', 'rbc', 'hetac']} for c in queryset]
         return data
+

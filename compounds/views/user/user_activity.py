@@ -1,7 +1,7 @@
 from django.shortcuts import reverse, HttpResponseRedirect
 from django.views.generic import DeleteView
 
-from compounds.models import UserOdorant
+from compounds.models import UserBioactive, UserOdorant
 from compounds.views.odorant.odorant_list import BaseOdorantListView
 
 
@@ -9,7 +9,10 @@ from compounds.views.odorant.odorant_list import BaseOdorantListView
 
 
 class ActivityListView(BaseOdorantListView):
-    pass
+    model = UserBioactive
+    template_name = 'bioactives/bioactive_list.html'
+    context_object_name = 'user_compound_list'
+    queryset = UserBioactive.objects.all()
 
 
 class UserCompoundNotesDeleteView(DeleteView):

@@ -59,6 +59,9 @@ class CompoundMixin(models.Model):
         if hasattr(self, 'cid_number'):
             return 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(self.cid_number)
 
+    def __str__(self):
+        return self.chemical_name if self.chemical_name else self.iupac_name
+
     def save(self, *args, additional_data=None, cid2=False, **kwargs):
         """
         Sets data for various fields. Assumes that if the object does not have inchikey data that it has a SMILES string

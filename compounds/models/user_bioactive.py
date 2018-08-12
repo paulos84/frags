@@ -15,3 +15,6 @@ class UserBioactive(UserCompoundMixin, models.Model):
         on_delete=models.CASCADE,
         blank=True,
     )
+
+    def __str__(self):
+        return 'User: {} | Compound: {}'.format(self.user, self.compound)

@@ -31,7 +31,7 @@ def process_bioactive_identifier(request):
     if obj:
         data = {
             'object_exists': obj.get_absolute_url(),
-            'object_exists_name': obj.chemical_name,
+            'object_exists_name': str(obj),
         }
         return JsonResponse(data)
     try:

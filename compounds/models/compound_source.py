@@ -7,12 +7,14 @@ class CompoundSource(models.Model):
 
     user_odorant = models.ForeignKey(
         'compounds.UserOdorant',
+        related_name='userodorant_sources',
         on_delete=models.CASCADE,
         null=True,
         blank=True,
     )
     user_bioactive = models.ForeignKey(
         'compounds.UserBioactive',
+        related_name='userbioactive_sources',
         on_delete=models.CASCADE,
         null=True,
         blank=True,
@@ -40,7 +42,7 @@ class CompoundSource(models.Model):
     )
     amount = models.FloatField(
         max_length=20,
-        help_text='Product amount in kg',
+        help_text='Product amount in g',
     )
     specification = models.CharField(
         max_length=100,
@@ -60,8 +62,8 @@ class CompoundSource(models.Model):
     )
 
     def __str__(self):
-        return 'Commercial source for {}'.format(
-            self.user_odorant if self.user_odorant else self.user_bioactive)
+        return '{currency} {price} / {amount}{unit}'.format(
+            currency=self.currency, price=self.price, amount=self.amount, unit='kg')
 
     def save(self, *args, **kwargs):
         if not any([self.user_odorant, self.user_bioactive]):

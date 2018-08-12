@@ -6,7 +6,7 @@ from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCo
                              BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
                              LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
                              SubstructureListView, SubstructureDetail, UserSubstructureDetail,
-                             UserCompoundNotesDeleteView, UserCompoundSourceListView)
+                             UserCompoundNotesDeleteView, UserCompoundSourceListView, UserActivityListView)
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
@@ -53,6 +53,8 @@ urlpatterns = [
     path('user/odorant/substructure/<slug>', UserSubstructureDetail.as_view(), name='user-substructure-detail'),
     path('user/all', UserOdorantListView.as_view(), name='user-compound-list'),
     path('user/filter/<chem_type>', UserOdorantChemFilterListView.as_view(), name='user-chem-filter'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('user/activity_list/', UserActivityListView.as_view(), name='user-activity-list'),
+
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

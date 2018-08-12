@@ -4,6 +4,7 @@ import re
 from django.db import models
 from django.core.validators import RegexValidator
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from rdkit import Chem
 
 from compounds.models.mixins import CompoundMixin
@@ -70,6 +71,18 @@ class Bioactive(CompoundMixin, models.Model):
             'bioactive-detail',
             args=[str(self.pk)],
         )
+
+    def user_activities(self, user_profile):
+        try:
+            user_compound = self.userbioactive_set.get(user=user_profile)
+        except ObjectDoesNotExist:
+            return 'No foo'
+        activities_data = {'notes': user_compound.notes,
+                           'sources':  user_compound.userbioactive_sources.count(),
+                           # [str(source) for source in
+                           #  user_compound.userbioactive_sources.all()],
+                           'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
+        return activities_data
 
     def category_slug(self):
         category_map = {1: 'medicinal', 2: 'phytochemical', 3: 'misc'}

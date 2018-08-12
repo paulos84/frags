@@ -1,0 +1,41 @@
+{% extends "base_bioactive_listview.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title %}<title>Sources</title>{% endblock %}
+
+{% block content %}
+<div class="col-sm-10" style="margin-bottom:18px; ">
+      <h4 style="position:relative; left: 10px">Saved compound information</h4>
+        <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Notes</th>
+                <th>Sources</th>
+                <th>Specification</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if user_compound_list %}
+        {% for compound in user_compound_list %}
+            <tr>
+                <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
+                         title="{{ compound.iupac_name }}"  height="100" width="100"></td>
+                <td width="180px">{{ compound|truncatechars:52  }}</td>
+                <td width="240px">{{ compound.user_activities.notes  }}</td>
+                <td><a href="{% url 'user-compound-sources'  pk=compound.pk compound_type='bioactive' %}">
+                    <button type="button" class="btn btn-default dropdown-toggle">{{ compound.user_activities.sources }}
+                    <span class="glyphicon glyphicon-leaf"></span></button></a></td>
+                <td><a href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">
+                    <button type="button" class="btn btn-default dropdown-toggle">{{ compound.user_activities.lit_refs }}
+                    <span class="glyphicon glyphicon-book"></span></button></a></td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <h5>No saved compounds</h5>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

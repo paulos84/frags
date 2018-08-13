@@ -16,17 +16,11 @@
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="#">Brand</a>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
+
+  {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
@@ -34,17 +28,53 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Password reset</a></li>
+            <li><a href="#">Company Info</a></li>
+            <li><a href="#">Supplier enquiries</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
           </ul>
         </li>
       </ul>
-      {% if not user.is_authenticated %}
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+          <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
+                </div>
+            </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'logout' %}">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  {% else %}
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#" >Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Password reset</a></li>
+            <li><a href="#">Company Info</a></li>
+            <li><a href="#">Some other flatpage</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'signup' %}">Saved compound information</a></li>
+          </ul>
+        </li>
+      </ul>
         <form method="post" action="{% url 'login' %}" class="navbar-form navbar-left">
         <div class="form-group">
             <form >
@@ -57,13 +87,6 @@
             </form>
         </div>
         </form>
-      {% else %}
-            <div class="navbar-form navbar-left">
-                <div class="form-group">
-          <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
-                </div>
-            </div>
-      {% endif %}
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
         <li class="dropdown">
@@ -73,12 +96,13 @@
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="{% url 'signup' %}">Saved compound information</a></li>
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  {% endif %}
+  </div>
 </nav>
 
 {% block sidebar %}
@@ -96,9 +120,9 @@
             <button type="button" data-toggle="dropdown" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
                 Bioactive compounds<span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'bioactive-list' category='medicinal' %}">Medicinal</a></li>
-                <li><a href="{% url 'bioactive-list' category='phytochemical' %}">Phytochemical</a></li>
-                <li><a href="{% url 'bioactive-list' category='misc' %}">Miscellaneous</a></li>
+                <li><a href="{% url 'bioactive-list' category='medicinal' %}">Medicinal </a></li>
+                <li><a href="{% url 'all-odorants'%}">Fragrance</a></li>
+                <li><a href="{% url 'bioactive-list' category='food' %}">Food</a></li>
             </ul>
             <a href="{% url 'bioactive-cores' %}"> <button type="button" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default" >
                 Bioactive substructures<span class="glyphicon glyphicon"></span></button></a>

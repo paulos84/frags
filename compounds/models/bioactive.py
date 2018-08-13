@@ -18,8 +18,7 @@ class Bioactive(CompoundMixin, models.Model):
 
     cat_choices = (
         (1, 'Pharmaceutical'),
-        (2, 'Phytochemical'),
-        (3, 'Miscellaneous'),
+        (2, 'food'),
     )
     category = models.IntegerField(
         choices=cat_choices,
@@ -75,18 +74,16 @@ class Bioactive(CompoundMixin, models.Model):
     def user_activities(self, user_profile):
         try:
             user_compound = self.userbioactive_set.get(user=user_profile)
+            activities_data = {'notes': user_compound.notes,
+                               'sources': [str(source) for source in
+                                           user_compound.userbioactive_sources.all()],
+                               'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
+            return activities_data
         except ObjectDoesNotExist:
-            return 'No foo'
-        activities_data = {'notes': user_compound.notes,
-                           'sources':
-                           [str(source) for source in
-                            user_compound.userbioactive_sources.all()],
-                           # user_compound.userbioactive_sources.count(),
-                           'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
-        return activities_data
+            pass
 
     def category_slug(self):
-        category_map = {1: 'medicinal', 2: 'phytochemical', 3: 'misc'}
+        category_map = {1: 'medicinal', 2: 'food', 3: 'misc'}
         return category_map[self.category]
 
     @classmethod

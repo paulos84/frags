@@ -1,4 +1,4 @@
-{% extends "base_odorant_generic.html" %}
+{% extends "base_odorant_listview.html" %}
 {% load staticfiles %}
 {% load bootstrap3 %}
 {% load partition %}
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-sm-10" >
+
 
     {% for acyclic_terpenoids in substructure_sets %}
 
@@ -45,7 +45,7 @@
         {{ plot_div|safe }}
         {{ plot_script|safe }}
     {% endif %}
-    </div>
+
 {% endblock %}
 
 {% block js %}

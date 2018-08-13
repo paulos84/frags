@@ -94,7 +94,11 @@ class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveMechanismListView, self).get_context_data(**kwargs)
-        context['current_action'] = self.kwargs['action']
-        context['page_header'] = self.kwargs['mechanism'].replace('-', ' ')
-        context['mechanisms'] = Activity.objects.mechanisms().filter(action_id=self.action_id)
+        context.update({
+            'current_action': self.kwargs['action'],
+            'page_header': self.kwargs['mechanism'].replace('-', ' '),
+            'mechanisms': Activity.objects.mechanisms().filter(action_id=self.action_id),
+        })
         return context
+
+

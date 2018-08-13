@@ -5,14 +5,13 @@
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   {% block title %}<title>Fragrance Compounds</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-     {% block head %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% block head %}{% endblock %}
+</head>
 
 </head>
 
@@ -21,35 +20,64 @@
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="#">Brand</a>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
+  {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="{% url 'api_docs' %}">API</a></li>
+        <li><a href="#" >Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Password reset</a></li>
+            <li><a href="#">Company Info</a></li>
+            <li><a href="#">Some other flatpage</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
           </ul>
         </li>
       </ul>
-      {% if not user.is_authenticated %}
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+          <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
+                </div>
+            </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'logout' %}">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  {% else %}
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#" >Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Password reset</a></li>
+            <li><a href="#">Company Info</a></li>
+            <li><a href="#">Some other flatpage</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'signup' %}">Saved compound information</a></li>
+          </ul>
+        </li>
+      </ul>
         <form method="post" action="{% url 'login' %}" class="navbar-form navbar-left">
         <div class="form-group">
             <form >
@@ -61,28 +89,23 @@
                 <a href="{% url 'signup' %}" class="btn btn-secondary">Register</a>
             </form>
         </div>
-      {% else %}
-            <div class="navbar-form navbar-left">
-                <div class="form-group">
-          <a href="{% url 'logout' %}?next={% url 'index' %}" class="btn btn-default">Logout</a>
-                </div>
-            </div>
-      {% endif %}
+        </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
+            <li><a href="{% url 'logout' %}">Action</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="{% url 'signup' %}">Saved compound information</a></li>
           </ul>
         </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  {% endif %}
+  </div>
 </nav>
 
 {% block sidebar %}
@@ -96,6 +119,11 @@
             <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add compound</a>
         </div>
       </ul>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'bioactive-list' category='medicinal' %}">Medicinal </a></li>
+        <li><a href="{% url 'all-odorants'%}">Fragrance</a></li>
+        <li><a href="{% url 'bioactive-list' category='food' %}">Food</a></li>
+     </ul>
     {% if compound_search %}
     <div style=" position:relative; top: 34px ">
     <form method="get" >

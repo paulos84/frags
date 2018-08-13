@@ -1,4 +1,4 @@
-from compounds.views.bioactive.bioactive_list import BioactiveListView, UserBioactiveListView
+from compounds.views.bioactive.bioactive_list import BioactiveListView
 from compounds.views.bioactive.bioactive_core import BioactiveCoreMatchList, BioactiveCoreListView
 from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
 from compounds.views.bioactive.bioactive_create import BioactiveCreateView

@@ -8,7 +8,7 @@ from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
 class BaseBioactiveListView(BioactiveSearchFilterMixin, ListView):
-    category_map = {'medicinal': 1, 'phytochemical': 2, 'misc': 3}
+    category_map = {'medicinal': 1, 'food': 2, 'misc': 3}
     model = Bioactive
     paginate_by = 32
     category = None
@@ -35,20 +35,4 @@ class BioactiveListView(BaseBioactiveListView):
         context['page_header'] = label + 's' if not label.endswith('s') else label
         context['body_systems'] = [a[1] for a in Activity.classifications]
         context['drug_actions'] = Activity.objects.actions()
-        return context
-
-
-class UserBioactiveListView(LoginRequiredMixin, BaseBioactiveListView):
-    template_name = 'odorants/user_odorant_list.html'
-    context_object_name = 'compound_list'
-    category = None
-
-    def get_queryset(self):
-        queryset = super(UserBioactiveListView, self).get_queryset()
-        # filter based upon category set with kwargs in dispatch
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super(UserBioactiveListView, self).get_context_data(**kwargs)
-        context['page_header'] = 'My compound notes'
         return context

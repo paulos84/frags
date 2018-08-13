@@ -6,11 +6,8 @@ class BioactiveCoreQuerySet(models.QuerySet):
     def medicinal(self):
         return self.filter(category=1)
 
-    def phytochemical(self):
+    def food(self):
         return self.filter(category=2)
-
-    def miscellaneous(self):
-        return self.filter(category=3)
 
 
 class BioactiveCoreManager(models.Manager):
@@ -21,12 +18,8 @@ class BioactiveCoreManager(models.Manager):
     def medicinal(self):
         return self.get_queryset().medicinal()
 
-    def phytochemical(self):
-        return self.get_queryset().phytochemical()
-
-    def miscellaneous(self):
-        return self.get_queryset().miscellaneous()
-
+    def food(self):
+        return self.get_queryset().food()
 
 #
 # from django.contrib.postgres.fields.jsonb import KeyTextTransform

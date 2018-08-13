@@ -19,9 +19,8 @@ class BioactiveCoreListView(BioactiveSearchFilterMixin, TemplateView):
         context = super(BioactiveCoreListView, self).get_context_data(**kwargs)
         context.update({
             'substructure_sets': [
-                {'subset': BioactiveCore.objects.medicinal(), 'label': 'Medicinal compounds'},
-                {'subset': BioactiveCore.objects.phytochemical(), 'label': 'Phytochemicals'},
-                {'subset': BioactiveCore.objects.miscellaneous(), 'label': 'Miscellaneous'},
+                {'subset': BioactiveCore.objects.medicinal(), 'label': 'Medicinal'},
+                {'subset': BioactiveCore.objects.food(), 'label': 'Food'},
             ],
         })
         # property_choice = self.request.GET.get('property_choice')

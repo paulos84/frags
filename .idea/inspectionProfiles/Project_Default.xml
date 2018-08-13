@@ -42,6 +42,9 @@
           <option value="compounds.models.odor_type.OdorType.*" />
           <option value="compounds.views.odorant.substructure_list.SubstructureListView.*" />
           <option value="compounds.models.activity.Activity.*" />
+          <option value="compounds.models.bioactive.Bioactive.*" />
+          <option value="compounds.views.bioactive.filtered_lists.BioactiveMechanismListView.*" />
+          <option value="compounds.views.bioactive.filtered_lists.BioactiveDrugActionListView.kwargs" />
         </list>
       </option>
     </inspection_tool>

@@ -1,12 +1,17 @@
-{% extends "base_bioactive_generic.html" %}
+{% extends "base_bioactive_listview.html" %}
 {% load static %}
 {% load bootstrap3 %}
 
+{% block title %}<title>Register</title>{% endblock %}
+
 {% block content %}
-  <h3>Register</h3>
+<div class="col-sm-10" style="position: relative; margin-top: 14px; left:28px; ">
+  <h4>User account registration</h4>
   <form method="post" style="width:300px">
     {% csrf_token %}
           {% bootstrap_form form %}
     <button class="btn btn-success" type="submit">Sign up</button>
   </form>
+  <h5>Privacy Policy · Cookie Policy · Terms of Use · Company Info</h5>
+</div>
 {% endblock %}

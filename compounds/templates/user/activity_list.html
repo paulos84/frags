@@ -1,8 +1,9 @@
 {% extends "base_bioactive_listview.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
+{% load bioactive_filters %}
 
-{% block title %}<title>Sources</title>{% endblock %}
+{% block title %}<title>Saved information</title>{% endblock %}
 
 {% block content %}
 <div class="col-sm-10" style="margin-bottom:18px; ">
@@ -14,7 +15,9 @@
                 <th></th>
                 <th>Notes</th>
                 <th>Sources</th>
-                <th>Specification</th>
+                <th>Sources</th>
+                <th>Literatrure references</th>
+                <th>Literatrure references</th>
             </tr>
         </thead>
         <tbody>
@@ -26,10 +29,12 @@
                 <td width="180px">{{ compound|truncatechars:52  }}</td>
                 <td width="240px">{{ compound.user_activities.notes  }}</td>
                 <td><a href="{% url 'user-compound-sources'  pk=compound.pk compound_type='bioactive' %}">
-                    <button type="button" class="btn btn-default dropdown-toggle">{{ compound.user_activities.sources }}
+                    <button type="button" class="btn btn-default dropdown-toggle">
                     <span class="glyphicon glyphicon-leaf"></span></button></a></td>
+                <td>{{ compound|user_sources:user.profile }}</td>
+                <td>{{ compound|user_lit_refs:user.profile }}</td>
                 <td><a href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">
-                    <button type="button" class="btn btn-default dropdown-toggle">{{ compound.user_activities.lit_refs }}
+                    <button type="button" class="btn btn-default dropdown-toggle">
                     <span class="glyphicon glyphicon-book"></span></button></a></td>
             </tr>
         {% endfor %}

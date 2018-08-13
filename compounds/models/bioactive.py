@@ -78,9 +78,10 @@ class Bioactive(CompoundMixin, models.Model):
         except ObjectDoesNotExist:
             return 'No foo'
         activities_data = {'notes': user_compound.notes,
-                           'sources':  user_compound.userbioactive_sources.count(),
-                           # [str(source) for source in
-                           #  user_compound.userbioactive_sources.all()],
+                           'sources':
+                           [str(source) for source in
+                            user_compound.userbioactive_sources.all()],
+                           # user_compound.userbioactive_sources.count(),
                            'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
         return activities_data
 

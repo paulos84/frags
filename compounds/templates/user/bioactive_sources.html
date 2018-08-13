@@ -63,7 +63,27 @@
     <h4 style="position:relative; left: 10px">Add source</h4>
     <form method="post">
       {% csrf_token %}
-      {% bootstrap_form form %}
+      {{ form.non_field_errors }}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <table >
+          <div class="form-group">
+        {% for field in form.visible_fields %}
+          <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>
+              {{ field.errors }}
+              <div class="form-control">{{ field }}</div>
+            </td>
+          </tr>
+        {% endfor %}
+              </div>
+      </table>
+
       <button type="submit" name="add_source" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Submit</button>
     </form>

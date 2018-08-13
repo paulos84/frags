@@ -81,6 +81,7 @@ class BioactiveDrugActionListView(BaseBioactiveActivityFilterListView):
 
 
 class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
+    template_name = 'bioactives/mechanism_list.html'
     action_id = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -96,9 +97,16 @@ class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
         context = super(BioactiveMechanismListView, self).get_context_data(**kwargs)
         context.update({
             'current_action': self.kwargs['action'],
-            'page_header': self.kwargs['mechanism'].replace('-', ' '),
+            'page_header': self.deslug_mechanism_title(self.kwargs['mechanism']),
             'mechanisms': Activity.objects.mechanisms().filter(action_id=self.action_id),
         })
         return context
 
-
+    @staticmethod
+    def deslug_mechanism_title(page_header):
+        page_header = page_header.strip('-').replace('-', ' ')
+        deslug_map = {'ace': 'ACE', 'adrenaline': 'β-adrenaline', 'hmg coa': 'HMG-CoA'}
+        for k in deslug_map.keys():
+            if page_header.startswith(k):
+                return page_header.replace(k, deslug_map[k])
+        return page_header

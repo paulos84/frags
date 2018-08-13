@@ -40,9 +40,18 @@ class CompoundSource(models.Model):
         blank=True,
         default='',
     )
+    unit_choices = (
+        ('g', 'grams'),
+        ('kg', 'kilograms'),
+    )
+    unit = models.CharField(
+        max_length=2,
+        choices=unit_choices,
+        blank=True,
+        default='g',
+    )
     amount = models.FloatField(
         max_length=20,
-        help_text='Product amount in g',
     )
     specification = models.CharField(
         max_length=100,

@@ -43,7 +43,7 @@
       </ul>
           <div class="navbar-form navbar-left">
               <div class="form-group">
-                <a href="{% url 'logout' %}?next={{ request.get_full_path }}" class="btn btn-default">Logout</a>
+          <a href="{% url 'logout' %}?next={% url 'index' %}" class="btn btn-default">Logout</a>
                 </div>
             </div>
       <ul class="nav navbar-nav navbar-right">

@@ -1,7 +1,7 @@
 {% extends "base_bioactive_listview.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
-{% load bioactive_filters %}
+{% load compound_filters %}
 
 {% block title %}<title>Saved information</title>{% endblock %}
 
@@ -19,8 +19,8 @@
             </tr>
         </thead>
         <tbody>
-        {% if user_compound_list %}
-        {% for compound in user_compound_list %}
+        {% if bioactive_list %}
+        {% for compound in bioactive_list %}
             <tr>
                 <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
                          title="{{ compound.iupac_name }}"  height="100" width="100"></td>
@@ -38,7 +38,29 @@
                 <td><h5 style="float:left; ">{{ compound|user_lit_refs:user.profile }}</h5></td>
             </tr>
         {% endfor %}
-        {% else %}
+        {% endif %}
+        {% if odorant_list %}
+        {% for compound in odorant_list %}
+            <tr>
+                <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
+                         title="{{ compound.iupac_name }}"  height="100" width="100"></td>
+                <td width="140px">{{ compound|truncatechars:52  }}</td>
+                <td width="300px">{{ compound|user_notes:user.profile  }}</td>
+                <td width="20px"><a href="{% url 'user-compound-sources'  pk=compound.pk compound_type='odorant' %}">
+                    <button type="button" class="btn btn-default dropdown-toggle">
+                    <span class="glyphicon glyphicon-leaf"></span></button></a></td>
+                <td width="190px">{% for source in compound|user_sources:user.profile %}
+                    <div>{{ source }}</div>
+                    {% endfor %}</td>
+                <td width="20px"><a href="{% url 'literature-references' pk=compound.pk compound_type='odorant' %}">
+                    <button type="button" class="btn btn-default dropdown-toggle">
+                    <span class="glyphicon glyphicon-book"></span></button></a></td>
+                <td><h5 style="float:left; ">{{ compound|user_lit_refs:user.profile }}</h5></td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+
+        {% if not medicinal_list and not food_list and not odorant_list %}
             <h5>No saved compounds</h5>
         {% endif %}
         </tbody>

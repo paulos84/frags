@@ -6,18 +6,21 @@ from compounds.models import UserBioactive, UserOdorant
 from compounds.views.odorant.odorant_list import BaseOdorantListView
 
 
-# TODO if notes go beyond area use ... truncation
-
-
 class UserActivityListView(LoginRequiredMixin, BaseOdorantListView):
     model = UserBioactive
     template_name = 'user/activity_list.html'
-    context_object_name = 'user_compound_list'
+    context_object_name = 'bioactive_list'
+    user_profile = None
 
-    # split querysets into different categories (4) , heading/list them only if exist
-    def get_queryset(self):
-        user_profile = self.request.user.profile
-        return user_profile.bioactive_set.all()
+    def dispatch(self, request, *args, **kwargs):
+        self.user_profile = self.request.user.profile
+        self.queryset = self.user_profile.bioactive_set.all()
+        return super(UserActivityListView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserActivityListView, self).get_context_data(**kwargs)
+        context['odorant_list'] = self.user_profile.odorant_set.all()
+        return context
 
 
 class UserCompoundNotesDeleteView(DeleteView):
@@ -33,4 +36,3 @@ class UserCompoundNotesDeleteView(DeleteView):
     def get_success_url(self):
         return reverse(
             'odorant-detail', kwargs={'pk': self.object.compound.pk})
-

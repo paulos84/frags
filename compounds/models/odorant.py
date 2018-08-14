@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.urls import reverse
-import pubchempy as pcp
 from rdkit import Chem
 
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import OdorantManager
-from compounds.models.profile import Profile
 
 
 class Odorant(CompoundMixin, models.Model):
@@ -54,6 +53,17 @@ class Odorant(CompoundMixin, models.Model):
             'odorant-detail',
             args=[str(self.pk)],
         )
+
+    def user_activities(self, user_profile):
+        try:
+            user_compound = self.userodorant_set.get(user=user_profile)
+            activities_data = {'notes': user_compound.notes or '',
+                               'sources': [source.summary_display for source in
+                                           user_compound.userodorant_sources.all()],
+                               'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
+            return activities_data
+        except ObjectDoesNotExist:
+            pass
 
     @classmethod
     def substructure_matches(cls, pattern, queryset=None):

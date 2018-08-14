@@ -78,7 +78,7 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
 
     def form_valid(self, form):
         if not self.user_compound:
-            self.user_compound = self.user_compound_model.objects.create(
+            self.user_compound, _ = self.user_compound_model.objects.get_or_create(
                 compound=self.compound,
                 user=self.request.user.profile
             )
@@ -106,11 +106,10 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
                 continue
             row_values = row_values + [''] * (6 - len(row_values))
             row_dict = dict(zip(['price', 'amount', 'specification', 'supplier', 'product_number', 'url'], row_values))
-            if not self.user_compound:
-                self.user_compound = self.user_compound_model.objects.create(
-                    compound=self.compound,
-                    user=self.request.user.profile
-                )
+            self.user_compound, _ = self.user_compound_model.objects.get_or_create(
+                compound=self.compound,
+                user=self.request.user.profile
+            )
             row_dict.update({
                 'user_compound': self.user_compound,
                 'currency': self.request.POST.get('currency', '')

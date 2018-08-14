@@ -3,3 +3,8 @@
     padding: 0;
     list-style: none;
 }
+
+#amount_unit_row{
+    list-style-type: none;
+    display : inline;
+    }

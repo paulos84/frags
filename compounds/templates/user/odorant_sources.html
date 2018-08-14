@@ -1,6 +1,7 @@
 {% extends "base_odorant_listview.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 
 {% block title %}<title>Sources</title>{% endblock %}
 
@@ -21,7 +22,7 @@
                 <th></th>
                 <th>CCY</th>
                 <th>Price</th>
-                <th>Amount (kg)</th>
+                <th>Amount</th>
                 <th>Specification</th>
                 <th>Supplier</th>
                 <th>Product number</th>
@@ -33,11 +34,11 @@
         {% for source in sources_list %}
             <tr>
                 <td><input type="checkbox" name="remove_source_ids" value="{{ source.id }}"></td>
-                <td style="width:40px">{{ source.currency }}</td>
+                <td style="width:70px">{{ source.currency }}</td>
                 <td>{{ source.price }}</td>
-                <td>{{ source.amount }}</td>
-                <td>{{ source.specification|truncatechars:50 }}</td>
-                <td>{{ source.supplier|truncatechars:25 }}</td>
+                <td>{{ source.amount }}{{ source.unit }}</td>
+                <td>{{ source.specification|truncatechars:48 }}</td>
+                <td>{{ source.supplier|truncatechars:24 }}</td>
                 <td>{{ source.product_number|truncatechars:20 }}</td>
                 {% if source.url %}
                      <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
@@ -63,7 +64,26 @@
     <h4 style="position:relative; left: 10px">Add source</h4>
     <form method="post">
       {% csrf_token %}
-      {% bootstrap_form form %}
+            {{ form.non_field_errors }}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <table >
+          <div class="form-group">
+        {% for field in form.visible_fields %}
+          <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>
+              {{ field.errors }}
+             {% render_field field class="form-control" %}
+            </td>
+          </tr>
+        {% endfor %}
+              </div>
+      </table>
       <button type="submit" name="add_source" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Submit</button>
     </form>

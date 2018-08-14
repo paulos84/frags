@@ -75,7 +75,7 @@ class Bioactive(CompoundMixin, models.Model):
         try:
             user_compound = self.userbioactive_set.get(user=user_profile)
             activities_data = {'notes': user_compound.notes,
-                               'sources': [str(source) for source in
+                               'sources': [source.summary_display for source in
                                            user_compound.userbioactive_sources.all()],
                                'lit_refs': len(user_compound.literature_refs) if user_compound.literature_refs else ''}
             return activities_data

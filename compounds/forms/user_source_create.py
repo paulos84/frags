@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
 
 from compounds.models import CompoundSource
 
@@ -32,6 +31,7 @@ class UserOdorantSourceCreateForm(forms.ModelForm):
         fields = ['price', 'currency', 'amount', 'unit', 'specification', 'supplier', 'product_number', 'url']
         labels = {
             'url': 'Webpage URL',
+            'unit': 'Units'
         }
 
     def __init__(self, *args, **kwargs):

@@ -51,7 +51,7 @@ class CompoundSource(models.Model):
         default='g',
     )
     amount = models.FloatField(
-        max_length=20,
+        max_length=10,
     )
     specification = models.CharField(
         max_length=100,
@@ -71,6 +71,11 @@ class CompoundSource(models.Model):
     )
 
     def __str__(self):
+        return '{} | {} | {}'.format(
+            self.user_odorant or self.user_bioactive, self.supplier, self.amount)
+
+    @property
+    def summary_display(self):
         return '{currency} {price} / {amount}{unit}'.format(
             currency=self.currency, price=self.price, amount=self.amount, unit='kg')
 

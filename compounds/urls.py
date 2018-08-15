@@ -4,8 +4,8 @@ from django.urls import path, re_path
 
 from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
                              BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
-                             LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
-                             SubstructureListView, SubstructureDetail, UserSubstructureDetail,
+                             CompoundSourceListView, LiteratureRefsView, OdorantCreateView, OdorantDetailView,
+                             OdorantUpdateView, SubstructureListView, SubstructureDetail, UserSubstructureDetail,
                              UserCompoundNotesDeleteView, UserCompoundSourceListView, UserActivityListView)
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
@@ -40,6 +40,8 @@ urlpatterns = [
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
     path('lit-refs/<compound_type>/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
     path('sources/<compound_type>/<int:pk>', UserCompoundSourceListView.as_view(), name='user-compound-sources'),
+    path('available-sources/<compound_type>/<int:pk>', CompoundSourceListView.as_view(), name='available-sources'),
+
     path('odorant/edit/<int:pk>', OdorantUpdateView.as_view(), name='odorant-update'),
     path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('odorant/add', OdorantCreateView.as_view(), name='odorant-add'),

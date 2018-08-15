@@ -5,26 +5,6 @@ from django.core.exceptions import ValidationError
 
 class CompoundSource(models.Model):
 
-    user_odorant = models.ForeignKey(
-        'compounds.UserOdorant',
-        related_name='userodorant_sources',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    user_bioactive = models.ForeignKey(
-        'compounds.UserBioactive',
-        related_name='userbioactive_sources',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    source = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
     price = models.DecimalField(
         decimal_places=2,
         max_digits=10,
@@ -60,7 +40,7 @@ class CompoundSource(models.Model):
         max_length=10,
     )
     specification = models.CharField(
-        max_length=100,
+        max_length=50,
     )
     supplier = models.CharField(
         max_length=50,
@@ -71,9 +51,43 @@ class CompoundSource(models.Model):
         blank=True,
     )
     url = models.URLField(
-        max_length=500,
+        max_length=100,
         default='',
         blank=True,
+    )
+    user_odorant = models.ForeignKey(
+        'compounds.UserOdorant',
+        related_name='userodorant_sources',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    user_bioactive = models.ForeignKey(
+        'compounds.UserBioactive',
+        related_name='userbioactive_sources',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    odorant = models.ForeignKey(
+        'compounds.Odorant',
+        related_name='odorant_sources',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    bioactive = models.ForeignKey(
+        'compounds.Bioactive',
+        related_name='bioactive_sources',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    source = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -83,7 +97,7 @@ class CompoundSource(models.Model):
     @property
     def summary_display(self):
         return '{currency} {price} / {amount}{unit}'.format(
-            currency=self.currency, price=self.price, amount=self.amount, unit='kg')
+            currency=self.currency, price=self.price, amount=self.amount, unit=self.unit)
 
     def save(self, *args, **kwargs):
         if not any([self.user_odorant, self.user_bioactive]):

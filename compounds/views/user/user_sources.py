@@ -2,19 +2,20 @@ import csv
 import io
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, render_to_response, redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
-from compounds.forms import OdorantSearchForm, UserOdorantSourceCreateForm
+from compounds.forms import BioactiveSearchForm, OdorantSearchForm, UserOdorantSourceCreateForm
 from compounds.forms import UserSourceCsvUploadForm
 from compounds.models import Bioactive, Odorant, UserBioactive, UserOdorant, CompoundSource
 
 
-class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
+class UserCompoundSourceListView(FormMixin, ListView):
     compound = None
     user_compound = None
     user_compound_model = None
@@ -22,20 +23,17 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
     form_class = UserOdorantSourceCreateForm
 
     def dispatch(self, request, *args, **kwargs):
-        if kwargs.get('compound_type') == 'odorant':
-            compound_model = Odorant
-            self.user_compound_model = UserOdorant
-        else:
-            compound_model = Bioactive
-            self.user_compound_model = UserBioactive
+        compound_model = Odorant if kwargs['compound_type'] == 'odorant' else Bioactive
         self.compound = get_object_or_404(compound_model, pk=kwargs['pk'])
-        try:
-            self.user_compound = self.user_compound_model.objects.get(
-                user=request.user.profile,
-                compound=self.compound
-            )
-        except ObjectDoesNotExist:
-            pass
+        if request.user.is_authenticated:
+            self.user_compound_model = UserOdorant if compound_model == Odorant else UserBioactive
+            try:
+                self.user_compound = self.user_compound_model.objects.get(
+                    user=request.user.profile,
+                    compound=self.compound
+                )
+            except ObjectDoesNotExist:
+                pass
         return super(UserCompoundSourceListView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -45,7 +43,7 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
 
     def get_template_names(self):
         return 'user/{}_sources.html'.format(
-            'odorant' if self.user_compound_model == UserOdorant else 'bioactive')
+            'odorant' if isinstance(self.compound, Odorant) else 'bioactive')
 
     def get_context_data(self, **kwargs):
         context = super(UserCompoundSourceListView, self).get_context_data(**kwargs)
@@ -53,10 +51,11 @@ class UserCompoundSourceListView(LoginRequiredMixin, FormMixin, ListView):
             'form': self.form_class(),
             'upload_form': UserSourceCsvUploadForm(),
             'compound': self.compound,
-            'compound_search': OdorantSearchForm() if self.user_compound_model == UserOdorant else OdorantSearchForm()
+            'compound_search': OdorantSearchForm() if isinstance(self.compound, Odorant) else BioactiveSearchForm()
         })
         return context
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         if 'add_source' in request.POST:
             form = self.get_form()

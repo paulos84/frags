@@ -11,7 +11,6 @@
      <script src="http://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
 {% endblock %}
 
-
 {% block content %}
 <div class="col-sm-6 " style="position: relative; left:20px; ">
     {% if bioactive.chemical_name %}
@@ -22,21 +21,14 @@
     {% endif %}
     <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
     <p><strong>InChIKey:</strong> {{ bioactive.inchikey }}</p>
-
     <div class="btn-group" role="group" style="margin-top:4px; ">
         <a href="{% url 'literature-references' pk=bioactive.pk compound_type='bioactive' %}">
             <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">Literature references</button></a>
-        {% if user.is_authenticated %}
            <a href="{% url 'user-compound-sources'  pk=bioactive.pk compound_type='bioactive' %}">
                <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
-               <span class="glyphicon glyphicon"></span>Saved sources</button>
+               <span class="glyphicon glyphicon"></span>Commercial sources</button>
            </a>
-        {% else %}
-            <button style="width: 170px" type="button" class="btn btn-secondary" disabled>
-                <span class="glyphicon glyphicon"></span>Saved sources</button>
-        {% endif %}
     </div>
-
     <div class="btn-group" role="group" style="margin-top:14px; ">
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
                 onclick="$('#chem_properties_table').toggle();

@@ -84,7 +84,6 @@
         {% endfor %}
               </div>
       </table>
-
       <button type="submit" name="add_source" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Submit</button>
     </form>
@@ -94,8 +93,13 @@
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {% bootstrap_form upload_form %}
+      {% if user.is_authenticated %}
       <button type="submit"  name="csv_upload" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Upload</button>
+       % else %}
+      <button type="submit"  name="csv_upload" class="btn btn-primary" disabled >
+      <span class="glyphicon glyphicon"></span>Upload</button>
+      {% endif %}
     </form>
 </div>
 {% endblock %}

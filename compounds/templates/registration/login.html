@@ -12,7 +12,11 @@
           {% bootstrap_form form %}
     <button class="btn btn-success" type="submit">Sign in</button>
   </form>
-  <a href="{% url 'password_reset' %}">Forgotten password?</a>
-
+  <div style="margin-top: 16px; ">
+    <a href="{% url 'password_reset' %}">Forgotten password?</a>
+  </div>
+  <div style="margin-top: 7px; ">
+    <a href="{% url 'signup' %}">Register for an account</a>
+  </div>
 </div>
 {% endblock %}

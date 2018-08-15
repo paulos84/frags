@@ -46,6 +46,7 @@
           <option value="compounds.views.bioactive.filtered_lists.BioactiveMechanismListView.*" />
           <option value="compounds.views.bioactive.filtered_lists.BioactiveDrugActionListView.kwargs" />
           <option value="compounds.models.odorant.Odorant.*" />
+          <option value="compounds.models.compound_source.CompoundSource.*" />
         </list>
       </option>
     </inspection_tool>

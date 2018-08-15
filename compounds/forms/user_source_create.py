@@ -24,7 +24,7 @@ class UserSourceCsvUploadForm(forms.Form):
         self.fields['currency'].widget.attrs['style'] = "width:200px"
 
 
-class UserOdorantSourceCreateForm(forms.ModelForm):
+class CompoundSourceCreateForm(forms.ModelForm):
 
     class Meta:
         model = CompoundSource
@@ -35,6 +35,6 @@ class UserOdorantSourceCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(UserOdorantSourceCreateForm, self).__init__(*args, **kwargs)
+        super(CompoundSourceCreateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['style'] = "width:300px"

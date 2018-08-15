@@ -13,7 +13,7 @@
       <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='bioactive' %}">Commercial sources</a></li>
     </ul>
-      <h4 style="position:relative; left: 10px">Current sources</h4>
+      <h5 style="position:relative; left: 10px"><strong>Current saved sources</strong></h5>
         <form method="post">
         {% csrf_token %}
         <table class="table">

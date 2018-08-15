@@ -19,6 +19,12 @@ class CompoundSource(models.Model):
         null=True,
         blank=True,
     )
+    source = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
     price = models.DecimalField(
         decimal_places=2,
         max_digits=10,

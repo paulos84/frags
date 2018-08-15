@@ -24,10 +24,14 @@
     <div class="btn-group" role="group" style="margin-top:4px; ">
         <a href="{% url 'literature-references' pk=bioactive.pk compound_type='bioactive' %}">
             <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">Literature references</button></a>
-           <a href="{% url 'user-compound-sources'  pk=bioactive.pk compound_type='bioactive' %}">
-               <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
-               <span class="glyphicon glyphicon"></span>Commercial sources</button>
-           </a>
+        <a href="{% url 'user-compound-sources'  pk=bioactive.pk compound_type='bioactive' %}">
+           <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
+           <span class="glyphicon glyphicon"></span>Saved sources</button>
+        </a>
+        <a href="{% url 'user-compound-sources'  pk=bioactive.pk compound_type='bioactive' %}">
+           <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
+           <span class="glyphicon glyphicon"></span>Available sources</button>
+        </a>
     </div>
     <div class="btn-group" role="group" style="margin-top:14px; ">
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
@@ -42,18 +46,12 @@
                 $('#commercial_sources').hide();
                 $('#3dmol-viewer').hide() ">
             Substructures</button>
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
-                onclick="$('#commercial_sources').toggle();
-                 $('#chem_properties_table').hide();
-                 $('#substructure_matches').hide();
-                 $('#3dmol-viewer').hide() ">
-            Commercial sources</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:110px; "
                 onclick="$('#3dmol-viewer').toggle();
                  $('#chem_properties_table').hide();
                  $('#substructure_matches').hide();
                  $('#commercial_sources').hide() ">
-            3D Molecule</button>
+            3D Model</button>
     </div>
         <div id="commercial_sources" style="display: none">
             <p>I am com sources</p>

@@ -4,7 +4,7 @@ from .odorant_update import OdorantUpdateForm, OdorantCompoundForm
 from .compound_search import BioactiveSearchForm, OdorantSearchForm
 from .chem_data_choice import ChemDataChoiceForm
 from .profile_activity import CompoundNotesForm, SignupForm, UserLiteratureRefsForm
-from .user_source_create import CompoundSourceCreateForm, UserSourceCsvUploadForm
+from .source_create import CompoundSourceCreateForm, UserSourceCsvUploadForm
 
 __all__ = [
     BioactiveSearchForm,

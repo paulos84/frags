@@ -35,10 +35,16 @@
                         <a href="{% url 'literature-references' pk=odorant.pk compound_type='odorant' %}">
                 <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
         </div>
-      <div style=" position:relative;  margin-top: 12px; left:6px;">
+        <div style=" position:relative;  margin-top: 12px; left:6px;">
            <a href="{% url 'user-compound-sources' compound_type='odorant' pk=odorant.pk %}">
                <button type="button" style="width: 170px" class="btn btn-secondary" style="color: #6aaf6a">
-               <span class="glyphicon glyphicon"></span>Commercial sources</button>
+               <span class="glyphicon glyphicon"></span>Saved sources</button>
+           </a>
+         </div>
+         <div style=" position:relative;  margin-top: 12px; left:6px;">
+           <a href="{% url 'available-sources' compound_type='odorant' pk=odorant.pk %}">
+               <button type="button" style="width: 170px" class="btn btn-secondary" style="color: #6aaf6a">
+               <span class="glyphicon glyphicon"></span>Available sources</button>
            </a>
          </div>
         </ul>

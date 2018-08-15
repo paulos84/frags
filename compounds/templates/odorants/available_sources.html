@@ -1,10 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_bioactive_listview.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load widget_tweaks %}
 
-</body>
-</html>
+{% block title %}<title>Sources</title>{% endblock %}
+
+{% block content %}
+<div class="col-sm-6">
+    <ul class="breadcrumb" style="background-color: transparent;">
+      <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
+      <li><a class="breadcrumb-item" href="{% url 'all-odorants' %}">All odorants</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound }}</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'available-sources' pk=compound.pk compound_type='odorant' %}">Commercial sources</a></li>
+    </ul>
+      <h5 style="position:relative; left: 10px"><strong>Available sources</strong></h5>
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Price/Amount</th>
+                <th>Specification</th>
+                <th>Supplier</th>
+                <th>Product number</th>
+                <th>Webpage</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if sources_list %}
+        {% for source in sources_list %}
+            <tr>
+                <td>{{ source.summary_display }}</td>
+                <td>{{ source.specification|truncatechars:24 }}</td>
+                <td>{{ source.supplier|truncatechars:24 }}</td>
+                <td width="26">{{ source.product_number|truncatechars:12 }}</td>
+                <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+            <tr>
+              <td>No sources</td>
+            </tr>
+        </tbody>
+        </table>
+        {% endif %}
+</div>
+<div class="col-sm-4">
+    <h4 style="position:relative; margin-top: 55px">Add source</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <table >
+          <div class="form-group">
+        {% for field in form.visible_fields %}
+          <tr>
+            <th>{{ field.label_tag }}</th>
+            <td>
+              {{ field.errors }}
+             {% render_field field class="form-control" %}
+            </td>
+          </tr>
+        {% endfor %}
+              </div>
+      </table>
+      <button type="submit" name="add_source" class="btn btn-primary" >
+      <span class="glyphicon glyphicon"></span>Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -11,7 +11,7 @@
       <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
       <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category_slug %}">All {{ compound.get_category_display|lower }}s</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
-      <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='bioactive' %}">Commercial sources</a></li>
+      <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='bioactive' %}">My sources</a></li>
     </ul>
       <h5 style="position:relative; left: 10px"><strong>Current saved sources</strong></h5>
         <form method="post">
@@ -40,11 +40,7 @@
                 <td>{{ source.specification|truncatechars:48 }}</td>
                 <td>{{ source.supplier|truncatechars:24 }}</td>
                 <td>{{ source.product_number|truncatechars:20 }}</td>
-                {% if source.url %}
-                     <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
-                {% else %}
-                    <td></td>
-                {% endif %}
+                <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
             </tr>
         {% endfor %}
         </tbody>

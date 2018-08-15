@@ -35,6 +35,7 @@ class CompoundSourceCreateForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        width = kwargs.pop('width', None)
         super(CompoundSourceCreateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs['style'] = "width:300px"
+            self.fields[field].widget.attrs['style'] = "width:{}px".format(width or 300)

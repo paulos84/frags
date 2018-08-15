@@ -40,7 +40,7 @@ urlpatterns = [
     path('odorant/<int:pk>', OdorantDetailView.as_view(), name='odorant-detail'),
     path('lit-refs/<compound_type>/<int:pk>', LiteratureRefsView.as_view(), name='literature-references'),
     path('sources/<compound_type>/<int:pk>', UserCompoundSourceListView.as_view(), name='user-compound-sources'),
-    path('available-sources/<compound_type>/<int:pk>', CompoundSourceListView.as_view(), name='available-sources'),
+    path('commercial-sources/<compound_type>/<int:pk>', CompoundSourceListView.as_view(), name='available-sources'),
 
     path('odorant/edit/<int:pk>', OdorantUpdateView.as_view(), name='odorant-update'),
     path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
@@ -26,7 +26,7 @@ class CompoundSourceListView(FormMixin, ListView):
         )
         if isinstance(self.compound, Odorant):
             return non_user_qs.filter(odorant=self.compound)
-        return non_user_qs.objects.filter(bioactive=self.compound)
+        return non_user_qs.filter(bioactive=self.compound)
 
     def get_template_names(self):
         return '{}/available_sources.html'.format(
@@ -35,7 +35,7 @@ class CompoundSourceListView(FormMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(CompoundSourceListView, self).get_context_data(**kwargs)
         context.update({
-            'form': self.form_class(),
+            'form': self.form_class(width=200),
             'compound': self.compound,
             'compound_search': OdorantSearchForm() if isinstance(self.compound, Odorant) else BioactiveSearchForm()
         })
@@ -47,8 +47,6 @@ class CompoundSourceListView(FormMixin, ListView):
             form = self.get_form()
             if form.is_valid():
                 return self.form_valid(form)
-            else:
-                return render_to_response(self.template_name, {'form': form})
         return redirect(self.get_success_url())
 
     def form_valid(self, form):

@@ -4,7 +4,7 @@ import io
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.shortcuts import get_object_or_404, render_to_response, render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
@@ -63,8 +63,7 @@ class UserCompoundSourceListView(FormMixin, ListView):
             form = self.get_form()
             if form.is_valid():
                 return self.form_valid(form)
-            else:
-                return render_to_response(self.template_name, {'form': form})
+            return redirect(self.get_success_url())
         if request.FILES.get('csv_file'):
             form = UserSourceCsvUploadForm(request.POST, request.FILES)
             if form.is_valid():

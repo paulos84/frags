@@ -33,7 +33,6 @@ class OdorantUpdateForm(BaseOdorantUpdateForm):
         # many-to-many relationship
         for field in ['odor_description']:
             if kwargs['initial'].get(field):
-                print(self.fields[field])
                 self.fields[field].widget = forms.HiddenInput()
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = False

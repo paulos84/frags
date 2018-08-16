@@ -8,6 +8,8 @@ class CompoundSource(models.Model):
     price = models.DecimalField(
         decimal_places=2,
         max_digits=10,
+        null=True,
+        blank=True,
     )
     currency_choices = (
         ('', ''),
@@ -38,12 +40,18 @@ class CompoundSource(models.Model):
     )
     amount = models.FloatField(
         max_length=6,
+        null=True,
+        blank=True,
     )
     specification = models.CharField(
         max_length=30,
+        null=True,
+        blank=True,
     )
     supplier = models.CharField(
         max_length=25,
+        null=True,
+        blank=True,
     )
     product_number = models.CharField(
         max_length=20,
@@ -92,12 +100,19 @@ class CompoundSource(models.Model):
 
     def __str__(self):
         return '{} | {} | {}'.format(
-            self.user_odorant or self.user_bioactive, self.supplier, self.amount)
+            self.user_odorant or self.user_bioactive,
+            self.supplier or self.source.supplier,
+            self.amount or self.source.amount
+        )
 
     @property
     def summary_display(self):
         return '{currency} {price} / {amount}{unit}'.format(
-            currency=self.currency, price=self.price, amount=self.amount, unit=self.unit)
+            currency=self.currency or self.source.currency,
+            price=self.price or self.source.price,
+            amount=self.amount or self.source.amount,
+            unit=self.unit or self.source.unit
+        )
 
     def save(self, *args, **kwargs):
         if not any([self.user_odorant, self.user_bioactive, self.bioactive, self.odorant]):

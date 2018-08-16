@@ -55,6 +55,15 @@ class UserCompoundSourceListView(FormMixin, ListView):
             'compound': self.compound,
             'compound_search': OdorantSearchForm() if isinstance(self.compound, Odorant) else BioactiveSearchForm()
         })
+        if self.user_compound:
+            user_cpd_model = 'user_odorant' if isinstance(self.compound, Odorant) else 'user_bioactive'
+            cs_kwargs = {
+                'source__isnull': False,
+                user_cpd_model: self.user_compound,
+            }
+            context.update({
+                'rel_sources_list': CompoundSource.objects.filter(**cs_kwargs)
+            })
         return context
 
     @method_decorator(login_required)

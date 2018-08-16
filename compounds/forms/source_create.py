@@ -39,3 +39,5 @@ class CompoundSourceCreateForm(forms.ModelForm):
         super(CompoundSourceCreateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['style'] = "width:{}px".format(width or 300)
+            if field not in ['product_number', 'url']:
+                self.fields[field].required = True

@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
+import requests
 
 from compounds.forms import BioactiveSearchForm, OdorantSearchForm, CompoundSourceCreateForm
 from compounds.models import Bioactive, Odorant, CompoundSource
+from compounds.utils.check_recaptcha import check_recaptcha
 
 
 class CompoundSourceListView(FormMixin, ListView):
@@ -41,12 +44,17 @@ class CompoundSourceListView(FormMixin, ListView):
         })
         return context
 
+    @method_decorator(check_recaptcha)
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         if 'add_source' in request.POST:
             form = self.get_form()
-            if form.is_valid():
+            if form.is_valid() and request.recaptcha_is_valid:
+                messages.success(request, 'Your password was updated successfully!')
                 return self.form_valid(form)
+        if 'remove_source_ids' in request.POST:
+            CompoundSource.objects.filter(
+                id__in=request.POST.getlist('remove_source_ids')).delete()
         return redirect(self.get_success_url())
 
     def form_valid(self, form):
@@ -55,6 +63,7 @@ class CompoundSourceListView(FormMixin, ListView):
             'odorant' if isinstance(self.compound, Odorant) else 'bioactive',
             self.compound
         )
+
         form.instance.save()
         return super(CompoundSourceListView, self).form_valid(form)
 

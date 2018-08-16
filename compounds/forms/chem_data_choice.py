@@ -1,6 +1,6 @@
 from django import forms
 
-from compounds.utils.general import chemical_properties_label_map
+from compounds.utils.chem_data import chemical_properties_label_map
 
 
 class ChemDataChoiceForm(forms.Form):

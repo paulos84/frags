@@ -13,14 +13,27 @@
       <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'available-sources' pk=compound.pk compound_type='bioactive' %}">Commercial sources</a></li>
     </ul>
+        {% if messages %}
+{% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
       <h5 style="position:relative; left: 10px"><strong>Available sources</strong></h5>
+        <form method="post">
+        {% csrf_token %}
         <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>Price/Amount</th>
                 <th>Specification</th>
                 <th>Supplier</th>
-                <th>Product number</th>
+                <th>P/N</th>
                 <th>Webpage</th>
             </tr>
         </thead>
@@ -28,25 +41,30 @@
         {% if sources_list %}
         {% for source in sources_list %}
             <tr>
+                <td><input type="checkbox" name="save_source_ids" value="{{ source.id }}"></td>
                 <td>{{ source.summary_display }}</td>
                 <td>{{ source.specification|truncatechars:24 }}</td>
                 <td>{{ source.supplier|truncatechars:24 }}</td>
-                <td width="26">{{ source.product_number|truncatechars:12 }}</td>
+                <td>{{ source.product_number|truncatechars:11 }}</td>
                 <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
+           <button name="save_sources" type="submit" class="btn btn-primary">
+           <span class="glyphicon glyphicon"></span>Remove</button>
+        </form>
         {% else %}
             <tr>
               <td>No sources</td>
             </tr>
         </tbody>
         </table>
+        </form>
         {% endif %}
 </div>
 <div class="col-sm-4">
-    <h4 style="position:relative; margin-top: 55px">Add source</h4>
+    <h5 style="position:relative; margin-top: 62px"><strong>Post source</strong></h5>
     <form method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
@@ -69,8 +87,10 @@
         {% endfor %}
               </div>
       </table>
-      <button type="submit" name="add_source" class="btn btn-primary" >
-      <span class="glyphicon glyphicon"></span>Submit</button>
+        <button style="margin-top:12px; " type="submit" name="add_source" class="btn btn-primary" >
+        <span class="glyphicon glyphicon"></span>Submit</button>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <div style="margin-top:16px; " class="g-recaptcha" data-sitekey="6LfiTVsUAAAAAGk3OxDhpYLIsMJmzxNvljEePwkz"></div>
     </form>
 </div>
 {% endblock %}

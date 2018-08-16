@@ -1,4 +1,6 @@
+from datetime import timedelta
 import os
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,6 +27,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'widget_tweaks',
     'bootstrap3',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -85,12 +88,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
+    'axes.backends.AxesModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_REDIRECT_URL = '/'
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'axes_cache': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
-LOGOUT_REDIRECT_URL = '/compounds'
+AXES_CACHE = 'axes_cache'
+
+AXES_COOLOFF_TIME = timedelta(seconds=300)
+
+AXES_FAILURE_LIMIT = 5
 
 LANGUAGE_CODE = 'en-us'
 
@@ -109,7 +124,11 @@ STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf'
+
+#TODO HIDE BELOW
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf' # os.environ.get('RECAPTCHA_KEY')
+
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'

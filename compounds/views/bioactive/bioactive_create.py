@@ -17,9 +17,6 @@ class BioactiveCreateView(CreateView):
         context['compound_search'] = OdorantSearchForm()
         return context
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-
 
 def process_bioactive_identifier(request):
     cas_no = request.GET.get('cas_number')

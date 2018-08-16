@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, ListView
 
 from compounds.models import Odorant, Substructure, OdorType
 from compounds.forms import ChemDataChoiceForm
-from compounds.utils.general import chemical_properties_label_map
+from compounds.utils.chem_data import chemical_properties_label_map
 from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
 

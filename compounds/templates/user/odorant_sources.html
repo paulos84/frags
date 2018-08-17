@@ -43,6 +43,18 @@
                 <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
             </tr>
         {% endfor %}
+        {% for rel_source in rel_sources_list %}
+            <tr>
+                <td><input type="checkbox" name="remove_source_ids" value="{{ rel_source.id }}"></td>
+                <td style="width:70px">{{ rel_source.source.currency }}</td>
+                <td>{{ rel_source.source.price }}</td>
+                <td>{{ rel_source.source.amount }}{{ source.unit }}</td>
+                <td>{{ rel_source.source.specification|truncatechars:48 }}</td>
+                <td>{{ rel_source.source.supplier|truncatechars:24 }}</td>
+                <td>{{ rel_source.source.product_number|truncatechars:20 }}</td>
+                <td><a href="{{ rel_source.source.url }}">{{ rel_source.source.url|truncatechars:20 }}</a></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
         <button name="remove_sources" type="submit" class="btn btn-primary">

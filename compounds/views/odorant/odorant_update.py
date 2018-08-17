@@ -10,7 +10,7 @@ class OdorantUpdateView(LoginRequiredMixin, UpdateView):
     model = Odorant
     form_class = OdorantCompoundForm
     template_name = 'odorants/odorant_update.html'
-    context_object_name = 'compound'
+    context_object_name = 'odorant'
 
     def get_initial(self):
         cpd = self.get_object()

@@ -1,4 +1,4 @@
-{% extends "base_odorant_generic.html" %}
+{% extends "base_odorant_listview.html" %}
 {% load bootstrap3 %}
 {% load static %}
 
@@ -9,59 +9,6 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
 {% endblock %}
-
-{% block sidebar %}
-   <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2">
-       <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">All compounds</a>
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Cpd Types Dropdown</a>
-        </div>
-      </ul>
-
-      <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px;">
-            <a href="{% url 'index' %}" class="btn btn-default" style="width: 170px">Fragrance compounds</a>
-            <a href="{% url 'substructures' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Fragrance substructures</a>
-            <a href="{% url 'odorant-add' %}" class="btn btn-default" style="width: 170px">Add new compound</a>
-        </div>
-        <div style=" position:relative;  margin-top: 12px; left:6px;">
-                        <a href="{% url 'odorant-substructures' pk=odorant.pk %}">
-                <button style="width: 170px" type="button" class="btn btn-secondary">Substructure matches</button></a>
-        </div>
-        <div style=" position:relative; margin-top: 12px; left:6px;">
-                        <a href="{% url 'literature-references' pk=odorant.pk compound_type='odorant' %}">
-                <button style="width: 170px" type="button" class="btn btn-secondary">Literature references</button></a>
-        </div>
-        <div style=" position:relative;  margin-top: 12px; left:6px;">
-           <a href="{% url 'user-compound-sources' compound_type='odorant' pk=odorant.pk %}">
-               <button type="button" style="width: 170px" class="btn btn-secondary" style="color: #6aaf6a">
-               <span class="glyphicon glyphicon"></span>Saved sources</button>
-           </a>
-         </div>
-         <div style=" position:relative;  margin-top: 12px; left:6px;">
-           <a href="{% url 'available-sources' compound_type='odorant' pk=odorant.pk %}">
-               <button type="button" style="width: 170px" class="btn btn-secondary" style="color: #6aaf6a">
-               <span class="glyphicon glyphicon"></span>Available sources</button>
-           </a>
-         </div>
-        </ul>
-        {% if compound_search %}
-        <div style=" position:relative; top: 34px ">
-        <form method="get" >
-            <div class="well">
-              <div class="row">
-                {% bootstrap_form compound_search %}
-                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
-                  </span>Submit</button>
-              </div>
-            </div>
-        </form>
-        </div>
-        {% endif %}
- {% endblock %}
 
 {% block content %}
     <div class="col-sm-5 ">
@@ -79,26 +26,36 @@
             <form method="post">
             {% csrf_token %}
             {% bootstrap_form form2 %}
-                {% if user.is_authenticated %}
-                <button type="submit"  class="btn btn-primary" >
-                <span class="glyphicon glyphicon"></span>Submit</button>
-                {% else %}
-                <button type="submit"  class="btn btn-primary" disabled>
-                <span class="glyphicon glyphicon"></span>Submit</button>
-                {% endif %}
+                  <button type="submit" class="btn btn-secondary" >Submit</button>
             </form>
-        {% endif %}
-        {% if odorant.created_by == request.user.profile or request.user.is_superuser %}
-            <a href="{% url 'odorant-update' pk=odorant.pk %}">
-            <button type="button" class="btn btn-secondary" style="margin-top: 3px; width: 70px">Edit</button></a>
+        {% elif odorant.created_by == request.user.profile or request.user.is_superuser %}
+                  <div>
+                  <a href="{% url 'odorant-update' pk=odorant.pk %}">
+                  <button type="button" class="btn btn-secondary">Edit</button></a>
+                      </div>
         {% else %}
-            <a href="{% url 'odorant-update' pk=odorant.pk %}">
-            <button type="button" class="btn btn-secondary" disabled>Edit</button></a>
+                  <div><button type="button" class="btn btn-secondary" disabled>Edit</button></a></div>
         {% endif %}
+        <div class="btn-group" role="group" style="margin-top:12px">
+            <a href="{% url 'literature-references' pk=odorant.pk compound_type='odorant' %}">
+                <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">
+                <span class="glyphicon glyphicon"></span>Literature references</button></a>
+            <a href="{% url 'odorant-substructures' pk=odorant.pk %}">
+               <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
+               <span class="glyphicon glyphicon"></span>Substructure matches</button></a>
+        </div>
+        <div class="btn-group" role="group" style="margin-top:12px; margin-bottom: 8px; ">
+           <a href="{% url 'user-compound-sources' compound_type='odorant' pk=odorant.pk %}">
+               <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
+               <span class="glyphicon glyphicon"></span>Saved sources</button></a>
+           <a href="{% url 'available-sources' compound_type='odorant' pk=odorant.pk %}">
+               <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
+               <span class="glyphicon glyphicon"></span>Available sources</button></a>
+        </div>
         </div>
     <div class="col-sm-5 ">
         <div style=" position:relative; top:16px" >
-            <img width="280" height="280" class="structure-img" src={{ odorant.structure_url }} title={{substructure}} >
+            <img width="225" height="225" class="structure-img" src={{ odorant.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
             <p><strong>Synonyms:</strong> {{ odorant.synonyms|truncatechars:124 }}</p>

@@ -104,7 +104,7 @@
       {% if user.is_authenticated %}
       <button type="submit"  name="csv_upload" class="btn btn-primary" >
       <span class="glyphicon glyphicon"></span>Upload</button>
-       % else %}
+       {% else %}
       <button type="submit"  name="csv_upload" class="btn btn-primary" disabled >
       <span class="glyphicon glyphicon"></span>Upload</button>
       {% endif %}

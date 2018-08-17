@@ -1,4 +1,4 @@
-{% extends "base_odorant_generic.html" %}
+{% extends "base_odorant_listview.html" %}
 {% load bootstrap3 %}
 {% load static %}
 {% block title %}
@@ -23,7 +23,7 @@
     </div>
     <div class="col-sm-5 ">
         <div style=" position:relative; top:8px">
-            <img class="structure-img" src={{ odorant.structure_url }} title={{odorant.iupac_name}} >
+            <img width="225" height="225" class="structure-img" src={{ odorant.structure_url }} title={{substructure}} >
         </div>
         <div style=" position:relative; top:24px; width:320px; left:24px">
             <p><strong>Synonyms:</strong> {{ odorant.synonyms|truncatechars:124 }}</p>

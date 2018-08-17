@@ -1,4 +1,4 @@
-{% extends "base_odorant_generic.html" %}
+{% extends "base_odorant_listview.html" %}
 {% load static %}
 {% block title %}<title>Add Odorant</title>{% endblock %}
 {% block head %}
@@ -46,7 +46,6 @@
           </div>
         <div>
           {{ odorant.structure_url }}
-          <img id="compound_structure" src="" border="1">
-      </div>
+        <img class="structure-img" src={{ odorant.structure_url }} title={{odorant.iupac_name}} ></div>
   </div>
 {% endblock %}

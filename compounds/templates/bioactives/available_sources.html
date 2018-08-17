@@ -14,14 +14,7 @@
       <li><a class="breadcrumb-item active" href="{% url 'available-sources' pk=compound.pk compound_type='bioactive' %}">Commercial sources</a></li>
     </ul>
     {% if messages %}
-    {% for message in messages %}
-      <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {{ message }}
-      </div>
-    {% endfor %}
+    {% bootstrap_messages %}
     {% endif %}
       <h5 style="position:relative; left: 10px"><strong>Available sources</strong></h5>
         <form method="post">
@@ -51,8 +44,13 @@
         {% endfor %}
         </tbody>
         </table>
+        {% if user.is_authenticated %}
            <button type="submit" class="btn btn-primary">
            <span class="glyphicon glyphicon"></span>Save sources</button>
+        {% else %}
+           <button type="submit" class="btn btn-primary" disabled>
+           <span class="glyphicon glyphicon"></span>Save sources</button>
+        {% endif %}
         </form>
         {% else %}
             <tr>

@@ -18,8 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.flatpages',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
@@ -101,6 +103,8 @@ CACHES = {
     }
 }
 
+SITE_ID = 1
+
 AXES_CACHE = 'axes_cache'
 
 AXES_COOLOFF_TIME = timedelta(seconds=300)
@@ -125,10 +129,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-#TODO HIDE BELOW
-
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LfiTVsUAAAAADnArNPdCfspJSgAZiRqpFy1fnRf' # os.environ.get('RECAPTCHA_KEY')
-
+GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_KEY')
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'

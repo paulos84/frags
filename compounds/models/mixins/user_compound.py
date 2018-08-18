@@ -17,9 +17,6 @@ class UserCompoundMixin(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return 'notes: ' + str(self.compound) + '_' + str(self.user)
-
     @classmethod
     def lit_refs_actions(cls, request, refs, compound):
         if 'save_refs' in request.POST:

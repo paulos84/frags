@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from compounds.models import Odorant
 
@@ -38,6 +39,13 @@ class OdorantCreateForm(forms.ModelForm):
         super(OdorantCreateForm, self).__init__(*args, **kwargs)
         self.fields['odor_description'].required = True
         self.fields['odor_categories'].required = True
+
+    def clean_smiles(self):
+        letters = ['C', 'O', 'c', 'n', 'H', 'N', 'S', 'o', 'l', 's']
+        for s in self.cleaned_data['smiles']:
+            if s == '.' or s.isalpha() and s not in letters:
+                raise ValidationError('SMILES string indicates this is not an odorant')
+        return self.cleaned_data['smiles']
 
     def save(self, commit=True):
         obj = super(OdorantCreateForm, self).save(commit=False)

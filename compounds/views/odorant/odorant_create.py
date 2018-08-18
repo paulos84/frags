@@ -1,6 +1,7 @@
-from django.views.generic.edit import CreateView
-from django.http import JsonResponse
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import JsonResponse
+from django.views.generic.edit import CreateView
 import cirpy
 import pubchempy as pcp
 
@@ -16,6 +17,11 @@ class OdorantCreateView(OdorantSearchFilterMixin, CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if 'smiles' in form.errors:
+            messages.error(self.request, 'SMILES string indicates this is not an odorant')
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super(OdorantCreateView, self).get_context_data(**kwargs)

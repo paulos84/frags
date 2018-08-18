@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
 
 from compounds.models import Activity, Bioactive
 

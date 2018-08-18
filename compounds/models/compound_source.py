@@ -99,10 +99,14 @@ class CompoundSource(models.Model):
     )
 
     def __str__(self):
-        return '{} | {} | {}'.format(
+        if self.source:
+            return 'Source_ref_id: {}'.format(self.source.id)
+        if self.odorant or self.bioactive:
+            f_args = ['Odorant', self.odorant] if self.odorant else ['Bioactive', self.bioactive]
+            return 'Posted_source for {}: {}'.format(*f_args)
+        return '{} | {}'.format(
             self.user_odorant or self.user_bioactive,
             self.supplier or self.source.supplier,
-            self.amount or self.source.amount
         )
 
     @property

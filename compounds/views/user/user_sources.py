@@ -39,9 +39,10 @@ class UserCompoundSourceListView(FormMixin, ListView):
     def get_queryset(self):
         if not self.user_compound:
             return CompoundSource.objects.none()
+        queryset = CompoundSource.objects.exclude(price__isnull=True)
         if isinstance(self.user_compound, UserOdorant):
-            return CompoundSource.objects.filter(user_odorant=self.user_compound)
-        return CompoundSource.objects.filter(user_bioactive=self.user_compound)
+            return queryset.filter(user_odorant=self.user_compound)
+        return queryset.filter(user_bioactive=self.user_compound)
 
     def get_template_names(self):
         return 'user/{}_sources.html'.format(

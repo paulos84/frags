@@ -105,8 +105,12 @@ class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
     @staticmethod
     def deslug_mechanism_title(page_header):
         page_header = page_header.strip('-').replace('-', ' ')
-        deslug_map = {'ace': 'ACE', 'adrenaline': 'β-adrenaline', 'hmg coa': 'HMG-CoA'}
+        deslug_map = {
+            'ace': 'ACE',
+            'adrenaline': 'β-adrenaline',
+            'hmg coa': 'HMG-CoA',
+        }
         for k in deslug_map.keys():
             if page_header.startswith(k):
                 return page_header.replace(k, deslug_map[k])
-        return page_header
+        return page_header.capitalize()

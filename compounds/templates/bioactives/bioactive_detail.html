@@ -37,24 +37,36 @@
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
                 onclick="$('#chem_properties_table').toggle();
                 $('#substructure_matches').hide();
-                $('#commercial_sources').hide();
+                $('#user_data_table').hide();
                 $('#3dmol-viewer').hide() ">
             Chemical properties</button>
+        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:160px; "
+                onclick="$('#user_data_table').toggle();
+                $('#substructure_matches').hide();
+                $('#chem_properties_table').hide();
+                $('#3dmol-viewer').hide() ">
+            Saved data</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:130px; "
                 onclick="$('#substructure_matches').toggle();
                 $('#chem_properties_table').hide();
-                $('#commercial_sources').hide();
+                $('#user_data_table').hide();
                 $('#3dmol-viewer').hide() ">
             Substructures</button>
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; width:110px; "
                 onclick="$('#3dmol-viewer').toggle();
                  $('#chem_properties_table').hide();
                  $('#substructure_matches').hide();
-                 $('#commercial_sources').hide() ">
+                 $('#user_data_table').hide() ">
             3D Model</button>
     </div>
-        <div id="commercial_sources" style="display: none">
-            <p>I am com sources</p>
+        <div id="user_data_table" style="display: none">
+            <table class="table" style="width: 500px">
+            {% for key, value in user_data.items|dictsort:"0.lower" %}
+                <tr>
+                    <td width="220"><strong>{{ key }}</strong>: </td><td> {{ value }}</td>
+                </tr>
+            {% endfor %}
+            </table>
         </div>
         <div id="chem_properties_table" style="display: none">
             <table class="table" style="width: 290px">

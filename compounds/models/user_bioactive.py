@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 from compounds.models.mixins import UserCompoundMixin
 
@@ -13,6 +14,10 @@ class UserBioactive(UserCompoundMixin, models.Model):
     user = models.ForeignKey(
         'compounds.Profile',
         on_delete=models.CASCADE,
+        blank=True,
+    )
+    chemical_data = JSONField(
+        default=dict,
         blank=True,
     )
 

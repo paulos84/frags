@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.views.generic import DetailView
 
-from compounds.models import Bioactive, BioactiveCore
+from compounds.models import Bioactive, BioactiveCore, UserBioactive
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
@@ -21,6 +21,15 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, DetailView):
             if key in chem_properties:
                 chem_properties[key_map[key]] = chem_properties.pop(key)
         chem_properties.pop('synonyms', None)
+        if self.request.user.is_authenticated:
+            try:
+                user_compound = UserBioactive.objects.get(
+                    compound=compound,
+                    user=self.request.user.profile
+                )
+                context['user_data'] = user_compound.chemical_data
+            except UserBioactive.DoesNotExist:
+                pass
         context.update({
             'chemical_properties': chem_properties,
             'substructures': BioactiveCore.compound_matches(compound),

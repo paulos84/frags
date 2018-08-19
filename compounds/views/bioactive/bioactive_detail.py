@@ -17,18 +17,13 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
     second_form_class = CompoundNotesForm
     user_compound = None
 
-
     def get_context_data(self, **kwargs):
         compound = self.get_object()
         context = super(BioactiveDetailView, self).get_context_data(**kwargs)
         chem_properties = compound.chemical_properties
-        key_map = {'mw': 'molecular weight', 'hac': 'heavy atom count', 'hetac': 'heteroatom count',
-                   'rbc': 'rotable bond count', 'bond_stereo_count': 'stereogenic bond count',
-                   'h_bond_donor_count': 'H-bond donor count', 'h_bond_acceptor_count': 'H-bond acceptor count',
-                   'atom_stereo_count': 'stereogenic atom count'}
-        for key in key_map:
+        for key in Bioactive.key_map:
             if key in chem_properties:
-                chem_properties[key_map[key]] = chem_properties.pop(key)
+                chem_properties[Bioactive.key_map[key]] = chem_properties.pop(key)
         chem_properties.pop('synonyms', None)
         if self.request.user.is_authenticated:
             try:

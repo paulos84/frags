@@ -46,6 +46,11 @@ class Bioactive(CompoundMixin, models.Model):
 
     objects = BioactiveManager()
 
+    key_map = {'mw': 'molecular weight', 'hac': 'heavy atom count', 'hetac': 'heteroatom count',
+               'rbc': 'rotable bond count', 'bond_stereo_count': 'stereogenic bond count',
+               'h_bond_donor_count': 'H-bond donor count', 'h_bond_acceptor_count': 'H-bond acceptor count',
+               'atom_stereo_count': 'stereogenic atom count'}
+
     @property
     def cas_numbers(self):
         return re.findall('\d+(?:-\d+)+', self.synonyms)

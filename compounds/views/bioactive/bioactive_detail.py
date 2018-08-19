@@ -46,6 +46,10 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
             context['form2'] = self.second_form_class(
                     notes=getattr(self.user_compound, 'notes', None),
                     user_auth=True,
+                    initial={
+                        'compound': self.object,
+                        'user': self.request.user.profile,
+                    }
                 )
             context['user_data_form'] = self.form_class()
         if 'form2' not in context:
@@ -68,6 +72,7 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
+        print(request.POST)
         self.object = self.get_object()
         if 'remove_data' in request.POST:
             if not self.user_compound:
@@ -78,6 +83,18 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
             for key in request.POST.getlist('remove_data'):
                 del self.user_compound.chemical_data[key]
             self.user_compound.save()
+        elif 'notes' in request.POST:
+            form = self.get_form(self.second_form_class)
+            if form.is_valid():
+                if not self.user_compound:
+                    self.user_compound, _ = UserBioactive.objects.get_or_create(
+                        compound=self.get_object(),
+                        user=self.request.user.profile,
+                    )
+                self.user_compound.notes = form.cleaned_data['notes']
+                self.user_compound.save()
+                return self.form_valid(form)
+            return redirect(self.get_success_url())
         else:
             form = self.get_form()
             if form.is_valid():

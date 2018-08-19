@@ -24,7 +24,7 @@ class UserActivityListView(LoginRequiredMixin, BaseOdorantListView):
 
 
 class UserCompoundNotesDeleteView(DeleteView):
-    model = UserOdorant
+    model = None
 
     def dispatch(self, request, *args, **kwargs):
         model_kwarg = kwargs.pop('model')
@@ -39,5 +39,7 @@ class UserCompoundNotesDeleteView(DeleteView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
+        name = 'odorant-detail' if self.model == UserOdorant else 'bioactive-detail'
         return reverse(
-            'odorant-detail', kwargs={'pk': self.object.compound.pk})
+            name, kwargs={'pk': self.object.compound.pk}
+        )

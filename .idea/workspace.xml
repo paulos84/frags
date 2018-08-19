@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/bioactive.py" afterPath="$PROJECT_DIR$/compounds/models/bioactive.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py" />
     </list>
     <ignored path="frags.iws" />
@@ -48,26 +49,50 @@
       <file leaf-file-name="bioactive_detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="147" column="60" selection-start-line="147" selection-start-column="60" selection-end-line="147" selection-end-column="60" />
+            <state relative-caret-position="561">
+              <caret line="176" column="32" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="53" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#form#0;n#div#2;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#1;n#!!top" expanded="true" />
+                <marker date="1534718513727" expanded="false" signature="814:830" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="955:996" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="1209:1237" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="1487:1515" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="1695:1712" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="1778:1794" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="2144:2160" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="2611:2627" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="2932:2949" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="3241:3268" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="3390:3402" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="4574:4587" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="4630:4642" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="4967:5001" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="5311:5358" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="5565:5626" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="5823:5861" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="6032:6084" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="6231:6283" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="6459:6511" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="6653:6705" ph="..." />
+                <marker date="1534718513727" expanded="false" signature="6843:6858" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="odorant_detail.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="odorant_detail.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="-231">
               <caret line="97" column="102" selection-start-line="97" selection-start-column="102" selection-end-line="97" selection-end-column="102" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
@@ -89,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bioactive_detail.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bioactive_detail.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+            <state relative-caret-position="277">
+              <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
               </folding>
@@ -185,11 +210,11 @@
         <option value="$PROJECT_DIR$/compounds/urls.py" />
         <option value="$PROJECT_DIR$/compounds/models/mixins/user_compound.py" />
         <option value="$PROJECT_DIR$/compounds/forms/profile_activity.py" />
-        <option value="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
         <option value="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
         <option value="$PROJECT_DIR$/compounds/views/user/user_activity.py" />
         <option value="$PROJECT_DIR$/compounds/models/bioactive.py" />
         <option value="$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py" />
+        <option value="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
       </list>
     </option>
   </component>
@@ -1039,36 +1064,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="97" column="102" selection-start-line="97" selection-start-column="102" selection-end-line="97" selection-end-column="102" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="147" column="60" selection-start-line="147" selection-start-column="60" selection-end-line="147" selection-end-column="60" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#form#0;n#div#2;n#div#2;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/views/user/user_activity.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="739">
@@ -1115,10 +1110,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="28" column="14" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+        <state relative-caret-position="277">
+          <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="176" column="32" selection-start-line="176" selection-start-column="32" selection-end-line="176" selection-end-column="53" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#2;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#form#0;n#div#2;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#1;n#!!top" expanded="true" />
+            <marker date="1534718513727" expanded="false" signature="814:830" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="955:996" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="1209:1237" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="1487:1515" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="1695:1712" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="1778:1794" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="2144:2160" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="2611:2627" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="2932:2949" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="3241:3268" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="3390:3402" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="4574:4587" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="4630:4642" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="4967:5001" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="5311:5358" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="5565:5626" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="5823:5861" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="6032:6084" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="6231:6283" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="6459:6511" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="6653:6705" ph="..." />
+            <marker date="1534718513727" expanded="false" signature="6843:6858" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-231">
+          <caret line="97" column="102" selection-start-line="97" selection-start-column="102" selection-end-line="97" selection-end-column="102" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

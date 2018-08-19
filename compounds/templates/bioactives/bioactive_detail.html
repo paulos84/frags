@@ -174,7 +174,7 @@
         </form>
     {% endif %}
     {% else %}
-            <form method="post" novalidate>
+            <form method="post" style="width: 460px" novalidate>
               {% csrf_token %}
               {% bootstrap_form form2 %}
             <button type="submit" class="btn btn-primary" disabled>

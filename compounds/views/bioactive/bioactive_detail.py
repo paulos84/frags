@@ -48,7 +48,7 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
                 )
             context['user_data_form'] = self.form_class()
         if 'form2' not in context:
-            context['form2'] = self.second_form_class(request=self.request)
+            context['form2'] = self.second_form_class()
         context.update({
             'chemical_properties': chem_properties,
             'substructures': BioactiveCore.compound_matches(compound),
@@ -57,7 +57,7 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
         return context
 
     def get_initial(self):
-        if not self.user_compound:
+        if not self.user_compound and self.request.user.is_authenticated:
             self.user_compound, _ = UserBioactive.objects.get_or_create(
                 user=self.request.user.profile,
                 compound=self.get_object(),

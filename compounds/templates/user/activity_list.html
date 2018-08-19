@@ -24,7 +24,7 @@
             <tr>
                 <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
                          title="{{ compound.iupac_name }}"  height="100" width="100"></td>
-                <td width="140px">{{ compound|truncatechars:52  }}</td>
+                <td width="140px"><a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:52 }}</a></td>
                 <td width="300px">{{ compound|user_notes:user.profile  }}</td>
                 <td width="20px"><a href="{% url 'user-compound-sources'  pk=compound.pk compound_type='bioactive' %}">
                     <button type="button" class="btn btn-default dropdown-toggle">
@@ -44,7 +44,7 @@
             <tr>
                 <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
                          title="{{ compound.iupac_name }}"  height="100" width="100"></td>
-                <td width="140px">{{ compound|truncatechars:52  }}</td>
+                <td width="140px"><a href="{{ compound.get_absolute_url }}">{{ compound|truncatechars:52 }}</a></td>
                 <td width="300px">{{ compound|user_notes:user.profile  }}</td>
                 <td width="20px"><a href="{% url 'user-compound-sources'  pk=compound.pk compound_type='odorant' %}">
                     <button type="button" class="btn btn-default dropdown-toggle">
@@ -61,7 +61,9 @@
         {% endif %}
 
         {% if not medicinal_list and not food_list and not odorant_list %}
-            <h5>No saved compounds</h5>
+            <tr>
+                <td><h5>No saved compounds</h5></td>
+
         {% endif %}
         </tbody>
     </table>

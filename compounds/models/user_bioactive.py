@@ -23,3 +23,6 @@ class UserBioactive(UserCompoundMixin, models.Model):
 
     def __str__(self):
         return 'User: {} | Compound: {}'.format(self.user, self.compound)
+
+    class Meta:
+        unique_together = (('compound', 'user'), )

@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 
 class UserCompoundMixin(models.Model):
     notes = models.TextField(
-        max_length=500,
+        max_length=200,
         null=True,
         blank=True,
     )

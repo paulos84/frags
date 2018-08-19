@@ -80,12 +80,12 @@
         {% endif %}
         <br>
         {% if user.is_authenticated %}
-        <div id="user-notes">
+        <div id="user-notes" style="width: 460px">
         {% if user_notes %}
             <div><p><strong>My notes</strong></div>
             {{ user_notes }}
         </div>
-        <div id="notes-form" style="display: none;">
+        <div id="notes-form" style="display: none; width: 460px">
             <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
@@ -98,7 +98,7 @@
                 <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
                         onclick="$('#user-notes, #notes-form').toggle();">
                 Edit</button></div>
-            <form method="POST" action="{% url 'user-notes-delete' pk=user_notes_pk %}" >
+            <form method="POST" action="{% url 'user-notes-delete' model='odorant' pk=user_notes_pk %}" >
                 {% csrf_token %}
                 <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');" style="color: #6aaf6a">
                 <span class="glyphicon glyphicon"></span>Delete</button>
@@ -106,7 +106,7 @@
         </div>
         </div>
     {% else %}
-        <form method="post">
+        <form method="post" style="width: 460px; ">
           {% csrf_token %}
           {% bootstrap_form form %}
         <button type="submit"  class="btn btn-primary" >
@@ -114,7 +114,7 @@
         </form>
     {% endif %}
     {% else %}
-            <form method="post" novalidate>
+            <form method="post" style="width: 460px; " novalidate>
               {% csrf_token %}
               {% bootstrap_form form %}
             <button type="submit" class="btn btn-primary" disabled>

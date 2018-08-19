@@ -10,8 +10,9 @@ class CompoundNotesForm(forms.Form):
     Form for users to create or update a CompoundNote instance
     """
     notes = forms.CharField(
+        max_length=200,
         widget=forms.Textarea(
-            attrs={'rows': 5, 'cols': 42, 'placeholder': 'Enter notes',
+            attrs={'rows': 3, 'cols': 30, 'placeholder': 'Enter notes',
                    'style': 'border-color: green;', }),
     )
 

@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 
-from compounds.forms import UserBioactiveChemDataForm
+from compounds.forms import CompoundNotesForm, UserBioactiveChemDataForm
 from compounds.models import Bioactive, BioactiveCore, UserBioactive
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
@@ -14,7 +14,9 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
     model = Bioactive
     template_name = 'bioactives/bioactive_detail.html'
     form_class = UserBioactiveChemDataForm
+    second_form_class = CompoundNotesForm
     user_compound = None
+
 
     def get_context_data(self, **kwargs):
         compound = self.get_object()
@@ -34,10 +36,20 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
                     compound=compound,
                     user=self.request.user.profile
                 )
-                context['user_data'] = self.user_compound.chemical_data
+                context.update({
+                    'user_data': self.user_compound.chemical_data,
+                    'user_notes': self.user_compound.notes,
+                    'user_notes_pk': self.user_compound.pk,
+                })
             except UserBioactive.DoesNotExist:
-                pass
+                context['user_notes'] = ''
+            context['form2'] = self.second_form_class(
+                    notes=getattr(self.user_compound, 'notes', None),
+                    user_auth=True,
+                )
             context['user_data_form'] = self.form_class()
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(request=self.request)
         context.update({
             'chemical_properties': chem_properties,
             'substructures': BioactiveCore.compound_matches(compound),

@@ -29,7 +29,7 @@ class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
         if self.notes_object:
             context['form'] = self.form_class(
                 notes=self.notes_object.notes,
-                user_auth=True if self.request.user.is_authenticated else False
+                user_auth=True
             )
         if 'form' not in context:
             context['form'] = self.form_class(request=self.request)
@@ -44,7 +44,10 @@ class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
         Adds any existing user activity to the context dictionary
         """
         try:
-            self.notes_object = UserOdorant.objects.get(user=self.request.user.profile, compound=self.get_object())
+            self.notes_object = UserOdorant.objects.get(
+                user=self.request.user.profile,
+                compound=self.get_object()
+            )
             context['user_notes'] = self.notes_object.notes
             context['user_notes_pk'] = self.notes_object.pk
         except UserOdorant.DoesNotExist:

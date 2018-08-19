@@ -43,7 +43,7 @@ urlpatterns = [
     path('commercial-sources/<compound_type>/<int:pk>', CompoundSourceListView.as_view(), name='available-sources'),
 
     path('odorant/edit/<int:pk>', OdorantUpdateView.as_view(), name='odorant-update'),
-    path('odorant/delete/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
+    path('odorant/delete/<model>/<int:pk>', UserCompoundNotesDeleteView.as_view(), name='user-notes-delete'),
     path('odorant/add', OdorantCreateView.as_view(), name='odorant-add'),
     path('ajax/process_cas', process_cas, name='process_cas'),
     path('categories/<odor>', OdorTypeOdorantListView.as_view(), name='odorant-odor-type-filter'),

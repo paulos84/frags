@@ -26,11 +26,16 @@ class UserActivityListView(LoginRequiredMixin, BaseOdorantListView):
 class UserCompoundNotesDeleteView(DeleteView):
     model = UserOdorant
 
+    def dispatch(self, request, *args, **kwargs):
+        model_kwarg = kwargs.pop('model')
+        self.model = UserOdorant if model_kwarg == 'odorant' else UserBioactive
+        return super(UserCompoundNotesDeleteView, self).dispatch(request, *args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.request.user.is_superuser or self.request.user.profile == self.object.user:
-            self.object.delete()
-            # messages.success(self.request, self.success_message)
+            self.object.notes = ''
+            self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):

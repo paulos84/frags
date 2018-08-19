@@ -15,3 +15,6 @@ class UserOdorant(UserCompoundMixin, models.Model):
         on_delete=models.CASCADE,
         blank=True,
     )
+
+    class Meta:
+        unique_together = (('compound', 'user'),)

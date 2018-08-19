@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import FormMixin
 
 from compounds.forms import BioactiveSearchForm, OdorantSearchForm, CompoundSourceCreateForm
-from compounds.models import Bioactive, Odorant, CompoundSource, UserBioactive
+from compounds.models import Bioactive, Odorant, CompoundSource, UserBioactive, UserOdorant
 from compounds.utils.check_recaptcha import check_recaptcha
 
 
@@ -51,15 +51,16 @@ class CompoundSourceListView(FormMixin, ListView):
             if form.is_valid() and request.recaptcha_is_valid:
                 return self.form_valid(form)
         elif 'save_source_ids' in request.POST:
-            user_compound, _ = UserBioactive.objects.get_or_create(
+            model_kw, user_model = ('user_odorant', UserOdorant) if isinstance(self.compound, Odorant) \
+                else ('user_bioactive', UserBioactive)
+            user_compound, _ = user_model.objects.get_or_create(
                 user=request.user.profile,
                 compound=self.compound,
             )
-            user_cpd_model = 'user_odorant' if isinstance(self.compound, Odorant) else 'user_bioactive'
             for source_id in request.POST.getlist('save_source_ids'):
                 cs_kwargs = {
                     'source_id': source_id,
-                    user_cpd_model: user_compound,
+                    model_kw: user_compound,
                 }
                 CompoundSource.objects.get_or_create(**cs_kwargs)
             messages.success(request, 'Compound sources saved')

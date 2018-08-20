@@ -12,6 +12,7 @@
       <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category_slug %}">All {{ compound.get_category_display|lower }}s</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='bioactive' %}">My sources</a></li>
+      <a href="{% url 'available-sources'  pk=compound.pk compound_type='bioactive' %}" type="button" class="btn btn-default" style="position: relative; left:24px; background-color: #fbfcfb; ">Available sources</a>
     </ul>
       <h5 style="position:relative; left: 10px"><strong>Current saved sources</strong></h5>
         <form method="post">

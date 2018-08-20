@@ -12,6 +12,7 @@
           <li><a class="breadcrumb-item" href="{% url 'index' %}">All fragrance compounds</a></li>
           <li><a class="breadcrumb-item" href="{% url 'odorant-detail' pk=compound.pk %}">{{ compound|truncatechars:36  }}</a></li>
           <li><a class="breadcrumb-item active" href="{% url 'user-compound-sources' pk=compound.pk compound_type='odorant' %}">My sources</a></li>
+          <a href="{% url 'available-sources'  pk=compound.pk compound_type='odorant' %}" type="button" class="btn btn-default" style="position: relative; left:24px; background-color: #fbfcfb; ">Available sources</a>
         </ul>
       <h5 style="position:relative; left: 10px"><strong>Current saved sources</strong></h5>
         <form method="post">

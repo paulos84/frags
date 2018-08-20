@@ -1,7 +1,11 @@
-Django==2.0
-psycopg2==2.5.4
-pytz==2017.3
+CIRpy==1.0.2
+django_debug_toolbar==1.9.1
+Django==2.0.4
+PubChemPy==1.0.4
 requests==2.13.0
-beautifulsoup4==4.6.0
-djangorestframework==3.7.7
-lxml==4.1.1
+django_rest_swagger==2.1.2
+bokeh==0.13.0
+beautifulsoup4==4.6.3
+rdkit==2009.Q1-1
+djangorestframework==3.8.2
+ruamel.base==1.0.0

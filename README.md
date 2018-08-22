@@ -1,30 +1,14 @@
-Description of different models - compounds... distinguished
-by fields for different uses and different chemical identifies, e.g.
-CAS number of InChIKey identifiers, the pubchempy library provides
-certain chemical data by accessing resources via REST.
-. In general, smiles string as unique identifier
- may be used for relatively simple molecules, whereas InChIkey must be used to
- in cases of more complex molecules, where no compound matches found
-  for smiles.  smiles string is simpler, human-readable whereas InChIKey
-  requires use of more complicated algorithm.  But all share a number of properties,
-covered by mixins.
 
+A web application which allows users to lookup chemical compounds on a
+database, and access and save information for them. Users can add new compounds
+through providing either a CAS number registered
+for the chemical, or by using an InChiKey identifier. Third party web services
+are used to access and save additional data, along with data the user
+provides such as sensory properties or pharmacological activity.
 
-The create compound form is the recommended way of adding new compounds
-to the database. Entering a registered CAS number for a
-compound into tbe form will make an AJAX request to the server in order
-to auto-complete fields such as the IUPAC name field, as well as displaying
-the chemical structure. If the compound already exists in the database,
-the user is provided with a link to the detail view.
-
-
-User can serialize information they have recorded for individual compounds,
-to json or download a csv file.
-
-
-Dependencies...cirpy is used in cases where SMILES string needs to be
-resolved where a CAS number is used as the chemical identifier
-for pubchempy API queries.
+The project uses Django 2.0, PostgreSQL and Django-Rest-Framework for
+a REST API. The authentication system uses the built-in Django Model backend.
+Fixture data for compounds stored in the database can
 
 
 load fixture data:
@@ -43,39 +27,32 @@ An application
 
 The API serves data in JSON format and supports basic HTTP methods and CRUD operations. It was built using Flask, Flask-Login, Flask-SQLAlchemy and [Marshmallow](http://marshmallow.readthedocs.io/).
 
-Swagger UI documentation is generated from .yml files using [Flasgger](https://github.com/rochacbruno/flasgger) and is available at http://127.0.0.1:5000/docs/
+Swagger UI documentation is generated from .yaml files using [Flasgger](https://github.com/rochacbruno/flasgger) and is available at http://127.0.0.1:5000/docs/
 
 Getting Started
 ---------------
 
 **Prerequisites**
 
-Python 3.4, pip, virtualenv
+Python 3.5, pip, virtualenv, PostgreSQL
 
-**1. Clone or copy repository**
+**Create virtual environment and pip install**
 
-**2. Set up Virtual Environment**
-
-Create a virtual environment named aurn-venv:
-
-    $ virtualenv aurn-venv
-
-Activate the virtual environment:
-
-    $ source aurn-venv/bin/activate
-    (aurn-venv) $
-
-Use *pip* to install requirements:
-
-    (aurn-venv) $ pip install requirements.txt
+    (fm_venv) $ pip install requirements.txt
 
 Verify that packages have been installed:
 
-    (aurn-venv) $ pip freeze
-    beautifulsoup4==4.6.0
-    Flask==0.12
-    Flask_Login==0.4.0
-    flask_marshmallow==0.8.0
-    Flask_SQLAlchemy==2.1
-    flasgger==0.8.1
-    marshmallow==2.14.0
+    (fm_venv) $ pip freeze
+    CIRpy==1.0.2
+    django_debug_toolbar==1.9.1
+    Django==2.0.4
+    ...
+
+    $ pip install requirements.txt
+
+
+**Generate fixture data**
+    Run script with a text file containing a list of CAS_numbers as a
+    command line argument and redirect stdout to obtain fixture data:
+
+    /compounds/utils$ python generate_fixtures.py input.txt > compound_data.yaml

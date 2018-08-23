@@ -1,10 +1,10 @@
 import csv
 import io
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
-from django.shortcuts import get_object_or_404, render_to_response, render, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView

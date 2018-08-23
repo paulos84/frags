@@ -1,13 +1,13 @@
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils import six
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils import six
+from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_encode
 
 from compounds.forms import SignupForm
 

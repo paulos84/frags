@@ -1,9 +1,7 @@
-from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin
 
 from compounds.models import Odorant, UserOdorant, OdorType, Substructure
-from compounds.forms import OdorantSearchForm
 from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
 
@@ -25,7 +23,9 @@ class SubstructureDetail(OdorantSearchFilterMixin, SingleObjectMixin, ListView):
 
 
 class ChemFilterSubstructureDetail(SubstructureDetail):
-    """ example usage: {% url 'filtered-substructure' slug=substructure.slug chem_type='heteroaromatics' %} """
+    """
+    example usage: {% url 'filtered-substructure' slug=substructure.slug chem_type='heteroaromatics' %}
+    """
     def get_queryset(self):
         unfiltered = super(ChemFilterSubstructureDetail, self).get_queryset
         filter_method = getattr(Odorant.objects, self.kwargs['chem_type'], unfiltered)

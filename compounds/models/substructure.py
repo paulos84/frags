@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from django.contrib.postgres.fields import ArrayField
 from rdkit import Chem
 
-from compounds.models.mixins import ChemDescriptorMixin
 from compounds.models import Odorant
 from compounds.models.managers import SubstructureManager
+from compounds.models.mixins import ChemDescriptorMixin
 
 
 class Substructure(ChemDescriptorMixin, models.Model):

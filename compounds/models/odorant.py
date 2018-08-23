@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.db import models
-from django.core.validators import RegexValidator
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.core.validators import RegexValidator
+from django.db import models
 from django.urls import reverse
 from rdkit import Chem
 
-from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import OdorantManager
+from compounds.models.mixins import CompoundMixin
 
 
 class Odorant(CompoundMixin, models.Model):

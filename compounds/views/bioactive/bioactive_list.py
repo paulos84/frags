@@ -1,7 +1,5 @@
-from django.views.generic import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import Http404
-from django.utils.text import slugify
+from django.views.generic import ListView
 
 from compounds.models import Activity, Bioactive
 from compounds.views.mixins import BioactiveSearchFilterMixin

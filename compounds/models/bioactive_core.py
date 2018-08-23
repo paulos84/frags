@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.urls import reverse
-from django.contrib.postgres.fields import ArrayField
 from django.utils.text import slugify
 from rdkit import Chem
 
+from compounds.models import Bioactive
 from compounds.models.managers import BioactiveCoreManager
 from compounds.models.mixins import ChemDescriptorMixin
-from compounds.models import Bioactive
 
 
 class BioactiveCore(ChemDescriptorMixin, models.Model):

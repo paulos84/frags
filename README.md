@@ -5,12 +5,13 @@ for the chemical, or by using an InChiKey identifier. External APIs
 are used to access and save additional data, along with data the user
 provides such as sensory properties or pharmacological activity.
 
-The project uses Django 2.0, PostgreSQL and Django-Rest-Framework.
-JQuery is used in a number of views including compound submissions
-forms involving AJAX requests to the server and external APIs.
-The authentication system uses the built-in Django Model backend.
-Fixture data for compounds stored in the database can be generated as
+The project uses Django 2.0, PostgreSQL and the authentication system
+uses the built-in Django Model backend. Fixture data for compounds stored
+in the database can be generated as
 described below, through a script which makes calls to a 3rd party REST API.
+The built-in Django flatpages app is installed in order to serve static
+html pages and install third-party apps include Django-Rest-Framework,
+DRF Swagger, and django-axes for throttling brute force login attacks.
 
 Getting Started
 ---------------
@@ -31,7 +32,7 @@ Verify that packages have been installed:
     Django==2.0.4
     ...
 
-    $ pip install requirements.txt
+    $ pip install -r requirements.txt
 
 **Run database migrations**
 

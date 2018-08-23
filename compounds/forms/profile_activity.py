@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from compounds.models import Bioactive, Profile, UserBioactive
+from compounds.models import UserBioactive
 
 
 class CompoundNotesForm(forms.Form):

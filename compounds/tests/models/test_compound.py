@@ -1,7 +1,8 @@
 from copy import deepcopy
-from django.test import TestCase
-from django.core.exceptions import ValidationError
 from unittest.mock import patch
+
+from django.core.exceptions import ValidationError
+from django.test import TestCase
 
 from compounds.models import Odorant
 

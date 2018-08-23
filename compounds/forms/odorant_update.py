@@ -1,7 +1,6 @@
 from django import forms
 
 from compounds.models import Odorant
-from compounds.forms import OdorantCreateForm
 
 
 class BaseOdorantUpdateForm(forms.ModelForm):

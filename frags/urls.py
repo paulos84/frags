@@ -8,6 +8,7 @@ from django.urls import path, re_path
 from compounds.views import signup
 from compounds.views.user import user_auth
 
+
 urlpatterns = [
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
@@ -23,6 +24,8 @@ urlpatterns = [
     re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
             auth_views.password_reset_confirm, name='password_reset_confirm'),
     path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
+    path('contact', user_auth.contact, name='contact'),
+    path('contact-success', user_auth.success_view, name='success'),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('compounds/', include('compounds.urls')),
 ]
@@ -30,10 +33,10 @@ urlpatterns = [
 
 # Use static() to add url mapping to serve static files during development only
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        path(r'debug', include(debug_toolbar.urls)),
-    ] + urlpatterns
+#
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path(r'debug', include(debug_toolbar.urls)),
+#     ] + urlpatterns
 

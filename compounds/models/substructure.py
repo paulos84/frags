@@ -3,7 +3,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from rdkit import Chem
 
 from compounds.models import Odorant
 from compounds.models.managers import SubstructureManager
@@ -95,7 +94,5 @@ class Substructure(ChemDescriptorMixin, models.Model):
         <QuerySet [<Substructure: Acyclic terpene>]>
         """
         id_features = cls.objects.values('id', 'smiles', 'iupac_name_pattern')
-        matches = [a['id'] for a in id_features if
-                   Chem.MolFromSmiles(compound.smiles).HasSubstructMatch(
-                       Chem.MolFromSmiles(a['smiles']))]
+        matches = [a['id'] for a in id_features if a['smiles'] in compound.smiles]
         return cls.objects.filter(id__in=matches)

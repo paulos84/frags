@@ -3,8 +3,6 @@ from django.db import models
 from django.db.models import Avg, FloatField, Q
 from django.db.models.functions import Cast
 
-from rdkit import Chem
-
 
 class OdorantQuerySet(models.QuerySet):
 
@@ -53,10 +51,8 @@ class OdorantManager(models.Manager):
         return self.get_queryset().aliphatics()
 
     def functional_groups(self, func_group):
-        smarts = Chem.MolFromSmarts(func_group)
         qs_values = self.get_queryset().values_list('id', 'smiles')
-        return [cpd[0] for cpd in qs_values if
-                Chem.MolFromSmiles(cpd[1]).HasSubstructMatch(smarts)]
+        return [cpd[0] for cpd in qs_values if func_group in cpd[1]]
 
     def aliphatic_carbonyls(self):
         return self.aliphatics().filter(pk__in=self.functional_groups('C=O'))

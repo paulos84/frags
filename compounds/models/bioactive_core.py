@@ -2,7 +2,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from rdkit import Chem
 
 from compounds.models import Bioactive
 from compounds.models.managers import BioactiveCoreManager
@@ -75,9 +74,8 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
         <QuerySet [<BioactiveCore: arylsulfonamides>]>
         """
         def check_match(cpd_smiles, core_smiles):
-            core_compound = Chem.MolFromSmiles(core_smiles)
-            return Chem.MolFromSmiles(cpd_smiles).HasSubstructMatch(core_compound)
+            return core_smiles in cpd_smiles
         core_values = cls.objects.values('id', 'smiles', 'related_smiles')
-        match_ids = [a['id'] for a in core_values if check_match(compound.smiles, a['smiles'])
+        match_ids = [a['id'] for a in core_values if a['smiles'] in compound.smiles
                      or check_match(compound.smiles, a['related_smiles'])]
         return cls.objects.filter(id__in=match_ids)

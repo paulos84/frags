@@ -29,27 +29,14 @@
         </div>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username|truncatechars:16 }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Password reset</a></li>
-            <li><a href="#">Company Info</a></li>
-            <li><a href="#">Supplier enquiries</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Password reset</a></li>
-            <li><a href="#">Company Info</a></li>
-            <li><a href="#">Supplier enquiries</a></li>
+            <li><a href="{% url 'password_reset' %}" >Password reset</a></li>
+            <li><a href="{% url 'contact' %}" >Supplier enquiries</a></li>
+            <li><a href="{% url 'about' %}" >About</a></li>
+            <li><a href="{% url 'api_docs' %}">API</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound info</a></li>
           </ul>
         </li>
       </ul>
@@ -72,13 +59,12 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Password reset</a></li>
-            <li><a href="#">Company Info</a></li>
-            <li><a href="#">Supplier enquiries</a></li>
+            <li><a href="{% url 'password_reset' %}" >Password reset</a></li>
+            <li><a href="{% url 'contact' %}" >Supplier enquiries</a></li>
+            <li><a href="{% url 'about' %}" >About</a></li>
+            <li><a href="{% url 'api_docs' %}">API</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{% url 'user-activity-list' %}">Saved compound information</a></li>
+            <li><a href="{% url 'signup' %}" class="btn btn-secondary">Saved compound info</a></li>
           </ul>
         </li>
       </ul>

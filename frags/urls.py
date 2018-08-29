@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, re_path
+from django.views.generic import RedirectView
 
 from compounds.views import signup
 from compounds.views.user import user_auth
@@ -11,6 +12,7 @@ from compounds.views.user import user_auth
 
 urlpatterns = [
     path('api/', include('api.urls')),
+    path('api', RedirectView.as_view(url='/api/docs/', permanent=True), name='api_docs'),
     path('admin/', admin.site.urls),
     path('register/', signup, name='signup'),
     path('account_activation_sent/', user_auth.account_activation_sent, name='account_activation_sent'),
@@ -25,18 +27,13 @@ urlpatterns = [
             auth_views.password_reset_confirm, name='password_reset_confirm'),
     path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
     path('contact', user_auth.contact, name='contact'),
+    path('about', user_auth.about_view, name='about'),
     path('contact-success', user_auth.success_view, name='success'),
-    path('pages/', include('django.contrib.flatpages.urls')),
     path('compounds/', include('compounds.urls')),
 ]
 
 
 # Use static() to add url mapping to serve static files during development only
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-#
-# if settings.DEBUG:
-#     import debug_toolbar
-#     urlpatterns = [
-#         path(r'debug', include(debug_toolbar.urls)),
-#     ] + urlpatterns
+
 

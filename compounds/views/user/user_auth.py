@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils import six
@@ -87,3 +87,7 @@ def contact(request):
 
 def success_view(request):
     return render(request, 'registration/contact_sent.html')
+
+
+def about_view(request):
+    return render(request, 'registration/about.html')

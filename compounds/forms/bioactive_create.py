@@ -78,7 +78,7 @@ class BioactiveCreateForm(forms.ModelForm):
                 classification=Activity.classifications[int(classification_choice) - 1][0]
             )
             selected_action = relevant_actions[int(action_choice) - 1]
-            if mechanism_choice:
+            if mechanism_choice != '0':
                 mechanism = selected_action.mechanisms.all()[int(mechanism_choice) - 1]
                 return mechanism
             return selected_action

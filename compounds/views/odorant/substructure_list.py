@@ -3,7 +3,6 @@ from math import pi
 from bokeh.resources import CDN
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource
-from bokeh.palettes import Spectral6
 from bokeh.plotting import figure
 from django.views.generic import TemplateView, ListView
 
@@ -43,7 +42,13 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
         averages = Substructure.compound_sets_averages(chem_property)
         plot_data = list(averages.keys()), list(averages.values())
         title = chemical_properties_label_map.get(chem_property, chem_property)
-        source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1], color=Spectral6))
+        colors = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd',
+                  '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d',
+                  '#17becf', '#9edae5', '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b',
+                  '#fdd0a2', '#31a354', '#74c476', '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8',	'#bcbddc', '#dadaeb',
+                  '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+        source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1],
+                                            color=colors[:len(plot_data[0])]))
         max_val = max(plot_data[1])
         p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=350, title=title,
                    toolbar_location=None, tools="")

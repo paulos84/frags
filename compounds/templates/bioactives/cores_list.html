@@ -6,8 +6,8 @@
 {% block title %}<title>Substructures</title>{% endblock %}
 
 {% block head %}
-    <!--<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>-->
-    <!--<link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css">-->
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
 {% endblock %}
 
 {% block content %}
@@ -31,6 +31,18 @@
         </table>
     {% endfor %}
     </div>
+
+    <div style="width: 250px; margin-top:16px; margin-left:16px;" >
+      <form method="get" >
+        <div class="row">
+          {% bootstrap_form choice_form %}
+        </div>
+      </form>
+    </div>
+    {% if plot_div %}
+        {{ plot_div|safe }}
+        {{ plot_script|safe }}
+    {% endif %}
 {% endblock %}
 
 {% block js %}

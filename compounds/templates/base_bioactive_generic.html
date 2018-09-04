@@ -23,9 +23,13 @@
     <div class="navbar-header">
       <a style="position: relative; margin-left: 8px; " class="navbar-brand" >FuncMols</a>
     </div>
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'index' %}" >Home</a></li>
+        </ul>
 
     {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
         <div class="navbar-form navbar-right">
             <div class="form-group">
                 <a href="{% url 'logout' %}?next={% url 'index' %}" class="btn btn-default">Logout</a>

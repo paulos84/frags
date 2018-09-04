@@ -12,16 +12,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '142.93.248.45', 'www.funcmols.com', 'funcmols.com']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.flatpages',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.sites',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
@@ -103,8 +101,6 @@ CACHES = {
     }
 }
 
-SITE_ID = 1
-
 AXES_CACHE = 'axes_cache'
 
 AXES_COOLOFF_TIME = timedelta(seconds=300)
@@ -135,7 +131,7 @@ EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'pauldavism@gmail.com'
-EMAIL_HOST_PASSWORD = 'gliveevil'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 
 SWAGGER_SETTINGS = {

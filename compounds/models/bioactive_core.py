@@ -52,13 +52,14 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
     def bioactive_set(self):
         return Bioactive.substructure_matches(self.smiles) | Bioactive.substructure_matches(self.related_smiles)
 
-    # @classmethod
-    # def compound_sets_averages(cls, chem_property):
-    #     data = {}
-    #     for a in cls.objects.all():
-    #         data[a.name] = a.odorant_set().chemical_property_avg(chem_property).get('as_float__avg')
-    #     return data
-    #
+    @classmethod
+    def compound_sets_averages(cls, chem_property):
+        data = {}
+        for a in cls.objects.all():
+
+            data[a.name] = a.bioactive_set().chemical_property_avg(chem_property).get('as_float__avg')
+        return data
+
 
     @classmethod
     def compound_matches(cls, compound):

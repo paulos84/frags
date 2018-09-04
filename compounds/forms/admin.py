@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from compounds.models import Activity, Substructure
 
@@ -11,6 +12,15 @@ class ActivityAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ActivityAdminForm, self).__init__(*args, **kwargs)
         self.fields['action'].queryset = Activity.objects.actions()
+
+    def clean(self):
+        cleaned_data = super(ActivityAdminForm, self).clean()
+        category = cleaned_data.get('category')
+        if category == 2 and not cleaned_data.get('action'):
+            raise ValidationError('Action reference required for the mechanism')
+        if category != 2 and cleaned_data.get('action'):
+            raise ValidationError('Action reference only allowed if category is mechanism')
+        return cleaned_data
 
 
 class SubstructureAdminForm(forms.ModelForm):

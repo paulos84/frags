@@ -6,7 +6,8 @@ from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCo
                              BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
                              CompoundSourceListView, LiteratureRefsView, OdorantCreateView, OdorantDetailView,
                              OdorantUpdateView, SubstructureListView, SubstructureDetail, UserSubstructureDetail,
-                             UserCompoundNotesDeleteView, UserCompoundSourceListView, UserActivityListView)
+                             UserCompoundNotesDeleteView, UserCompoundSourceListView, UserActivityListView,
+                             MechanismListView)
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
@@ -24,6 +25,7 @@ urlpatterns = [
     path('bioactive/drug-action/<action>', BioactiveDrugActionListView.as_view(), name='bioactive-actions'),
     path('bioactive/mechanisms/<action>/<mechanism>', BioactiveMechanismListView.as_view(),
          name='bioactive-mechanisms'),
+    path('bioactive/all-mechanisms/', MechanismListView.as_view(), name='all-mechanisms'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('ajax/process_activity', process_activity, name='process-activity'),
     path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),

@@ -13,6 +13,7 @@ from compounds.views.user.user_activity import UserCompoundNotesDeleteView, User
 from compounds.views.user.user_auth import signup
 from compounds.views.user.user_sources import UserCompoundSourceListView
 from .literature_refs import LiteratureRefsView
+from .mechanism_list import MechanismListView
 from .odorant.filtered_lists import OdorantChemFilterListView, UserOdorantChemFilterListView
 from .odorant.odorant_create import OdorantCreateView
 from .odorant.odorant_detail import OdorantDetailView
@@ -26,6 +27,7 @@ __all__ = [
     BioactiveCoreMatchList,
     BioactiveListView,
     CompoundSourceListView,
+    MechanismListView,
     OdorantChemFilterListView,
     OdorantCreateView,
     OdorantDetailView,

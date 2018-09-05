@@ -34,7 +34,6 @@ class Activity(models.Model):
     )
     name = models.CharField(
         max_length=40,
-        unique=True,
         help_text=''
     )
     action = models.ForeignKey(
@@ -46,7 +45,12 @@ class Activity(models.Model):
     )
     objects = ActivityManager()
 
+    class Meta:
+        unique_together = ('classification', 'name',)
+
     def __str__(self):
+        if self.action:
+            return '{}: {}'.format(self.action, self.name)
         return self.name
 
     @classmethod
@@ -54,3 +58,4 @@ class Activity(models.Model):
         """ Utility method for processing AJAX requests in form views """
         classifications_map = {str(a + 1): b for a, b in enumerate(Activity.classifications)}
         return classifications_map[value][0]
+

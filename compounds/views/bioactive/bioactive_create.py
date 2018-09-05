@@ -21,6 +21,7 @@ class BioactiveCreateView(CreateView):
 def process_bioactive_identifier(request):
     cas_no = request.GET.get('cas_number')
     inchikey = request.GET.get('inchikey')
+    obj = None
     if cas_no:
         obj = Bioactive.objects.filter(chemical_properties__synonyms__icontains=cas_no).first()
     elif inchikey:
@@ -32,22 +33,25 @@ def process_bioactive_identifier(request):
         }
         return JsonResponse(data)
     try:
+        iupac_name = None
         if cas_no:
             smiles = cirpy.query(cas_no, 'smiles')[0].value
             pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
-            if not pcp_query.cid:
-                raise IndexError
+            if not pcp_query.iupac_name:
+                iupac_name = cirpy.resolve(smiles, 'iupac_name', ['smiles'])
         else:
             pcp_query = pcp.get_compounds(inchikey, 'inchikey')[0]
-            if not pcp_query.cid:
-                raise IndexError
+            if not pcp_query.iupac_name:
+                iupac_name = cirpy.resolve(inchikey, 'iupac_name', ['stdinchikey'])
+        if not pcp_query.cid:
+            raise IndexError
     except (IndexError, pcp.BadRequestError):
         return JsonResponse({
             'error': 'No compound found for this CAS number'
         })
     data = {
         'chemical_name': Bioactive.scrape_compound_name(pcp_query.cid),
-        'iupac_name': pcp_query.iupac_name,
+        'iupac_name': pcp_query.iupac_name or iupac_name or 'n/a',
         'inchikey': pcp_query.inchikey,
         'structure_url': 'https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid={}&amp;t=l'.format(pcp_query.cid),
         'hidden_cid': pcp_query.cid,
@@ -58,7 +62,7 @@ def process_bioactive_identifier(request):
 
 def process_activity(request):
     category_choice = request.GET.get('category_choice')
-    classification_choice = request.GET.get('classification_1')
+    classification_choice = request.GET.get('classification_1', '')
     action_choice = request.GET.get('action')
     parent_classification = request.GET.get('parent_classification')
     if category_choice and category_choice != '0':
@@ -66,24 +70,18 @@ def process_activity(request):
         categories = [{'name': a[1]} for a in classifications]
         categories.insert(0, {'name': '-------'})
         return JsonResponse({'categories': categories}, safe=False)
-    if classification_choice and classification_choice:
+    if classification_choice and classification_choice.isnumeric():
         choice = Activity.map_to_classification(classification_choice)
         activities = list(Activity.objects.actions().filter(
             classification=choice).values('name'))
         activities.insert(0, {'name': '-------'})
         return JsonResponse({'actions': activities}, safe=False)
     if action_choice:
-        print(int(parent_classification))
         has_children = False
         relevant_actions = Activity.objects.filter(
             category=1,
             classification=Activity.classifications[int(parent_classification) - 1][0]
         )
-        print(relevant_actions)
-        print(relevant_actions)
-        print(int(action_choice))
-        print(int(action_choice))
-        print(int(action_choice))
         selected_action = relevant_actions[int(action_choice) - 1]
         mechanisms = list(selected_action.mechanisms.values('name'))
         if mechanisms:

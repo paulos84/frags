@@ -9,14 +9,17 @@ from compounds.models import (Activity, Bioactive, BioactiveCore, Odorant, UserO
 class ActivityAdmin(admin.ModelAdmin):
     form = ActivityAdminForm
 
+    def get_queryset(self, request):
+        qs = super(ActivityAdmin, self).get_queryset(request)
+        return qs.order_by('action__name', 'name')
+
 
 @admin.register(Bioactive)
 class BioactiveAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('chemical_properties', 'cid_number', 'iupac_name', 'smiles', 'chemical_name',
-                                           'cid_number_2')
+            return self.readonly_fields + ('chemical_properties', 'cid_number', 'iupac_name', 'smiles', 'cid_number_2')
         return self.readonly_fields
 
 

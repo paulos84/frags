@@ -1,0 +1,84 @@
+{% extends 'base_bioactive_generic.html' %}
+{% load staticfiles %}
+
+{% block title %}<title>FuncMols - Home</title>{% endblock %}
+
+{% block head %}
+<script src="//3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-sm-0"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="col-sm-4" style="position: relative; margin-top: 14px; left:6px; ">
+    <div style="height: 200px; width: 200px; position: relative;" class='viewer_3Dmoljs' data-pdb='1YCR' data-backgroundcolor='0xffffff'
+      data-select1='chain:A' data-style1='cartoon:color=spectrum' data-surface1='opacity:.7;color:white' data-select2='chain:B' data-style2='stick'>
+    </div>
+    <div>
+        <a href="{% url 'bioactive-cores' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Bioactive substructures</a>
+        <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb; ">Mechanisms</a>
+        <a href="{% url 'bioactive-list' category='medicinal' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">All medicinal compounds</a>
+        <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle" >
+        Classifications<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            {% for body_sys in body_systems %}
+            <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div style="margin-top: 40px; position:relative; ">
+        <span style="color: #47607E;font-size: 1.05em"><a style="color: #47607E;"
+                href="{% url 'signup'%}">Register</a> to access and store:</span>
+            <ul style="list-style-type: none; margin-top: 6px; color: #47607E;">
+                <li>Literature references</li>
+                <li>Commercial sources</li>
+                <li>Chemical property data</li>
+                <li>Chemical structure variations</li>
+        </ul>
+    </div>
+
+
+</div>
+
+<div class="container">
+    <div style="margin-top: 20px; ">
+    <p style="color: #47607E;font-size: 2.2em" class="w3-center"><span style="font-size: 1.2em; margin-top: 10px; ">FuncMols</span>
+    <span style="font-size: small">chemical information access and storage</span>
+    <span style="float:right; font-size: small; position: relative; right:34px; margin-top:20px; ">
+        <a href="{% url 'about'%}#basic_usage">Basic usage</a> information</span>
+</p>
+
+    <div class="col-sm-3" style="margin-top:20px; ">
+        <div style="height: 160px; width: 240px; position: relative; margin-top: 18px;" id="3dmol-viewer2" class="viewer_3Dmoljs" data-cid="20959" data-backgroundcolor="0xffffff" data-style="stick"></div>
+        <div>
+             <a href="{% url 'substructures' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+                Fragrance chemical substructures<span class="glyphicon glyphicon"></span></button></a>
+        </div>
+        <div class="btn-group">
+                <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
+                Scent categories<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for category in odor_categories %}
+                <li><a href="{{ category.get_absolute_url }}">{{ category|capfirst }}</a></li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'all-odorants' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+                All odorants<span class="glyphicon glyphicon"></span></button></a>
+        </div>
+    </div>
+    <div class="col-sm-5" style="position: relative; margin-top: 14px; ">
+           <a style="position: relative; float: right; right: 50px " href="http://3dmol.csb.pitt.edu/index.html"><img src="{% static 'images/3dmol_logo.png' %}" alt="3dmol" width="78", height="26"></a>
+
+        <div style="height: 160px; width: 260px; position: relative; margin-top:25px" id="3dmol-viewer3" class="viewer_3Dmoljs" data-cid="5350" data-backgroundcolor="0xffffff" data-style="stick"></div>
+            <a href="{% url 'bioactive-list' category='food' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
+                Nutraceutical compounds<span class="glyphicon glyphicon"></span></button></a>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

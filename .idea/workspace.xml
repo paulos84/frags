@@ -2,105 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ce19db-e5f4-409b-b425-020ab5ab0032" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0002_usernotes_literature_refs.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0003_auto_20180717_0000.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0004_auto_20180717_0000.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0005_auto_20180717_0004.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0006_auto_20180719_0006.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0007_auto_20180719_0026.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0008_bioactive.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0009_auto_20180720_1851.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0010_auto_20180721_0028.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0011_auto_20180721_0108.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0012_auto_20180721_1149.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0013_auto_20180721_1229.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0014_auto_20180721_1855.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0015_auto_20180721_1906.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0016_auto_20180722_1053.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0017_auto_20180722_1104.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0018_auto_20180722_2140.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0019_auto_20180724_2046.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0020_auto_20180724_2054.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0021_userbioactive.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0022_auto_20180724_2343.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0023_auto_20180728_0046.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0024_odorant_chemical_name.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0025_remove_odorant_trade_name.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0026_auto_20180729_1742.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0027_auto_20180729_2234.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0028_auto_20180731_2052.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0029_auto_20180801_0024.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0030_bioactivecore.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0031_bioactivecore_category.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0032_bioactivecore_name.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0033_auto_20180803_2026.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0034_bioactivecore_related_smiles.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0035_auto_20180804_1344.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0036_auto_20180804_2108.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0037_auto_20180805_1206.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0038_activity_action.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0039_auto_20180805_1829.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0040_auto_20180807_0934.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0041_auto_20180807_2143.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0042_auto_20180808_2149.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0043_auto_20180813_2253.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0044_auto_20180815_2233.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0045_auto_20180815_2302.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0046_auto_20180815_2352.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0047_auto_20180817_0036.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0048_auto_20180819_0129.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/0049_auto_20180819_1838.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/migrations/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/mechanism_list.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/templates/flatpage.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/utils/compound_data.yaml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/compounds/utils/compounds.yaml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/__init__.py" afterPath="$PROJECT_DIR$/compounds/forms/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/bioactive_create.py" afterPath="$PROJECT_DIR$/compounds/forms/bioactive_create.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/forms/chem_data_choice.py" afterPath="$PROJECT_DIR$/compounds/forms/chem_data_choice.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/activity.py" afterPath="$PROJECT_DIR$/compounds/models/activity.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/bioactive.py" afterPath="$PROJECT_DIR$/compounds/models/bioactive.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/bioactive_core.py" afterPath="$PROJECT_DIR$/compounds/models/bioactive_core.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/managers/odorant.py" afterPath="$PROJECT_DIR$/compounds/models/managers/odorant.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/mixins/compound_mixin.py" afterPath="$PROJECT_DIR$/compounds/models/mixins/compound_mixin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/odorant.py" afterPath="$PROJECT_DIR$/compounds/models/odorant.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/models/substructure.py" afterPath="$PROJECT_DIR$/compounds/models/substructure.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_bioactive_generic.html" afterPath="$PROJECT_DIR$/compounds/templates/base_bioactive_generic.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_bioactive_listview.html" afterPath="$PROJECT_DIR$/compounds/templates/base_bioactive_listview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/base_odorant.html" afterPath="$PROJECT_DIR$/compounds/templates/base_odorant.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/all_mechanisms.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/all_mechanisms.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/available_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/available_sources.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_list.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/bioactives/cores_list.html" afterPath="$PROJECT_DIR$/compounds/templates/bioactives/cores_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/index.html" afterPath="$PROJECT_DIR$/compounds/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/available_sources.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/available_sources.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/odorant_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/substructure_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/substructure_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/odorants/user_odorant_list.html" afterPath="$PROJECT_DIR$/compounds/templates/odorants/user_odorant_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/registration/activation_invalid.html" afterPath="$PROJECT_DIR$/compounds/templates/registration/activation_invalid.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/registration/activation_sent.html" afterPath="$PROJECT_DIR$/compounds/templates/registration/activation_sent.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/registration/contact_form.html" afterPath="$PROJECT_DIR$/compounds/templates/registration/contact_form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/registration/contact_sent.html" afterPath="$PROJECT_DIR$/compounds/templates/registration/contact_sent.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/registration/signup.html" afterPath="$PROJECT_DIR$/compounds/templates/registration/signup.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/templates/user/activity_list.html" afterPath="$PROJECT_DIR$/compounds/templates/user/activity_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/urls.py" afterPath="$PROJECT_DIR$/compounds/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/cas.txt" afterPath="$PROJECT_DIR$/compounds/utils/cas.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/utils/chem_data.py" afterPath="$PROJECT_DIR$/compounds/utils/chem_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/__init__.py" afterPath="$PROJECT_DIR$/compounds/views/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_core.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_core.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_detail.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_list.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_update.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/bioactive_update.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/bioactive/filtered_lists.py" afterPath="$PROJECT_DIR$/compounds/views/bioactive/filtered_lists.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/index.py" afterPath="$PROJECT_DIR$/compounds/views/index.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/mechanism_list.py" afterPath="$PROJECT_DIR$/compounds/views/mechanism_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/odorant/filtered_lists.py" afterPath="$PROJECT_DIR$/compounds/views/odorant/filtered_lists.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/odorant/substructure_list.py" afterPath="$PROJECT_DIR$/compounds/views/odorant/substructure_list.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/user/user_activity.py" afterPath="$PROJECT_DIR$/compounds/views/user/user_activity.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compounds/views/user/user_auth.py" afterPath="$PROJECT_DIR$/compounds/views/user/user_auth.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frags/urls.py" afterPath="$PROJECT_DIR$/frags/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
     </list>
     <ignored path="frags.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -194,12 +97,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="462">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frags/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1254">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -253,7 +168,6 @@
         <option value="$PROJECT_DIR$/frags/settings.py" />
         <option value="$PROJECT_DIR$/compounds/models/managers/odorant.py" />
         <option value="$PROJECT_DIR$/compounds/models/odorant.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/compounds/models/substructure.py" />
         <option value="$PROJECT_DIR$/compounds/models/bioactive.py" />
         <option value="$PROJECT_DIR$/compounds/forms/profile_activity.py" />
@@ -264,13 +178,14 @@
         <option value="$PROJECT_DIR$/compounds/templates/base_bioactive_listview.html" />
         <option value="$PROJECT_DIR$/compounds/templates/base_odorant.html" />
         <option value="$PROJECT_DIR$/compounds/views/user/user_auth.py" />
-        <option value="$PROJECT_DIR$/frags/urls.py" />
         <option value="$PROJECT_DIR$/compounds/templates/bioactives/bioactive_detail.html" />
         <option value="$PROJECT_DIR$/compounds/views/odorant/substructure_list.py" />
         <option value="$PROJECT_DIR$/compounds/models/managers/bioactive.py" />
         <option value="$PROJECT_DIR$/compounds/templates/bioactives/cores_list.html" />
         <option value="$PROJECT_DIR$/compounds/views/bioactive/bioactive_core.py" />
         <option value="$PROJECT_DIR$/compounds/models/bioactive_core.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
+        <option value="$PROJECT_DIR$/frags/urls.py" />
       </list>
     </option>
   </component>
@@ -335,7 +250,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -349,167 +268,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bioactive" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="odorants" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bioactives" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="managers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compounds" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -729,10 +492,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
+    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16920635" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16920635" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28312817" sideWeight="0.5025397" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28312817" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -990,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frags/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="31" column="50" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/compounds/models/odorant.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -1161,9 +917,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="462">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frags/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1254">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

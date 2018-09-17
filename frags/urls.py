@@ -1,16 +1,15 @@
-from django.conf import settings
 from django.conf.urls import include
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, re_path
 from django.views.generic import RedirectView
 
-from compounds.views import signup
+from compounds.views import IndexView, signup
 from compounds.views.user import user_auth
 
 
 urlpatterns = [
+    path('', IndexView.as_view(), name='index'),
     path('api/', include('api.urls')),
     path('api', RedirectView.as_view(url='/api/docs/', permanent=True), name='api_docs'),
     path('admin/', admin.site.urls),
@@ -32,8 +31,8 @@ urlpatterns = [
     path('compounds/', include('compounds.urls')),
 ]
 
+handler404 = 'compounds.views.index.handler404'
+handler500 = 'compounds.views.index.handler500'
 
 # Use static() to add url mapping to serve static files during development only
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

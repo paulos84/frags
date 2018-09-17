@@ -1,13 +1,18 @@
+from django.contrib import messages
 from django.shortcuts import redirect, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView
 
 from compounds.models import Activity, Bioactive
-from compounds.views.bioactive.bioactive_list import BaseBioactiveListView
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
-class BioactiveSearchFilterListView(BaseBioactiveListView):
+class BioactiveSearchFilterListView(ListView):
+    template_name = 'bioactives/bioactive_list.html'
+    context_object_name = 'bioactive_list'
+    queryset = Bioactive.objects.all()
+    paginate_by = 32
+
     def dispatch(self, request, *args, **kwargs):
         search_query = kwargs.pop('search_query', '')
         field = kwargs.pop('field', '')
@@ -16,7 +21,8 @@ class BioactiveSearchFilterListView(BaseBioactiveListView):
                 obj_id = Bioactive.objects.get(inchikey=search_query).id
                 return redirect(reverse('bioactive-detail', kwargs={'pk': obj_id}))
             except Bioactive.DoesNotExist:
-                pass
+                messages.info(request, 'No compound matching InChiKey')
+                return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         if field == 'name':
             specific_matches = Bioactive.objects.filter(chemical_name__iexact=search_query)
             if specific_matches.exists():
@@ -26,8 +32,14 @@ class BioactiveSearchFilterListView(BaseBioactiveListView):
                 return redirect(reverse('bioactive-detail', kwargs={'pk': chem_name_matches.first().id}))
             elif chem_name_matches.exists():
                 self.queryset = chem_name_matches
+            else:
+                messages.info(request, 'No compounds matched the query')
+                return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         else:
             self.queryset = Bioactive.objects.filter(iupac_name__icontains=search_query)
+            if not self.queryset.exists():
+                messages.info(request, 'No compounds matched the query')
+                return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         return super(BioactiveSearchFilterListView, self).dispatch(request, *args, **kwargs)
 
 

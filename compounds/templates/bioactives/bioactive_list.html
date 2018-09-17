@@ -1,10 +1,16 @@
 {% extends "base_bioactive_listview.html" %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 {% block title %}<title>{{ page_header|capfirst }}</title>{% endblock %}
 
 {% block content %}
 <div class="col-sm-10">
+
+    {% if messages %}
+      {% bootstrap_messages %}
+    {% endif %}
+
     {% if bioactive_list %}
 
     <div class="col-sm-4">

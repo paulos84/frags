@@ -16,7 +16,7 @@ class OdorantSearchFilterListView(BaseOdorantListView):
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
             except Odorant.DoesNotExist:
                 messages.info(request, 'No compound matching CAS number')
-                pass
+                return redirect(reverse('all-odorants'))
         if field == 'name':
             specific_matches = Odorant.objects.filter(chemical_name__iexact=search_query)
             if specific_matches.exists():

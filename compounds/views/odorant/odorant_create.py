@@ -19,7 +19,9 @@ class OdorantCreateView(OdorantSearchFilterMixin, CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        if 'smiles' in form.errors:
+        if 'iupac_name' in form.errors:
+            messages.error(self.request, 'No valid data could be resolved for this compound')
+        elif 'smiles' in form.errors:
             messages.error(self.request, 'SMILES string indicates this is not an odorant')
         return super().form_invalid(form)
 

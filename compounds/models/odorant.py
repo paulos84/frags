@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
+from rdkit import Chem
 
 from compounds.models.managers import OdorantManager
 from compounds.models.mixins import CompoundMixin
@@ -76,9 +77,12 @@ class Odorant(CompoundMixin, models.Model):
             >>> Odorant.substructure_matches('C1=CC=CS1').count()
             42
         """
-        all_smiles = queryset.values('id', 'smiles') if queryset else cls.objects.values('id', 'smiles')
-        matches = [a['id'] for a in all_smiles if pattern in a['smiles']]
-        return cls.objects.filter(id__in=matches)
+        mol_fragment = Chem.MolFromSmiles(pattern)
+        if hasattr(mol_fragment, 'HasSubstructMatch'):
+            all_smiles = queryset.values('id', 'smiles') if queryset else cls.objects.values('id', 'smiles')
+            matches = [a['id'] for a in all_smiles if
+                       Chem.MolFromSmiles(a['smiles']).HasSubstructMatch(mol_fragment)]
+            return cls.objects.filter(id__in=matches)
 
     @classmethod
     def name_matches(cls, substrings, substructure_name, queryset=None):

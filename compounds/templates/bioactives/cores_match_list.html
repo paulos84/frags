@@ -1,0 +1,208 @@
+{% extends "base_bioactive_listview.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block head %}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js"></script>
+    <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-10">
+
+    <div class="col-sm-10">
+     {% if cid_numbers %}
+            <table class="table" >
+            {% for item in cid_numbers %}
+                {% if forloop.counter0|divisibleby:5 %}<tr>{% endif %}
+                <td style="border:none; ">
+                     <div style="height: 175px; width: 175px; position: relative; " id="3dmol-viewer"
+                        class='viewer_3Dmoljs' data-cid={{ item.number }} data-backgroundcolor='0xffffff' data-style='stick'>
+                    </div>
+                    {{ item.name }}
+                </td>
+                {% if forloop.counter|divisibleby:5 %}</tr>{% endif %}
+            {% endfor %}
+            </table>
+        {% endif %}
+     </div>
+
+    <div class="col-sm-7">
+        {% if plot_div_hac %}
+        <div style="display: none" class="chem_data_plot" id="hac">
+            {{ plot_div_hac|safe }}
+            {{ plot_script_hac|safe }}
+        </div>
+        <div class="chem_data_plot" id="mw">
+            {{ plot_div_mw|safe }}
+            {{ plot_script_mw|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="xlogp">
+            {{ plot_div_xlogp|safe }}
+            {{ plot_script_xlogp|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="rbc">
+            {{ plot_div_rbc|safe }}
+            {{ plot_script_rbc|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="hetac">
+            {{ plot_div_hetac|safe }}
+            {{ plot_script_hetac|safe }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-sm-3">
+        {% if plot_div_mw %}
+        <div style="position: relative; left:25px; margin-top: 26px; height: 350px; ">
+            <form method="get">
+              {% bootstrap_form choice_form %}
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-sm-4">
+        {% block page_header %}
+        <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
+        </h5>
+        {% endblock %}
+    </div>
+
+    <form method="get" onsubmit="return formValidate()">
+    <div class="col-sm-3" style="position: relative; left: 20px; margin-bottom: 10px; ">
+        <button type="button" id="chem_compare" style="color: #428bca; " class="btn btn-secondary">Properties and 3D structures</button></a>
+        <button type="submit" id="submit_selection" class="btn btn-primary" style="display: none; "><span class="glyphicon glyphicon">
+           </span>Compare selected compounds</button>
+            <h5 id="error_text" style="display: none; color: orange; ">Select between 1 and 20 items</h5>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="btn-group" role="group" style="width: 280px; position: relative; margin-left: 44px; ">
+        <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;"
+            onclick="$('.bioactive_mechanism').toggle();">Show mechanisms</button>
+        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">All drug actions<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            {% for action in drug_actions %}
+                <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+    {% if bioactive_list %}
+    <ul style="list-style-type: none;" id="compound_list">
+    {% for bioactive in bioactive_list %}
+    <li>
+        <table>
+        <tr>
+            <th>
+                <img class="structure-img" src={{ bioactive.structure_url }}
+                     title="{{ bioactive.iupac_name }}"  height="100" width="100">
+            </th>
+            <td style="display: none; position: relative; left: 6px; " class="compound_checkbox">
+                <input type="checkbox" name="selected_bioactives" value="{{ bioactive.id }}"></td>
+            <td>
+                <div style=" position:relative; left:13px; width: 440px">
+                <a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a>
+                </div>
+                {% if bioactive.activity %}
+                <div class="bioactive_mechanism" style="display: none; position: relative; margin-top:9px; left: 12px; color: grey ">
+                    {{ bioactive.activity }}
+                </div>
+                {% endif %}
+            </td>
+            <td style=" text-align:right; margin-left: 16px; color: grey ">
+                    {{ bioactive.chemical_properties.synonyms|truncatechars:50 }}
+               </td>
+        </tr>
+        </table>
+    </li>
+    {% endfor %}
+    </ul>
+       </form>
+
+    {% else %}
+    <div class="col-sm-5">
+        <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
+        </h5>
+         </div>
+
+    <div class="col-sm-5">
+        <span >
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            {% for body_sys in body_systems %}
+                <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
+            {% endfor %}
+            </ul>
+        </span>
+        <span>
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Drug actions<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            {% for action in drug_actions %}
+                <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
+            {% endfor %}
+            </ul>
+         </span>
+    </div>
+    <div class="col-sm-10">
+         <p style="margin-top:28px">No compounds matched this query</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    var checkedCheckboxes = [];
+
+    $(document).ready(function(){
+
+        var height = $('#compounds_list').height()
+        $('.sidebar-nav').height(height);
+
+        var isclicked = "{{ data_display }}";
+        if (isclicked){
+          $(".compound_checkbox").show();
+          $("#submit_selection").show();
+          $("#chem_compare").hide();
+        };
+
+        $("#chem_compare").click(function () {
+          $(".compound_checkbox").show();
+          $("#submit_selection").show();
+          $("#chem_compare").hide();
+        });
+
+        $('#submit_selection').click(function(){
+            checkedCheckboxes = []
+            $('input').each(function(){
+                if ($(this).is(':checked')) {
+                    checkedCheckboxes.push($(this).val())
+                }
+            });
+        });
+        $("#id_property_choice").change(function () {
+          var choice = $("#id_property_choice").val();
+          $(".chem_data_plot").hide();
+          $("#" + choice).show();
+        });
+        $("#show_activities").click(function () {
+          $(this).text(function(i, text){
+          return text === "Hide mechanisms" ? "Show mechanisms" : "Hide mechanisms";
+      })
+    })
+
+    });
+    function formValidate(){
+        if (checkedCheckboxes.length < 1 || checkedCheckboxes.length > 20) {
+            $("#error_text").show();
+            return false;
+        };
+    };
+    </script>
+{% endblock %}

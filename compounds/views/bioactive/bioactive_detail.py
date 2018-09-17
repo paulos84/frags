@@ -58,20 +58,22 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
 
     def get_initial(self):
         if not self.user_compound and self.request.user.is_authenticated:
-            self.user_compound, _ = UserBioactive.objects.get_or_create(
-                user=self.request.user.profile,
-                compound=self.get_object(),
-            )
+            try:
+                self.user_compound = UserBioactive.objects.get(
+                    user=self.request.user.profile,
+                    compound=self.get_object(),
+                )
+            except UserBioactive.DoesNotExist:
+                pass
         initial = {'user_bioactive': self.user_compound}
         return initial
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        print(request.POST)
         self.object = self.get_object()
-        if 'remove_data' in request.POST:
+        if request.POST.getlist('remove_data'):
             if not self.user_compound:
-                self.user_compound = UserBioactive.objects.get(
+                self.user_compound, _ = UserBioactive.objects.get_or_create(
                     compound=self.object,
                     user=self.request.user.profile
                 )

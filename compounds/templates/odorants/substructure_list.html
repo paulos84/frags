@@ -7,15 +7,14 @@
 {% block title %}<title>Substructures</title>{% endblock %}
 
 {% block head %}
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css">
+    <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
 {% endblock %}
 
 {% block content %}
-
-
+<div class="col-sm-10">
+    <p style="float: right; position:relative; right: 40px; ">Skip to: <a href="#stats_form"><strong>Chemical property statistics</strong></a></p>
     {% for acyclic_terpenoids in substructure_sets %}
-
     <table style="margin-bottom:18px">
     <h5 style="color:#4c4c4c; "><strong>{{ acyclic_terpenoids.label }}</strong></h5>
     {% for row in acyclic_terpenoids.subset|columns:5 %}
@@ -32,20 +31,21 @@
     {% endfor %}
     </table>
     {% endfor %}
-
-
-    <div style="width: 250px; margin-top:16px; margin-left:16px;" >
-      <form method="get" >
-        <div class="row">
-          {% bootstrap_form choice_form %}
+        <div id="stats">
+        {% if plot_div %}
+            {{ plot_div|safe }}
+            {{ plot_script|safe }}
+        {% endif %}
         </div>
-      </form>
-    </div>
-    {% if plot_div %}
-        {{ plot_div|safe }}
-        {{ plot_script|safe }}
-    {% endif %}
+        <div style="width: 250px; margin-top:16px; margin-left:16px; margin-bottom: 24px" id="stats_form" >
+        <form method="get" action="{{request.path}}#stats">
+            <div class="row">
+              {% bootstrap_form choice_form %}
+            </div>
+          </form>
+        </div>
 
+</div>
 {% endblock %}
 
 {% block js %}

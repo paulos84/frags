@@ -18,14 +18,14 @@ class CompoundMixin(models.Model):
         blank=True,
     )
     iupac_name = models.CharField(
-        max_length=500,
+        max_length=300,
         default='',
         verbose_name='IUPAC name',
         editable=False,
         blank=True,
     )
     chemical_name = models.CharField(
-        max_length=50,
+        max_length=200,
         db_index=True,
         default='',
         verbose_name='Chemical name',
@@ -109,7 +109,8 @@ class CompoundMixin(models.Model):
         chem_dict.update({
             'mw': int(pcp_data.molecular_weight),
             'synonyms': ', '.join(pcp_data.synonyms[:5]),
-            'hetac': len(''.join([i for i in self.smiles if i not in ['C', 'O', ]]))
+            'hetac': len([i for i in self.smiles.split('.')[0] if i in
+                          ['N', 'S', 'O', 'Cl', 'F', 'Br', 'B', 'P']])
         })
         extra_available = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
                            'bond_stereo_count']

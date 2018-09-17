@@ -32,5 +32,5 @@ class BioactiveListView(BaseBioactiveListView):
         label = Bioactive.cat_choices[category - 1][1]
         context['page_header'] = label + 's' if not label.endswith('s') else label
         context['body_systems'] = [a[1] for a in Activity.classifications]
-        context['drug_actions'] = Activity.objects.actions()
+        context['drug_actions'] = Activity.objects.actions().order_by('name')
         return context

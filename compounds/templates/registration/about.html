@@ -1,0 +1,50 @@
+{% extends 'base_bioactive_listview.html' %}
+
+{% block title %}<title>About FuncMols</title>{% endblock %}
+
+{% block content %}
+<div class="col-sm-10" style="position: relative; margin-top: 14px; left:28px; ">
+    <h5><strong>FuncMols</strong></h5>
+    <p>
+      This site provides users with the ability to access and store various information relating to individual functional molecules.<br />
+      Is intended for end users and suppliers of registered or known organic compounds. Such users may be from either industry, <br />
+        academia or the general public.
+    </p>
+
+    <h5 style="margin-top: 24px" id="basic_usage"><strong>Basic usage</strong></h5>
+    <p>Compounds are classified into three types: fragrance and flavor, medicinal and pharmaceutical, functional food (nutraceutical).<br />
+        Using the search form on the sidebar, exact compounds may be looked up using their identifiers (either CAS number or InChiKey), <br />
+        or filtered lists matching the name lookups obtained.<br /></p>
+    <p>If a compound does not exist within the database, the relevant form can be used to add it to the database. The form differs<br />
+        slightly between fragrance compounds and other bioactives, since fragrance compounds are identified through their registered<br />
+        CAS numbers and require the submission of sensory characteristics. Upon entering a valid chemical identifier, the page will be <br />
+        updated with the chemical name and structure of the compounds to be added, in order to confirm it is the expected compound.<br />
+        If a compound matching the chemical identifier already exists in the database, a link to its page will be provided.<br /></p>
+    <p>Each compound has a page through which various information can be obtained and through which the user can save arbitrary data<br />
+        relating to the compound. The page also allows visitors to access listed commercial sources and a list of links to recently-<br />
+        published scientific literature. Through selecting checkboxes next to the listed items, these can be saved to a users profile <br />
+        for future reference. A form is available to enable commercial sources to be listed and thereby accessed by other site users.</p>
+
+    <p>To access all compound information stored on a user profile, a link on the drop-down menu on the top navigation bar should be used.<br />
+        This page provides a list of compounds with a summary of the stored data, along with links to view and update it.</p>
+
+    <h5 style="margin-top: 24px"><strong>Privacy policy</strong></h5>
+    <p>Email addresses for user registration will be kept confidential and not shared with third parties. Data stored within user profiles<br />
+        are kept private and the site implements a robust level security. In order to prevent brute force login attacks, accounts will be <br />
+        locked for a period of time upon a successive number of failed login attempts. A password reset link is provided on the login page.</p>
+
+    <p style="margin-top: 24px">Site created by Paul Davis<br />
+
+    <p style="margin-top: 24px">Site owner:<br />
+     Metaclass Software Ltd<br />
+     Column House London Road<br />
+     Shrewsbury, SY2 6NN<br />
+     United Kingdom<br /></p>
+  <p style="margin-top: 24px">
+      With thanks to:<br />
+      Nicholas Rego and David Koes<br />
+      3Dmol.js: molecular visualization with WebGL<br />
+      Bioinformatics (2015) 31 (8): 1322-1324 doi:10.1093/<a href="http://doi.org/10.1093/bioinformatics/btu829">bioinformatics</a>/btu829<br />
+  </p>
+</div>
+{% endblock %}

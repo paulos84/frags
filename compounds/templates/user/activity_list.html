@@ -19,8 +19,8 @@
             </tr>
         </thead>
         <tbody>
-        {% if bioactive_list %}
-        {% for compound in bioactive_list %}
+        {% if user_bioactive_list %}
+        {% for compound in user_bioactive_list %}
             <tr>
                 <td width="30px"><img class="structure-img" src={{ compound.structure_url }}
                          title="{{ compound.iupac_name }}"  height="100" width="100"></td>
@@ -60,7 +60,7 @@
         {% endfor %}
         {% endif %}
 
-        {% if not medicinal_list and not food_list and not odorant_list %}
+        {% if not user_bioactive_list and not odorant_list %}
             <tr>
                 <td><h5>No saved compounds</h5></td>
 

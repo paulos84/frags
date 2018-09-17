@@ -12,9 +12,9 @@ class BioactiveCreateForm(forms.ModelForm):
     """ Form for creating Bioactive model instances involving use of AJAX """
 
     cas_number = forms.CharField(
-        required=False, label='CAS number',
+        required=False, label='CAS number or trade name',
         widget=forms.TextInput(attrs={'id': 'cas_number_field_id',
-                                      'placeholder': 'Retrieve InChIKey by CAS no (optional)', }
+                                      'placeholder': 'Retrieve InChIKey by CAS or trade name (optional)', }
                                ))
     smiles = forms.CharField(
         widget=forms.HiddenInput()
@@ -31,7 +31,7 @@ class BioactiveCreateForm(forms.ModelForm):
     )
     classification = AjaxChoiceField(
         required=False,
-        choices=[('', '-------')],
+        choices=Activity.classifications,
         widget=forms.Select(attrs={'id': 'classification_1', })
     )
     action = AjaxChoiceField(

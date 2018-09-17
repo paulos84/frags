@@ -8,8 +8,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils import six
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from compounds.forms import SignupForm
 from compounds.forms.profile_activity import ContactForm
@@ -23,7 +22,7 @@ def signup(request):
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            subject = 'Activate Your MySite Account'
+            subject = 'Activate Your FuncMols account'
             message = render_to_string('registration/activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -44,6 +43,7 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
             six.text_type(user.profile.email_confirmed)
         )
 
+
 account_activation_token = AccountActivationTokenGenerator()
 
 
@@ -58,7 +58,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('index')
     else:
         return render(request, 'registration/activation_invalid.html')

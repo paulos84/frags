@@ -2,21 +2,173 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
-{% block title %}<title>All mechanisms</title>{% endblock %}
+{% block title %}<title>Mechanisms</title>{% endblock %}
+
+{% block head %}
+    <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
+{% endblock %}
 
 {% block content %}
-<div class="col-sm-10">
+
+    <div class="col-sm-7" style="width: 600px; ">
+        {% if plot_div_hac %}
+        <div style="display: none" class="chem_data_plot" id="hac">
+            {{ plot_div_hac|safe }}
+            {{ plot_script_hac|safe }}
+        </div>
+        <div class="chem_data_plot" id="mw">
+            {{ plot_div_mw|safe }}
+            {{ plot_script_mw|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="xlogp">
+            {{ plot_div_xlogp|safe }}
+            {{ plot_script_xlogp|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="rbc">
+            {{ plot_div_rbc|safe }}
+            {{ plot_script_rbc|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="hetac">
+            {{ plot_div_hetac|safe }}
+            {{ plot_script_hetac|safe }}
+        </div>
+
+        <div style="display: none" class="chem_data_plot" id="sd_hac">
+            {{ sd_plot_div_hac|safe }}
+            {{ sd_plot_script_hac|safe }}
+        </div>
+        <div class="chem_data_plot" id="sd_mw">
+            {{ sd_plot_div_mw|safe }}
+            {{ sd_plot_script_mw|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="sd_xlogp">
+            {{ sd_plot_div_xlogp|safe }}
+            {{ sd_plot_script_xlogp|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="sd_rbc">
+            {{ sd_plot_div_rbc|safe }}
+            {{ sd_plot_script_rbc|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="sd_hetac">
+            {{ sd_plot_div_hetac|safe }}
+            {{ sd_plot_script_hetac|safe }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-sm-3">
+        {% if plot_div_mw %}
+        <div style="position: relative; left:25px; margin-top: 26px; height: 700px; ">
+              {% bootstrap_form choice_form %}
+            </form>
+        </div>
+
+        {% elif sd_plot_div_mw %}
+        <div style="position: relative; left:25px; margin-top: 26px; height: 350px; ">
+              {% bootstrap_form choice_form %}
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+<div class="col-sm-4" id="mechanisms-column">
     {% regroup mechanism_list by action as actions_list %}
-    <ul style="list-style-type: none;">
-        {% for action in actions_list %}
-            <li style="list-style: none; margin-top:8px; margin-bottom: 6px;">
-                <a style="color: #4F5863; " href="{% url 'bioactive-actions' action=action.grouper|slugify %}">{{ action.grouper }}</a>
-            <ul style="list-style-type: none;">
-            {% for mech in action.list %}
-                <li><a href="{% url 'bioactive-mechanisms' action=action.grouper|slugify mechanism=mech.name|slugify %}">{{ mech.name|capfirst }}</a></li>
-            {% endfor %}
-            </ul>
+    <form method="get" onsubmit="return formValidate()">
+    {% for action in actions_list %}
+        <li style="list-style: none; margin-top:8px; margin-bottom: 6px;" id={{ action.grouper|slugify }}>
+            <a style="color: #4F5863; " href="{% url 'bioactive-actions' action=action.grouper|slugify %}">{{ action.grouper }}</a></li>
+        <table class="table" style="width:350px; ">
+        <tbody >
+        {% for mech in action.list %}
+            <tr>
+                <td style="display: none; " class="compare_prop"><input type="checkbox" name="selected_mechanisms" value="{{ mech.id }}"></td>
+                <td style="width: 310px">
+                    <a href="{% url 'bioactive-mechanisms' action=action.grouper|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></td>
+                <td>{{mech.item_count}}</td>
+            </tr>
         {% endfor %}
-      </ul>
+        </tbody>
+        </table>
+    {% endfor %}
 </div>
+
+<div class="col-sm-3" style="margin-top: 16px; ">
+    <button type="button" id="chem_prop" style="color: #428bca; " class="btn btn-secondary">View chemical property data</button></a>
+    <div class="compare_prop" style="display: none; width: 250px; " id="stats_form">
+          <button type="submit" id="submit_button" name="mean_data" value='true' class="btn btn-primary" ><span class="glyphicon glyphicon">
+            </span>Data relating to selected mechanisms</button>
+      </form>
+    </div>
+    <div>
+        <h5 id="error_text" style="display: none; color: orange; ">Select between 1 and 20 items</h5>
+    </div>
+    <div style="width: 260px; margin-top: 40px; ">
+        <form method="get">
+          {% bootstrap_form filter_form %}
+        </form>
+        </ul>
+        {% if is_filtered %}
+            <a href="{% url 'all-mechanisms' %}"><button type="button" class="btn btn-secondary" >
+                <span class="glyphicon glyphicon"></span>Clear filter</button></a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="col-sm-3" style="margin-top: 16px; position:relative; left:10px; ">
+    <h5>Skip to:</h5>
+        {% regroup mechanism_list by action as actions_list %}
+        {% for action in actions_list %}
+            <li style="list-style: none; margin-top:8px; margin-bottom: 6px;" >
+                <a style="color: #4F5863; " href="#{{ action.grouper|slugify }}">{{ action.grouper }}</a></li>
+        {% endfor %}
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+    var checkedCheckboxes = [];
+
+    $(document).ready(function(){
+
+        var height = $('#mechanisms-column').height()
+        $('.sidebar-nav').height(height)
+
+        var isclicked = "{{ data_display }}";
+        if (isclicked){
+          $(".compare_prop").show();
+          $("#submit_button").show();
+          $("#chem_prop").hide()
+        };
+
+        $("#chem_prop").click(function () {
+          $("#chem_prop").hide()
+          $(".compare_prop").show();
+          $("#submit_button").show();
+        });
+
+        $('#submit_button').click(function(){
+            checkedCheckboxes = []
+            $('input').each(function(){
+                if ($(this).is(':checked')) {
+                    checkedCheckboxes.push($(this).val())
+                }
+            });
+        });
+        $("#id_property_choice").change(function () {
+          var choice = $("#id_property_choice").val();
+          $(".chem_data_plot").hide();
+          $("#" + choice).show();
+          $("#sd_" + choice).show();
+        });
+
+    });
+    function formValidate(){
+        if (checkedCheckboxes.length < 1 || checkedCheckboxes.length > 20) {
+            $("#error_text").show();
+            return false;
+        };
+    };
+    </script>
 {% endblock %}

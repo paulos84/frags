@@ -9,7 +9,7 @@ from compounds.views.odorant.odorant_list import BaseOdorantListView
 class UserActivityListView(LoginRequiredMixin, BaseOdorantListView):
     model = UserBioactive
     template_name = 'user/activity_list.html'
-    context_object_name = 'bioactive_list'
+    context_object_name = 'user_bioactive_list'
     user_profile = None
 
     def dispatch(self, request, *args, **kwargs):

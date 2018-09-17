@@ -34,7 +34,7 @@
                 <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
                 <ul class="dropdown-menu">
                 {% for mech in mechanisms %}
-                    <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech|slugify %}">{{ mech }}</a></li>
+                    <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></li>
                 {% endfor %}
                 </ul>
         {% endif %}

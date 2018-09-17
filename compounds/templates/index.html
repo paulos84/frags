@@ -17,7 +17,7 @@
     <div style="height: 200px; width: 200px; position: relative;" class='viewer_3Dmoljs' data-pdb='1YCR' data-backgroundcolor='0xffffff'
       data-select1='chain:A' data-style1='cartoon:color=spectrum' data-surface1='opacity:.7;color:white' data-select2='chain:B' data-style2='stick'>
     </div>
-    <div>
+    <div style="margin-top: 10px; ">
         <a href="{% url 'bioactive-cores' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Bioactive substructures</a>
         <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb; ">Mechanisms</a>
         <a href="{% url 'bioactive-list' category='medicinal' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">All medicinal compounds</a>
@@ -29,18 +29,6 @@
         {% endfor %}
         </ul>
     </div>
-    <div style="margin-top: 40px; position:relative; ">
-        <span style="color: #47607E;font-size: 1.05em"><a style="color: #47607E;"
-                href="{% url 'signup'%}">Register</a> to access and store:</span>
-            <ul style="list-style-type: none; margin-top: 6px; color: #47607E;">
-                <li>Literature references</li>
-                <li>Commercial sources</li>
-                <li>Chemical property data</li>
-                <li>Chemical structure variations</li>
-        </ul>
-    </div>
-
-
 </div>
 
 <div class="container">
@@ -76,9 +64,13 @@
             <a href="{% url 'bioactive-list' category='food' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
                 Nutraceutical compounds<span class="glyphicon glyphicon"></span></button></a>
         </div>
+        </div>
     </div>
-
-
 </div>
 
+<div class="col-sm-12" >
+    <div style="float:right; position: relative; right: 34px; margin-top: 80px; ">
+      <p>Metaclass Software © 2018</p>
+    </div>
+</div>
 {% endblock %}

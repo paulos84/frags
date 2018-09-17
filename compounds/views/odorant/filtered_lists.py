@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, reverse
 
 from compounds.models import Odorant, UserOdorant
@@ -14,6 +15,7 @@ class OdorantSearchFilterListView(BaseOdorantListView):
                 obj_id = Odorant.objects.get(cas_number=search_query).id
                 return redirect(reverse('odorant-detail', kwargs={'pk': obj_id}))
             except Odorant.DoesNotExist:
+                messages.info(request, 'No compound matching CAS number')
                 pass
         if field == 'name':
             specific_matches = Odorant.objects.filter(chemical_name__iexact=search_query)

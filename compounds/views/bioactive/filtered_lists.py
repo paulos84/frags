@@ -41,7 +41,7 @@ class BaseBioactiveActivityFilterListView(BioactiveSearchFilterMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(BaseBioactiveActivityFilterListView, self).get_context_data(**kwargs)
         context['body_systems'] = [a[1] for a in Activity.classifications]
-        context['drug_actions'] = Activity.objects.actions()
+        context['drug_actions'] = Activity.objects.actions().order_by('name')
         return context
 
 
@@ -81,7 +81,7 @@ class BioactiveDrugActionListView(BaseBioactiveActivityFilterListView):
 
 
 class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
-    template_name = 'bioactives/mechanism_list.html'
+    template_name = 'bioactives/bioactive_list.html'
     action_id = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -109,8 +109,18 @@ class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
             'ace': 'ACE',
             'adrenaline': 'β-adrenaline',
             'hmg coa': 'HMG-CoA',
+            'cox': 'COX',
+            'β2-adrenergic': 'β2-adrenergic',
+            'α-adrenergic': 'α-adrenergic',
+            'pde5': 'PDE5',
+            'sglt 2': 'SGLT-2',
+            '5 ht3': '5-HT3',
+            'nk1': 'NK1',
         }
         for k in deslug_map.keys():
             if page_header.startswith(k):
                 return page_header.replace(k, deslug_map[k])
+        for a in ['β', 'μ', ]:
+            if page_header.startswith(a):
+                return page_header
         return page_header.capitalize()

@@ -2,10 +2,13 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+import numpy as np
+from rdkit import Chem
 
 from compounds.models import Bioactive
 from compounds.models.managers import BioactiveCoreManager
 from compounds.models.mixins import ChemDescriptorMixin
+from compounds.utils.chem_data import chemical_properties_label_map
 
 
 class BioactiveCore(ChemDescriptorMixin, models.Model):
@@ -52,14 +55,23 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
     def bioactive_set(self):
         return Bioactive.substructure_matches(self.smiles) | Bioactive.substructure_matches(self.related_smiles)
 
+    @property
+    def bioactive_set_properties(self):
+        chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactive_set()])
+                      for k in chemical_properties_label_map.keys()}
+        cleaned_arrays = {k: v[v != np.array(None)] for k, v in chem_props.items()}
+        return cleaned_arrays
+
     @classmethod
-    def compound_sets_averages(cls, chem_property):
+    def compound_sets_stats(cls, std_dev=False):
+        properties = chemical_properties_label_map.keys()
+        if std_dev:
+            return [(c.name, c.bioactive_set_properties) for c in cls.objects.all()]
         data = {}
-        for a in cls.objects.all():
-
-            data[a.name] = a.bioactive_set().chemical_property_avg(chem_property).get('as_float__avg')
+        for chem_prop in properties:
+            data[chem_prop] = [(c.name, c.bioactive_set().chemical_property_avg(chem_prop).get('as_float__avg'))
+                               for c in cls.objects.all()]
         return data
-
 
     @classmethod
     def compound_matches(cls, compound):
@@ -75,8 +87,9 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
         <QuerySet [<BioactiveCore: arylsulfonamides>]>
         """
         def check_match(cpd_smiles, core_smiles):
-            return core_smiles in cpd_smiles
+            core_compound = Chem.MolFromSmiles(core_smiles)
+            return Chem.MolFromSmiles(cpd_smiles).HasSubstructMatch(core_compound)
         core_values = cls.objects.values('id', 'smiles', 'related_smiles')
-        match_ids = [a['id'] for a in core_values if a['smiles'] in compound.smiles
+        match_ids = [a['id'] for a in core_values if check_match(compound.smiles, a['smiles'])
                      or check_match(compound.smiles, a['related_smiles'])]
         return cls.objects.filter(id__in=match_ids)

@@ -26,6 +26,6 @@ class OdorantUpdateView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not request.user.is_superuser or not request.user.profile == self.object.created_by:
+        if not request.user.is_superuser or not request.user.profile == self.object.edited_by:
             return HttpResponseForbidden()
         return super(OdorantUpdateView, self).post(request, *args, **kwargs)

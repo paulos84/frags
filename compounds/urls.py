@@ -16,7 +16,7 @@ from compounds.views.bioactive.bioactive_create import process_bioactive_identif
 
 
 urlpatterns = [
-    re_path(r'^$', OdorantListView.as_view(), name='index'),
+    re_path(r'^$', OdorantListView.as_view()),
     path('bioactives/<category>', BioactiveListView.as_view(), name='bioactive-list'),
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),

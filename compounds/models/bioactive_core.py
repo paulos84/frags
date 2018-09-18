@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 import numpy as np
 from rdkit import Chem
@@ -16,6 +17,7 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
      allowing them to be grouped according their structure """
 
     name = models.CharField(
+        db_index=True,
         max_length=50,
         verbose_name='Substructure class name',
         help_text='Empirical name e.g. Isothiocyanates'
@@ -55,7 +57,7 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
     def bioactive_set(self):
         return Bioactive.substructure_matches(self.smiles) | Bioactive.substructure_matches(self.related_smiles)
 
-    @property
+    @cached_property
     def bioactive_set_properties(self):
         chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactive_set()])
                       for k in chemical_properties_label_map.keys()}
@@ -63,15 +65,15 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
         return cleaned_arrays
 
     @classmethod
-    def compound_sets_stats(cls, std_dev=False):
+    def compound_sets_stats(cls):
         properties = chemical_properties_label_map.keys()
-        if std_dev:
-            return [(c.name, c.bioactive_set_properties) for c in cls.objects.all()]
+        core_set = cls.objects.medicinal().order_by('name')
+        bioactive_properties = [(c.name, c.bioactive_set_properties) for c in core_set]
         data = {}
         for chem_prop in properties:
             data[chem_prop] = [(c.name, c.bioactive_set().chemical_property_avg(chem_prop).get('as_float__avg'))
-                               for c in cls.objects.all()]
-        return data
+                               for c in core_set]
+        return data, bioactive_properties
 
     @classmethod
     def compound_matches(cls, compound):

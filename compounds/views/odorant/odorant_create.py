@@ -15,9 +15,6 @@ class OdorantCreateView(OdorantSearchFilterMixin, CreateView):
     form_class = OdorantCreateForm
     template_name = 'odorants/create_odorant.html'
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-
     def form_invalid(self, form):
         if 'iupac_name' in form.errors:
             messages.error(self.request, 'No valid data could be resolved for this compound')

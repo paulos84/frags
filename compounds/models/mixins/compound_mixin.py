@@ -105,7 +105,7 @@ class CompoundMixin(models.Model):
 
     def dict_from_query_object(self, pcp_data, additional):
         chem_dict = {a: getattr(pcp_data, b) for a, b in
-                (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
+                     (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
         chem_dict.update({
             'mw': int(pcp_data.molecular_weight),
             'synonyms': ', '.join(pcp_data.synonyms[:5]),

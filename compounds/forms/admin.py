@@ -37,5 +37,3 @@ class SubstructureAdminForm(forms.ModelForm):
         self.fields['iupac_name_pattern'].delimiter = '|'
         self.fields['iupac_name_pattern'].help_text = 'Substring patterns delimited by |'
         self.fields['smiles'].required = True
-
-

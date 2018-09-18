@@ -35,6 +35,7 @@ class MakeOdorantFixtureData:
         output_file (str): path to write fixture data to
         cirpy_data (list): dictionary containing compound data obtained through cirpy API query
     """
+
     def __init__(self, input_file, output_file=None):
         self.file = input_file
         self.compound_data = []
@@ -62,7 +63,8 @@ class MakeOdorantFixtureData:
                     pcp_data = pcp.get_compounds(smiles, 'smiles')
                     cid_no = pcp_data[0].cid
                     chem_properties = {a: getattr(pcp_data[0], b) for a, b in
-                            (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
+                                       (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'),
+                                        ('rbc', 'rotatable_bond_count'))}
                     chem_properties.update({
                         'mw': int(pcp_data[0].molecular_weight),
                         'synonyms': ' '.join(pcp_data[0].synonyms[:5]),
@@ -127,6 +129,7 @@ class MakeOdorantFixtureData:
             except ParserError:
                 continue
             ruamel.yaml.dump(code, sys.stdout, Dumper=ruamel.yaml.RoundTripDumper)
+
 
 if __name__ == '__main__':
     if sys.argv[-1]:

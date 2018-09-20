@@ -33,6 +33,12 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
         help_text='For substructure matches of close analogs',
         blank=True,
     )
+    bioactives = models.ManyToManyField(
+        'compounds.Bioactive',
+        related_name='substructures',
+        verbose_name='Core derivatives',
+        blank=True,
+    )
     slug = models.SlugField(
         default='',
         blank=True,
@@ -59,7 +65,7 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
 
     @cached_property
     def bioactive_set_properties(self):
-        chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactive_set()])
+        chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactives.all()])
                       for k in chemical_properties_label_map.keys()}
         cleaned_arrays = {k: v[v != np.array(None)] for k, v in chem_props.items()}
         return cleaned_arrays
@@ -67,11 +73,11 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
     @classmethod
     def compound_sets_stats(cls):
         properties = chemical_properties_label_map.keys()
-        core_set = cls.objects.medicinal().order_by('name')
+        core_set = cls.objects.medicinal().prefetch_related('bioactives').order_by('name')
         bioactive_properties = [(c.name, c.bioactive_set_properties) for c in core_set]
         data = {}
         for chem_prop in properties:
-            data[chem_prop] = [(c.name, c.bioactive_set().chemical_property_avg(chem_prop).get('as_float__avg'))
+            data[chem_prop] = [(c.name, c.bioactives.all().chemical_property_avg(chem_prop).get('as_float__avg'))
                                for c in core_set]
         return data, bioactive_properties
 

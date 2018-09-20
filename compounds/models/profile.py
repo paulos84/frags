@@ -47,18 +47,3 @@ def save_user_profile(sender, instance, **kwargs):
     Updates an instance when a User instance is updated
     """
     instance.profile.save()
-
-
-# class Activity(models.Model):
-#     ACTIVITY_TYPES = (
-#         (1, 'Compound notes'),
-#     )
-#     user = models.ForeignKey(
-#         Profile,
-#         on_delete=models.CASCADE
-#     )
-#     activity_type = models.IntegerField(choices=ACTIVITY_TYPES)
-#
-#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-#     object_id = models.PositiveIntegerField()
-#     content_object = GenericForeignKey()

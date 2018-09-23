@@ -36,6 +36,8 @@ def process_bioactive_identifier(request):
         iupac_name = None
         if cas_no:
             smiles = cirpy.query(cas_no, 'smiles')[0].value
+            if '.' in smiles:
+                smiles = [i for i in smiles.split('.') if len(i) > 5][0]
             pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
             if not pcp_query.iupac_name:
                 iupac_name = cirpy.resolve(smiles, 'iupac_name', ['smiles'])

@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 import numpy as np
 
@@ -43,6 +44,11 @@ class Activity(models.Model):
         blank=True,
         null=True,
     )
+    keywords = ArrayField(
+        models.CharField(max_length=100),
+        null=True,
+        blank=True,
+    )
     objects = ActivityManager()
 
     class Meta:
@@ -78,3 +84,8 @@ class Activity(models.Model):
                                 for a in activities]
                 data[chem_prop] = [ad for ad in average_data if ad[1]]
         return data
+
+    @classmethod
+    def all_keywords(cls):
+        vals = cls.objects.values_list('id', 'keywords', 'name')
+        return {a[0]: a[1] or [] + [a[2]] for a in vals}

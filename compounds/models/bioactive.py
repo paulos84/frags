@@ -7,9 +7,12 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from rdkit import Chem
 
+from compounds.models import Activity
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
-from compounds.utils.generate_bioactives import RecentDrugs, FindActivity
+from compounds.utils.generate_bioactives import (
+    ArchivedDrugs, DrugsFromNames, FindActivity, RecentDrugs
+)
 
 
 class Bioactive(CompoundMixin, models.Model):
@@ -133,10 +136,31 @@ class Bioactive(CompoundMixin, models.Model):
         return cls.objects.filter(id__in=matches)
 
     @classmethod
-    def get_latest(cls):
+    def create_recent_drugs(cls):
         compounds = RecentDrugs().drugs_data
         for cpd in compounds:
             activity = FindActivity(name=cpd['chemical_name']).activity
+            try:
+                cls.objects.create(**cpd, category=1, activity=activity)
+            except IntegrityError:
+                pass
+
+    @classmethod
+    def create_archived_drugs(cls, month):
+        """ month e.g. 'august-2018' """
+        compounds = ArchivedDrugs(month).drugs_data
+        for cpd in compounds:
+            activity = FindActivity(name=cpd['chemical_name']).activity
+            try:
+                cls.objects.create(**cpd, category=1, activity=activity)
+            except IntegrityError:
+                pass
+
+    @classmethod
+    def create_from_list(cls, names_list, activity_name):
+        activity = Activity.objects.get(name=activity_name)
+        compounds = DrugsFromNames(names_list).drugs_data
+        for cpd in compounds:
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
             except IntegrityError:

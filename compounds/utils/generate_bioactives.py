@@ -26,11 +26,11 @@ class BaseFinder:
             page = requests.get(url, headers={'User-Agent': 'Not blank'}).content
             soup = BeautifulSoup(page, 'lxml')
             meta_tag = soup.find('meta', attrs={"name": "pubchem_uid_value"})
-            return meta_tag.attrs['content']
-
-        return [{'cid_number': parse_cid(name), 'chemical_name': name.capitalize()}
-                for name in self.names]
-
+            if hasattr(meta_tag, 'attrs'):
+                return meta_tag.attrs['content']
+        cid_data = [{'cid_number': parse_cid(name), 'chemical_name': name.capitalize()}
+                    for name in self.names]
+        return [d for d in cid_data if d['cid_number']]
 
     def set_chem_data(self):
         for d in self.drugs_data:
@@ -54,11 +54,15 @@ class BaseFinder:
                 self.drugs_data.remove(d)
 
 
+class DrugsFromNames(BaseFinder):
+
+    def __init__(self, names):
+        self.names = names
+        self.drugs_data = self.set_cids()
+        self.set_chem_data()
+
+
 class RecentDrugs(BaseFinder):
-    url = 'https://www.drugs.com/newdrugs.html'
-    page = requests.get(url).content
-    soup = BeautifulSoup(page, 'lxml')
-    blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
 
     def __init__(self):
         self.recent = [b for b in self.blocks if self.check_month(b)]
@@ -75,10 +79,21 @@ class RecentDrugs(BaseFinder):
             return True
 
 
+class ArchivedDrugs(BaseFinder):
+
+    def __init__(self, month):
+        url = 'https://www.drugs.com/newdrugs-archive/{}.html'.format(month)
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, 'lxml')
+        blocks = soup.find_all('div', {'class': 'newsItem'})
+        self.names = [self.extract_name(b) for b in blocks if self.extract_name(b).isalpha()]
+        self.drugs_data = self.set_cids()
+        self.set_chem_data()
+
+
 class FindActivity:
     """
-    Attempts to assign the most relevant Activity instance, if any, through analysing number of occurrences of
-    Activity instance names and keywords within wiki page text.
+    Assigns the most relevant Activity instance, if any, based on the names and keywords found in html
     """
 
     def __init__(self, name):

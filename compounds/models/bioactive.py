@@ -17,8 +17,7 @@ from compounds.utils.generate_bioactives import (
 
 class Bioactive(CompoundMixin, models.Model):
 
-    """ A bioactive compound which can be uniquely identified through its InChIKey identifier and from
-     which API queries can be made to obtain addsitional data """
+    """ A small molecule, e.g. drug, which has an InChIKey, allowing identification and API queries to be made """
 
     cat_choices = (
         (1, 'Pharmaceutical'),

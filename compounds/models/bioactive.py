@@ -153,14 +153,15 @@ class Bioactive(CompoundMixin, models.Model):
             activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
-            except IntegrityError:
+            except (IntegrityError, ValueError):
                 pass
 
     @classmethod
-    def create_from_list(cls, names_list, activity_name):
-        activity = Activity.objects.get(name=activity_name)
+    def create_from_list(cls, names_list, activity=None):
         compounds = DrugsFromNames(names_list).drugs_data
         for cpd in compounds:
+            if activity is None:
+                activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
             except IntegrityError:

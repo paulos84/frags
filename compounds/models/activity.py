@@ -16,6 +16,7 @@ class Activity(models.Model):
          ('CV', 'Cardiovascular system'),
          ('DM', 'Dermatologicals'),
          ('GU', 'Genito-urinary and sex hormones'),
+         ('MI', 'Miscellaneous'),
          ('MS', 'Musculo-skeletal system'),
          ('NS', 'Nervous system'),
          ('RS', 'Respiratory system'),
@@ -24,6 +25,8 @@ class Activity(models.Model):
         choices=classifications,
         db_index=True,
         max_length=2,
+        blank=True,
+        null=True,
     )
     categories = (
         (1, 'Action'),

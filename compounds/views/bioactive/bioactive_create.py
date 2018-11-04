@@ -67,11 +67,13 @@ def process_activity(request):
     classification_choice = request.GET.get('classification_1', '')
     action_choice = request.GET.get('action')
     parent_classification = request.GET.get('parent_classification')
-    if category_choice and category_choice != '0':
+    if category_choice and category_choice == '1':
         classifications = Activity.classifications
         categories = [{'name': a[1]} for a in classifications]
         categories.insert(0, {'name': '-------'})
         return JsonResponse({'categories': categories}, safe=False)
+    elif category_choice and category_choice == '2' or category_choice == '':
+        return JsonResponse({'categories': None}, safe=False)
     if classification_choice and classification_choice.isnumeric():
         choice = Activity.map_to_classification(classification_choice)
         activities = list(Activity.objects.actions().filter(

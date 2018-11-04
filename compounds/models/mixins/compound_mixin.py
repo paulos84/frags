@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 import pubchempy as pcp
 import requests
 
+from compounds.utils.chem_data import dict_from_query_object
+from compounds.utils.generate_bioactives import FindActivity
+
 
 class CompoundMixin(models.Model):
     """
@@ -40,6 +43,10 @@ class CompoundMixin(models.Model):
         editable=False,
         blank=True,
     )
+    hit_count = models.IntegerField(
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         abstract = True
@@ -66,29 +73,35 @@ class CompoundMixin(models.Model):
         """
         Sets data for various fields. Assumes that if the object does not have inchikey data that it has a SMILES string
         """
-        if not all([self.smiles, self.iupac_name, self.cid_number, self.chemical_properties]):
+        if not all([self.smiles, self.cid_number, self.chemical_properties]):
             try:
                 pcp_data = pcp.get_compounds(self.inchikey, 'inchikey')[0] if hasattr(self, 'inchikey') else \
                     pcp.get_compounds(self.smiles, 'smiles')[0]
             except (IndexError, pcp.BadRequestError):
                 raise ValidationError('Something went wrong')
-            extra_chem_properties = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
-                                     'bond_stereo_count']
+
+            if not self.iupac_name:
+                self.iupac_name = pcp_data.iupac_name or 'n/a'
             self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
             self.set_chemical_data(
                 pcp_query=pcp_data,
-                additional=extra_chem_properties if additional_data else None
+                additional=additional_data
             )
         if not self.chemical_name:
             self.chemical_name = self.scrape_compound_name(self.cid_number) or \
                                  self.synonyms.split(',')[0] if self.synonyms != 'n/a' else ''
         if cid2 and len(self.smiles.split('.')) > 1:
             try:
-                self.cid_number_2 = pcp.get_compounds(
-                    self.smiles.split('.')[0], 'smiles'
-                )[0].cid
+                self.cid_number_2 = pcp.get_compounds(self.smiles.split('.')[0], 'smiles')[0].cid
             except (IndexError, pcp.BadRequestError):
                 pass
+        if len(self.smiles) > 200:
+            self.smiles = ''
+        if self.iupac_name and len(self.iupac_name) > 250:
+            self.iupac_name = ''
+        if hasattr(self, 'activity') and not self.activity and hasattr(self, 'category') and self.category == 1:
+            act_find = FindActivity(self.chemical_name)
+            self.activity = act_find.activity
         super(CompoundMixin, self).save(*args, **kwargs)
 
     def set_chemical_data(self, pcp_query, additional=None):
@@ -100,23 +113,7 @@ class CompoundMixin(models.Model):
         """
         self.cid_number = pcp_query.cid
         self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
-        additional = additional if additional else []
-        self.chemical_properties = self.dict_from_query_object(pcp_query, additional=additional)
-
-    def dict_from_query_object(self, pcp_data, additional):
-        chem_dict = {a: getattr(pcp_data, b) for a, b in
-                     (('xlogp', 'xlogp'), ('hac', 'heavy_atom_count'), ('rbc', 'rotatable_bond_count'))}
-        chem_dict.update({
-            'mw': int(pcp_data.molecular_weight),
-            'synonyms': ', '.join(pcp_data.synonyms[:5]),
-            'hetac': len([i for i in self.smiles.split('.')[0] if i in
-                          ['N', 'S', 'O', 'Cl', 'F', 'Br', 'B', 'P']])
-        })
-        extra_available = ['h_bond_acceptor_count', 'h_bond_donor_count', 'complexity', 'atom_stereo_count',
-                           'bond_stereo_count']
-        chem_dict.update({k if k != 'rotable_bond_count' else 'rbc': int(getattr(pcp_data, k))
-                          for k in additional if k in extra_available})
-        return chem_dict
+        self.chemical_properties = dict_from_query_object(self.smiles, pcp_query, additional=additional)
 
     @staticmethod
     def scrape_compound_name(cid_number):

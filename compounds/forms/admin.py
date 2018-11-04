@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from compounds.models import Activity, Substructure
+from compounds.models import Activity, Bioactive, Substructure
 
 
 class ActivityAdminForm(forms.ModelForm):
@@ -37,3 +37,13 @@ class SubstructureAdminForm(forms.ModelForm):
         self.fields['iupac_name_pattern'].delimiter = '|'
         self.fields['iupac_name_pattern'].help_text = 'Substring patterns delimited by |'
         self.fields['smiles'].required = True
+
+
+class BioactiveAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Bioactive
+        fields = '__all__'
+        widgets = {
+            'notes': forms.Textarea(attrs={'rows': 3, 'cols': 60}),
+        }

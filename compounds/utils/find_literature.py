@@ -28,7 +28,7 @@ class FindLiterature:
 
     def get_results_ids(self):
         if self.chemical_name:
-            self.synonyms[-1] = self.chemical_name
+             self.synonyms[-1] = self.chemical_name
         query = self.synonyms[0]
         for s in self.synonyms[1:-1]:
             query += '%5b%5d+OR+{}'.format(s)

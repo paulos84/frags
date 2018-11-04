@@ -54,6 +54,12 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
             'substructures': BioactiveCore.compound_matches(compound),
             'cid_string': compound.cid_number_2 or compound.cid_number,
         })
+        if not self.request.user.is_superuser:
+            obj = self.get_object()
+            if not obj.hit_count:
+                obj.hit_count = 0
+            obj.hit_count += 1
+            obj.save()
         return context
 
     def get_initial(self):

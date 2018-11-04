@@ -54,7 +54,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
       $(document).ready(function() {
+          $("#classification_1").hide();
+          $("#action").hide();
           $("#mechanism_id").hide();
+          $('label[for=classification_1], input#classification_1').hide();
+          $('label[for=action], input#action').hide();
           $('label[for=mechanism_id], input#mechanism_id').hide();
       });
       $("#cas_number_field_id").change(function () {
@@ -135,14 +139,26 @@
         },
         dataType: 'json',
         success: function (data) {
-            $('#classification_1').empty();
-            $('#action').empty();
+            if (!data.categories) {
+              $("#classification_1").hide();
+              $("#action").hide();
+              $("#mechanism_id").hide();
+              $('label[for=classification_1], input#classification_1').hide();
+              $('label[for=action], input#action').hide();
+              $('label[for=mechanism_id], input#mechanism_id').hide();
+            } else if (data.categories) {
+            $('#classification_1').show();
+            $('#action').show();
+            $('label[for=classification_1], input#classification_1').show();
+            $('label[for=action], input#action').show();
             $('#mechanism_id').empty();
+            $('#classification_1').empty();
             $.each(data.categories, function(key, value) {
                 $("#classification_1")
                     .append($('<option>', { value : key })
                     .text(value.name));
             });
+            }
         }
       });
     });

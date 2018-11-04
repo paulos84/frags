@@ -42,11 +42,12 @@ def process_cas(request):
     try:
         smiles = cirpy.query(cas_no, 'smiles')[0].value
         pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
+        print(pcp_query)
+        cid_no = pcp_query.cid
     except IndexError:
         return JsonResponse({
             'error': 'No compound found for this CAS number'
         })
-    cid_no = pcp_query.cid
     if smiles and cid_no:
         data = {
             'chemical_name': Odorant.scrape_compound_name(cid_no),

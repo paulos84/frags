@@ -2,12 +2,12 @@
 import re
 
 from django.db import models, IntegrityError
+from django.db.utils import DataError
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from rdkit import Chem
 
-from compounds.models import Activity
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
 from compounds.utils.generate_bioactives import (
@@ -41,12 +41,22 @@ class Bioactive(CompoundMixin, models.Model):
         blank=True,
         null=True,
     )
+    notes = models.CharField(
+        max_length=500,
+        verbose_name='extra information',
+        blank=True,
+        null=True,
+    )
     cid_number_2 = models.IntegerField(
         verbose_name='Anionic form CID number',
         blank=True,
         null=True,
     )
-
+    approval_date = models.DateField(
+        null=True,
+        blank=True,
+        db_index=True,
+    )
     objects = BioactiveManager()
 
     key_map = {'mw': 'molecular weight', 'hac': 'heavy atom count', 'hetac': 'heteroatom count',
@@ -136,32 +146,35 @@ class Bioactive(CompoundMixin, models.Model):
 
     @classmethod
     def create_recent_drugs(cls):
-        compounds = RecentDrugs().drugs_data
+        cpd_finder = RecentDrugs()
+        compounds = cpd_finder.data
         for cpd in compounds:
             activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
-            except IntegrityError:
+            except (DataError, IntegrityError, ValueError):
                 pass
 
     @classmethod
     def create_archived_drugs(cls, month):
         """ month e.g. 'august-2018' """
-        compounds = ArchivedDrugs(month).drugs_data
+        cpd_finder = ArchivedDrugs(month)
+        compounds = cpd_finder.data
         for cpd in compounds:
             activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
-            except (IntegrityError, ValueError):
+            except (DataError, IntegrityError, ValueError):
                 pass
 
     @classmethod
-    def create_from_list(cls, names_list, activity=None):
-        compounds = DrugsFromNames(names_list).drugs_data
+    def create_from_names(cls, names_list, activity=None):
+        cpd_finder = DrugsFromNames(names_list)
+        compounds = cpd_finder.data
         for cpd in compounds:
             if activity is None:
                 activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
-            except IntegrityError:
+            except (DataError, IntegrityError, IndexError):
                 pass

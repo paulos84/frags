@@ -1,24 +1,47 @@
 from datetime import datetime, date
 
 from bs4 import BeautifulSoup
+from django.conf import settings
 import cirpy
 import pubchempy as pcp
 import requests
 
 from compounds.models import Activity
-from compounds.models.mixins import CompoundMixin
+from compounds.utils.chem_data import dict_from_query_object
 
 
 class BaseFinder:
-    url = 'https://www.drugs.com/newdrugs.html'
-    page = requests.get(url).content
-    soup = BeautifulSoup(page, 'lxml')
-    blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
+    if not settings.DEBUG:
+        url = 'https://www.drugs.com/newdrugs.html'
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, 'lxml')
+        blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
+    names_dates = None, None
+    _data = None
+
+    @property
+    def data(self):
+        if self._data:
+            return self._data
+        self._data = self.set_chem_data()
+        return self._data
 
     @staticmethod
-    def extract_name(block):
-        raw_text = block.find('a').next_sibling
-        return raw_text[raw_text.find('(') + 1: raw_text.find(')')]
+    def extract_name_date(block, default_dt=None):
+        try:
+            raw_text = block.find('a').next_sibling
+            name = raw_text[raw_text.find('(') + 1: raw_text.find(')')]
+        except AttributeError:
+            return '', ''
+        date_approved = None
+        if default_dt is not None:
+            date_line = block.find('b', text='Date of Approval:')
+            if not date_line:
+                date_search = [block.find('p').find('span', text=text) for text in
+                               ['Date of Approval:', 'New Indication Approved:', 'Patient Population Altered:']]
+                date_line = date_search[0] if any(date_search) else None
+            date_approved = datetime.strptime(date_line.next_sibling.strip(), '%B %d, %Y') if date_line else default_dt
+        return name, date_approved
 
     def set_cids(self):
         def parse_cid(name):
@@ -28,23 +51,23 @@ class BaseFinder:
             meta_tag = soup.find('meta', attrs={"name": "pubchem_uid_value"})
             if hasattr(meta_tag, 'attrs'):
                 return meta_tag.attrs['content']
-        cid_data = [{'cid_number': parse_cid(name), 'chemical_name': name.capitalize()}
-                    for name in self.names]
+        cid_data = [{'cid_number': parse_cid(name),
+                     'chemical_name': name.capitalize(),
+                     'approval_date': ap_date}
+                    for name, ap_date in self.names_dates]
         return [d for d in cid_data if d['cid_number']]
 
     def set_chem_data(self):
         for d in self.drugs_data:
-            name = d['chemical_name']
             try:
-                smiles = cirpy.query(name, 'smiles')[0].value
-                if '.' in smiles:
-                    smiles = [i for i in smiles.split('.') if len(i) > 5][0]
-                pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
+                pcp_query = pcp.get_compounds(d['cid_number'], 'cid')[0]
+                smiles = pcp_query.canonical_smiles
+
                 d.update({
                     'smiles': smiles,
                     'inchikey': pcp_query.inchikey,
                     'iupac_name': pcp_query.iupac_name or cirpy.resolve(smiles, 'iupac_name', ['smiles']),
-                    'chemical_properties': CompoundMixin.dict_from_query_object(smiles, pcp_query, additional=True),
+                    'chemical_properties': dict_from_query_object(smiles, pcp_query, additional=True),
                 })
                 if len(smiles.split('.')) > 1:
                     d.update({
@@ -52,21 +75,24 @@ class BaseFinder:
                     })
             except (IndexError, TypeError, pcp.BadRequestError):
                 self.drugs_data.remove(d)
+        return self.drugs_data
 
 
 class DrugsFromNames(BaseFinder):
 
     def __init__(self, names):
-        self.names = names
+        self.names_dates = [(name, None) for name in names]
         self.drugs_data = self.set_cids()
         self.set_chem_data()
 
 
 class RecentDrugs(BaseFinder):
+    default_date = datetime.today().date()
 
     def __init__(self):
         self.recent = [b for b in self.blocks if self.check_month(b)]
-        self.names = [self.extract_name(b) for b in self.recent if self.extract_name(b).isalpha()]
+        self.names_dates = [self.extract_name_date(block, datetime.today().date())
+                            for block in self.recent if self.extract_name_date(block)[0].isalpha()]
         self.drugs_data = self.set_cids()
         self.set_chem_data()
 
@@ -86,9 +112,14 @@ class ArchivedDrugs(BaseFinder):
         page = requests.get(url).content
         soup = BeautifulSoup(page, 'lxml')
         blocks = soup.find_all('div', {'class': 'newsItem'})
-        self.names = [self.extract_name(b) for b in blocks if self.extract_name(b).isalpha()]
+        self.names_dates = [self.extract_name_date(b, self.default_date(month)) for b in blocks
+                            if self.extract_name_date(b)[0].isalpha()]
         self.drugs_data = self.set_cids()
-        self.set_chem_data()
+
+    @staticmethod
+    def default_date(month):
+        date_string = month.split('-')[0].capitalize() + ' 1, ' + month.split('-')[1]
+        return datetime.strptime(date_string, '%B %d, %Y')
 
 
 class FindActivity:

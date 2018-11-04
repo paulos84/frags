@@ -2,12 +2,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path
 
-from compounds.views import (BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
-                             BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
-                             CompoundSourceListView, LiteratureRefsView, OdorantCreateView, OdorantDetailView,
-                             OdorantUpdateView, SubstructureListView, SubstructureDetail, UserSubstructureDetail,
-                             UserCompoundNotesDeleteView, UserCompoundSourceListView, UserActivityListView,
-                             MechanismListView)
+from compounds.views import (
+    BioactiveApprovalsListView, BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
+    BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView, CompoundSourceListView,
+    LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView, SubstructureListView,
+    SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView, UserCompoundSourceListView,
+    UserActivityListView, MechanismListView, OligosaccharideListView,
+                             )
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
@@ -20,6 +21,7 @@ urlpatterns = [
     path('bioactives/<category>', BioactiveListView.as_view(), name='bioactive-list'),
     path('bioactive/<int:pk>', BioactiveDetailView.as_view(), name='bioactive-detail'),
     path('bioactive/add', BioactiveCreateView.as_view(), name='bioactive-add'),
+    path('bioactive/oligosaccharides', OligosaccharideListView.as_view(), name='oligosaccharides'),
     path('bioactive/classifications/<classification>', BioactiveClassificationListView.as_view(),
          name='bioactive-classifications'),
     path('bioactive/drug-action/<action>', BioactiveDrugActionListView.as_view(), name='bioactive-actions'),
@@ -32,6 +34,7 @@ urlpatterns = [
          name='bioactive-name-filter'),
     path('bioactive/substructures', BioactiveCoreListView.as_view(), name='bioactive-cores'),
     path('bioactive/substructure/<slug>', BioactiveCoreMatchList.as_view(), name='bioactive-core-matches'),
+    path('bioactive/recent-approvals', BioactiveApprovalsListView.as_view(), name='bioactive-approvals'),
     path('odorant/all', OdorantListView.as_view(), name='all-odorants'),
     path('odorant/search/<field>/<search_query>', OdorantSearchFilterListView.as_view(), name='odorant-name-filter'),
     path('odorant/filter/<chem_type>', OdorantChemFilterListView.as_view(), name='chem-filter'),

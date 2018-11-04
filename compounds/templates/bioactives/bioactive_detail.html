@@ -19,8 +19,15 @@
     {% else %}
         <h5 class="intro">{{ bioactive.iupac_name }}</h5>
     {% endif %}
-    <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
+    {% if bioactive.smiles %}
+        <p><strong>SMILES:</strong> {{ bioactive.smiles }}</p>
+    {% endif %}
+    {% if bioactive.inchikey %}
     <p><strong>InChIKey:</strong> {{ bioactive.inchikey }}</p>
+    {% endif %}
+    {% if bioactive.notes %}
+    <p>{{ bioactive.notes }}</p>
+    {% endif %}
     <div class="btn-group" role="group" style="margin-top:4px; ">
         <a href="{% url 'literature-references' pk=bioactive.pk compound_type='bioactive' %}">
             <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">Literature references</button></a>
@@ -136,43 +143,47 @@
         <p><strong>Mechanism:</strong> {{ bioactive.mechanism.name }}</p>
     </div>
     {% endif %}
+    {% if bioactive.approval_date %}
+    <div style=" position:relative; top:24px; width:280px; left:12px">
+        <p><strong>Date of approval:</strong> {{ bioactive.approval_date }}</p>
+    </div>
+    {% endif %}
 </div>
 
-<div class="col-sm-10 " style="margin-top:10px">
+<div class="col-sm-5" style="margin-top:30px">
         {% if user.is_authenticated %}
         <div id="user-notes" style="width: 460px">
-        {% if user_notes %}
-            <div><p><strong>My notes</strong></div>
-            {{ user_notes }}
-        </div>
-        <div id="notes-form" style="display: none; width: 460px">
-            <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form form2 %}
-                <button type="submit"  class="btn btn-primary" >
+            {% if user_notes %}
+                <div><p><strong>My notes</strong></div>
+                {{ user_notes }}
+            </div>
+            <div id="notes-form" style="display: none; width: 460px">
+                <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form2 %}
+                    <button type="submit"  class="btn btn-primary" >
+                    <span class="glyphicon glyphicon"></span>Submit</button>
+                </form>
+            </div>
+            <div style="position: relative; top: 13px; width:400px;">
+                <div style="float: left; width: 80px; ">
+                    <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
+                            onclick="$('#user-notes, #notes-form').toggle();">
+                    Edit</button></div>
+                <form method="POST" action="{% url 'user-notes-delete' model='bioactive' pk=user_notes_pk %}" >
+                    {% csrf_token %}
+                    <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');" style="color: #6aaf6a">
+                    <span class="glyphicon glyphicon"></span>Delete</button>
+                </form>
+            </div>
+        {% else %}
+            <form method="post" style="width: 460px">
+              {% csrf_token %}
+              {% bootstrap_form form2 %}
+            <button type="submit"  class="btn btn-primary" >
                 <span class="glyphicon glyphicon"></span>Submit</button>
             </form>
-        </div>
-        <div style="position: relative; top: 13px; width:400px;">
-            <div style="float: left; width: 80px; ">
-                <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
-                        onclick="$('#user-notes, #notes-form').toggle();">
-                Edit</button></div>
-            <form method="POST" action="{% url 'user-notes-delete' model='bioactive' pk=user_notes_pk %}" >
-                {% csrf_token %}
-                <button type="submit"  class="btn btn-secondary" onclick="return confirm('Are you sure?');" style="color: #6aaf6a">
-                <span class="glyphicon glyphicon"></span>Delete</button>
-            </form>
-        </div>
-        </div>
-    {% else %}
-        <form method="post" style="width: 460px">
-          {% csrf_token %}
-          {% bootstrap_form form2 %}
-        <button type="submit"  class="btn btn-primary" >
-            <span class="glyphicon glyphicon"></span>Submit</button>
-        </form>
-    {% endif %}
+        {% endif %}
     {% else %}
             <form method="post" style="width: 460px" novalidate>
               {% csrf_token %}
@@ -181,6 +192,14 @@
                 <span class="glyphicon glyphicon"></span>Submit</button>
             </form>
     {% endif %}
+</div>
+<div class="col-sm-5" style="margin-top:52px">
+    {% if bioactive.category == 1 or bioactive.category == 2 %}
+        <a href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+    {% endif %}
+
+
+
 </div>
 {% endblock %}
 

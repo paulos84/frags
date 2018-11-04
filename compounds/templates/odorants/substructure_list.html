@@ -12,8 +12,46 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-sm-10">
-    <p style="float: right; position:relative; right: 40px; ">Skip to: <a href="#stats_form"><strong>Chemical property statistics</strong></a></p>
+ <div class="col-sm-7" style="width: 600px; ">
+        {% if plot_div_hac %}
+        <div style="display: none" class="chem_data_plot" id="hac">
+            {{ plot_div_hac|safe }}
+            {{ plot_script_hac|safe }}
+        </div>
+        <div class="chem_data_plot" id="mw">
+            {{ plot_div_mw|safe }}
+            {{ plot_script_mw|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="xlogp">
+            {{ plot_div_xlogp|safe }}
+            {{ plot_script_xlogp|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="rbc">
+            {{ plot_div_rbc|safe }}
+            {{ plot_script_rbc|safe }}
+        </div>
+        <div style="display: none" class="chem_data_plot" id="hetac">
+            {{ plot_div_hetac|safe }}
+            {{ plot_script_hetac|safe }}
+        </div>
+        {% endif %}
+ </div>
+    <div class="col-sm-3" id="form_sidebar">
+        {% if plot_div_mw %}
+        <div style="position: relative; left:25px; margin-top: 26px; height: 350px; ">
+              {% bootstrap_form choice_form %}
+        </div>
+        {% endif %}
+    </div>
+
+<div class="col-sm-10" id="substruct_list">
+    <form method="get">
+        <div class="btn-group" role="group" style="position:relative; float:right; right: 94px; " id="stats_form">
+          <button type="submit" id="submit_button" name="stats_data" value='true' class="btn btn-primary" >
+              <span class="glyphicon glyphicon">
+            </span>Chemical property statistics</button>
+        </div>
+    </form>
     {% for acyclic_terpenoids in substructure_sets %}
     <table style="margin-bottom:18px">
     <h5 style="color:#4c4c4c; "><strong>{{ acyclic_terpenoids.label }}</strong></h5>
@@ -31,23 +69,29 @@
     {% endfor %}
     </table>
     {% endfor %}
-        <div id="stats">
-        {% if plot_div %}
-            {{ plot_div|safe }}
-            {{ plot_script|safe }}
-        {% endif %}
-        </div>
-        <div style="width: 250px; margin-top:16px; margin-left:16px; margin-bottom: 24px" id="stats_form" >
-        <form method="get" action="{{request.path}}#stats">
-            <div class="row">
-              {% bootstrap_form choice_form %}
-            </div>
-          </form>
-        </div>
 
 </div>
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+    $(document).ready(function(){
+
+        $("#id_property_choice").change(function () {
+          var choice = $("#id_property_choice").val();
+          $(".chem_data_plot").hide();
+          $("#" + choice).show();
+        });
+
+        var isclicked = "{{ data_display }}";
+        if (isclicked){
+          $("#submit_button").hide();
+        };
+
+    });
+
+
+    </script>
+
 {% endblock %}

@@ -28,7 +28,7 @@ class CompoundSourceCreateForm(forms.ModelForm):
 
     class Meta:
         model = CompoundSource
-        fields = ['price', 'currency', 'amount', 'unit', 'specification', 'supplier', 'product_number', 'url']
+        fields = ['price', 'currency', 'amount', 'unit', 'specification', 'supplier', 'url']
         labels = {
             'url': 'Webpage URL',
             'unit': 'Units'
@@ -39,5 +39,5 @@ class CompoundSourceCreateForm(forms.ModelForm):
         super(CompoundSourceCreateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['style'] = "width:{}px".format(width or 300)
-            if field not in ['product_number', 'url']:
+            if field not in ['specification', 'url']:
                 self.fields[field].required = True

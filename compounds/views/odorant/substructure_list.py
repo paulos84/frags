@@ -7,7 +7,7 @@ from bokeh.plotting import figure
 from django.views.generic import TemplateView, ListView
 
 from compounds.models import Odorant, Substructure, OdorType
-from compounds.forms import ChemDataChoiceForm
+from compounds.forms import ChemDataChoiceSubmitForm
 from compounds.utils.chem_data import chemical_properties_label_map, colors
 from compounds.views.mixins.search_filter import OdorantSearchFilterMixin
 
@@ -26,22 +26,24 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
                 {'subset': Substructure.objects.cycloaliphatic_ketones(), 'label': 'Damascones and Ionones'},
                 {'subset': Substructure.objects.miscellaneous(), 'label': 'Miscellaneous'},
             ],
-            'choice_form': ChemDataChoiceForm,
+            'choice_form': ChemDataChoiceSubmitForm,
             'odor_types': OdorType.objects.values('term'),
         })
-        property_choice = self.request.GET.get('property_choice')
-        if property_choice:
-            plot = self.make_plot(property_choice)
-            script, div = components(plot, CDN)
-            context['plot_script'] = script
-            context['plot_div'] = div
+        if self.request.GET.get('stats_data'):
+            for cp in chemical_properties_label_map.keys():
+                plot = self.make_plot(cp)
+                if plot:
+                    script, div = components(plot, CDN)
+                    context['plot_script' + '_' + cp] = script
+                    context['plot_div' + '_' + cp] = div
+            context['data_display'] = 'true'
         return context
 
     @staticmethod
     def make_plot(chem_property):
         averages = Substructure.compound_sets_averages(chem_property)
         plot_data = list(averages.keys()), list(averages.values())
-        title = chemical_properties_label_map.get(chem_property, chem_property)
+        title = 'Average ' + chemical_properties_label_map.get(chem_property, chem_property).lower()
         source = ColumnDataSource(data=dict(substructures=plot_data[0], avg_vals=plot_data[1],
                                             color=colors[:len(plot_data[0])]))
         max_val = max(plot_data[1])

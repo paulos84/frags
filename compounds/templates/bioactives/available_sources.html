@@ -16,7 +16,7 @@
 
     </ul>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-10" style="margin-top: 24px; ">
     {% if messages %}
     {% bootstrap_messages %}
     {% endif %}
@@ -28,10 +28,9 @@
             <tr>
                 <th></th>
                 <th>Price/Amount</th>
+                <th>Webpage</th>
                 <th>Specification</th>
                 <th>Supplier</th>
-                <th>P/N</th>
-                <th>Webpage</th>
             </tr>
         </thead>
         <tbody>
@@ -40,10 +39,9 @@
             <tr>
                 <td><input type="checkbox" name="save_source_ids" value="{{ source.id }}"></td>
                 <td>{{ source.summary_display }}</td>
-                <td>{{ source.specification|truncatechars:24 }}</td>
-                <td>{{ source.supplier|truncatechars:24 }}</td>
-                <td>{{ source.product_number|truncatechars:11 }}</td>
-                <td><a href="{{ source.url }}">{{ source.url|truncatechars:20 }}</a></td>
+                <td><a href="{{ source.url }}">{{ source.url|truncatechars:46 }}</a></td>
+                <td>{{ source.specification|truncatechars:46 }}</td>
+                <td>{{ source.supplier|truncatechars:30 }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -65,9 +63,9 @@
         </form>
         {% endif %}
 </div>
-<div class="col-sm-4">
+<div class="col-sm-5" style="margin-top: 24px; ">
     <h5 style="position:relative; margin-top: 16px"><strong>Post source</strong></h5>
-    <form method="post">
+    <form method="post" >
       {% csrf_token %}
       {{ form.non_field_errors }}
 
@@ -76,7 +74,7 @@
         {{ hidden_field }}
       {% endfor %}
 
-      <table >
+      <table>
           <div class="form-group">
         {% for field in form.visible_fields %}
           <tr>
@@ -89,10 +87,18 @@
         {% endfor %}
               </div>
       </table>
-        <button style="margin-top:12px; " type="submit" name="add_source" class="btn btn-primary" >
-        <span class="glyphicon glyphicon"></span>Submit</button>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        <div style="margin-top:16px; " class="g-recaptcha" data-sitekey="..............."></div>
+        {% if user.is_authenticated %}
+            <button style="margin-top:12px; " type="submit" name="add_source" class="btn btn-primary" >
+            <span class="glyphicon glyphicon"></span>Submit</button>
+        {% else %}
+            <button style="margin-top:12px; " type="submit" name="add_source" class="btn btn-primary" disabled>
+            <span class="glyphicon glyphicon"></span>Submit</button>
+        {% endif %}
     </form>
 </div>
+<div class="col-sm-5" style="margin-top: 24px; ">
+   <a style="position: relative; float: right; right: 20px " href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+</div>
+
+
 {% endblock %}

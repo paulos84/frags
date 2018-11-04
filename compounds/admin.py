@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from compounds.forms.admin import ActivityAdminForm, SubstructureAdminForm
+from compounds.forms.admin import ActivityAdminForm, BioactiveAdminForm, SubstructureAdminForm
 from compounds.models import (Activity, Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
                               CompoundSource, UserBioactive)
 
@@ -16,10 +16,11 @@ class ActivityAdmin(admin.ModelAdmin):
 
 @admin.register(Bioactive)
 class BioactiveAdmin(admin.ModelAdmin):
+    form = BioactiveAdminForm
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('chemical_properties', 'cid_number', 'iupac_name', 'smiles', 'cid_number_2')
+            return self.readonly_fields + ('chemical_properties', 'iupac_name', 'smiles')
         return self.readonly_fields
 
 
@@ -37,7 +38,7 @@ class OdorantAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing an existing object
-            return self.readonly_fields + ('cas_number', 'chemical_properties', 'cid_number', 'iupac_name', 'smiles')
+            return self.readonly_fields + ('cas_number', 'chemical_properties', 'iupac_name', 'smiles')
         return self.readonly_fields
 
 

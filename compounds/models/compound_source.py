@@ -53,11 +53,6 @@ class CompoundSource(models.Model):
         null=True,
         blank=True,
     )
-    product_number = models.CharField(
-        max_length=20,
-        default='',
-        blank=True,
-    )
     url = models.URLField(
         max_length=100,
         default='',

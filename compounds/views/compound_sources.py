@@ -48,7 +48,7 @@ class CompoundSourceListView(FormMixin, ListView):
     def post(self, request, *args, **kwargs):
         if 'add_source' in request.POST:
             form = self.get_form()
-            if form.is_valid() and request.recaptcha_is_valid:
+            if form.is_valid() and request.user.is_authenticated:
                 return self.form_valid(form)
         elif 'save_source_ids' in request.POST:
             model_kw, user_model = ('user_odorant', UserOdorant) if isinstance(self.compound, Odorant) \

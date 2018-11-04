@@ -71,15 +71,17 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
         return cleaned_arrays
 
     @classmethod
-    def compound_sets_stats(cls):
-        properties = chemical_properties_label_map.keys()
-        core_set = cls.objects.medicinal().prefetch_related('bioactives').order_by('name')
-        bioactive_properties = [(c.name, c.bioactive_set_properties) for c in core_set]
-        data = {}
-        for chem_prop in properties:
-            data[chem_prop] = [(c.name, c.bioactives.all().chemical_property_avg(chem_prop).get('as_float__avg'))
-                               for c in core_set]
-        return data, bioactive_properties
+    def compound_sets_stats(cls, core_set):
+        chem_properties = chemical_properties_label_map.keys()
+        avg_data = {chem_prop: [] for chem_prop in chem_properties}
+        bioactive_properties = []
+        for core in core_set:
+            bioactive_properties.append((core.name, core.bioactive_set_properties))
+            for chem_prop in chem_properties:
+                avg_data[chem_prop].append(
+                    (core.name, core.bioactives.all().chemical_property_avg(chem_prop).get('as_float__avg'))
+                )
+        return avg_data, bioactive_properties
 
     @classmethod
     def compound_matches(cls, compound):

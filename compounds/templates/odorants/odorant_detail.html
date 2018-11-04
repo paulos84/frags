@@ -104,7 +104,7 @@
                 <span class="glyphicon glyphicon"></span>Delete</button>
             </form>
         </div>
-        </div>
+
     {% else %}
         <form method="post" style="width: 460px; ">
           {% csrf_token %}
@@ -121,5 +121,8 @@
                 <span class="glyphicon glyphicon"></span>Submit</button>
             </form>
     {% endif %}
+    <div style="margin-top:26px">
+       <a href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+    </div>
 </div>
 {% endblock %}

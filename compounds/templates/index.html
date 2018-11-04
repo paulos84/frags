@@ -1,14 +1,15 @@
 {% extends 'base_bioactive_generic.html' %}
 {% load staticfiles %}
 
-{% block title %}<title>FuncMols - Home</title>{% endblock %}
+{% block title %}<title>FuncMols</title>{% endblock %}
 
 {% block head %}
-<script src="//3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
+    <script src="//3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
+    <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
 {% endblock %}
 
 {% block sidebar %}
-<div class="col-sm-0"></div>
+    <div class="col-sm-0"></div>
 {% endblock %}
 
 {% block content %}
@@ -28,13 +29,14 @@
             <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
         {% endfor %}
         </ul>
+        <a href="{% url 'bioactive-approvals' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Recent drug approvals</a>
     </div>
 </div>
 
 <div class="container">
     <div style="margin-top: 20px; ">
     <p style="color: #47607E;font-size: 2.2em" class="w3-center"><span style="font-size: 1.2em; margin-top: 10px; ">FuncMols</span>
-    <span style="font-size: small">chemical information access and storage</span>
+    <span style="font-size: small">functional molecules information</span>
     <span style="float:right; font-size: small; position: relative; right:34px; margin-top:20px; ">
         <a href="{% url 'about'%}#basic_usage">Basic usage</a> information</span>
 </p>
@@ -63,6 +65,8 @@
         <div style="height: 160px; width: 260px; position: relative; margin-top:25px" id="3dmol-viewer3" class="viewer_3Dmoljs" data-cid="5350" data-backgroundcolor="0xffffff" data-style="stick"></div>
             <a href="{% url 'bioactive-list' category='food' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
                 Nutraceutical compounds<span class="glyphicon glyphicon"></span></button></a>
+            <a href="{% url 'oligosaccharides' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
+                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
         </div>
         </div>
     </div>

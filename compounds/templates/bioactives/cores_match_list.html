@@ -80,15 +80,28 @@
 
     <div class="col-sm-3">
         <div class="btn-group" role="group" style="width: 280px; position: relative; margin-left: 44px; ">
-        <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;"
-            onclick="$('.bioactive_mechanism').toggle();">Show mechanisms</button>
-        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">All drug actions<span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            {% for action in drug_actions %}
-                <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
-            {% endfor %}
-        </ul>
-        </div>
+        {% if category == 1 %}
+            <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;"
+                onclick="$('.bioactive_mechanism').toggle();">Show mechanisms</button>
+            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">All drug actions<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                {% for action in drug_actions %}
+                    <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
+                {% endfor %}
+            </ul>
+        {% elif category == 2 %}
+            <span >
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Categories<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                {% for substruct in substructures %}
+                    <li><a href="{% url 'bioactive-core-matches' slug=substruct.slug %}">{{ substruct.name|capfirst }}</a></li>
+                {% endfor %}
+                </ul>
+                <a href="{% url 'oligosaccharides' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
+            </span>
+        {% endif %}
+         </div>
     </div>
 
     {% if bioactive_list %}

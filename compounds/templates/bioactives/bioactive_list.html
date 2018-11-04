@@ -11,15 +11,17 @@
       {% bootstrap_messages %}
     {% endif %}
 
-    {% if bioactive_list %}
-
-    <div class="col-sm-4">
+{% if bioactive_list %}
+<div class="col-sm-4">
         {% block page_header %}
         <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
         </h5>
         {% endblock %}
         </div>
-    <div class="col-sm-6" style="position: relative; left: 20px; margin-bottom: 10px; ">
+
+<div class="col-sm-6" style="position: relative; left: 20px; margin-bottom: 10px; ">
+
+        {% if category == 1 %}
         <span >
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -30,40 +32,70 @@
         </span>
         <span>
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Drug actions<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-            {% for action in drug_actions %}
-                <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
-            {% endfor %}
-            </ul>
-         </span>
-        {%if mechanisms %}
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                {% for mech in mechanisms %}
-                    <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></li>
+                {% for action in drug_actions %}
+                    <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
                 {% endfor %}
                 </ul>
-        {% endif %}
+        </span>
+            {%if mechanisms %}
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                    {% for mech in mechanisms %}
+                        <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></li>
+                    {% endfor %}
+                    </ul>
+            {% endif %}
+        {% elif category == 2 %}
+            <span >
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Categories<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                {% for substruct in substructures %}
+                    <li><a href="{% url 'bioactive-core-matches' slug=substruct.slug %}">{{ substruct.name|capfirst }}</a></li>
+                {% endfor %}
+                </ul>
+                <a href="{% url 'oligosaccharides' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
+            </span>
 
-    </div>
+    {% endif %}
 
-        <ul style="list-style-type: none;">
+</div>
+
+<div class="col-sm-10">
+
+        <ul style="list-style-type: none; position: relative; margin-top: 26px; ">
         {% for bioactive in bioactive_list %}
         <li>
             <table>
             <tr>
                 <th>
-                    <img class="structure-img" src={{ bioactive.structure_url }}
-                         title="{{ bioactive.iupac_name }}"  height="100" width="100">
+                    <a href="{{ bioactive.get_absolute_url }}">
+                        <img class="structure-img" src={{ bioactive.structure_url }}
+                            title="{{ bioactive.iupac_name }}"  height="100" width="100">
+                    </a>
                 </th>
                 <td>
                     <div style=" position:relative; left:13px; width: 440px">
                     <a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a>
                     </div>
                 </td>
+                {% if not approvals_list %}
                 <td style=" text-align:right; margin-left: 16px; color: grey ">
                         {{ bioactive.chemical_properties.synonyms|truncatechars:50 }}
-                   </td>
+                 </td>
+                {% else %}
+                 <td style=" text-align:left; margin-left: 4px ">
+                     <p>{{ bioactive.approval_date|date:"b Y"|capfirst }}</p>
+                     {% if bioactive.mechanism %}
+                        <p>{{ bioactive.mechanism }}</p>
+                     {% elif bioactive.action %}
+                        <p>{{ bioactive.action }}</p>
+                     {% else %}
+                        <p></p>
+                     {% endif %}
+                 </td>
+                {% endif %}
             </tr>
             </table>
         </li>

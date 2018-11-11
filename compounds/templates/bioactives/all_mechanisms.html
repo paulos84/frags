@@ -5,8 +5,13 @@
 {% block title %}<title>Mechanisms</title>{% endblock %}
 
 {% block head %}
+    <script src="{% static 'js/mechanisms.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
     <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
+	<style>
+	.mol-container {height: 400px; max-height: 400px; position: relative; }
+	</style>
 {% endblock %}
 
 {% block content %}
@@ -72,6 +77,26 @@
         {% endif %}
     </div>
 
+    <div class="col-sm-5 enz_view" id="enz-table" style="display:none">
+        <table class="table" id="protein_table">
+            <thead>
+                <tr>
+                    <th>Ref</th>
+                    <th>Target protein structure</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4 enz_view" style="display:none; " id="mol-viewer">
+       	<div id="container-01" class="mol-container"></div>
+    </div>
+    <div class="col-sm-1 enz_view" style="display:none; ">
+        <p style="margin-top: 22px; display:none" id="enz-loading">Loading ...</p>
+    </div>
+
 <div class="col-sm-4" id="mechanisms-column">
     {% regroup mechanism_list by action as actions_list %}
     <form method="get" onsubmit="return formValidate()">
@@ -85,7 +110,13 @@
                 <td style="display: none; " class="compare_prop"><input type="checkbox" name="selected_mechanisms" value="{{ mech.id }}"></td>
                 <td style="width: 310px">
                     <a href="{% url 'bioactive-mechanisms' action=action.grouper|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></td>
-                <td>{{mech.item_count}}</td>
+                <td><div class="mech-count">{{mech.item_count}}</div>
+                    <div class="enz-panel-button-container" style="display:none">
+                        {% if mech.enzymes.all %}
+                        <button value="{{ mech.id }}" type="button" class="enz-panel-button" title="View protein target"><span class="glyphicon glyphicon-leaf"></span></button>
+                        {% endif %}
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -97,11 +128,16 @@
     <button type="button" id="chem_prop" style="color: #428bca; " class="btn btn-secondary">View chemical property data</button></a>
     <div class="compare_prop" style="display: none; width: 250px; " id="stats_form">
           <button type="submit" id="submit_button" name="mean_data" value='true' class="btn btn-primary" ><span class="glyphicon glyphicon">
-            </span>Data relating to selected mechanisms</button>
+            </span>Show data</button>
+                <h6 id="sel_info_text" style="display: none; color: #428bca; ">Select from checkboxes</h6>
       </form>
     </div>
     <div>
-        <h5 id="error_text" style="display: none; color: orange; ">Select between 1 and 20 items</h5>
+        <h5 id="error_text" style="display: none; color: orange; ">Select 1 - 20 items</h5>
+    </div>
+    <div>
+        <button type="button" id="show-enz" style="color: #428bca; margin-top:22px; " class="btn btn-secondary">View target protein structures</button></a>
+        <h6 id="info_text" style="display: none; color: #428bca; ">Click a leaf button</h6>
     </div>
     <div style="width: 260px; margin-top: 40px; ">
         <form method="get">
@@ -126,49 +162,34 @@
 {% endblock %}
 
 {% block js %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-    var checkedCheckboxes = [];
-
-    $(document).ready(function(){
-
-        var height = $('#mechanisms-column').height()
-        $('.sidebar-nav').height(height)
-
-        var isclicked = "{{ data_display }}";
-        if (isclicked){
-          $(".compare_prop").show();
-          $("#submit_button").show();
-          $("#chem_prop").hide()
-        };
-
-        $("#chem_prop").click(function () {
-          $("#chem_prop").hide()
-          $(".compare_prop").show();
-          $("#submit_button").show();
-        });
-
-        $('#submit_button').click(function(){
-            checkedCheckboxes = []
-            $('input').each(function(){
-                if ($(this).is(':checked')) {
-                    checkedCheckboxes.push($(this).val())
-                }
-            });
-        });
-        $("#id_property_choice").change(function () {
-          var choice = $("#id_property_choice").val();
-          $(".chem_data_plot").hide();
-          $("#" + choice).show();
-          $("#sd_" + choice).show();
-        });
-
-    });
-    function formValidate(){
-        if (checkedCheckboxes.length < 1 || checkedCheckboxes.length > 20) {
-            $("#error_text").show();
-            return false;
-        };
+<script>
+$(document).ready(function(){
+    var isclicked = "{{ data_display }}";
+    if (isclicked){
+      $(".compare_prop").show();
+      $("#submit_button").show();
+      $("#chem_prop").hide()
     };
-    </script>
+   $('.enz-panel-button').click(function(){
+      $.ajax({
+        url: '{% url "all-mechanisms" %}',
+        data: {
+            'mechanism_id': $(this).val()
+        },
+        dataType: 'json',
+        success: function (data) {
+            $.each(data, function(key, val) {
+                let tds = '<td><button title=\"' + val.citation + ' PDB ID: ' + val.pdb_number + '\"><span class=\"glyphicon glyphicon-leaf\"></span></button></td> \
+                        <td><button type=\"button\" class=\"btn btn-primary enz-button\" value=\"' + val.pdb_number + '\">' + val.pdb_number + '</button></td> \
+                        <td>' + val.notes + '</td>';
+                $('#enz-table').append('<tr style="height:60px">' + tds + '</tr>');
+            });
+            $(".enz_view").show();
+            setProteinHeight();
+            $("html, body").scrollTop(0);
+        }});
+   });
+
+});
+</script>
 {% endblock %}

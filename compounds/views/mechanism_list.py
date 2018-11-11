@@ -5,10 +5,11 @@ from bokeh.models import ColumnDataSource
 from bokeh.plotting import figure
 from bokeh.resources import CDN
 from django.db.models import Count
+from django.http import JsonResponse
 from django.views.generic import ListView
 
 from compounds.forms import ChemDataChoiceSubmitForm, ClassficationChoiceForm
-from compounds.models import Activity
+from compounds.models import Activity, Enzyme
 from compounds.utils.chem_data import chemical_properties_label_map, colors
 
 
@@ -31,7 +32,14 @@ class MechanismListView(ListView):
             )
         return qs
 
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            return self.pdb_viewer()
+        return super(MechanismListView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
+        # if self.request.is_ajax():
+        #     self.pdb_viewer()
         context = super(MechanismListView, self).get_context_data(**kwargs)
         context.update({
             'filter_form': ClassficationChoiceForm,
@@ -71,11 +79,21 @@ class MechanismListView(ListView):
                                             color=colors[:len(plot_data[0])]))
         max_val = max(plot_data[1])
         title = chemical_properties_label_map.get(
-            chem_property, chem_property) + ' - ' + title_description + ' values for compounds with selected mechanisms'
+            chem_property, chem_property) + ' - ' + title_description + ' values'
         p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=350, title=title,
                    toolbar_location=None, tools="")
         p.vbar(x='mechanisms', top='avg_vals', width=0.9, color='color', source=source)
+        if len(plot_data[0]) < 3:
+            p.plot_width = 250 * len(plot_data[0])
         p.xaxis.major_label_orientation = pi / 4
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
         return p
+
+    def pdb_viewer(self):
+        mech_id = self.request.GET.get('mechanism_id')
+        protein_data = Enzyme.objects.filter(mechanism__id=mech_id).values('pdb_number', 'notes', 'citation')
+        return JsonResponse(
+            [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}
+             for a in protein_data], safe=False
+        )

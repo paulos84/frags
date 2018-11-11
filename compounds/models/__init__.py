@@ -2,6 +2,7 @@ from .activity import Activity
 from .bioactive import Bioactive
 from .bioactive_core import BioactiveCore
 from .compound_source import CompoundSource
+from .enzyme import Enzyme
 from .odorant import Odorant
 from .odor_type import OdorType
 from .substructure import Substructure
@@ -15,6 +16,7 @@ __all__ = [
     Bioactive,
     BioactiveCore,
     CompoundSource,
+    Enzyme,
     Odorant,
     OdorType,
     Profile,

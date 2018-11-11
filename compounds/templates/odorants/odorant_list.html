@@ -2,6 +2,10 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 
+{% block head %}
+    <script src="{% static 'js/odorant.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 {% if messages %}
     {% bootstrap_messages %}
@@ -10,10 +14,7 @@
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="top:10px; bottom:6px; left:185px">
 
          <label style="float:left; margin-top:6px; margin-right:4px; " class="text-muted" >Show: </label>
-            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
-                    onclick="$('.odor-terms').toggle();
-                             $('.compound-synonyms').toggle();">
-                Odor types</button>
+            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a">Odor types</button>
            {% if user.is_authenticated and chem_type %}
            <a href="{% url 'user-chem-filter' chem_type=chem_type %}">
                <button class="btn btn-secondary" style="color: #6aaf6a">
@@ -74,15 +75,3 @@
     {% endif %}
 </div>
 {% endblock %}
-
-{% block js %}
-    <script>
-    $("#show-odor").click(function () {
-      $(this).text(function(i, text){
-          return text === "Synonyms" ? "Odor types" : "Synonyms";
-      })
-   })
-    </script>
-{% endblock %}
-
-

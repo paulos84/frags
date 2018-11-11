@@ -50,6 +50,8 @@ class SubstructureListView(OdorantSearchFilterMixin, TemplateView):
         p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=350, title=title,
                    toolbar_location=None, tools="")
         p.vbar(x='substructures', top='avg_vals', width=0.9, color='color', source=source)
+        if len(plot_data[0]) < 4:
+            p.plot_width = 150 * len(plot_data[0])
         p.xaxis.major_label_orientation = pi / 4
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None

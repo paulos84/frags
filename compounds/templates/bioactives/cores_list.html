@@ -6,6 +6,7 @@
 {% block title %}<title>Substructures</title>{% endblock %}
 
 {% block head %}
+    <script src="{% static 'js/cores_list.js' %}"></script>
     <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
 {% endblock %}
@@ -96,28 +97,12 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/jquery.js' %}"></script>
     <script>
     $(document).ready(function(){
-
-        var height = $('#cores-column').height()
-        var height2 = $('#form_sidebar').height()
-        $('.sidebar-nav').height(height + height2)
-
-        $("#id_property_choice").change(function () {
-          var choice = $("#id_property_choice").val();
-          $(".chem_data_plot").hide();
-          $("#" + choice).show();
-          $("#sd_" + choice).show();
-        });
-
         var isclicked = "{{ data_display }}";
         if (isclicked){
           $("#submit_button").hide();
         };
-
     });
-
-
     </script>
 {% endblock %}

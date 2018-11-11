@@ -8,9 +8,9 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, TemplateView
 
 from compounds.forms import ChemDataChoiceSubmitForm
-from compounds.models import Activity, Bioactive, BioactiveCore
+from compounds.models import BioactiveCore
 from compounds.utils.chem_data import chemical_properties_label_map, colors
-from compounds.views.mixins import BioactiveContentMixin, BioactiveSearchFilterMixin
+from compounds.views.mixins import BioactiveContentMixin, BioactiveSearchFilterMixin, SelectedBioactivesMixin
 
 
 class BioactiveCoreListView(BioactiveSearchFilterMixin, TemplateView):
@@ -65,13 +65,12 @@ class BioactiveCoreListView(BioactiveSearchFilterMixin, TemplateView):
         return p
 
 
-class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, ListView):
+class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, SelectedBioactivesMixin, ListView):
     paginate_by = 28
     template_name = "bioactives/cores_match_list.html"
     model = BioactiveCore
     context_object_name = 'bioactive_list'
     bioactive_core = None
-    bioactives = None
     category = None
     names = []
 
@@ -85,27 +84,15 @@ class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, 
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveCoreMatchList, self).get_context_data(**kwargs)
-        selected_bioactives = self.request.GET.getlist('selected_bioactives')
-        if selected_bioactives:
-            id_list = [int(a) for a in selected_bioactives if a.isnumeric()]
-            bioactive_vals = Bioactive.objects.filter(
-                id__in=id_list
-            ).values(
-                'chemical_name',
-                'chemical_properties',
-                'cid_number',
-                'cid_number_2',
-                'iupac_name'
-            )
-            self.bioactives = bioactive_vals
-        if self.bioactives:
+        context['page_header'] = self.bioactive_core.name
+        if self.bioactive_vals:
             context.update({
                 'choice_form': ChemDataChoiceSubmitForm,
                 'data_display': 'true',
                 'cid_numbers': [{'number': b['cid_number_2'] or b['cid_number'],
                                  'name': b['chemical_name'][:23] + '...' if len(b['chemical_name']) > 25
                                  else b['chemical_name'][:23] or b['iupac_name'][:32]}
-                                for b in self.bioactives],
+                                for b in self.bioactive_vals],
             })
             properties = chemical_properties_label_map.keys()
             for cp in properties:
@@ -117,8 +104,8 @@ class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, 
 
     def make_plot(self, chem_property):
         self.names = [b['chemical_name'][:23] + '...' if len(b['chemical_name']) > 25
-                      else b['chemical_name'][:23] or b['iupac_name'][:32] for b in self.bioactives]
-        raw_vals = [b['chemical_properties'][chem_property] for b in self.bioactives
+                      else b['chemical_name'][:23] or b['iupac_name'][:32] for b in self.bioactive_vals]
+        raw_vals = [b['chemical_properties'][chem_property] for b in self.bioactive_vals
                     if isinstance(b['chemical_properties']['synonyms'], str)]
         plot_data = self.names, [0 if a is None else a for a in raw_vals]
         title = chemical_properties_label_map.get(chem_property, chem_property)
@@ -127,6 +114,8 @@ class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, 
         max_val = max(plot_data[1])
         p = figure(x_range=plot_data[0], y_range=(0, max_val + max_val / 3), plot_height=350, title=title,
                    toolbar_location=None, tools="")
+        if len(plot_data[0]) < 4:
+            p.plot_width = 150 * len(plot_data[0])
         p.vbar(x='mechanisms', top='avg_vals', width=0.9, color='color', source=source)
         p.xaxis.major_label_orientation = pi / 4
         p.xgrid.grid_line_color = None

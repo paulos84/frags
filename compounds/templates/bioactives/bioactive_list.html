@@ -4,24 +4,62 @@
 
 {% block title %}<title>{{ page_header|capfirst }}</title>{% endblock %}
 
+{% block head %}
+    <script src="{% static 'js/biolist.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
+	<style>
+	.mol-container {height: 400px; max-height: 400px; position: relative; }
+	</style>
+{% endblock %}
+
 {% block content %}
 <div class="col-sm-10">
+    {% if messages %}{% bootstrap_messages %}{% endif %}
+</div>
 
-    {% if messages %}
-      {% bootstrap_messages %}
-    {% endif %}
+{% if cid_numbers %}
+<div class="col-sm-10 mol-view">
+        <table class="table" >
+        {% for item in cid_numbers %}
+            {% if forloop.counter0|divisibleby:5 %}<tr>{% endif %}
+            <td style="border:none; ">
+                 <div style="height: 175px; width: 175px; position: relative; " id="3dmol-viewer"
+                    class='viewer_3Dmoljs' data-cid={{ item.number }} data-backgroundcolor='0xffffff' data-style='stick'>
+                </div>
+                {{ item.name }}
+            </td>
+            {% if forloop.counter|divisibleby:5 %}</tr>{% endif %}
+        {% endfor %}
+        </table>
+ </div>
+{% endif %}
+
+{% if proteins %}
+    <div class="col-sm-5 enz_view" id="enz-table" style="display:none">
+        <table class="table" id="protein_table">
+            <thead><tr><th>Ref</th>
+                    <th>Target protein structure</th>
+                    <th></th></tr>
+            </thead><tbody></tbody></table>
+    </div>
+    <div class="col-sm-4 enz_view" style="display:none; " id="mol-viewer">
+        <div id="container-01" class="mol-container"></div>
+    </div>
+    <div class="col-sm-1 enz_view" style="display:none; ">
+        <p style="margin-top: 22px; display:none" id="enz-loading">Loading ...</p>
+    </div>
+{% endif %}
 
 {% if bioactive_list %}
-<div class="col-sm-4">
+    <div class="col-sm-4">
         {% block page_header %}
-        <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
-        </h5>
+            <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
+            </h5>
         {% endblock %}
-        </div>
+    </div>
 
-<div class="col-sm-6" style="position: relative; left: 20px; margin-bottom: 10px; ">
-
-        {% if category == 1 %}
+    <div class="col-sm-6 btn-group" style="position: relative; left: 20px; margin-bottom: 10px; ">
+    {% if category == 1 and not proteins %}
         <span >
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
             <ul class="dropdown-menu">
@@ -37,16 +75,31 @@
                     <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
                 {% endfor %}
                 </ul>
-        </span>
-            {%if mechanisms %}
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                    {% for mech in mechanisms %}
-                        <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></li>
-                    {% endfor %}
-                    </ul>
-            {% endif %}
-        {% elif category == 2 %}
+            </span>
+    {% endif %}
+
+    {% if mechanisms %}
+        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Mechanisms<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+            {% for mech in mechanisms %}
+                <li><a href="{% url 'bioactive-mechanisms' action=current_action|slugify mechanism=mech.name|slugify %}">{{ mech.name }}</a></li>
+            {% endfor %}
+            </ul>
+    {% endif %}
+
+    {% if d3_struct %}
+        <form method="get">
+        <button type="button" id="chem_compare" style="color: #428bca; " class="btn btn-secondary">3D structures</button></a>
+        <button type="submit" id="submit_selection" class="btn btn-primary" style="display: none; "><span class="glyphicon glyphicon">
+        </span>View selected compounds</button>
+        <h5 id="error_text" style="display: none; color: orange; ">Select between 1 and 20 items</h5>
+    {% endif %}
+
+    {% if proteins %}
+            <button type="button" data-proteins="{{ proteins_json }}" id="proteins_button" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                </span>Show target proteins</button>
+
+    {% elif category == 2 %}
             <span >
                 <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Categories<span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -55,53 +108,46 @@
                 {% endfor %}
                 </ul>
                 <a href="{% url 'oligosaccharides' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
-                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
+                    Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
             </span>
+            {% endif %}
+    </div>
 
-    {% endif %}
-
-</div>
-
-<div class="col-sm-10">
-
-        <ul style="list-style-type: none; position: relative; margin-top: 26px; ">
-        {% for bioactive in bioactive_list %}
-        <li>
+    <div class="col-sm-10">
+            <ul style="list-style-type: none; position: relative; margin-top: 26px; " id="compounds_list">
+            {% for bioactive in bioactive_list %}
+            <li>
             <table>
-            <tr>
-                <th>
-                    <a href="{{ bioactive.get_absolute_url }}">
+            <tr><th><a href="{{ bioactive.get_absolute_url }}">
                         <img class="structure-img" src={{ bioactive.structure_url }}
-                            title="{{ bioactive.iupac_name }}"  height="100" width="100">
-                    </a>
+                            title="{{ bioactive.iupac_name }}"  height="100" width="100"></a>
                 </th>
+                <td style="display: none; position: relative; left: 6px; " class="compound_checkbox">
+                    <input type="checkbox" name="selected_bioactives" value="{{ bioactive.id }}"></td>
                 <td>
-                    <div style=" position:relative; left:13px; width: 440px">
-                    <a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a>
-                    </div>
+                    <div style=" position:relative; left:13px; width: 440px"><a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a></div>
                 </td>
-                {% if not approvals_list %}
-                <td style=" text-align:right; margin-left: 16px; color: grey ">
-                        {{ bioactive.chemical_properties.synonyms|truncatechars:50 }}
-                 </td>
-                {% else %}
+            {% if not approvals_list %}
+                <td style=" text-align:right; margin-left: 16px; color: grey ">{{ bioactive.chemical_properties.synonyms|truncatechars:50 }}</td>
+            {% else %}
                  <td style=" text-align:left; margin-left: 4px ">
                      <p>{{ bioactive.approval_date|date:"b Y"|capfirst }}</p>
                      {% if bioactive.mechanism %}
                         <p>{{ bioactive.mechanism }}</p>
                      {% elif bioactive.action %}
                         <p>{{ bioactive.action }}</p>
-                     {% else %}
-                        <p></p>
-                     {% endif %}
+                     {% else %} <p></p> {% endif %}
                  </td>
-                {% endif %}
-            </tr>
-            </table>
-        </li>
-        {% endfor %}
-        </ul>
-    {% else %}
+            {% endif %}
+            </tr></table>
+            </li>
+            {% endfor %}
+            </ul>
+            {% if d3_struct %}</form>{% endif %}
+
+
+
+{% else %}
     <div class="col-sm-5">
         <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
         </h5>
@@ -129,4 +175,18 @@
     {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var isclicked = "{{ data_display }}";
+        if (isclicked){
+          $(".compound_checkbox").show();
+          $("#submit_selection").show();
+          $("#chem_compare").hide();
+          var height = $('#compounds_list').height();
+          var mol_height = $('.mol-view').height();
+          $('.col-sm-2').height(height + mol_height);
+        };
+    </script>
 {% endblock %}

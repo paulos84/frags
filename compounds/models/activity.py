@@ -9,17 +9,17 @@ from compounds.utils.chem_data import chemical_properties_label_map
 class Activity(models.Model):
 
     classifications = [
-         ('AT', 'Alimentary tract and metabolism'),
-         ('AI', 'Antiinfectives'),
-         ('AN', 'Anticancer agents'),
-         ('AP', 'Antiparasitics'),
-         ('CV', 'Cardiovascular system'),
-         ('DM', 'Dermatologicals'),
-         ('GU', 'Genito-urinary and sex hormones'),
-         ('MI', 'Miscellaneous'),
-         ('MS', 'Musculo-skeletal system'),
-         ('NS', 'Nervous system'),
-         ('RS', 'Respiratory system'),
+        ('AT', 'Alimentary tract and metabolism'),
+        ('AI', 'Antiinfectives'),
+        ('AN', 'Anticancer agents'),
+        ('AP', 'Antiparasitics'),
+        ('CV', 'Cardiovascular system'),
+        ('DM', 'Dermatologicals'),
+        ('GU', 'Genito-urinary and sex hormones'),
+        ('MI', 'Miscellaneous'),
+        ('MS', 'Musculo-skeletal system'),
+        ('NS', 'Nervous system'),
+        ('RS', 'Respiratory system'),
     ]
     classification = models.CharField(
         choices=classifications,
@@ -38,7 +38,8 @@ class Activity(models.Model):
     )
     name = models.CharField(
         max_length=40,
-        help_text=''
+        help_text='',
+        db_index=True,
     )
     action = models.ForeignKey(
         'self',
@@ -92,3 +93,8 @@ class Activity(models.Model):
     def all_keywords(cls):
         vals = cls.objects.values_list('id', 'keywords', 'name')
         return {a[0]: a[1] or [] + [a[2]] for a in vals}
+
+    @classmethod
+    def classified_actions(cls):
+        return [{'actions': [a['name'] for a in Activity.objects.actions().filter(classification=b[0]).values('name')],
+                 'class_label': b[1]} for b in Activity.classifications]

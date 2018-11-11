@@ -3,16 +3,20 @@
 {% load bootstrap3 %}
 
 {% block head %}
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js"></script>
+    <script src="{% static 'js/core_matches.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
     <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
+	<style>
+	.mol-container {height: 400px; max-height: 400px; position: relative; }
+	#id_property_choice {width: 300px; }
+	</style>
 {% endblock %}
 
 {% block content %}
-<div class="col-sm-10">
 
-    <div class="col-sm-10">
-     {% if cid_numbers %}
+    {% if cid_numbers %}
+    <div class="col-sm-10 mol-view">
             <table class="table" >
             {% for item in cid_numbers %}
                 {% if forloop.counter0|divisibleby:5 %}<tr>{% endif %}
@@ -25,11 +29,11 @@
                 {% if forloop.counter|divisibleby:5 %}</tr>{% endif %}
             {% endfor %}
             </table>
-        {% endif %}
      </div>
+    {% endif %}
 
-    <div class="col-sm-7">
-        {% if plot_div_hac %}
+    {% if plot_div_hac %}
+    <div class="col-sm-6 stats-plot">
         <div style="display: none" class="chem_data_plot" id="hac">
             {{ plot_div_hac|safe }}
             {{ plot_script_hac|safe }}
@@ -50,36 +54,72 @@
             {{ plot_div_hetac|safe }}
             {{ plot_script_hetac|safe }}
         </div>
-        {% endif %}
     </div>
+    {% endif %}
 
-    <div class="col-sm-3">
-        {% if plot_div_mw %}
-        <div style="position: relative; left:25px; margin-top: 26px; height: 350px; ">
+    {% if plot_div_mw %}
+    <div class="col-sm-4">
+        <div style="position: relative; left:5px; margin-top: 26px; height: 350px; ">
             <form method="get">
               {% bootstrap_form choice_form %}
             </form>
         </div>
-        {% endif %}
     </div>
+    {% endif %}
 
-    <div class="col-sm-4">
+    {% if enzymes %}
+    <div class="col-sm-4 enz_view" id="enz-table" style="display:none">
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>Ref</th>
+                    <th>Enzyme</th>
+                    <th>Microbe source</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for enz in enzymes %}
+                <tr >
+                    <td><button title="{{ enz.citation }} PDB ID: {{ enz.pdb_number }}"><span class="glyphicon glyphicon-leaf"></span></button></td>
+                    <td><button type="button" class="btn btn-primary enz-button" value="{{ enz.pdb_number }}">{{ enz.name }}</button></td>
+                    <td>{{ enz.source }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-1 enz_view" style="display:none; " >
+        <p style="position:relative; margin-top: 22px; display:none" id="enz-loading">Loading ...</p>
+    </div>
+    <div class="col-sm-5 enz_view" style="display:none; " id="mol-viewer">
+       	<div id="container-01" class="mol-container"></div>
+    </div>
+    {% endif %}
+
+    <div class="col-sm-3">
         {% block page_header %}
-        <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
+        <h5 style="position:relative; "><strong>{{ page_header|capfirst }}</strong>
         </h5>
         {% endblock %}
     </div>
 
-    <form method="get" onsubmit="return formValidate()">
-    <div class="col-sm-3" style="position: relative; left: 20px; margin-bottom: 10px; ">
-        <button type="button" id="chem_compare" style="color: #428bca; " class="btn btn-secondary">Properties and 3D structures</button></a>
+    <form method="get">
+    <div class="col-sm-4" style="position: relative; margin-bottom: 10px; ">
+        {% if page_header == 'Oligosaccharides' %}
+        <button type="button" id="show_enz" style="color: #428bca; " class="btn btn-secondary">GOS-producing enzymes</button>
+        <!--suppress XmlDuplicatedId -->
+        <button type="button" id="chem_compare" style="color: #428bca; " class="btn btn-secondary">3D structures</button>
+        {% else %}
+        <!--suppress XmlDuplicatedId -->
+        <button type="button" id="chem_compare" style="color: #428bca; " class="btn btn-secondary">Properties and 3D structures</button>
+        {% endif %}
         <button type="submit" id="submit_selection" class="btn btn-primary" style="display: none; "><span class="glyphicon glyphicon">
            </span>Compare selected compounds</button>
             <h5 id="error_text" style="display: none; color: orange; ">Select between 1 and 20 items</h5>
     </div>
 
     <div class="col-sm-3">
-        <div class="btn-group" role="group" style="width: 280px; position: relative; margin-left: 44px; ">
+        <div class="btn-group" role="group" style="width: 280px; position: relative; margin-left: 4px; ">
         {% if category == 1 %}
             <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;"
                 onclick="$('.bioactive_mechanism').toggle();">Show mechanisms</button>
@@ -90,21 +130,18 @@
                 {% endfor %}
             </ul>
         {% elif category == 2 %}
-            <span >
-                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Categories<span class="caret"></span></button>
+                <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Phytochem categories<span class="caret"></span></button>
                 <ul class="dropdown-menu">
                 {% for substruct in substructures %}
                     <li><a href="{% url 'bioactive-core-matches' slug=substruct.slug %}">{{ substruct.name|capfirst }}</a></li>
                 {% endfor %}
                 </ul>
-                <a href="{% url 'oligosaccharides' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
-                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
-            </span>
         {% endif %}
          </div>
     </div>
 
     {% if bioactive_list %}
+    <div class="col-sm-10" >
     <ul style="list-style-type: none;" id="compound_list">
     {% for bioactive in bioactive_list %}
     <li>
@@ -135,8 +172,9 @@
     {% endfor %}
     </ul>
        </form>
+    </div>
 
-    {% else %}
+{% else %}
     <div class="col-sm-5">
         <h5 style="position:relative; left: 22px; "><strong>{{ page_header|capfirst }}</strong>
         </h5>
@@ -164,58 +202,20 @@
          <p style="margin-top:28px">No compounds matched this query</p>
     {% endif %}
     </div>
-</div>
 {% endblock %}
 
 
 {% block js %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-    var checkedCheckboxes = [];
-
-    $(document).ready(function(){
-
-        var height = $('#compounds_list').height()
-        $('.sidebar-nav').height(height);
-
         var isclicked = "{{ data_display }}";
         if (isclicked){
           $(".compound_checkbox").show();
           $("#submit_selection").show();
           $("#chem_compare").hide();
+          var height = $('#compounds_list').height();
+          var mol_height = $('.stats-plot').height();
+          var plot_height = $('.mol-view').height();
+          $('.col-sm-2').height(height + mol_height + plot_height);
         };
-
-        $("#chem_compare").click(function () {
-          $(".compound_checkbox").show();
-          $("#submit_selection").show();
-          $("#chem_compare").hide();
-        });
-
-        $('#submit_selection').click(function(){
-            checkedCheckboxes = []
-            $('input').each(function(){
-                if ($(this).is(':checked')) {
-                    checkedCheckboxes.push($(this).val())
-                }
-            });
-        });
-        $("#id_property_choice").change(function () {
-          var choice = $("#id_property_choice").val();
-          $(".chem_data_plot").hide();
-          $("#" + choice).show();
-        });
-        $("#show_activities").click(function () {
-          $(this).text(function(i, text){
-          return text === "Hide mechanisms" ? "Show mechanisms" : "Hide mechanisms";
-      })
-    })
-
-    });
-    function formValidate(){
-        if (checkedCheckboxes.length < 1 || checkedCheckboxes.length > 20) {
-            $("#error_text").show();
-            return false;
-        };
-    };
     </script>
 {% endblock %}

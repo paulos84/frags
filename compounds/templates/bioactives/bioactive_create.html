@@ -3,6 +3,10 @@
 {% load bootstrap3 %}
 
 {% block title %}<title>Add compound</title>{% endblock %}
+{% block head %}
+  <script src="{% static 'js/biocreate.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
   <div class="col-sm-5 ">
@@ -51,16 +55,7 @@
 
 {% endblock %}
 {% block js %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-      $(document).ready(function() {
-          $("#classification_1").hide();
-          $("#action").hide();
-          $("#mechanism_id").hide();
-          $('label[for=classification_1], input#classification_1').hide();
-          $('label[for=action], input#action').hide();
-          $('label[for=mechanism_id], input#mechanism_id').hide();
-      });
       $("#cas_number_field_id").change(function () {
       var cas_number = $(this).val();
       $.ajax({

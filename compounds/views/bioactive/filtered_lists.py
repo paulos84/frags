@@ -1,10 +1,12 @@
+import json
+
 from django.contrib import messages
 from django.shortcuts import redirect, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView
 
-from compounds.models import Activity, Bioactive
-from compounds.views.mixins import BioactiveSearchFilterMixin
+from compounds.models import Activity, Bioactive, Enzyme
+from compounds.views.mixins import BioactiveSearchFilterMixin, SelectedBioactivesMixin
 
 
 class BioactiveSearchFilterListView(ListView):
@@ -72,7 +74,7 @@ class BioactiveClassificationListView(BaseBioactiveActivityFilterListView):
         return context
 
 
-class BioactiveDrugActionListView(BaseBioactiveActivityFilterListView):
+class BioactiveDrugActionListView(SelectedBioactivesMixin, BaseBioactiveActivityFilterListView):
     action_id = None
 
     def dispatch(self, request, *args, **kwargs):
@@ -86,15 +88,33 @@ class BioactiveDrugActionListView(BaseBioactiveActivityFilterListView):
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveDrugActionListView, self).get_context_data(**kwargs)
-        context['current_action'] = self.kwargs['action']
-        context['page_header'] = self.kwargs['action'].replace('-', ' ')
-        context['mechanisms'] = Activity.objects.mechanisms().filter(action_id=self.action_id)
+        mechanisms = Activity.objects.mechanisms().filter(action_id=self.action_id)
+        proteins = Enzyme.objects.filter(mechanism__in=mechanisms)
+        context.update({
+            'current_action':  self.kwargs['action'],
+            'page_header': self.kwargs['action'].replace('-', ' '),
+            'mechanisms': mechanisms,
+            'd3_struct': True,
+            'proteins': proteins.exists(),
+            'proteins_json': json.dumps(
+                [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}
+                 for a in proteins.values('pdb_number', 'notes', 'citation')]),
+        })
+        if self.bioactive_vals:
+            context.update({
+                'data_display': 'true',
+                'cid_numbers': [{'number': b['cid_number_2'] or b['cid_number'],
+                                 'name': b['chemical_name'][:23] + '...' if len(b['chemical_name']) > 25
+                                 else b['chemical_name'][:23] or b['iupac_name'][:32]}
+                                for b in self.bioactive_vals],
+            })
         return context
 
 
-class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
+class BioactiveMechanismListView(SelectedBioactivesMixin, BaseBioactiveActivityFilterListView):
     template_name = 'bioactives/bioactive_list.html'
     action_id = None
+    mechanism_id = None
 
     def dispatch(self, request, *args, **kwargs):
         actions = Activity.objects.filter(category=1).values_list('name', 'id')
@@ -102,16 +122,30 @@ class BioactiveMechanismListView(BaseBioactiveActivityFilterListView):
         self.action_id = action_slug_map[kwargs['action']]
         mechanisms = Activity.objects.filter(action_id=self.action_id).values_list('name', 'id')
         slug_map = dict([(slugify(a[0]), a[1]) for a in mechanisms])
-        self.queryset = Bioactive.objects.filter(activity_id=slug_map[kwargs['mechanism']])
+        self.mechanism_id = slug_map[kwargs['mechanism']]
+        self.queryset = Bioactive.objects.filter(activity_id=self.mechanism_id)
         return super(BioactiveMechanismListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(BioactiveMechanismListView, self).get_context_data(**kwargs)
+        proteins = Enzyme.objects.filter(mechanism_id=self.mechanism_id)
         context.update({
             'current_action': self.kwargs['action'],
             'page_header': self.deslug_mechanism_title(self.kwargs['mechanism']),
-            'mechanisms': Activity.objects.mechanisms().filter(action_id=self.action_id),
+            'd3_struct': True,
+            'proteins': proteins.exists(),
+            'proteins_json': json.dumps(
+                [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}
+                 for a in proteins.values('pdb_number', 'notes', 'citation')])
         })
+        if self.bioactive_vals:
+            context.update({
+                'data_display': 'true',
+                'cid_numbers': [{'number': b['cid_number_2'] or b['cid_number'],
+                                 'name': b['chemical_name'][:23] + '...' if len(b['chemical_name']) > 25
+                                 else b['chemical_name'][:23] or b['iupac_name'][:32]}
+                                for b in self.bioactive_vals],
+            })
         return context
 
     @staticmethod

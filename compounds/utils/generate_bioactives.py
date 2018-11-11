@@ -11,11 +11,11 @@ from compounds.utils.chem_data import dict_from_query_object
 
 
 class BaseFinder:
-    if not settings.DEBUG:
-        url = 'https://www.drugs.com/newdrugs.html'
-        page = requests.get(url).content
-        soup = BeautifulSoup(page, 'lxml')
-        blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
+    # if not settings.DEBUG:
+    url = 'https://www.drugs.com/newdrugs.html'
+    page = requests.get(url).content
+    soup = BeautifulSoup(page, 'lxml')
+    blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
     names_dates = None, None
     _data = None
 
@@ -31,7 +31,7 @@ class BaseFinder:
         try:
             raw_text = block.find('a').next_sibling
             name = raw_text[raw_text.find('(') + 1: raw_text.find(')')]
-        except AttributeError:
+        except (AttributeError, TypeError):
             return '', ''
         date_approved = None
         if default_dt is not None:

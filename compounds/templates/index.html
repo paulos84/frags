@@ -1,11 +1,24 @@
 {% extends 'base_bioactive_generic.html' %}
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 {% block title %}<title>FuncMols</title>{% endblock %}
 
 {% block head %}
+    <script src="{% static 'js/home.js' %}"></script>
     <script src="//3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
     <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
+    <style>
+    .dropdown-submenu {
+        position: relative;
+    }
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+    }
+    .up { bottom:100% !important; top:auto !important; }
+    </style>
 {% endblock %}
 
 {% block sidebar %}
@@ -14,22 +27,29 @@
 
 {% block content %}
 <div class="container">
-<div class="col-sm-4" style="position: relative; margin-top: 14px; left:6px; ">
+<div class="col-sm-4" style="position: relative; margin-top: 2px; left:6px; ">
     <div style="height: 200px; width: 200px; position: relative;" class='viewer_3Dmoljs' data-pdb='1YCR' data-backgroundcolor='0xffffff'
       data-select1='chain:A' data-style1='cartoon:color=spectrum' data-surface1='opacity:.7;color:white' data-select2='chain:B' data-style2='stick'>
     </div>
-    <div style="margin-top: 10px; ">
+    <div style="margin-top: 6px; ">
         <a href="{% url 'bioactive-cores' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Bioactive substructures</a>
-        <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb; ">Mechanisms</a>
-        <a href="{% url 'bioactive-list' category='medicinal' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">All medicinal compounds</a>
-        <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle" >
-        Classifications<span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            {% for body_sys in body_systems %}
-            <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
-        {% endfor %}
-        </ul>
+        <button type="button" id="classifications_button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle" >
+            Classifications<span class="caret"></span></button>
+            <ul class="dropdown-menu" id="class_list">
+                {% for body_sys in body_systems %}
+                <li class="dropdown-submenu">
+                <a class="action_parent" >{{ body_sys.class_label }}</span></a>
+                <ul class="dropdown-menu actions_menu up">
+                  {% for action in body_sys.actions %}
+                    <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
+                    {% endfor %}
+                </ul>
+                </li>
+            {% endfor %}
+            </ul>
         <a href="{% url 'bioactive-approvals' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Recent drug approvals</a>
+        <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb; ">Mechanisms</a>
+
     </div>
 </div>
 
@@ -72,7 +92,21 @@
     </div>
 </div>
 
-<div class="col-sm-12" >
+<div class="col-sm-4" >
+        <div style=" position:relative; top: 14px ">
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Search</button>
+              </div>
+            </div>
+        </form>
+        </div>
+</div>
+
+<div class="col-sm-8" >
     <div style="float:right; position: relative; right: 34px; margin-top: 80px; ">
       <p>Metaclass Software © 2018</p>
     </div>

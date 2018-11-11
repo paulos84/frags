@@ -148,6 +148,7 @@ class Bioactive(CompoundMixin, models.Model):
     def create_recent_drugs(cls):
         cpd_finder = RecentDrugs()
         compounds = cpd_finder.data
+        print(len(compounds))
         for cpd in compounds:
             activity = FindActivity(name=cpd['chemical_name']).activity
             try:

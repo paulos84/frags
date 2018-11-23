@@ -11,7 +11,6 @@ uses the built-in Django Model backend. Various scripts are available
 in compounds.utils which can be used to generate fixture data for 
 database models. 
 
-Getting Started
 ---------------
 
 **Prerequisites**

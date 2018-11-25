@@ -1,19 +1,16 @@
-A web application which allows users to lookup chemical compounds, and
-access and save information for them. Users can add new compounds
-through providing either a CAS number registered
-for the chemical, or by using an InChiKey identifier. External APIs
-are used to access and save additional data, along with data the user
-provides such as sensory properties or pharmacological activity.
+An application for looking up and storing information relavant to
+specific organic and biological molecules. These are categorized 
+according to their related features. Users can add new compounds
+through providing either a CAS number registered for the chemical, 
+or by using an InChiKey identifier. Along with data they provide, 
+such as sensory properties or pharmacological activity, third party
+APIs are used to access and store additional data.
 
 The project uses Django 2.0, PostgreSQL and the authentication system
-uses the built-in Django Model backend. Fixture data for compounds stored
-in the database can be generated as
-described below, through a script which makes calls to a 3rd party REST API.
-The built-in Django flatpages app is installed in order to serve static
-html pages and install third-party apps include Django-Rest-Framework,
-DRF Swagger, and django-axes for throttling brute force login attacks.
+uses the built-in Django Model backend. Various scripts are available 
+in compounds.utils which can be used to generate fixture data for 
+database models. 
 
-Getting Started
 ---------------
 
 **Prerequisites**
@@ -40,8 +37,8 @@ Verify that packages have been installed:
 
 **Generate and load fixture data**
 
-Run script with a text file containing a list of CAS_numbers as a
-command line argument and redirect stdout to obtain fixture data:
+Run a suitable script which can be found in compounds.utils, for example: 
+using a text file containing a list of CAS_numbers:
 
     /compounds/utils$ python generate_fixtures.py input.txt > compound_data.yaml
 

@@ -1,28 +1,24 @@
 {% extends "base_bioactive_generic.html" %}
 {% load static %}
 {% load bootstrap3 %}
-
 {% block title %}
-    <title>Literature references</title>
+    <title>{% if not mechanism %}Literature references - {{ compound }}{% else %}{{ compound }}{% endif %}</title>
 {% endblock %}
-
-{% block head %}
-    <link rel="stylesheet" href="{% static 'css/substructure.css' %}">
-{% endblock %}
-
 {% block content %}
  <div class="col-sm-10 ">
+     {% if not mechanism %}
     <ul class="breadcrumb" style="background-color: transparent;">
       <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>
       <li><a class="breadcrumb-item" href="{% url 'bioactive-list' category=compound.category_slug %}">All {{ compound.get_category_display|lower }}s</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'bioactive-detail' pk=compound.pk %}">{{ compound }}</a></li>
       <li><a class="breadcrumb-item active" href="{% url 'literature-references' pk=compound.pk compound_type='bioactive' %}">Literature references</a></li>
     </ul>
+      {% endif %}
     <h5>{{ compound }}</h5>
    {% if request.user.is_authenticated and user_literature %}
       <form method="post" novalidate>
      {% csrf_token %}
-                <div style="margin-top:28px">
+        <div style="margin-top:28px">
       <table class="table">
         <thead>
             <tr>
@@ -34,7 +30,7 @@
             <tr>
                 <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
                 <td>{{ lit.date }}</td>
-                <td>{{ lit.source }}</td>
+                <td>{{ lit.source|truncatechars:28 }}</td>
                 <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
             </tr>
             {% endfor %}
@@ -62,7 +58,7 @@
             <tr>
                 <td><input type="checkbox" name="lit_ref_numbers" value="{{ lit.id }}"></td>
                 <td>{{ lit.date }}</td>
-                <td>{{ lit.source }}</td>
+                <td>{{ lit.source|truncatechars:28 }}</td>
                 <td><a href="{{ lit.url }}">{{ lit.title }}</a></td>
             </tr>
             {% endfor %}

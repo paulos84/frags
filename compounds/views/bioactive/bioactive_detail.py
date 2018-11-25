@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -6,7 +8,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 
 from compounds.forms import CompoundNotesForm, UserBioactiveChemDataForm
-from compounds.models import Bioactive, BioactiveCore, UserBioactive
+from compounds.models import Activity, Bioactive, BioactiveCore, Enzyme, UserBioactive
 from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
@@ -44,22 +46,31 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
                     initial={
                         'compound': self.object,
                         'user': self.request.user.profile,
-                    }
-                )
+                    })
             context['user_data_form'] = self.form_class()
         if 'form2' not in context:
             context['form2'] = self.second_form_class()
+        action_or_mech = getattr(compound, 'activity', None)
+        if action_or_mech and action_or_mech.category == 2:
+            mechanism = action_or_mech
+            action = action_or_mech.action
+        else:
+            mechanism = None
+            action = action_or_mech
+        mech_ids = [a['id'] for a in action.mechanisms.values('id')] if action else []
+        proteins = Enzyme.objects.filter(mechanism__id__in=mech_ids).values(
+                'pdb_number', 'notes', 'citation')
         context.update({
+            'action': action,
+            'mechanism': mechanism,
+            'proteins_json': json.dumps(
+                [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}
+                 for a in proteins]),
             'chemical_properties': chem_properties,
             'substructures': BioactiveCore.compound_matches(compound),
             'cid_string': compound.cid_number_2 or compound.cid_number,
+            'body_systems': Activity.classified_actions_mechs(),
         })
-        if not self.request.user.is_superuser:
-            obj = self.get_object()
-            if not obj.hit_count:
-                obj.hit_count = 0
-            obj.hit_count += 1
-            obj.save()
         return context
 
     def get_initial(self):

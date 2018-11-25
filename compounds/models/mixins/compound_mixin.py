@@ -43,10 +43,6 @@ class CompoundMixin(models.Model):
         editable=False,
         blank=True,
     )
-    hit_count = models.IntegerField(
-        blank=True,
-        null=True,
-    )
 
     class Meta:
         abstract = True
@@ -83,10 +79,7 @@ class CompoundMixin(models.Model):
             if not self.iupac_name:
                 self.iupac_name = pcp_data.iupac_name or 'n/a'
             self.smiles = pcp_data.isomeric_smiles or pcp_data.canonical_smiles or ''
-            self.set_chemical_data(
-                pcp_query=pcp_data,
-                additional=additional_data
-            )
+            self.set_chemical_data(pcp_query=pcp_data)
         if not self.chemical_name:
             self.chemical_name = self.scrape_compound_name(self.cid_number) or \
                                  self.synonyms.split(',')[0] if self.synonyms != 'n/a' else ''
@@ -104,13 +97,14 @@ class CompoundMixin(models.Model):
             self.activity = act_find.activity
         super(CompoundMixin, self).save(*args, **kwargs)
 
-    def set_chemical_data(self, pcp_query, additional=None):
+    def set_chemical_data(self, pcp_query):
         """
         Obtain and assign values to the chemical_properties field using data retrieved from API queries
         Args:
             pcp_query ('obj'): object returned from API query which contains data
             additional ('list', optional): additional chemical properties which are not set by default
         """
+        additional = False if self._meta.model_name == 'odorant' else True
         self.cid_number = pcp_query.cid
         self.iupac_name = pcp_query.iupac_name if pcp_query.iupac_name else ''
         self.chemical_properties = dict_from_query_object(self.smiles, pcp_query, additional=additional)

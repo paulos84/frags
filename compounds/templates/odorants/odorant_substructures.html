@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
+{% block title %}<title>{{ substruct.name }} - Fragrance compound motif</title>{% endblock %}
+
+
 {% block content %}
 <ul class="breadcrumb" style="position: relative; left:20px; background-color: transparent;">
   <li><a class="breadcrumb-item" href="{% url 'index' %}">Home</a></li>

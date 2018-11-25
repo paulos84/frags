@@ -1,18 +1,17 @@
 {% extends "base_bioactive_generic.html" %}
 {% load bootstrap3 %}
 {% load static %}
-
 {% block title %}
-    <title>{{ bioactive }}</title>
+    <title>FuncMols - {{ bioactive }}</title>
 {% endblock %}
-
 {% block head %}
-     <link rel="stylesheet" href="{% static 'css/bioactive.css' %}">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js"></script>
+    <script src="{% static 'js/biodetail.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
+	<style>.mol-container {height: 300px; max-height: 300px; position: relative; }</style>
 {% endblock %}
-
 {% block content %}
-<div class="col-sm-6 " style="position: relative; left:20px; ">
+<div class="col-sm-4 " style="position: relative; left:20px; ">
     {% if bioactive.chemical_name %}
         <h4 class="intro">{{ bioactive }}</h4>
         <h5 class="intro">{{ bioactive.iupac_name }}</h5>
@@ -33,41 +32,23 @@
             <button style="width: 170px; background-color: #f6f6f6; " type="button" class="btn btn-secondary">Literature references</button></a>
         <a href="{% url 'user-compound-sources'  pk=bioactive.pk compound_type='bioactive' %}">
            <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
-           <span class="glyphicon glyphicon"></span>Saved sources</button>
-        </a>
+           <span class="glyphicon glyphicon"></span>Saved sources</button></a>
         <a href="{% url 'available-sources'  pk=bioactive.pk compound_type='bioactive' %}">
            <button type="button" style=" background-color: #f6f6f6; " class="btn btn-secondary" >
-           <span class="glyphicon glyphicon"></span>Available sources</button>
-        </a>
+           <span class="glyphicon glyphicon"></span>Available sources</button></a>
     </div>
     <div class="btn-group" role="group" style="margin-top:14px; ">
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; "
-                onclick="$('#chem_properties_table').toggle();
-                $('#substructure_matches').hide();
-                $('#user_data_table').hide();
-                $('#3dmol-viewer').hide() ">
+        <button type="button" id="chem_prop_button" class="btn btn-secondary" style="color: #6aaf6a; ">
             Chemical properties</button>
         {% if user.is_authenticated %}
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; "
-                onclick="$('#user_data_table').toggle();
-                $('#substructure_matches').hide();
-                $('#chem_properties_table').hide();
-                $('#3dmol-viewer').hide() ">
+        <button type="button" id="user_data_button" class="btn btn-secondary" style="color: #6aaf6a; ">
             Saved data</button>
         {% else %}
         <button type="button" class="btn btn-secondary" style="color: #6aaf6a; " disabled>Saved data</button>
         {% endif %}
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a; "
-                onclick="$('#substructure_matches').toggle();
-                $('#chem_properties_table').hide();
-                $('#user_data_table').hide();
-                $('#3dmol-viewer').hide() ">
+        <button type="button" id="substruct_match_button" class="btn btn-secondary" style="color: #6aaf6a; ">
             Substructures</button>
-        <button type="button" class="btn btn-secondary" style="color: #6aaf6a;  "
-                onclick="$('#3dmol-viewer').toggle();
-                 $('#chem_properties_table').hide();
-                 $('#substructure_matches').hide();
-                 $('#user_data_table').hide() ">
+        <button type="button" id="three_d_button" class="btn btn-secondary" style="color: #6aaf6a;  ">
             3D Model</button>
     </div>
         <div id="user_data_table" style="display: none; width: 320px">
@@ -120,27 +101,25 @@
              class='viewer_3Dmoljs' data-cid={{ cid_string }} data-backgroundcolor='0xffffff' data-style='stick'>
         </div>
 </div>
-
-<div class="col-sm-4 ">
+<div class="col-sm-2 ">
     <div style="float:left; position:relative; top:2px" class="structure-img">
         <img width="220" height="220" class="structure-img" src={{ bioactive.structure_url }} title={{substructure}} >
     </div>
     <div style=" position:relative; top:24px; width:280px; left:12px">
         <p><strong>Synonyms:</strong> {{ bioactive.synonyms|truncatechars:124 }}</p>
     </div>
-    {% if bioactive.activity %}
+    {% if action %}
     <div style=" position:relative; top:24px; width:280px; left:12px">
-        <p><strong>Classification:</strong> {{ bioactive.activity.get_classification_display }}</p>
+        <p><strong>Classification:</strong> {{ action.get_classification_display }}</p>
+    </div>
+    <div style=" position:relative; top:24px; width:280px; left:12px">
+        <p><strong>Action:</strong><a href="{% url 'bioactive-actions' action=action.name|slugify %}"> {{ action }}</a></p>
     </div>
     {% endif %}
-    {% if bioactive.action %}
+    {% if mechanism %}
     <div style=" position:relative; top:24px; width:280px; left:12px">
-        <p><strong>Action:</strong> {{ bioactive.action }}</p>
-    </div>
-    {% endif %}
-    {% if bioactive.mechanism %}
-    <div style=" position:relative; top:24px; width:280px; left:12px">
-        <p><strong>Mechanism:</strong> {{ bioactive.mechanism.name }}</p>
+        <p><strong>Mechanism:</strong><a href="{% url 'bioactive-mechanisms' action=action.name|slugify mechanism=mechanism.name|slugify %}">
+            {{ bioactive.mechanism.name }}</a></p>
     </div>
     {% endif %}
     {% if bioactive.approval_date %}
@@ -148,16 +127,14 @@
         <p><strong>Date of approval:</strong> {{ bioactive.approval_date }}</p>
     </div>
     {% endif %}
-</div>
-
-<div class="col-sm-5" style="margin-top:30px">
+    <div style="position:relative; margin-top:40px">
         {% if user.is_authenticated %}
-        <div id="user-notes" style="width: 460px">
+        <div id="user-notes" style="width: 250px">
             {% if user_notes %}
                 <div><p><strong>My notes</strong></div>
                 {{ user_notes }}
             </div>
-            <div id="notes-form" style="display: none; width: 460px">
+            <div id="notes-form" style="display: none; width: 250px">
                 <form method="post">
                 {% csrf_token %}
                 {% bootstrap_form form2 %}
@@ -165,7 +142,7 @@
                     <span class="glyphicon glyphicon"></span>Submit</button>
                 </form>
             </div>
-            <div style="position: relative; top: 13px; width:400px;">
+            <div style="position: relative; top: 13px; width:250px;">
                 <div style="float: left; width: 80px; ">
                     <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a"
                             onclick="$('#user-notes, #notes-form').toggle();">
@@ -177,7 +154,7 @@
                 </form>
             </div>
         {% else %}
-            <form method="post" style="width: 460px">
+            <form method="post" style="width: 250px">
               {% csrf_token %}
               {% bootstrap_form form2 %}
             <button type="submit"  class="btn btn-primary" >
@@ -185,31 +162,45 @@
             </form>
         {% endif %}
     {% else %}
-            <form method="post" style="width: 460px" novalidate>
+            <form method="post" style="width: 250px" novalidate>
               {% csrf_token %}
               {% bootstrap_form form2 %}
             <button type="submit" class="btn btn-primary" disabled>
                 <span class="glyphicon glyphicon"></span>Submit</button>
             </form>
     {% endif %}
+    </div>
 </div>
-<div class="col-sm-5" style="margin-top:52px">
-    {% if bioactive.category == 1 or bioactive.category == 2 %}
-        <a href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+<div class="col-sm-4 " >
+    {% if proteins_json %}
+    <button data-proteins="{{ proteins_json }}" id="proteins_button" style="display:none"></button>
+    <div id="enz-table">
+        <table class="table" id="protein_table">
+            <thead>
+                <tr>
+                    <th>Ref</th>
+                    <th></th>
+                    <th> Target proteins for {{action.name|lower}} compounds</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <p style="margin-top: 22px; display:none" id="enz-loading" style="display:none; ">Loading ...</p>
+    <div id="container-01" class="mol-container"></div>
     {% endif %}
-
-
-
+</div>
+<div class="container">
+</div>
+<div class="col-sm-12">
+    {% if bioactive.category == 1 or bioactive.category == 2 %}
+     <div >
+        <ins class="epn-placement" data-config-id="5bec954f7957f332613457d5"></ins>
+      </div>
+    {% endif %}
 </div>
 {% endblock %}
-
 {% block js %}
-<script>
-        $(function(){
-            $("#show_form_button").on('click',function() {
-                $(this).hide();
-                $("#add_data_form").show();
-            });
-        });
-    </script>
+<script>$(function(){$("#show_form_button").on('click',function(){$(this).hide();$("#add_data_form").show();});});</script>
 {% endblock %}

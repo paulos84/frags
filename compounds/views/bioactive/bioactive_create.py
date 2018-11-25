@@ -4,18 +4,14 @@ import cirpy
 import pubchempy as pcp
 
 from compounds.models import Activity, Bioactive
-from compounds.forms import BioactiveCreateForm, OdorantSearchForm
+from compounds.forms import BioactiveCreateForm
+from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
-class BioactiveCreateView(CreateView):
+class BioactiveCreateView(BioactiveSearchFilterMixin, CreateView):
     model = Bioactive
     form_class = BioactiveCreateForm
     template_name = 'bioactives/bioactive_create.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(BioactiveCreateView, self).get_context_data(**kwargs)
-        context['compound_search'] = OdorantSearchForm()
-        return context
 
 
 def process_bioactive_identifier(request):

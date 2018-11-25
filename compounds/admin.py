@@ -60,7 +60,6 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Substructure)
 class SubstructureAdmin(admin.ModelAdmin):
     form = SubstructureAdminForm
-    readonly_fields = ['iupac_name']
 
 
 @admin.register(UserBioactive)

@@ -1,11 +1,19 @@
-
 var checkedCheckboxes = [];
-
 $(document).ready(function(){
-
+    $('.dropdown-submenu a.action_parent').hover( function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $('.dropdown-submenu').not('.mech_parent').removeClass('open');
+      $(this).parent().addClass('open');
+    });
+    $('.mech_parent').hover( function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $('.dropdown-submenu a.mech_parent').parent().removeClass('open');
+      $(this).parent().addClass('open');
+    });
     var height = $('#compounds_list').height();
     $('.col-sm-2').height(height + 800);
-
     var table_height = $('#enz-table').height();
     var viewer_height = $('#mol-viewer').height();
     if (table_height > viewer_height) {
@@ -13,31 +21,27 @@ $(document).ready(function(){
     } else if (table_height < viewer_height) {
         $('#enz-table').height(viewer_height);
     }
-
     $("#show_enz").click(function () {
       $(".enz_view").show();
       $('.col-sm-2').height(height + mol_height + plot_height + 550);
       $(this).hide();
     });
-
     $("#chem_compare").click(function () {
       $(".compound_checkbox").show();
       $("#submit_selection").show();
       $("#chem_compare").hide();
     });
-
     $("#id_property_choice").change(function () {
         var choice = $("#id_property_choice").val();
         $(".chem_data_plot").hide();
         $("#" + choice).show();
     });
-
     $("#show_activities").click(function () {
+        $('.bioactive_mechanism').toggle();
         $(this).text(function(i, text){
         return text === "Hide mechanisms" ? "Show mechanisms" : "Hide mechanisms";
       })
     });
-
     $(".enz-button").click(function() {
         $("#enz-loading").show();
         let pdb_no = $(this).val();
@@ -52,7 +56,6 @@ $(document).ready(function(){
               $("#enz-loading").hide();
             });
     });
-
     $('#submit_button').click(function(){
         checkedCheckboxes = []
         $("input").each(function(){

@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.utils.text import slugify
 import numpy as np
 
 from compounds.models.managers import ActivityManager
@@ -12,9 +13,7 @@ class Activity(models.Model):
         ('AT', 'Alimentary tract and metabolism'),
         ('AI', 'Antiinfectives'),
         ('AN', 'Anticancer agents'),
-        ('AP', 'Antiparasitics'),
         ('CV', 'Cardiovascular system'),
-        ('DM', 'Dermatologicals'),
         ('GU', 'Genito-urinary and sex hormones'),
         ('MI', 'Miscellaneous'),
         ('MS', 'Musculo-skeletal system'),
@@ -63,6 +62,9 @@ class Activity(models.Model):
             return '{}: {}'.format(self.action, self.name)
         return self.name
 
+    def get_absolute_url(self):
+        return slugify(self.name)
+
     @property
     def mechanism_bioactives_properties(self):
         chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactives.all()])
@@ -97,4 +99,10 @@ class Activity(models.Model):
     @classmethod
     def classified_actions(cls):
         return [{'actions': [a['name'] for a in Activity.objects.actions().filter(classification=b[0]).values('name')],
+                 'class_label': b[1]} for b in Activity.classifications]
+
+    @classmethod
+    def classified_actions_mechs(cls):
+        return [{'actions': [(a.name, [{'pk': m['pk'], 'name': m['name']} for m in a.mechanisms.values('name', 'pk') if m['name']])
+                             for a in Activity.objects.actions().filter(classification=b[0])],
                  'class_label': b[1]} for b in Activity.classifications]

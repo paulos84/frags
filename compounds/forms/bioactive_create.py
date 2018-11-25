@@ -12,7 +12,7 @@ class BioactiveCreateForm(forms.ModelForm):
     """ Form for creating Bioactive model instances involving use of AJAX """
 
     cas_number = forms.CharField(
-        required=False, label='CAS number or trade name',
+        required=False, label='CAS number or chemical name',
         widget=forms.TextInput(attrs={'id': 'cas_number_field_id',
                                       'placeholder': 'Retrieve InChIKey by CAS or trade name (optional)', }
                                ))

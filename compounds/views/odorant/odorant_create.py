@@ -42,7 +42,6 @@ def process_cas(request):
     try:
         smiles = cirpy.query(cas_no, 'smiles')[0].value
         pcp_query = pcp.get_compounds(smiles, 'smiles')[0]
-        print(pcp_query)
         cid_no = pcp_query.cid
     except IndexError:
         return JsonResponse({

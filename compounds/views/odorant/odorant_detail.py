@@ -37,12 +37,6 @@ class OdorantDetailView(OdorantSearchFilterMixin, FormMixin, DetailView):
             initial_data = {k: getattr(self.object, k, '') for k in ['cas_number', 'cid_number', 'iupac_name',
                                                                      'odor_description', 'smiles', 'chemical_name']}
             context['form2'] = self.second_form_class(initial=initial_data)
-        if not self.request.user.is_superuser:
-            obj = self.get_object()
-            if not obj.hit_count:
-                obj.hit_count = 0
-            obj.hit_count += 1
-            obj.save()
         return context
 
     def add_profile_activity(self, context):

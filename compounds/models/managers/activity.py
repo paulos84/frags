@@ -16,10 +16,13 @@ class ActivityManager(models.Manager):
         return ActivityQuerySet(self.model, using=self._db)
 
     def actions(self):
-        return self.get_queryset().actions()
+        return self.get_queryset().actions().exclude(name='Various')
 
     def mechanisms(self):
+        return self.get_queryset().mechanisms().exclude(name='Various')
+
+    def actions_var(self):
+        return self.get_queryset().actions()
+
+    def mechanisms_var(self):
         return self.get_queryset().mechanisms()
-
-
-

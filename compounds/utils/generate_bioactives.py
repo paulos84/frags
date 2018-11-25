@@ -11,11 +11,11 @@ from compounds.utils.chem_data import dict_from_query_object
 
 
 class BaseFinder:
-    # if not settings.DEBUG:
-    url = 'https://www.drugs.com/newdrugs.html'
-    page = requests.get(url).content
-    soup = BeautifulSoup(page, 'lxml')
-    blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
+    if not settings.DEBUG:
+        url = 'https://www.drugs.com/newdrugs.html'
+        page = requests.get(url).content
+        soup = BeautifulSoup(page, 'lxml')
+        blocks = soup.find_all('div', {'class': 'newsItem news_section-blocks'})
     names_dates = None, None
     _data = None
 

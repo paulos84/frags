@@ -8,18 +8,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
+    <script async src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128427540-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-128427540-1');
-    </script>
+    <style>
+      .ad-image {height: auto;width: auto;max-width: 82%;max-height: 82%;}
+      .rightMenu {position:absolute;float:right;top: 0;left: 100%;}
+    </style>
 {% block head %}{% endblock %}
 </head>
 {% load bootstrap3 %}
@@ -29,7 +25,6 @@
     <div class="navbar-header">
       <a style="position: relative; margin-left: 8px; " class="navbar-brand" >FuncMols</a>
     </div>
-
   {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
@@ -90,21 +85,57 @@
 </nav>
 
 {% block sidebar %}
-  <div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
       <ul class="sidebar-nav">
-        <div style=" position:relative; left:6px">
-            <a href="{% url 'bioactive-cores' %}"> <button type="button" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default" >
+
+        <div class="btn-group" style=" position:relative; left:6px">
+            <a href="{% url 'bioactive-cores' %}"> <button type="button" style="width: 200px; background-color: #fbfcfb;" class="btn btn-default" >
                 Substructures<span class="glyphicon glyphicon"></span></button></a>
-            <a href="{% url 'all-mechanisms' %}"> <button type="button" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default" >
+            <a href="{% url 'all-mechanisms' %}"> <button type="button" style="width: 200px; background-color: #fbfcfb;" class="btn btn-default" >
                 Mechanisms<span class="glyphicon glyphicon"></span></button></a>
-            <a href="{% url 'bioactive-add' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Add compound</a>
+            <a href="{% url 'bioactive-add' %}" class="btn btn-default" style="width: 200px; background-color: #fbfcfb; ">Add compound</a>
             {% if user.is_authenticated %}
-                <a href="{% url 'user-activity-list' %}" class="btn btn-default" style="width: 170px; background-color: #fbfcfb; ">Saved compound info</a>
+                <a href="{% url 'user-activity-list' %}" class="btn btn-default" style="width: 200px; background-color: #fbfcfb; ">Saved compound info</a>
             {% endif %}
-        <div class="btn-group" style="top:20px; ">
-            <button type="button" data-toggle="dropdown" style="width: 170px; background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
+            <div>
+            {% if body_systems %}
+            <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb;width: 200px;" class="btn btn-default dropdown-toggle dropdown-right" >
+            Literature references<span class="caret"></span></button>
+            <ul class="dropdown-menu rightMenu" >
+                {% for body_sys in body_systems %}
+                <li class="dropdown-submenu act-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
+                <ul class="dropdown-menu actions_menu up rightMenu">
+                    {% for action in body_sys.actions %}
+                        <li class="dropdown-submenu mech-submenu"><a class="mech_parent" >{{ action.0 }}</span></a>
+                        <ul class="dropdown-menu actions_menu up rightMenu">
+                            {% for mech in action.1 %}
+                            <li><a href="{% url 'literature-references' pk=mech.pk compound_type='mechanism' %}">{{ mech.name }}</a></li>
+                            {% endfor %}
+                        </ul></li>
+                   {% endfor %}
+                </ul></li>
+                {% endfor %}
+            </ul>
+            <div>
+            <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb;width: 200px;" class="btn btn-default dropdown-toggle dropdown-right" >
+            Drug target proteins<span class="caret"></span></button>
+            <ul class="dropdown-menu rightMenu" >
+                {% for body_sys in body_systems %}
+                <li class="dropdown-submenu act-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
+                <ul class="dropdown-menu actions_menu up rightMenu">
+                    {% for action in body_sys.actions %}
+                        <li><a href="{% url 'proteins' search_query=action.0 %}">{{ action.0 }}</a></li>
+                    {% endfor %}
+                </ul></li>
+                {% endfor %}
+            </ul>
+            </div>
+            {% endif %}
+                </div>
+            <div>
+            <button type="button" data-toggle="dropdown" style="width: 200px; background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
                 Functional molecules<span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="{% url 'index' %}">Home</a></li>
@@ -113,11 +144,12 @@
                 <li><a href="{% url 'bioactive-list' category='medicinal' %}">Medicinal</a></li>
                 <li><a href="{% url 'bioactive-list' category='food' %}">Nutraceutical</a></li>
             </ul>
-        </div>
+          </div>
       </div>
+
       </ul>
       {% if compound_search %}
-        <div style=" position:relative; top: 34px ">
+        <div style=" position:relative; top: 18px ">
         <form method="get" >
             <div class="well">
               <div class="row">
@@ -129,7 +161,18 @@
         </form>
         </div>
       {% endif %}
+        <br>
+        <div style="margin-top:18 px">
+          <a href="https://www.bluebrainboost.com/nootropics/56"><img class="ad-image" src="{% static 'images/bluebrain.png' %}" alt="BlueBrainBoost" ></a>
+        </div>
+        <div style="position: relative; ">
+            <a href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img class="ad-image" src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+        </div>
+        <div>
+        <h6 style="width: auto">Purchases through the above links give commission which helps fund this website</h6>
       </div>
+  </div>
+
 {% endblock %}
 
 {% block breadcrumb %}
@@ -162,7 +205,11 @@
 {% endif %}
 {% endblock %}
   </div>
-    </div>
+</div>
+<script>
+
+
+</script>
 {% block js %}{% endblock %}
   </body>
 </html>

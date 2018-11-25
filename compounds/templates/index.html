@@ -1,114 +1,108 @@
-{% extends 'base_bioactive_generic.html' %}
+{% extends 'base_generic.html' %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-
-{% block title %}<title>FuncMols</title>{% endblock %}
-
+{% block title %}<title>FuncMols - Home</title>{% endblock %}
 {% block head %}
     <script src="{% static 'js/home.js' %}"></script>
     <script src="//3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
     <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
-    <style>
-    .dropdown-submenu {
-        position: relative;
-    }
-    .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
-    .up { bottom:100% !important; top:auto !important; }
+    <style>.dropdown-submenu {position: relative;}.dropdown-submenu .dropdown-menu {top: 0;left: 100%;margin-top: -1px;}.up { bottom:100% !important; top:auto !important; }
+          .rightMenu {position:absolute;float:right;top: 0;left: 100%;}
     </style>
 {% endblock %}
-
-{% block sidebar %}
-    <div class="col-sm-0"></div>
-{% endblock %}
-
 {% block content %}
-<div class="container">
 <div class="col-sm-4" style="position: relative; margin-top: 2px; left:6px; ">
-    <div style="height: 200px; width: 200px; position: relative;" class='viewer_3Dmoljs' data-pdb='1YCR' data-backgroundcolor='0xffffff'
-      data-select1='chain:A' data-style1='cartoon:color=spectrum' data-surface1='opacity:.7;color:white' data-select2='chain:B' data-style2='stick'>
+    <div style="position: relative; left: 40px; margin-top:8px">
+        <p style="color: #47607E;font-size: 1.9em" class="w3-center"><span style="font-size: 1.2em; margin-top: 10px; ">FuncMols</span>
+        <span style="font-size: small">functional molecules information</span>
+        <h5><span class="label label-default">{{ mols_count }}</span> compounds entered in database</h5>
     </div>
-    <div style="margin-top: 6px; ">
+    <div class="btn-group" style="margin-top: 12px; position: relative; left: 40px;">
         <a href="{% url 'bioactive-cores' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Bioactive substructures</a>
-        <button type="button" id="classifications_button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle" >
-            Classifications<span class="caret"></span></button>
-            <ul class="dropdown-menu" id="class_list">
-                {% for body_sys in body_systems %}
-                <li class="dropdown-submenu">
-                <a class="action_parent" >{{ body_sys.class_label }}</span></a>
-                <ul class="dropdown-menu actions_menu up">
-                  {% for action in body_sys.actions %}
-                    <li><a href="{% url 'bioactive-actions' action=action|slugify %}">{{ action }}</a></li>
+            <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle dropdown div-inline" >
+                Literature references<span class="caret"></span></button>
+                <ul class="dropdown-menu div-inline" >
+                    {% for body_sys in body_systems %}
+                    <li class="dropdown-submenu act-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
+                    <ul class="dropdown-menu actions_menu up">
+                        {% for action in body_sys.actions %}
+                            <li class="dropdown-submenu mech-submenu"><a class="mech_parent" >{{ action.0 }}</span></a>
+                            <ul class="dropdown-menu actions_menu up">
+                                {% for mech in action.1 %}
+                                <li><a href="{% url 'literature-references' pk=mech.pk compound_type='mechanism' %}">{{ mech.name }}</a></li>
+                                {% endfor %}
+                            </ul></li>
+                       {% endfor %}
+                    </ul></li>
                     {% endfor %}
                 </ul>
-                </li>
-            {% endfor %}
-            </ul>
+    </div>
+
+    <div style=" position:relative; margin-left: 40px; margin-top: 20px; width:334px; ">
+        <form method="get" >
+            <div class="well">
+                <div class="row">
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon"></span>Search</button>
+              </div>
+            </div>
+        </form>
+    </div>
+
+    <div style=" position:relative; margin-left: 40px; margin-top: 14px; width:400px; ">
         <a href="{% url 'bioactive-approvals' %}" class="btn btn-default" style="width: 178px; background-color: #fbfcfb; ">Recent drug approvals</a>
-        <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb; ">Mechanisms</a>
-
-    </div>
-</div>
-
-<div class="container">
-    <div style="margin-top: 20px; ">
-    <p style="color: #47607E;font-size: 2.2em" class="w3-center"><span style="font-size: 1.2em; margin-top: 10px; ">FuncMols</span>
-    <span style="font-size: small">functional molecules information</span>
-    <span style="float:right; font-size: small; position: relative; right:34px; margin-top:20px; ">
-        <a href="{% url 'about'%}#basic_usage">Basic usage</a> information</span>
-</p>
-
-    <div class="col-sm-3" style="margin-top:20px; ">
-        <div style="height: 160px; width: 240px; position: relative; margin-top: 18px;" id="3dmol-viewer2" class="viewer_3Dmoljs" data-cid="20959" data-backgroundcolor="0xffffff" data-style="stick"></div>
-        <div>
-             <a href="{% url 'substructures' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
-                Fragrance chemical substructures<span class="glyphicon glyphicon"></span></button></a>
-        </div>
-        <div class="btn-group">
-                <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
-                Scent categories<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                {% for category in odor_categories %}
-                <li><a href="{{ category.get_absolute_url }}">{{ category|capfirst }}</a></li>
-                {% endfor %}
-            </ul>
-            <a href="{% url 'all-odorants' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
-                All odorants<span class="glyphicon glyphicon"></span></button></a>
-        </div>
-    </div>
-    <div class="col-sm-5" style="position: relative; margin-top: 14px; ">
-           <a style="position: relative; float: right; right: 50px " href="http://3dmol.csb.pitt.edu/index.html"><img src="{% static 'images/3dmol_logo.png' %}" alt="3dmol" width="78", height="26"></a>
-
-        <div style="height: 160px; width: 260px; position: relative; margin-top:25px" id="3dmol-viewer3" class="viewer_3Dmoljs" data-cid="5350" data-backgroundcolor="0xffffff" data-style="stick"></div>
-            <a href="{% url 'bioactive-list' category='food' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
-                Nutraceutical compounds<span class="glyphicon glyphicon"></span></button></a>
-            <a href="{% url 'oligosaccharides' %}"><button type="button" style="background-color: #fbfcfb; position:relative; left:44px" class="btn btn-default" >
-                Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
-        </div>
-        </div>
+        <button type="button" id="classifications_button" data-toggle="dropdown" style="background-color: #fbfcfb; " class="btn btn-default dropdown-toggle" >
+            Drug classifications<span class="caret"></span></button>
+            <ul class="dropdown-menu rightMenu" id="class_list">
+                {% for body_sys in body_systems %}
+                <li class="dropdown-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
+                <ul class="dropdown-menu actions_menu up">
+                  {% for action in body_sys.actions %}<li><a href="{% url 'bioactive-actions' action=action.0|slugify %}">{{ action.0 }}</a></li>{% endfor %}
+                </ul></li>
+            {% endfor %}</ul>
+        <div style="position:relative; margin-top: 160px; "><p>Metaclass Software © 2018</p></div>
     </div>
 </div>
 
 <div class="col-sm-4" >
-        <div style=" position:relative; top: 14px ">
-        <form method="get" >
-            <div class="well">
-              <div class="row">
-                {% bootstrap_form compound_search %}
-                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
-                  </span>Search</button>
-              </div>
-            </div>
-        </form>
+    <a style="position: relative; float: right; right: 125px; margin-top: 40px;  " href="http://3dmol.csb.pitt.edu/index.html">
+        <img src="{% static 'images/3dmol_logo.png' %}" alt="3dmol" width="78", height="26"></a>
+    <div style="height: 300px; width: 300px; position: relative; margin-top: 40px; " class='viewer_3Dmoljs' data-pdb='1YCR'
+     data-backgroundcolor='0xffffff' data-select1='chain:A' data-style1='cartoon:color=spectrum'
+     data-surface1='opacity:.7;color:white' data-select2='chain:B' data-style2='stick'></div>
+    <div>
+        <button type="button"  data-toggle="dropdown" style="background-color: #fbfcfb; margin-top:18px; " class="btn btn-default dropdown-toggle" >
+        Drug action target proteins: 3D Models<span class="caret"></span></button>
+        <ul class="dropdown-menu" >
+            {% for body_sys in body_systems %}
+            <li class="dropdown-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
+            <ul class="dropdown-menu actions_menu up">
+              {% for action in body_sys.actions %}<li><a href="{% url 'proteins' search_query=action.0|slugify %}">{{ action.0 }}</a></li>{% endfor %}
+            </ul></li>
+        {% endfor %}</ul>
+        <a href="{% url 'all-mechanisms' %}" class="btn btn-default" style="width:100px background-color: #fbfcfb;margin-top:18px; ">Drug mechanisms</a>
         </div>
 </div>
-
-<div class="col-sm-8" >
-    <div style="float:right; position: relative; right: 34px; margin-top: 80px; ">
-      <p>Metaclass Software © 2018</p>
+<div class="col-sm-4" style="margin-top:20px; ">
+    <div style="height: 160px; width: 240px; position: relative; " id="3dmol-viewer2" class="viewer_3Dmoljs" data-cid="20959" data-backgroundcolor="0xffffff" data-style="stick"></div>
+    <div><a href="{% url 'substructures' %}"><button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+            Fragrance chemical substructures<span class="glyphicon glyphicon"></span></button></a></div>
+    <div class="btn-group">
+        <button type="button" data-toggle="dropdown" style="background-color: #fbfcfb;" class="btn btn-default dropdown-toggle" >
+        Scent categories<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+        {% for category in odor_categories %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category|capfirst }}</a></li>
+        {% endfor %}   </ul>
+        <a href="{% url 'all-odorants' %}"> <button type="button" style="background-color: #fbfcfb;" class="btn btn-default" >
+        All odorants<span class="glyphicon glyphicon"></span></button></a>
     </div>
+    <div style="height: 160px; width: 260px; position: relative; margin-top:25px" id="3dmol-viewer3" class="viewer_3Dmoljs" data-cid="5350" data-backgroundcolor="0xffffff" data-style="stick"></div>
+    <a href="{% url 'bioactive-list' category='food' %}"><button type="button" style="background-color: #fbfcfb; " class="btn btn-default" >
+        Nutraceutical compounds<span class="glyphicon glyphicon"></span></button></a>
+    <a href="{% url 'oligosaccharides' %}"><button type="button" style="background-color: #fbfcfb; position:relative" class="btn btn-default" >
+        Oligosaccharides<span class="glyphicon glyphicon"></span></button></a>
 </div>
+
+
 {% endblock %}

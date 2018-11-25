@@ -1,16 +1,29 @@
 var checkedCheckboxes = [];
 $(document).ready(function(){
     var height = $('#mechanisms-column').height()
-    $('.sidebar-nav').height(height);
+    $('.col-sm-2').height(height);
+        var height = $('#cores-column').height()
+    var height2 = $('#form_sidebar').height()
     setProteinHeight()
     $("#show-enz").click(function() {
       $(this).text(function(i, text){
           return text === "Compound entry counts" ? "View target protein structures" : "Compound entry counts";
       });
       $("#error_text").hide();
-      $('.mech-count').toggle();
-      $('.enz-panel-button-container').toggle();
+      if ($('.enz-panel-button-container').is(':visible')) {
+            $('.mech-count').show();
+            $('.enz-panel-button-container').hide();
+      } else {
+       $('.mech-count').hide();
+       $('.enz-panel-button-container').show();
+      }
+      $('.mech-lit-button-container').hide();
       $("#info_text").toggle();
+    });
+    $("#show_lit").click(function() {
+      $('.mech-count').hide();
+      $('.enz-panel-button-container').hide();
+      $('.mech-lit-button-container').show();
     });
     $('body').on('click', 'button.enz-button', function(){
         $("#enz-loading").show();

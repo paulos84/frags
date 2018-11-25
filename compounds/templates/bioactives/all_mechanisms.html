@@ -1,21 +1,16 @@
 {% extends "base_bioactive_listview.html" %}
 {% load staticfiles %}
 {% load bootstrap3 %}
-
-{% block title %}<title>Mechanisms</title>{% endblock %}
-
+{% load partition %}
+{% block title %}<title>Bioactive Compound Mechanisms</title>{% endblock %}
 {% block head %}
     <script src="{% static 'js/mechanisms.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/molview.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
     <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
-	<style>
-	.mol-container {height: 400px; max-height: 400px; position: relative; }
-	</style>
 {% endblock %}
-
 {% block content %}
-
     <div class="col-sm-7" style="width: 600px; ">
         {% if plot_div_hac %}
         <div style="display: none" class="chem_data_plot" id="hac">
@@ -61,14 +56,12 @@
         </div>
         {% endif %}
     </div>
-
     <div class="col-sm-3">
         {% if plot_div_mw %}
         <div style="position: relative; left:25px; margin-top: 26px; height: 700px; ">
               {% bootstrap_form choice_form %}
             </form>
         </div>
-
         {% elif sd_plot_div_mw %}
         <div style="position: relative; left:25px; margin-top: 26px; height: 350px; ">
               {% bootstrap_form choice_form %}
@@ -76,7 +69,6 @@
         </div>
         {% endif %}
     </div>
-
     <div class="col-sm-5 enz_view" id="enz-table" style="display:none">
         <table class="table" id="protein_table">
             <thead>
@@ -86,7 +78,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbodyid">
             </tbody>
         </table>
     </div>
@@ -96,8 +88,7 @@
     <div class="col-sm-1 enz_view" style="display:none; ">
         <p style="margin-top: 22px; display:none" id="enz-loading">Loading ...</p>
     </div>
-
-<div class="col-sm-4" id="mechanisms-column">
+<div class="col-sm-3" id="mechanisms-column" style="position:relative; margin-left:20px; ">
     {% regroup mechanism_list by action as actions_list %}
     <form method="get" onsubmit="return formValidate()">
     {% for action in actions_list %}
@@ -116,6 +107,11 @@
                         <button value="{{ mech.id }}" type="button" class="enz-panel-button" title="View protein target"><span class="glyphicon glyphicon-leaf"></span></button>
                         {% endif %}
                     </div>
+                    <div class="mech-lit-button-container" style="display:none">
+                        <a href="{% url 'literature-references' pk=mech.id compound_type='mechanism' %}">
+                            <button value="{{ mech.id }}" type="button" class="mech-lit-button" title="View recent literature for {{ mech.name }}">
+                                <span class="glyphicon glyphicon-book"></span></button></a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
@@ -123,10 +119,11 @@
         </table>
     {% endfor %}
 </div>
-
-<div class="col-sm-3" style="margin-top: 16px; ">
-    <button type="button" id="chem_prop" style="color: #428bca; " class="btn btn-secondary">View chemical property data</button></a>
-    <div class="compare_prop" style="display: none; width: 250px; " id="stats_form">
+<div class="col-sm-2" style="margin-top: 16px; position:relative; margin-left:18px;">
+    <div><button type="button" id="show_lit" style="color: #428bca; " class="btn btn-secondary">View recent literature</button></a></div>
+    <div style="float:left; display:inline-block;">
+    <button type="button" id="chem_prop" style="color: #428bca; ; margin-top:22px; " class="btn btn-secondary">View chemical data</button></a>
+    <div class="compare_prop" style="display: none; width: 250px; ; margin-top:22px; " id="stats_form">
           <button type="submit" id="submit_button" name="mean_data" value='true' class="btn btn-primary" ><span class="glyphicon glyphicon">
             </span>Show data</button>
                 <h6 id="sel_info_text" style="display: none; color: #428bca; ">Select from checkboxes</h6>
@@ -136,10 +133,21 @@
         <h5 id="error_text" style="display: none; color: orange; ">Select 1 - 20 items</h5>
     </div>
     <div>
-        <button type="button" id="show-enz" style="color: #428bca; margin-top:22px; " class="btn btn-secondary">View target protein structures</button></a>
+        <button type="button" id="show-enz" style="color: #428bca; margin-top:22px; " class="btn btn-secondary">View target proteins</button></a>
         <h6 id="info_text" style="display: none; color: #428bca; ">Click a leaf button</h6>
     </div>
-    <div style="width: 260px; margin-top: 40px; ">
+    <div style=" position:relative; width: 260px;top: 24px ">
+        <form method="get" >
+            <div class="well">
+              <div class="row">
+                {% bootstrap_form protein_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Search</button>
+              </div>
+            </div>
+        </form>
+        </div>
+    <div style="width: 260px; margin-top: 42px; ">
         <form method="get">
           {% bootstrap_form filter_form %}
         </form>
@@ -149,18 +157,21 @@
                 <span class="glyphicon glyphicon"></span>Clear filter</button></a>
         {% endif %}
     </div>
+        </div>
 </div>
-
-<div class="col-sm-3" style="margin-top: 16px; position:relative; left:10px; ">
+<div class="col-sm-3" style="margin-top: 16px; position:relative; margin-left:80px; float:left; display:inline-block;">
     <h5>Skip to:</h5>
-        {% regroup mechanism_list by action as actions_list %}
-        {% for action in actions_list %}
-            <li style="list-style: none; margin-top:8px; margin-bottom: 6px;" >
-                <a style="color: #4F5863; " href="#{{ action.grouper|slugify }}">{{ action.grouper }}</a></li>
+        {% regroup mechanism_list by action as actions_list %}   <table>
+        {% for row in actions_list|columns:2 %}
+            <tr>
+        {% for item in row %}
+               <td style="padding-right: 48px;"> <a style="color: #4F5863; " href="#{{ item.grouper|slugify }}">{{ item.grouper }}</a></td>
         {% endfor %}
+</tr>
+    {% endfor %}
+    </table>
 </div>
 {% endblock %}
-
 {% block js %}
 <script>
 $(document).ready(function(){
@@ -171,6 +182,7 @@ $(document).ready(function(){
       $("#chem_prop").hide()
     };
    $('.enz-panel-button').click(function(){
+      $("#enz-table > tr").remove();
       $.ajax({
         url: '{% url "all-mechanisms" %}',
         data: {
@@ -182,14 +194,13 @@ $(document).ready(function(){
                 let tds = '<td><button title=\"' + val.citation + ' PDB ID: ' + val.pdb_number + '\"><span class=\"glyphicon glyphicon-leaf\"></span></button></td> \
                         <td><button type=\"button\" class=\"btn btn-primary enz-button\" value=\"' + val.pdb_number + '\">' + val.pdb_number + '</button></td> \
                         <td>' + val.notes + '</td>';
-                $('#enz-table').append('<tr style="height:60px">' + tds + '</tr>');
+                $('#enz-table').append('<tr style="height:60px">' + tds + '</tr>')
             });
             $(".enz_view").show();
             setProteinHeight();
             $("html, body").scrollTop(0);
         }});
    });
-
 });
 </script>
 {% endblock %}

@@ -6,25 +6,15 @@
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-{% block title %}<title>Fragrance Compounds</title>{% endblock %}
+{% block title %}<title>FuncMols Database Fragrance Compounds</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
+    <script async src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128427540-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-128427540-1');
-    </script>
 {% block head %}{% endblock %}
-</head>
-
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -113,19 +103,29 @@
       </div>
     </ul>
       {% if compound_search %}
-        <div style=" position:relative; top: 34px ">
+        <div style=" position:relative; top: 18px ">
         <form method="get" >
             <div class="well">
               <div class="row">
-                        {% bootstrap_form compound_search %}
-                  <button type="submit" class="btn btn-primary" style="margin-top:8px">
-                    <span class="glyphicon glyphicon-search"></span>Search</button>
+                {% bootstrap_form compound_search %}
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon">
+                  </span>Submit</button>
               </div>
             </div>
         </form>
         </div>
       {% endif %}
-      </div>
+        <br>
+        <div style="margin-top:18 px">
+            <a href="https://www.bluebrainboost.com/nootropics/56"><img class="ad-image" src="{% static 'images/bluebrain.png' %}" alt="BlueBrainBoost" ></a>
+        </div>
+        <div style="position: relative; ">
+            <a href="http://www.freedom-pharmacy.bz/BannerAdClicks.asp?AdID=0&AffID=7390"><img class="ad-image" src="{% static 'images/freepharm.png' %}" alt="freedom-pharmacy" ></a>
+        </div>
+        <div>
+            <h6 style="width: auto">Purchases through the above links give commission which helps fund this website</h6>
+        </div>
+  </div>
 {% endblock %}
 
 {% block content %}

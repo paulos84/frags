@@ -50,6 +50,13 @@ class Enzyme(models.Model):
     class Meta:
         unique_together = ('pdb_number', 'mechanism')
 
+    def as_pdb_dict(self):
+        return {
+            'pdb_number': self.pdb_number,
+            'notes': self.notes,
+            'citation': self.citation,
+        }
+
     def __str__(self):
         if self.category == 1 and self.source:
             return self.source + ' PDB: ' + self.pdb_number

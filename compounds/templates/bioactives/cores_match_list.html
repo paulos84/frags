@@ -2,18 +2,23 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
+{% block title %}<title>Bioactive motifs - {{ page_header }}</title>{% endblock %}
+
 {% block head %}
     <script src="{% static 'js/core_matches.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/molview.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/1.3.0/3Dmol-min.js" class="three-d"></script>
     <script src="//cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css">
-	<style>
-	.mol-container {height: 400px; max-height: 400px; position: relative; }
-	#id_property_choice {width: 300px; }
-	</style>
 {% endblock %}
 
 {% block content %}
+
+<div class="col-sm-10">
+      <div style="position: relative; width:220; height:400;">
+        <ins class="epn-placement" data-config-id="5bec954f7957f332613457d5"></ins>
+      </div>
+</div>
 
     {% if cid_numbers %}
     <div class="col-sm-10 mol-view">
@@ -98,13 +103,13 @@
 
     <div class="col-sm-3">
         {% block page_header %}
-        <h5 style="position:relative; "><strong>{{ page_header|capfirst }}</strong>
+        <h5 style="position:relative; margin-left:16px"><strong>{{ page_header|capfirst }}</strong>
         </h5>
         {% endblock %}
     </div>
 
     <form method="get">
-    <div class="col-sm-4" style="position: relative; margin-bottom: 10px; ">
+    <div class="col-sm-3" style="position: relative; margin-bottom: 10px; ">
         {% if page_header == 'Oligosaccharides' %}
         <button type="button" id="show_enz" style="color: #428bca; " class="btn btn-secondary">GOS-producing enzymes</button>
         <!--suppress XmlDuplicatedId -->
@@ -119,10 +124,9 @@
     </div>
 
     <div class="col-sm-3">
-        <div class="btn-group" role="group" style="width: 280px; position: relative; margin-left: 4px; ">
+        <div class="btn-group" role="group" style="width: position: relative; margin-left: 4px; ">
+            <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;">Show drug actions</button>
         {% if category == 1 %}
-            <button type="button" id="show_activities" class="btn btn-secondary" style="color: #428bca;"
-                onclick="$('.bioactive_mechanism').toggle();">Show mechanisms</button>
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">All drug actions<span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% for action in drug_actions %}
@@ -157,15 +161,15 @@
                 <div style=" position:relative; left:13px; width: 440px">
                 <a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a>
                 </div>
-                {% if bioactive.activity %}
                 <div class="bioactive_mechanism" style="display: none; position: relative; margin-top:9px; left: 12px; color: grey ">
-                    {{ bioactive.activity }}
-                </div>
+                {% if bioactive.activity.category == 2 %}
+                    <a style="color:#ffc107" href="{% url 'bioactive-mechanisms' action=bioactive.mechanism.action.name|slugify mechanism=bioactive.mechanism.name|slugify %}">{{ bioactive.mechanism.name }}</a>
+                {% elif bioactive.activity %}
+                    <a style="color:#ffc107" href="{% url 'bioactive-actions' action=bioactive.activity.name|slugify %}">{{ bioactive.activity }}</a>
                 {% endif %}
+                </div>
             </td>
-            <td style=" text-align:right; margin-left: 16px; color: grey ">
-                    {{ bioactive.chemical_properties.synonyms|truncatechars:50 }}
-               </td>
+            <td style=" text-align:right; margin-left: 16px; color: grey ">{{ bioactive.chemical_properties.synonyms|truncatechars:50 }}</td>
         </tr>
         </table>
     </li>
@@ -185,7 +189,7 @@
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Classifications<span class="caret"></span></button>
             <ul class="dropdown-menu">
             {% for body_sys in body_systems %}
-                <li><a href="{% url 'bioactive-classifications' classification=body_sys|slugify %}">{{ body_sys }}</a></li>
+                <li><a href="{% url 'bioactive-classifications' classification=body_sys.class_label|slugify %}">{{ body_sys.class_label }}</a></li>
             {% endfor %}
             </ul>
         </span>

@@ -20,7 +20,7 @@ class BioactiveContentMixin:
 
     def add_pharma_context(self, context):
         context.update({
-            'body_systems': [a[1] for a in Activity.classifications],
+            'body_systems': Activity.classified_actions_mechs(),
             'drug_actions': Activity.objects.actions().order_by('name'),
         })
 

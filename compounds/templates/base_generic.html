@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load bootstrap3 %}
+<head>
+<!-- Add additional CSS in static file  -->
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% block title %}<title>Bioactive Compounds</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Chemical structures, data, literature and commercial sources for pharmaceutical, functional food and flavor & fragrance compounds">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script async src="https://epnt.ebay.com/static/epn-smart-tools.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+{% block head %}{% endblock %}
+</head>
+{% load bootstrap3 %}
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a style="position: relative; margin-left: 8px; " class="navbar-brand" >FuncMols</a>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-form navbar-right">
+            <div class="form-group">
+                <a href="{% url 'logout' %}?next={% url 'index' %}" class="btn btn-default">Logout</a>
+            </div>
+        </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'password_reset' %}" >Password reset</a></li>
+            <li><a href="{% url 'contact' %}" >Supplier enquiries</a></li>
+            <li><a href="{% url 'about' %}" >About</a></li>
+            <li><a href="{% url 'api_docs' %}">API</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'user-activity-list' %}">Saved compound info</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  {% else %}
+    <div class="collapse navbar-collapse">
+        <form method="post" action="{% url 'login' %}" class="navbar-form navbar-right">
+        <div class="form-group">
+            <form >
+                {% csrf_token %}
+                <input class="form-control" id="id_username" type="text" placeholder="Username" name="username" maxlength="30" />
+                <input class="form-control" type="password" name="password" placeholder="Password" id="id_password" />
+                <input type="submit" class="btn btn-default" value="Log in" />
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                <a href="{% url 'signup' %}" class="btn btn-secondary">Register</a>
+            </form>
+        </div>
+        </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'password_reset' %}" >Password reset</a></li>
+            <li><a href="{% url 'contact' %}" >Supplier enquiries</a></li>
+            <li><a href="{% url 'about' %}" >About</a></li>
+            <li><a href="{% url 'api_docs' %}">API</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'signup' %}" class="btn btn-secondary">Saved compound info</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  {% endif %}
+  </div>
+</nav>
+{% block content %}{% endblock %}
+{% block js %}{% endblock %}
+  </body>
+</html>

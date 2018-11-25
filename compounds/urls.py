@@ -3,12 +3,12 @@ from django.conf.urls.static import static
 from django.urls import path, re_path
 
 from compounds.views import (
-    BioactiveApprovalsListView, BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList, BioactiveCreateView,
-    BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView, CompoundSourceListView,
-    LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView, SubstructureListView,
-    SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView, UserCompoundSourceListView,
-    UserActivityListView, MechanismListView, OligosaccharideListView,
-                             )
+    ActivityProteinListView, BioactiveApprovalsListView, BioactiveListView, BioactiveDetailView, BioactiveCoreMatchList,
+    BioactiveCreateView, BioactiveCoreListView, ChemFilterSubstructureDetail, CompoundMatchSubstructureListView,
+    CompoundSourceListView, LiteratureRefsView, OdorantCreateView, OdorantDetailView, OdorantUpdateView,
+    SubstructureListView, SubstructureDetail, UserSubstructureDetail, UserCompoundNotesDeleteView,
+    UserCompoundSourceListView, UserActivityListView, MechanismListView, OligosaccharideListView,
+)
 from compounds.views.bioactive.filtered_lists import *
 from compounds.views.odorant.filtered_lists import *
 from compounds.views.odorant.odorant_create import process_cas
@@ -25,9 +25,12 @@ urlpatterns = [
     path('bioactive/classifications/<classification>', BioactiveClassificationListView.as_view(),
          name='bioactive-classifications'),
     path('bioactive/drug-action/<action>', BioactiveDrugActionListView.as_view(), name='bioactive-actions'),
+    path('bioactive/drug-action/<action>/<show_proteins>', BioactiveDrugActionListView.as_view(),
+         name='bioactive-actions-proteins'),
     path('bioactive/mechanisms/<action>/<mechanism>', BioactiveMechanismListView.as_view(),
          name='bioactive-mechanisms'),
     path('bioactive/all-mechanisms/', MechanismListView.as_view(), name='all-mechanisms'),
+    path('bioactive/proteins/<search_query>', ActivityProteinListView.as_view(), name='proteins'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('ajax/process_activity', process_activity, name='process-activity'),
     path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),
@@ -58,5 +61,6 @@ urlpatterns = [
     path('user/activity_list/', UserActivityListView.as_view(), name='user-activity-list'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+# Use static() to add url mapping to serve static files during development only
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

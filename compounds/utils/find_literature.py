@@ -5,7 +5,8 @@ import requests
 
 
 class FindLiterature:
-    """ Create an instance and call its records method to return a dictionary of data for the query
+    """
+    Create an instance and call its records method to return a dictionary of data for the query
     Args:
         synonyms (str): list of chemical compound synonyms e.g. Neoisomenthol (+)-neoisomenthol iso-neomenthol
         chemical_name (:obj:'str', optional): empirical compound name to search for
@@ -46,18 +47,19 @@ class FindLiterature:
             return self.user_compound.literature_refs
         return []
 
-    def parse_data(self, ref):
-        date = self.result.get(ref).get('pubdate')
-        if self.result.get(ref).get('booktitle'):
-            url = self.result.get(ref).get('availablefromurl')
-            source = self.result.get(ref).get('booktitle')
-        elif self.result.get(ref).get('source'):
+    @staticmethod
+    def parse_data(ref, result):
+        date = result.get(ref).get('pubdate')
+        if result.get(ref).get('booktitle'):
+            url = result.get(ref).get('availablefromurl')
+            source = result.get(ref).get('booktitle')
+        elif result.get(ref).get('source'):
             url = 'https://www.ncbi.nlm.nih.gov/pubmed/{}'.format(ref)
-            source = self.result.get(ref).get('source')
+            source = result.get(ref).get('source')
             date = date.rsplit(' ', 1)[0]
         else:
-            return None
-        title = self.result.get(ref).get('title').replace('&amp;', '').replace('i&amp;', '').replace(
+            return
+        title = result.get(ref).get('title').replace('&amp;', '').replace('i&amp;', '').replace(
             '&lt;', '').replace('&gt;', '').replace('sp&amp;', '').replace('sub', '').replace('sup', '').replace(
             '/', '')
         return {'id': ref,
@@ -71,13 +73,18 @@ class FindLiterature:
         url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract' \
               '&id={}'.format(','.join(self.results_ids))
         self.result = requests.get(url, headers={'User-Agent': 'Not blank'}).json().get('result')
+        records = self.get_records(self.results_ids, self.result, existing_user_refs)
+        return records
+
+    @classmethod
+    def get_records(cls, results_ids, result, existing_user_refs=None):
         new_refs = []
         user_refs = []
-        for ref in self.results_ids:
-            ref_data = self.parse_data(ref)
+        for ref in results_ids:
+            ref_data = cls.parse_data(ref, result)
             if not ref_data:
                 continue
-            if ref in existing_user_refs:
+            if existing_user_refs and ref in existing_user_refs:
                 user_refs.append(ref_data)
             else:
                 new_refs.append(ref_data)

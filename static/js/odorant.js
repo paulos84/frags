@@ -8,7 +8,7 @@ $(document).ready(function(){
 
     $("#show-odor").click(function () {
       $(this).text(function(i, text){
-          return text === "Synonyms" ? "Odor types" : "Synonyms";
+          return text === "Odor types" ? "Synonyms" : "Odor types";
       })
       $('.odor-terms').toggle();
       $('.compound-synonyms').toggle();

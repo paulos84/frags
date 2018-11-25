@@ -1,8 +1,10 @@
 from compounds.views.bioactive.approvals_list import BioactiveApprovalsListView
-from compounds.views.bioactive.bioactive_list import BioactiveListView
 from compounds.views.bioactive.bioactive_core import BioactiveCoreMatchList, BioactiveCoreListView
-from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
 from compounds.views.bioactive.bioactive_create import BioactiveCreateView
+from compounds.views.bioactive.bioactive_detail import BioactiveDetailView
+from compounds.views.bioactive.bioactive_list import BioactiveListView
+from compounds.views.bioactive.protein_list import ActivityProteinListView
+from compounds.views.bioactive.mechanism_list import MechanismListView
 from compounds.views.bioactive.oligo_list import OligosaccharideListView
 from compounds.views.compound_sources import CompoundSourceListView
 from compounds.views.index import IndexView
@@ -17,7 +19,6 @@ from compounds.views.user.user_activity import UserCompoundNotesDeleteView, User
 from compounds.views.user.user_auth import signup
 from compounds.views.user.user_sources import UserCompoundSourceListView
 from .literature_refs import LiteratureRefsView
-from .mechanism_list import MechanismListView
 from .odorant.filtered_lists import OdorantChemFilterListView, UserOdorantChemFilterListView
 from .odorant.odorant_create import OdorantCreateView
 from .odorant.odorant_detail import OdorantDetailView
@@ -25,6 +26,7 @@ from .odorant.odorant_list import OdorantListView
 from .odorant.odorant_update import OdorantUpdateView
 
 __all__ = [
+    ActivityProteinListView,
     BioactiveCreateView,
     BioactiveDetailView,
     BioactiveCoreListView,

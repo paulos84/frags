@@ -1,3 +1,4 @@
+import re
 from math import pi
 
 from bokeh.embed import components
@@ -6,9 +7,10 @@ from bokeh.plotting import figure
 from bokeh.resources import CDN
 from django.db.models import Count
 from django.http import JsonResponse
+from django.shortcuts import redirect, reverse
 from django.views.generic import ListView
 
-from compounds.forms import ChemDataChoiceSubmitForm, ClassficationChoiceForm
+from compounds.forms import BioactiveSearchForm, ChemDataChoiceSubmitForm, ClassficationChoiceForm, ProteinSearchForm
 from compounds.models import Activity, Enzyme
 from compounds.utils.chem_data import chemical_properties_label_map, colors
 
@@ -33,17 +35,39 @@ class MechanismListView(ListView):
         return qs
 
     def get(self, request, *args, **kwargs):
+        protein_term = request.GET.get('search_term')
+        if protein_term:
+            return redirect(reverse(
+                'proteins', kwargs={'search_query': protein_term}
+            ))
         if request.is_ajax():
             return self.pdb_viewer()
+        regex = re.compile('[^-a-z0-9]')
+        chem_name = request.GET.get('chemical_name')
+        iupac = request.GET.get('iupac_name', '').lower()
+        inchikey = request.GET.get('inchikey', '')
+        if any([inchikey, chem_name, iupac]):
+            params = (iupac, 'iupac')
+            if inchikey:
+                params = inchikey, 'inchikey'
+            elif chem_name:
+                params = chem_name, 'name'
+            return redirect(reverse(
+                'bioactive-name-filter',
+                kwargs={
+                    'search_query': regex.sub('', params[0]),
+                    'field': params[1],
+                }
+            ))
         return super(MechanismListView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        # if self.request.is_ajax():
-        #     self.pdb_viewer()
         context = super(MechanismListView, self).get_context_data(**kwargs)
         context.update({
             'filter_form': ClassficationChoiceForm,
             'is_filtered': self.is_filtered,
+            'compound_search': BioactiveSearchForm(),
+            'protein_search': ProteinSearchForm(),
         })
         selected_mechanisms = self.request.GET.getlist('selected_mechanisms')
         if selected_mechanisms:

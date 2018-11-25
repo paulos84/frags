@@ -11,10 +11,15 @@
     {% bootstrap_messages %}
 {% endif %}
 <div class="col-sm-10">
+      <div style="position: relative; width:220; height:400;">
+        <ins class="epn-placement" data-config-id="5bec954f7957f332613457d5"></ins>
+      </div>
+</div>
+<div class="col-sm-10">
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="top:10px; bottom:6px; left:185px">
 
          <label style="float:left; margin-top:6px; margin-right:4px; " class="text-muted" >Show: </label>
-            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a">Odor types</button>
+            <button type="button"  id="show-odor" class="btn btn-secondary" style="color: #6aaf6a">Synonyms</button>
            {% if user.is_authenticated and chem_type %}
            <a href="{% url 'user-chem-filter' chem_type=chem_type %}">
                <button class="btn btn-secondary" style="color: #6aaf6a">
@@ -32,10 +37,10 @@
         <label class="text-muted" style="position:relative; margin-left:8px">    Filter by: </label>
             <a href="{% url 'chem-filter' chem_type='heteroaromatics' %}">
                 <button type="button" class="btn btn-secondary">Heteroaromatic</button></a>
-            <a href="{% url 'chem-filter' chem_type='aliphatic' %}">
-                <button type="button" class="btn btn-secondary">Aliphatic</button></a>
-            <a href="{% url 'chem-filter' chem_type='aromatics' %}">
-                <button type="button" class="btn btn-secondary">Aromatic</button></a>
+            <a href="{% url 'chem-filter' chem_type='alcohols' %}">
+                <button type="button" class="btn btn-secondary">Alcohols and Ethers</button></a>
+            <a href="{% url 'chem-filter' chem_type='carbonyls' %}">
+                <button type="button" class="btn btn-secondary">Aldehydes and Ketones</button></a>
     </div>
     {% if odorant_list %}
      <h5 style="color: #565c70; position:relative; left:42px; bottom: 24px"><strong>{{ page_header|capfirst }}</strong></h5>
@@ -54,10 +59,10 @@
                     </div>
                 </td>
                 <td>
-                    <div class="compound-synonyms" style=" text-align:right; margin-left: 16px; color: grey ">
+                    <div class="compound-synonyms" style="display: none; text-align:right; margin-left: 16px; color: grey ">
                         {{ odorant.chemical_properties.synonyms|truncatechars:50 }}
                     </div>
-                    <div class="odor-terms" style=" display: none; position:relative; left:8px; color: grey ">
+                    <div class="odor-terms" style="position:relative; left:8px; color: #6aaf6a ">
                         <h5>{% for odor_type in odorant.odor_categories.all %}
                                 {{ odor_type.term|capfirst }}
                             {% endfor %}

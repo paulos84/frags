@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, TemplateView
 
 from compounds.forms import ChemDataChoiceSubmitForm
-from compounds.models import BioactiveCore
+from compounds.models import Activity, BioactiveCore
 from compounds.utils.chem_data import chemical_properties_label_map, colors
 from compounds.views.mixins import BioactiveContentMixin, BioactiveSearchFilterMixin, SelectedBioactivesMixin
 
@@ -20,6 +20,7 @@ class BioactiveCoreListView(BioactiveSearchFilterMixin, TemplateView):
         context = super(BioactiveCoreListView, self).get_context_data(**kwargs)
         medicinals = BioactiveCore.objects.medicinal().prefetch_related('bioactives').order_by('name')
         context.update({
+            'body_systems': Activity.classified_actions_mechs(),
             'substructure_sets': [
                 {'subset': medicinals,
                  'label': 'Medicinal'},
@@ -88,6 +89,7 @@ class BioactiveCoreMatchList(BioactiveContentMixin, BioactiveSearchFilterMixin, 
         if self.bioactive_vals:
             context.update({
                 'choice_form': ChemDataChoiceSubmitForm,
+                'page_title': self.bioactive_core.name,
                 'data_display': 'true',
                 'cid_numbers': [{'number': b['cid_number_2'] or b['cid_number'],
                                  'name': b['chemical_name'][:23] + '...' if len(b['chemical_name']) > 25

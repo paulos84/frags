@@ -1,5 +1,4 @@
 var checkedCheckboxes = [];
-
 $(document).ready(function(){
     $('#proteins_button').click(function(){
         var data = $(this).data('proteins');
@@ -39,6 +38,24 @@ $(document).ready(function(){
                 checkedCheckboxes.push($(this).val())
             }
         });
+    });
+    $("#show_activities").click(function () {
+        $('.bioactive_mechanism').toggle();
+        $(this).text(function(i, text){
+        return text === "Hide actions" ? "Show actions" : "Hide actions";
+      })
+    });
+    $('.dropdown-submenu a.action_parent').hover( function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $('.dropdown-submenu').not('.mech_parent').removeClass('open');
+      $(this).parent().addClass('open');
+    });
+    $('.mech_parent').hover( function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      $('.dropdown-submenu a.mech_parent').parent().removeClass('open');
+      $(this).parent().addClass('open');
     });
 });
 function setProteinHeight() {

@@ -43,6 +43,10 @@ class Odorant(CompoundMixin, models.Model):
     objects = OdorantManager()
 
     @property
+    def carbon_count(self):
+        return len([a for a in self.smiles if a == 'c' or a == 'C'])
+
+    @property
     def odor_types(self):
         odor_types = self.odor_categories.values_list('term')
         return ', '.join([a[0] for a in odor_types])
@@ -102,8 +106,9 @@ class Odorant(CompoundMixin, models.Model):
             return cls.objects.none()
 
         def check_iupac_name_match(iupac_name):
-            if [s for s in substrings if s in iupac_name] == substrings:
-                return True
+            for s in substrings:
+                if s in iupac_name:
+                    return True
 
         name_values = queryset.values('id', 'iupac_name', 'chemical_name') if queryset \
             else cls.objects.values('id', 'iupac_name', 'chemical_name')

@@ -7,9 +7,12 @@ from django.core.validators import RegexValidator
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from rdkit import Chem
+import pubchempy as pcp
 
 from compounds.models.mixins import CompoundMixin
 from compounds.models.managers import BioactiveManager
+from compounds.utils.chem_data import dict_from_query_object
+from compounds.utils.get_cid_list import wikicid_scraper
 from compounds.utils.generate_bioactives import (
     ArchivedDrugs, DrugsFromNames, FindActivity, RecentDrugs
 )
@@ -146,36 +149,63 @@ class Bioactive(CompoundMixin, models.Model):
 
     @classmethod
     def create_recent_drugs(cls):
-        cpd_finder = RecentDrugs()
-        compounds = cpd_finder.data
-        print(len(compounds))
-        for cpd in compounds:
-            activity = FindActivity(name=cpd['chemical_name']).activity
-            try:
-                cls.objects.create(**cpd, category=1, activity=activity)
-            except (DataError, IntegrityError, ValueError):
-                pass
+        cpf = RecentDrugs()
+        cls.try_create(cpd_finder=cpf)
 
     @classmethod
     def create_archived_drugs(cls, month):
         """ month e.g. 'august-2018' """
-        cpd_finder = ArchivedDrugs(month)
-        compounds = cpd_finder.data
-        for cpd in compounds:
-            activity = FindActivity(name=cpd['chemical_name']).activity
-            try:
-                cls.objects.create(**cpd, category=1, activity=activity)
-            except (DataError, IntegrityError, ValueError):
-                pass
+        cpf = ArchivedDrugs(month)
+        cls.try_create(cpd_finder=cpf)
 
     @classmethod
-    def create_from_names(cls, names_list, activity=None):
-        cpd_finder = DrugsFromNames(names_list)
+    def create_from_names(cls, names_list):
+        cpf = DrugsFromNames(names_list)
+        cls.try_create(cpd_finder=cpf)
+
+    @classmethod
+    def try_create(cls, cpd_finder=None, activity=None):
         compounds = cpd_finder.data
         for cpd in compounds:
-            if activity is None:
+            if not activity:
                 activity = FindActivity(name=cpd['chemical_name']).activity
             try:
                 cls.objects.create(**cpd, category=1, activity=activity)
-            except (DataError, IntegrityError, IndexError):
+            except (DataError, ValueError):
+                cls.objects.create(**cpd, category=1, activity=None)
+            except IntegrityError:
                 pass
+
+    @classmethod
+    def bulk_create_from_cids(cls, cid_list=None, **kwargs):
+        if not cid_list:
+            cid_list = wikicid_scraper(kwargs['url'], elem=kwargs.get('elem'), class_=kwargs.get('class_'))
+        from compounds.models.activity import Activity
+        from compounds.models.bioactive_core import BioactiveCore
+        activity = Activity.objects.get(id=kwargs['activity_id']) if kwargs.get('activity_id') else None
+        biocore = BioactiveCore.objects.get(id=kwargs['biocore_id']) if kwargs.get('biocore_id') else None
+        for cid, name in cid_list:
+            try:
+                pcp_cpd = pcp.Compound.from_cid(cid)
+            except pcp.BadRequestError:
+                continue
+            smiles = pcp_cpd.isomeric_smiles or pcp_cpd.canonical_smiles or None
+            if not smiles:
+                continue
+            bioactive_data = {
+                'iupac_name': pcp_cpd.iupac_name, 'cid_number': pcp_cpd.cid, 'smiles': smiles,
+                'chemical_properties': dict_from_query_object(smiles, pcp_cpd),
+                'inchikey': pcp_cpd.inchikey, 'category': 1, 'activity': activity, 'chemical_name': name}
+            if len(smiles.split('.')) > 1:
+                try:
+                    bioactive_data.update({'cid_number_2': pcp.get_compounds(smiles.split('.')[0], 'smiles')[0].cid})
+                except (IndexError, AttributeError):
+                    pass
+            try:
+                c = cls.objects.create(**bioactive_data)
+            except IntegrityError as e:
+                print(e)
+            else:
+                print('Created: {}'.format(str(c)).encode('utf-8'))
+                if biocore:
+                    biocore.bioactives.add(c)

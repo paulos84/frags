@@ -17,10 +17,8 @@ class Substructure(ChemDescriptorMixin, models.Model):
     cat_choices = (
         (1, 'Acyclic terpenoids'),
         (2, 'Cyclic terpenoids'),
-        (3, 'Bicyclic terpenoids'),
-        (4, 'Sesquiterpenoids'),
-        (5, 'Damascones and Ionones'),
-        (6, 'Miscellaneous'),
+        (3, 'Aromatic Compounds'),
+        (5, 'Cycloaliphatics'),
     )
     category = models.IntegerField(
         choices=cat_choices,
@@ -43,6 +41,22 @@ class Substructure(ChemDescriptorMixin, models.Model):
         (models.CharField(max_length=200, blank=True)),
         default=list,
         blank=True
+    )
+    max_carbons = models.IntegerField(
+        null=True,
+        blank=True,
+    )
+    includes = ArrayField(
+        (models.CharField(max_length=2, blank=True)),
+        default=list,
+        blank=True,
+        help_text='SMILES must contain element chars'
+    )
+    excludes = ArrayField(
+        (models.CharField(max_length=2, blank=True)),
+        default=list,
+        blank=True,
+        help_text='SMILES excludes element chars'
     )
     odor_category = models.ForeignKey(
         'compounds.OdorType',
@@ -72,6 +86,16 @@ class Substructure(ChemDescriptorMixin, models.Model):
     def odorant_set(self):
         qs = Odorant.substructure_matches(self.smiles) | Odorant.name_matches(
             self.iupac_name_pattern, self.name)
+        if self.excludes:
+            chars = [i for i in self.excludes]
+            for s in chars:
+                qs = qs.exclude(smiles__icontains=s)
+        if self.includes:
+            chars = [i for i in self.includes]
+            for s in chars:
+                qs = qs.filter(smiles__icontains=s)
+        if self.max_carbons:
+            return [a for a in qs if a.carbon_count <= self.max_carbons]
         return qs
 
     @classmethod
@@ -100,4 +124,6 @@ class Substructure(ChemDescriptorMixin, models.Model):
         matches = [a['id'] for a in id_features if
                    Chem.MolFromSmiles(compound.smiles).HasSubstructMatch(
                        Chem.MolFromSmiles(a['smiles']))]
-        return cls.objects.filter(id__in=matches)
+        queryset = cls.objects.filter(id__in=matches)
+
+        return queryset

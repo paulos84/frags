@@ -12,14 +12,8 @@ class SubstructureManager(models.Manager):
     def cyclic_terpenoids(self):
         return self.get_queryset().filter(category=2)
 
-    def bicyclic_terpenoids(self):
+    def aromatic_compounds(self):
         return self.get_queryset().filter(category=3)
 
-    def sesquiterpenoids(self):
-        return self.get_queryset().filter(category=4)
-
-    def cycloaliphatic_ketones(self):
+    def cycloaliphatics(self):
         return self.get_queryset().filter(category=5)
-
-    def miscellaneous(self):
-        return self.get_queryset().filter(category=6)

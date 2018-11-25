@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import redirect, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView
@@ -9,10 +10,10 @@ from compounds.models import Activity, Bioactive, Enzyme
 from compounds.views.mixins import BioactiveSearchFilterMixin, SelectedBioactivesMixin
 
 
-class BioactiveSearchFilterListView(ListView):
+class BioactiveSearchFilterListView(BioactiveSearchFilterMixin, ListView):
     template_name = 'bioactives/bioactive_list.html'
     context_object_name = 'bioactive_list'
-    queryset = Bioactive.objects.all()
+    queryset = Bioactive.objects.none()
     paginate_by = 32
 
     def dispatch(self, request, *args, **kwargs):
@@ -23,19 +24,26 @@ class BioactiveSearchFilterListView(ListView):
                 obj_id = Bioactive.objects.get(inchikey=search_query).id
                 return redirect(reverse('bioactive-detail', kwargs={'pk': obj_id}))
             except Bioactive.DoesNotExist:
-                messages.info(request, 'No compound matching InChiKey')
+                messages.info(request, 'No compound matching InChiKey, please try adding it to the database')
                 return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         if field == 'name':
             specific_matches = Bioactive.objects.filter(chemical_name__iexact=search_query)
             if specific_matches.exists():
                 return redirect(reverse('bioactive-detail', kwargs={'pk': specific_matches.first().id}))
-            chem_name_matches = Bioactive.objects.filter(chemical_name__icontains=search_query)
+            chem_name_matches = Bioactive.objects.filter(
+                Q(chemical_name__icontains=search_query) | Q(chemical_properties__synonyms__icontains=search_query)
+                | Q(iupac_name__icontains=search_query))
             if chem_name_matches.count() == 1:
                 return redirect(reverse('bioactive-detail', kwargs={'pk': chem_name_matches.first().id}))
-            elif chem_name_matches.exists():
+            search_terms = search_query.split(' ')
+            if chem_name_matches.exists():
                 self.queryset = chem_name_matches
-            else:
-                messages.info(request, 'No compounds matched the query')
+            elif len(search_terms) >= 2:
+                messages.info(request, "No matches for: '{}'. Showing matches for: '{}'".format(
+                    ' '.join(search_terms), search_terms[0]))
+                self.queryset = Bioactive.objects.filter(chemical_name__icontains=search_terms[0])
+            if not self.queryset.exists():
+                messages.info(request, 'No compounds matched the search query')
                 return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         else:
             self.queryset = Bioactive.objects.filter(iupac_name__icontains=search_query)
@@ -54,8 +62,10 @@ class BaseBioactiveActivityFilterListView(BioactiveSearchFilterMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseBioactiveActivityFilterListView, self).get_context_data(**kwargs)
-        context['body_systems'] = [a[1] for a in Activity.classifications]
-        context['drug_actions'] = Activity.objects.actions().order_by('name')
+        context.update({
+            'body_systems': Activity.classified_actions_mechs(),
+            'drug_actions': Activity.objects.actions().order_by('name'),
+        })
         return context
 
 
@@ -71,11 +81,15 @@ class BioactiveClassificationListView(BaseBioactiveActivityFilterListView):
     def get_context_data(self, **kwargs):
         context = super(BioactiveClassificationListView, self).get_context_data(**kwargs)
         context['page_header'] = dict(Activity.classifications)[self.classification]
+        context.update({
+            'page_header': dict(Activity.classifications)[self.classification],
+        })
         return context
 
 
 class BioactiveDrugActionListView(SelectedBioactivesMixin, BaseBioactiveActivityFilterListView):
     action_id = None
+    show_proteins = False
 
     def dispatch(self, request, *args, **kwargs):
         actions = Activity.objects.filter(category=1).values_list('name', 'id')
@@ -84,6 +98,7 @@ class BioactiveDrugActionListView(SelectedBioactivesMixin, BaseBioactiveActivity
         self.queryset = Bioactive.objects.filter(activity__action_id=self.action_id)
         if not self.queryset.exists():
             self.queryset = Bioactive.objects.filter(activity_id=self.action_id)
+        self.show_proteins = kwargs.pop('show_proteins', '')
         return super(BioactiveDrugActionListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -95,6 +110,7 @@ class BioactiveDrugActionListView(SelectedBioactivesMixin, BaseBioactiveActivity
             'page_header': self.kwargs['action'].replace('-', ' '),
             'mechanisms': mechanisms,
             'd3_struct': True,
+            'show_proteins': 'true' if self.show_proteins else 'false',
             'proteins': proteins.exists(),
             'proteins_json': json.dumps(
                 [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}
@@ -133,6 +149,7 @@ class BioactiveMechanismListView(SelectedBioactivesMixin, BaseBioactiveActivityF
             'current_action': self.kwargs['action'],
             'page_header': self.deslug_mechanism_title(self.kwargs['mechanism']),
             'd3_struct': True,
+            'mech_pk': self.mechanism_id,
             'proteins': proteins.exists(),
             'proteins_json': json.dumps(
                 [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}

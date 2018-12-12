@@ -24,6 +24,7 @@ urlpatterns = [
     path('bioactive/oligosaccharides', OligosaccharideListView.as_view(), name='oligosaccharides'),
     path('bioactive/classifications/<classification>', BioactiveClassificationListView.as_view(),
          name='bioactive-classifications'),
+
     path('bioactive/drug-action/<action>', BioactiveDrugActionListView.as_view(), name='bioactive-actions'),
     path('bioactive/drug-action/<action>/<show_proteins>', BioactiveDrugActionListView.as_view(),
          name='bioactive-actions-proteins'),
@@ -31,6 +32,7 @@ urlpatterns = [
          name='bioactive-mechanisms'),
     path('bioactive/all-mechanisms/', MechanismListView.as_view(), name='all-mechanisms'),
     path('bioactive/proteins/<search_query>', ActivityProteinListView.as_view(), name='proteins'),
+    path('bioactive/drug-targets/<action_name>', ActivityProteinListView.as_view(), name='action-proteins'),
     path('ajax/process_bioactive_form', process_bioactive_identifier, name='process-bioactive-identifier'),
     path('ajax/process_activity', process_activity, name='process-activity'),
     path('bioactive/search/<field>/<search_query>', BioactiveSearchFilterListView.as_view(),

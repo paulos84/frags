@@ -11,7 +11,7 @@ from compounds.utils.chem_data import dict_from_query_object
 
 
 class BaseFinder:
-    if not settings.DEBUG:
+    if settings.DEBUG:
         url = 'https://www.drugs.com/newdrugs.html'
         page = requests.get(url).content
         soup = BeautifulSoup(page, 'lxml')

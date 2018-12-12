@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from compounds.forms.admin import ActivityAdminForm, BioactiveAdminForm, SubstructureAdminForm
 from compounds.models import (Activity, Bioactive, BioactiveCore, Odorant, UserOdorant, OdorType, Profile, Substructure,
-                              Enzyme, CompoundSource, UserBioactive)
+                              CompanyPipeline, Development, Enzyme, CompoundSource, UserBioactive)
 
 
 @admin.register(Activity)
@@ -12,6 +12,11 @@ class ActivityAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super(ActivityAdmin, self).get_queryset(request)
         return qs.order_by('action__name', 'name')
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "action":
+            kwargs["queryset"] = Activity.objects.filter(category=1).order_by('action__name', 'name')
+        return super(ActivityAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Bioactive)
@@ -23,6 +28,11 @@ class BioactiveAdmin(admin.ModelAdmin):
             return self.readonly_fields + ('chemical_properties', 'iupac_name', 'smiles')
         return self.readonly_fields
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "activity":
+            kwargs["queryset"] = Activity.objects.order_by('category', 'name')
+        return super(BioactiveAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(BioactiveCore)
 class BioactiveCoreAdmin(admin.ModelAdmin):
@@ -31,6 +41,22 @@ class BioactiveCoreAdmin(admin.ModelAdmin):
         if obj:  # editing an existing object
             return self.readonly_fields + ('cid_number', 'iupac_name', )
         return self.readonly_fields
+
+
+@admin.register(CompanyPipeline)
+class CompanyPipelineAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Development)
+class DevelopmentAdmin(admin.ModelAdmin):
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "bioactive":
+            kwargs["queryset"] = Bioactive.objects.filter(development__isnull=True)
+        elif db_field.name == "activity":
+            kwargs["queryset"] = Activity.objects.order_by('category', 'name')
+        return super(DevelopmentAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Odorant)
@@ -49,7 +75,11 @@ class OdorAdmin(admin.ModelAdmin):
 
 @admin.register(Enzyme)
 class EnzymeAdmin(admin.ModelAdmin):
-    pass
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "mechanism":
+            kwargs["queryset"] = Activity.objects.order_by('category', 'name')
+        return super(EnzymeAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Profile)

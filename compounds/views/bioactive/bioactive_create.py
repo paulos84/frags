@@ -16,7 +16,7 @@ class BioactiveCreateView(BioactiveSearchFilterMixin, CreateView):
 
 def process_bioactive_identifier(request):
     cas_no = request.GET.get('cas_number')
-    inchikey = request.GET.get('inchikey')
+    inchikey = request.GET.get('inchikey', '').strip()
     obj = None
     if cas_no:
         obj = Bioactive.objects.filter(chemical_properties__synonyms__icontains=cas_no).first()

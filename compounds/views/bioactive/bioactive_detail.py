@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -54,12 +55,15 @@ class BioactiveDetailView(BioactiveSearchFilterMixin, FormMixin, DetailView):
         if action_or_mech and action_or_mech.category == 2:
             mechanism = action_or_mech
             action = action_or_mech.action
+            mech_ids = [a['id'] for a in action.mechanisms.values('id')] if action else []
+            proteins = Enzyme.objects.filter(mechanism__id__in=mech_ids).values(
+                'pdb_number', 'notes', 'citation')
         else:
             mechanism = None
             action = action_or_mech
-        mech_ids = [a['id'] for a in action.mechanisms.values('id')] if action else []
-        proteins = Enzyme.objects.filter(mechanism__id__in=mech_ids).values(
-                'pdb_number', 'notes', 'citation')
+            mech_ids = [a['id'] for a in action.mechanisms.values('id')] if action else []
+            proteins = Enzyme.objects.filter(Q(mechanism__id=action.id) | Q(mechanism__id__in=mech_ids)).values(
+                'pdb_number', 'notes', 'citation') if action else []
         context.update({
             'action': action,
             'mechanism': mechanism,

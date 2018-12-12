@@ -1,0 +1,53 @@
+{% extends "base_bioactive_listview.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}<title>Functional Molecules - {{ page_header|capfirst }}</title>{% endblock %}
+
+{% block head %}
+    <script src="{% static 'js/biolist.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/molview.css' %}">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-10">
+
+<table id="development_table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Phase</th>
+                <th>Company</th>
+                <th>Study Title</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for v in allvars %}
+        <tr>
+            <td>{{ v.phase }}</td>
+            <td>{{ v.company }}</td>
+            <td>{{ v.study_title }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+     </table>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+    <script>
+    $('#development_table').dataTable({
+        ajax: {
+            url: 'http://127.0.0.1:3434/user/',
+            dataSrc: ''
+        },
+        columns: [
+            { "data": "username"},
+            { "data": "first_name"},
+            { "data": "email"},
+        ]
+    });
+    </script>
+{% endblock %}

@@ -89,3 +89,33 @@ class FindLiterature:
             else:
                 new_refs.append(ref_data)
         return {'new_refs': new_refs, 'user_refs': user_refs}
+
+
+class FindCompoundLiterature:
+
+    # associate each record with a compound...  title of table..published within month of current
+    # filter out those not having month, e.g. just 2018
+
+    def __init__(self, chem_names):
+        self.chem_names = chem_names
+        self.results_ids = self.get_results_ids()
+
+    def get_results_ids(self):
+        id_list = []
+        urls = ('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term='
+                + '(("2018%2F11%2F10"[Date - Publication] %3A "3000"[Date - Publication])) AND {}'.format(name)
+                for name in self.chem_names)
+        for url in urls:
+            page = requests.get(url, headers={'User-Agent': 'Not blank'}).content.decode('utf-8')
+            soup = BeautifulSoup(page, 'lxml')
+            for node in soup.findAll('id'):
+                id_list.append(''.join(node.findAll(text=True)))
+        return id_list
+
+    @property
+    def records(self):
+        url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract' \
+              '&id={}'.format(','.join(self.results_ids))
+        result = requests.get(url, headers={'User-Agent': 'Not blank'}).json().get('result')
+        records = FindLiterature.get_records(self.results_ids, result)
+        return records['new_refs']

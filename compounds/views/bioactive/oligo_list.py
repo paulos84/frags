@@ -1,6 +1,4 @@
-from django.contrib import messages
-from django.shortcuts import redirect, reverse, get_object_or_404
-from django.utils.text import slugify
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 
 from compounds.models import Bioactive, BioactiveCore, Enzyme
@@ -43,5 +41,4 @@ class OligosaccharideListView(BioactiveContentMixin, BioactiveSearchFilterMixin,
                                  else b['chemical_name'][:23] or b['iupac_name'][:32]}
                                 for b in self.bioactive_vals],
             })
-
         return context

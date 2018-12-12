@@ -60,6 +60,7 @@ class Bioactive(CompoundMixin, models.Model):
         blank=True,
         db_index=True,
     )
+
     objects = BioactiveManager()
 
     key_map = {'mw': 'molecular weight', 'hac': 'heavy atom count', 'hetac': 'heteroatom count',
@@ -78,10 +79,23 @@ class Bioactive(CompoundMixin, models.Model):
         elif self.mechanism:
             return self.mechanism.action
 
+    @classmethod
+    def ids_rel_action_id(cls):
+        ids = []
+        for a in cls.objects.all():
+            action = a.action
+            getattr(a, 'id')
+
     @property
     def mechanism(self):
         if self.activity and self.activity.category == 2:
             return self.activity
+
+    @property
+    def activity_url(self):
+        if self.activity:
+            return self.activity.get_absolute_url()
+        return ''
 
     def save(self, *args, **kwargs):
         super(Bioactive, self).save(*args, additional_data=True, cid2=True, **kwargs)
@@ -159,20 +173,26 @@ class Bioactive(CompoundMixin, models.Model):
         cls.try_create(cpd_finder=cpf)
 
     @classmethod
-    def create_from_names(cls, names_list):
+    def create_from_names(cls, names_list, activity=None, biocore=None):
         cpf = DrugsFromNames(names_list)
-        cls.try_create(cpd_finder=cpf)
+        cls.try_create(cpf, activity, biocore)
 
     @classmethod
-    def try_create(cls, cpd_finder=None, activity=None):
+    def try_create(cls, cpd_finder=None, activity=None, biocore=None):
         compounds = cpd_finder.data
         for cpd in compounds:
             if not activity:
                 activity = FindActivity(name=cpd['chemical_name']).activity
             try:
-                cls.objects.create(**cpd, category=1, activity=activity)
+                obj = cls.objects.create(**cpd, category=1, activity=activity)
+                if biocore:
+                    biocore.bioactives.add(obj)
+                print('Created: {}'.format(str(obj)).encode('utf-8'))
             except (DataError, ValueError):
-                cls.objects.create(**cpd, category=1, activity=None)
+                obj = cls.objects.create(**cpd, category=1, activity=None)
+                if biocore:
+                    biocore.bioactives.add(obj)
+                print('Created: {}'.format(str(obj)).encode('utf-8'))
             except IntegrityError:
                 pass
 

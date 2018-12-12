@@ -69,7 +69,7 @@
 
 <div class="col-sm-10" id="cores-column">
     <form method="get">
-        <div class="btn-group" role="group" style="position:relative; float:right; right: 94px; " id="stats_form">
+        <div class="btn-group" role="group" style="position:relative; float:right; right: 245px; " id="stats_form">
           <button type="submit" id="submit_button" name="stats_data" value='true' class="btn btn-primary" >
               <span class="glyphicon glyphicon">
             </span>Chemical property statistics</button>
@@ -78,7 +78,7 @@
     {% for category in substructure_sets %}
         <table style="margin-bottom:18px; ">
             <h5 style="color:#4c4c4c; "><strong>{{ category.label }}</strong></h5>
-            {% for row in category.subset|columns:5 %}
+            {% for row in category.subset|columns:6 %}
                  <tr>
                     {% for item in row %}
                         <td>

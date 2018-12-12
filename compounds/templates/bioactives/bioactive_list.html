@@ -113,7 +113,7 @@
             <li><table>
             <tr><th><a href="{{ bioactive.get_absolute_url }}">
                         <img class="structure-img" src={{ bioactive.structure_url }}
-                            title="{{ bioactive.iupac_name }}"  height="100" width="100"></a></th>
+                            title="{{ bioactive.chemical_name }}"  height="100" width="100"></a></th>
                 <td style="display: none; position: relative; left: 6px; " class="compound_checkbox"><input type="checkbox" name="selected_bioactives" value="{{ bioactive.id }}"></td>
                 <td><div style=" position:relative; left:13px; width: 440px"><a href="{{ bioactive.get_absolute_url }}">{{ bioactive|truncatechars:62  }}</a></div>
                                 <div class="bioactive_mechanism" style="display: none; position: relative; margin-top:9px; left: 12px; color: grey ">
@@ -137,7 +137,6 @@
             </tr></table>
             </li>
                             {% endif %}
-
             {% endfor %}
             </ul>
             {% if d3_struct %}</form>{% endif %}

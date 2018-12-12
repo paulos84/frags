@@ -12,6 +12,7 @@ class BioactiveSearchFilterMixin:
     Enables the compound search form functionality by providing a method to handle GET requests as well as form itself
     """
     def get(self, request, *args, **kwargs):
+        print(request.GET)
         protein_term = request.GET.get('protein_term')
         if protein_term:
             return redirect(reverse(
@@ -21,6 +22,7 @@ class BioactiveSearchFilterMixin:
         iupac = request.GET.get('iupac_name', '').lower()
         inchikey = request.GET.get('inchikey', '')
         if any([inchikey, chem_name, iupac]):
+            print(regex.sub('', inchikey))
             params = (iupac, 'iupac')
             if inchikey:
                 params = inchikey, 'inchikey'

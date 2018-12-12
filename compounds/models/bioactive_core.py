@@ -63,6 +63,11 @@ class BioactiveCore(ChemDescriptorMixin, models.Model):
     def bioactive_set(self):
         return Bioactive.substructure_matches(self.smiles) | Bioactive.substructure_matches(self.related_smiles)
 
+    def assign_bioactives(self):
+        for b in self.bioactive_set():
+            self.bioactives.add(b)
+            print('Added: {}'.format(b))
+
     @cached_property
     def bioactive_set_properties(self):
         chem_props = {k: np.array([a.chemical_properties[k] for a in self.bioactives.all()])

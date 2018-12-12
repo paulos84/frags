@@ -8,7 +8,6 @@ from django.views.generic import TemplateView
 
 from compounds.forms import BioactiveSearchForm, ProteinSearchForm
 from compounds.models import Activity, Bioactive, Enzyme
-from compounds.views.mixins import BioactiveSearchFilterMixin
 
 
 class ActivityProteinListView(TemplateView):
@@ -16,9 +15,13 @@ class ActivityProteinListView(TemplateView):
     bioactivity_match = False
     search_term = None
     results_label = None
+    action_id = None
     template_name = 'bioactives/protein_list.html'
 
     def dispatch(self, request, *args, **kwargs):
+        action_name = kwargs.pop('action_name', '')
+        if action_name:
+            self.action_id = Activity.slug_map()[action_name]
         self.search_term = kwargs.pop('search_query', '')
         return super(ActivityProteinListView, self).dispatch(request, *args, **kwargs)
 
@@ -49,14 +52,24 @@ class ActivityProteinListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ActivityProteinListView, self).get_context_data(**kwargs)
-        proteins = self.process_search_query(self.search_term)
+        if self.action_id:
+            mechanisms = Activity.objects.mechanisms().filter(action_id=self.action_id)
+            proteins = Enzyme.objects.filter(mechanism__in=mechanisms)
+            context['page_header'] = 'Drug action: {}'.format(self.kwargs['action_name'].replace('-', ' '))
+            if not proteins.exists():
+                messages.info(self.request, 'No proteins matched the query')
+                proteins = Enzyme.objects.exclude(notes__isnull=True)
+        else:
+            proteins = self.process_search_query(self.search_term)
+            context.update({
+                'results_label': ' {} drug targets'.format(self.results_label) if self.results_label else None,
+                'page_header': 'Protein search query: {}'.format(self.search_term)
+            })
         context.update({
             'body_systems': Activity.classified_actions_mechs(),
             'drug_actions': Activity.objects.actions().order_by('name'),
-            'page_header': 'Protein search query: {}'.format(self.search_term),
             'search_form': ProteinSearchForm(),
             'compound_search': BioactiveSearchForm(),
-            'results_label': ' {} drug targets'.format(self.results_label) if self.results_label else None,
             'proteins': proteins.exists(),
             'proteins_json': json.dumps(
                 [{'citation': a['citation'], 'notes': a['notes'], 'pdb_number': a['pdb_number']}

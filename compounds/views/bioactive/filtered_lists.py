@@ -21,6 +21,7 @@ class BioactiveSearchFilterListView(BioactiveSearchFilterMixin, ListView):
         field = kwargs.pop('field', '')
         if field == 'inchikey':
             try:
+                print(search_query)
                 obj_id = Bioactive.objects.get(inchikey=search_query).id
                 return redirect(reverse('bioactive-detail', kwargs={'pk': obj_id}))
             except Bioactive.DoesNotExist:
@@ -51,6 +52,14 @@ class BioactiveSearchFilterListView(BioactiveSearchFilterMixin, ListView):
                 messages.info(request, 'No compounds matched the query')
                 return redirect(reverse('bioactive-list', kwargs={'category': 'medicinal'}))
         return super(BioactiveSearchFilterListView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(BioactiveSearchFilterListView, self).get_context_data(**kwargs)
+        context.update({
+            'body_systems': Activity.classified_actions_mechs(),
+            'drug_actions': Activity.objects.actions().order_by('name'),
+        })
+        return context
 
 
 class BaseBioactiveActivityFilterListView(BioactiveSearchFilterMixin, ListView):
@@ -92,8 +101,7 @@ class BioactiveDrugActionListView(SelectedBioactivesMixin, BaseBioactiveActivity
     show_proteins = False
 
     def dispatch(self, request, *args, **kwargs):
-        actions = Activity.objects.filter(category=1).values_list('name', 'id')
-        slug_map = dict([(slugify(a[0]), a[1]) for a in actions])
+        slug_map = Activity.slug_map()
         self.action_id = slug_map[kwargs['action']]
         self.queryset = Bioactive.objects.filter(activity__action_id=self.action_id)
         if not self.queryset.exists():

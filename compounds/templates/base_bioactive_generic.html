@@ -118,7 +118,7 @@
                 <li class="dropdown-submenu act-submenu"><a class="action_parent" >{{ body_sys.class_label }}</span></a>
                 <ul class="dropdown-menu actions_menu up rightMenu">
                     {% for action in body_sys.actions %}
-                        <li><a href="{% url 'proteins' search_query=action.0 %}">{{ action.0 }}</a></li>
+                        <li><a href="{% url 'action-proteins' action_name=action.0|slugify %}">{{ action.0 }}</a></li>
                     {% endfor %}
                 </ul></li>
                 {% endfor %}

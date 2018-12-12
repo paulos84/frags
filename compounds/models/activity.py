@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 import numpy as np
 
@@ -59,11 +60,20 @@ class Activity(models.Model):
 
     def __str__(self):
         if self.action:
-            return '{}: {}'.format(self.action, self.name)
+            return '{} - {}'.format(self.name, self.action)
         return self.name
 
     def get_absolute_url(self):
-        return slugify(self.name)
+        if self.category == 2 and self.action:
+            return reverse(
+                'bioactive-mechanisms',
+                kwargs={'action': slugify(self.action.name),
+                        'mechanism': slugify(self.name)}
+            )
+        return reverse(
+            'bioactive-actions',
+            kwargs={'action': slugify(self.name)}
+        )
 
     @property
     def mechanism_bioactives_properties(self):
@@ -103,6 +113,15 @@ class Activity(models.Model):
 
     @classmethod
     def classified_actions_mechs(cls):
-        return [{'actions': [(a.name, [{'pk': m['pk'], 'name': m['name']} for m in a.mechanisms.values('name', 'pk') if m['name']])
-                             for a in Activity.objects.actions().filter(classification=b[0])],
-                 'class_label': b[1]} for b in Activity.classifications]
+        return [{
+            'actions': [
+                (a.name, [{'pk': m['pk'], 'name': m['name']} for m in a.mechanisms.values('name', 'pk') if m['name']])
+                for a in Activity.objects.actions().filter(classification=b[0])
+                ],
+            'class_label': b[1]
+                } for b in Activity.classifications]
+
+    @classmethod
+    def slug_map(cls):
+        actions = cls.objects.filter(category=1).values_list('name', 'id')
+        return dict([(slugify(a[0]), a[1]) for a in actions])
